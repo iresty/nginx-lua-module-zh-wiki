@@ -1,14 +1,13 @@
 谁写哪个章节，大家把自己名字在下面直接标记一下自己网名+日期。
 
 ```
-* [Name](#name)     ->      * [Name 某某](#name) 2015.8.4
+* [Name](#name)     ->      * [Name 某某 2015.8.4](doc/name.md)
 ```
 
 章节写好后，存放到`doc`目录下。章节命名用具体小节的锚点名称。例如`Code Repository`章节，存放路径就应是`doc/code-repository.md`。
 
 有任何疑问，可以随时联系我。翻译交流QQ群：435558580 。
 
-```
 Table of Contents
 =================
 
@@ -230,4 +229,3 @@ Nginx API for Lua
 * [coroutine.wrap](#coroutinewrap)
 * [coroutine.running](#coroutinerunning)
 * [coroutine.status](#coroutinestatus)
-```

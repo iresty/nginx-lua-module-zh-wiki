@@ -37,7 +37,7 @@ Table of Contents
     * [Lua Variable Scope](#lua-variable-scope)
     * [Locations Configured by Subrequest Directives of Other Modules](#locations-configured-by-subrequest-directives-of-other-modules)
     * [Cosockets Not Available Everywhere](#cosockets-not-available-everywhere)
-    * [Special Escaping Sequences](#special-escaping-sequences)
+    * [Special Escaping Sequences lance-2015.8.5](#special-escaping-sequences)
     * [Mixing with SSI Not Supported](#mixing-with-ssi-not-supported)
     * [SPDY Mode Not Fully Supported](#spdy-mode-not-fully-supported)
     * [Missing data on short circuited requests](#missing-data-on-short-circuited-requests)

@@ -20,7 +20,9 @@ Nginx Worker内的数据共享
 
  return _M
 ```
+
 然后通过 nginx.conf 访问：
+
 ```nginx
  location /lua {
      content_by_lua '
@@ -41,6 +43,9 @@ Nginx Worker内的数据共享
  1. 使用本模块提供的[ngx.shared.DICT](#ngxshareddict) API
  2. 使用单服务器单nginx worker进程(当使用多CPU或者多核CPU的服务器时不推荐)
  3. 使用类似 `memcached`, `redis`, `MySQL` 或 `PostgreSQL` 等数据共享机制。与本模块相关的[ngx_openresty软件包](http://openresty.org)包含了一系列相关的Nginx模块以及Lua库，提供与这些数据存储机制的交互界面。
+
+
+> English source:
 
 To globally share data among all the requests handled by the same nginx worker process, encapsulate the shared data into a Lua module, use the Lua `require` builtin to import the module, and then manipulate the shared data in Lua. This works because required Lua modules are loaded only once and all coroutines will share the same copy of the module (both its code and data). Note however that Lua global variables (note, not module-level variables) WILL NOT persist between requests because of the one-coroutine-per-request isolation design.
 

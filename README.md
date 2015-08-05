@@ -30,7 +30,7 @@ Table of Contents
 * [System Environment Variable Support](#system-environment-variable-support)
 * [HTTP 1.0 support](#http-10-support)
 * [Statically Linking Pure Lua Modules](#statically-linking-pure-lua-modules)
-* [Data Sharing within an Nginx Worker](#data-sharing-within-an-nginx-worker)
+* [Data Sharing within an Nginx Worker lance-2015.8.5](doc/data-sharing-within-an-nginx-worker.md)
 * [Known Issues](#known-issues)
     * [TCP socket connect operation issues](#tcp-socket-connect-operation-issues)
     * [Lua Coroutine Yielding/Resuming](#lua-coroutine-yieldingresuming)

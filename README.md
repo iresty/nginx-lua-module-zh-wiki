@@ -2,8 +2,6 @@
 
 ```
 * [Name](#name)     ->      * [Name 某某 2015.8.4](doc/name.md)
-* [lua_use_default_type 孙晓辉 2015.8.5](doc/lua-use-default-type.md)
-* [lua_code_cache 孙晓辉 2015.8.5](doc/lua-code-cache.md)
 ```
 
 章节写好后，存放到`doc`目录下。章节命名用具体小节的锚点名称。例如`Code Repository`章节，存放路径就应是`doc/code-repository.md`。
@@ -56,8 +54,8 @@ Table of Contents
 Directives
 ==========
 
-* [lua_use_default_type](#lua_use_default_type)
-* [lua_code_cache](#lua_code_cache)
+* [lua_use_default_type 孙晓辉 2015.8.5](doc/lua-use-default-type.md)
+* [lua_code_cache 孙晓辉 2015.8.5](doc/lua-code-cache.md)
 * [lua_regex_cache_max_entries](#lua_regex_cache_max_entries)
 * [lua_regex_match_limit](#lua_regex_match_limit)
 * [lua_package_path](#lua_package_path)

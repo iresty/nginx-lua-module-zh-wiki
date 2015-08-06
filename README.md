@@ -174,7 +174,7 @@ Nginx API for Lua
 * [ngx.parse_http_time](#ngxparse_http_time)
 * [ngx.is_subrequest](#ngxis_subrequest)
 * [ngx.re.match lance-2015.8.6](doc/ngxrematch.md)
-* [ngx.re.find lance-2015.8.6](#ngxrefind)
+* [ngx.re.find lance-2015.8.6](doc/ngxrefind.md)
 * [ngx.re.gmatch lance-2015.8.6](#ngxregmatch)
 * [ngx.re.sub lance-2015.8.6](#ngxresub)
 * [ngx.re.gsub lance-2015.8.6](#ngxregsub)

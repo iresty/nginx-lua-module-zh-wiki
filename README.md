@@ -12,7 +12,7 @@ Table of Contents
 =================
 
 * [Name yuansheng-8.4](doc/name.md)
-* [Status](#status)
+* [Status yuansheng-8.6](doc/status.md)
 * [Version](#version)
 * [Synopsis](#synopsis)
 * [Description](#description)

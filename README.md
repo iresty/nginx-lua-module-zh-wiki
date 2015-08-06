@@ -175,7 +175,7 @@ Nginx API for Lua
 * [ngx.is_subrequest](#ngxis_subrequest)
 * [ngx.re.match lance-2015.8.6](doc/ngxrematch.md)
 * [ngx.re.find lance-2015.8.6](doc/ngxrefind.md)
-* [ngx.re.gmatch lance-2015.8.6](#ngxregmatch)
+* [ngx.re.gmatch lance-2015.8.6](doc/ngxregmatch.md)
 * [ngx.re.sub lance-2015.8.6](#ngxresub)
 * [ngx.re.gsub lance-2015.8.6](#ngxregsub)
 * [ngx.shared.DICT](#ngxshareddict)

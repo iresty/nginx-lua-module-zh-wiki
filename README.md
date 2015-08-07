@@ -143,7 +143,7 @@ Nginx API for Lua
 * [ngx.redirect](#ngxredirect)
 * [ngx.send_headers](#ngxsend_headers)
 * [ngx.headers_sent](#ngxheaders_sent)
-* [ngx.print](#ngxprint)
+* [ngx.print lance-2015.8.7](doc/ngxprint.md)
 * [ngx.say lance-2015.8.7](doc/ngxsay.md)
 * [ngx.log](#ngxlog)
 * [ngx.flush](#ngxflush)

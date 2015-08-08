@@ -163,7 +163,7 @@ Nginx API for Lua
 * [ngx.md5_bin](#ngxmd5_bin)
 * [ngx.sha1_bin](#ngxsha1_bin)
 * [ngx.quote_sql_str](#ngxquote_sql_str)
-* [ngx.today](#ngxtoday)
+* [ngx.today bells-2015.8.8](doc/ngxtoday.md)
 * [ngx.time](#ngxtime)
 * [ngx.now](#ngxnow)
 * [ngx.update_time](#ngxupdate_time)

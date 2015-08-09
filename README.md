@@ -178,7 +178,7 @@ Nginx API for Lua
 * [ngx.re.gmatch lance-2015.8.6](doc/ngxregmatch.md)
 * [ngx.re.sub lance-2015.8.6](doc/ngxresub.md)
 * [ngx.re.gsub lance-2015.8.6](doc/ngxregsub.md)
-* [ngx.shared.DICT](#ngxshareddict)
+* [ngx.shared.DICT lance-2015.8.10](doc/ngxshareddict.md)
 * [ngx.shared.DICT.get](#ngxshareddictget)
 * [ngx.shared.DICT.get_stale](#ngxshareddictget_stale)
 * [ngx.shared.DICT.set](#ngxshareddictset)

@@ -180,7 +180,7 @@ Nginx API for Lua
 * [ngx.re.gsub lance-2015.8.6](doc/ngxregsub.md)
 * [ngx.shared.DICT lance-2015.8.10](doc/ngxshareddict.md)
 * [ngx.shared.DICT.get lance-2015.8.10](doc/ngxshareddictget.md)
-* [ngx.shared.DICT.get_stale](#ngxshareddictget_stale)
+* [ngx.shared.DICT.get_stale lance-2015.8.10](doc/ngxshareddictget_stale.md)
 * [ngx.shared.DICT.set](#ngxshareddictset)
 * [ngx.shared.DICT.safe_set](#ngxshareddictsafe_set)
 * [ngx.shared.DICT.add](#ngxshareddictadd)

@@ -1,5 +1,5 @@
 特别转义序列
-
+--------------------------
 PCRE 的转义符号例如 `\d`,`\s` 以及 `\w` 等需要特别注意，因为在字符串语义中，反斜线字符 `\` 会被 Lua 语言解析器和 Nginx 配置文件解析器在执行前同时处理掉，所以以下代码片段将无法按预期运行：
 ```nginx
  # nginx.conf
@@ -169,3 +169,5 @@ Within external script files, PCRE sequences presented as long-bracketed Lua str
  if m then ngx.say(m[0]) else ngx.say("not matched!") end
  -- evaluates to "1234"
  ```
+
+[返回目录](#nginx-api-for-lua)

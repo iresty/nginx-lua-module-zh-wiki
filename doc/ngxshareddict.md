@@ -1,3 +1,5 @@
+ngx.shared.DICT
+---------------
 **语法:** *dict = ngx.shared.DICT*
 
 **语法:** *dict = ngx.shared\[name_var\]*
@@ -142,3 +144,5 @@ The shared dictionary will retain its contents through a server config reload (e
 The contents in the dictionary storage will be lost, however, when the Nginx server quits.
 
 This feature was first introduced in the `v0.3.1rc22` release.
+
+[返回目录](#nginx-api-for-lua)

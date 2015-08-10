@@ -1,3 +1,5 @@
+ngx.say
+-------
 **语法:** *ok, err = ngx.say(...)*
 
 **环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
@@ -13,3 +15,5 @@
 **context:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
 
 Just as [ngx.print](#ngxprint) but also emit a trailing newline.
+
+[返回目录](#nginx-api-for-lua)

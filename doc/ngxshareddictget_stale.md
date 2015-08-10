@@ -1,3 +1,5 @@
+ngx.shared.DICT.get_stale
+-------------------------
 **语法:** *value, flags, stale = ngx.shared.DICT:get_stale(key)*
 
 **环境** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
@@ -28,3 +30,5 @@ Note that the value of an expired key is not guaranteed to be available so one s
 This method was first introduced in the `0.8.6` release.
 
 See also [ngx.shared.DICT](#ngxshareddict).
+
+[返回目录](#nginx-api-for-lua)

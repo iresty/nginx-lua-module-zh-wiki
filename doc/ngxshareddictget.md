@@ -1,3 +1,5 @@
+ngx.shared.DICT.get
+-------------------
 **语法:** *value, flags = ngx.shared.DICT:get(key)*
 
 **环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
@@ -68,3 +70,5 @@ If the user flags is `0` (the default), then no flags value will be returned.
 This feature was first introduced in the `v0.3.1rc22` release.
 
 See also [ngx.shared.DICT](#ngxshareddict).
+
+[返回目录](#nginx-api-for-lua)

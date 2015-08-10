@@ -1,3 +1,5 @@
+ngx.re.match
+------------
 **语法:** *captures, err = ngx.re.match(subject, regex, options?, ctx?, res_table?)*
 
 **环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
@@ -304,3 +306,5 @@ To confirm that PCRE JIT is enabled, activate the Nginx debug log by adding the 
 Starting from the `0.9.4` release, this function also accepts a 5th argument, `res_table`, for letting the caller supply the Lua table used to hold all the capturing results. Starting from `0.9.6`, it is the caller's responsibility to ensure this table is empty. This is very useful for recycling Lua tables and saving GC and table allocation overhead.
 
 This feature was introduced in the `v0.2.1rc11` release.
+
+[返回目录](#nginx-api-for-lua)

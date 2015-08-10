@@ -4,7 +4,7 @@ ngx.shared.DICT
 
 **语法:** *dict = ngx.shared\[name_var\]*
 
-**环境:** *init_by_lua*, init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *init_by_lua*\**, init_worker_by_lua*\**, set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\**, ngx.timer.*\*
 
 获取基于共享内存名为 `DICT` 的 Lua 字典对象，它是一个共享内存区块，通过 [lua_shared_dict](#lua_shared_dict) 指令定义。
 
@@ -78,7 +78,7 @@ ngx.shared.DICT
 
 **syntax:** *dict = ngx.shared\[name_var\]*
 
-**context:** *init_by_lua*, init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**context:** *init_by_lua*\**, init_worker_by_lua*\**, set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\**, ngx.timer.*\*
 
 Fetching the shm-based Lua dictionary object for the shared memory zone named `DICT` defined by the [lua_shared_dict](#lua_shared_dict) directive.
 

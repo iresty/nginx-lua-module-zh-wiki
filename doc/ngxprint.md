@@ -2,7 +2,7 @@ ngx.print
 ---------
 **语法:** *ok, err = ngx.print(...)*
 
-**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
+**环境:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
 
 将输入参数合并发送给 HTTP 客户端 (作为 HTTP 响应体)。如果此时还没有发送响应头信息，本函数将先发送 HTTP 响应头，再输出响应体。
 
@@ -43,7 +43,7 @@ Lua 的 `nil` 值输出 `"nil"` 字符串，Lua 的布尔值输出 `"true"` 或 
 
 **syntax:** *ok, err = ngx.print(...)*
 
-**context:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
+**context:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
 
 Emits arguments concatenated to the HTTP client (as response body). If response headers have not been sent, this function will send headers out first and then output body data.
 

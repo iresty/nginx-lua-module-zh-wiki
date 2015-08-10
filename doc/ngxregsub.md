@@ -2,7 +2,7 @@ ngx.re.gsub
 -----------
 **语法:** *newstr, n, err = ngx.re.gsub(subject, regex, replace, options?)*
 
-**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *init_worker_by_lua*\**, set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\**, ngx.timer.*\*
 
 就象 [ngx.re.sub](#ngxresub), 但执行全局替换。
 
@@ -40,7 +40,7 @@ ngx.re.gsub
 
 **syntax:** *newstr, n, err = ngx.re.gsub(subject, regex, replace, options?)*
 
-**context:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**context:** *init_worker_by_lua*\**, set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\**, ngx.timer.*\*
 
 Just like [ngx.re.sub](#ngxresub), but does global substitution.
 

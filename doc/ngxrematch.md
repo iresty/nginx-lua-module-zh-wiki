@@ -2,7 +2,7 @@ ngx.re.match
 ------------
 **语法:** *captures, err = ngx.re.match(subject, regex, options?, ctx?, res_table?)*
 
-**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *init_worker_by_lua*\**, set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\**, ngx.timer.*\*
 
 使用 Perl 兼容正则表达式 `regex` 匹配字符串 `subject`，并使用可选的参数 `options` 作为正则表达式选项。
 
@@ -155,7 +155,7 @@ ngx.re.match
 
 **syntax:** *captures, err = ngx.re.match(subject, regex, options?, ctx?, res_table?)*
 
-**context:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**context:** *init_worker_by_lua*\**, set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\**, ngx.timer.*\*
 
 Matches the `subject` string using the Perl compatible regular expression `regex` with the optional `options`.
 

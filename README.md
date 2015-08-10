@@ -184,7 +184,7 @@ Nginx API for Lua
 * [ngx.shared.DICT.set lance-2015.8.10](doc/ngxshareddictset.md)
 * [ngx.shared.DICT.safe_set lance-2015.8.10](doc/ngxshareddictsafe_set.md)
 * [ngx.shared.DICT.add lance-2015.8.10](doc/ngxshareddictadd.md)
-* [ngx.shared.DICT.safe_add](#ngxshareddictsafe_add)
+* [ngx.shared.DICT.safe_add lance-2015.8.10](doc/ngxshareddictsafe_add.md)
 * [ngx.shared.DICT.replace](#ngxshareddictreplace)
 * [ngx.shared.DICT.delete](#ngxshareddictdelete)
 * [ngx.shared.DICT.incr](#ngxshareddictincr)

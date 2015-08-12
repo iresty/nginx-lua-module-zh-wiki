@@ -66,7 +66,7 @@ Directives
 * [init_worker_by_lua_file](#init_worker_by_lua_file)
 * [set_by_lua](#set_by_lua)
 * [set_by_lua_file](#set_by_lua_file)
-* [content_by_lua](#content_by_lua)
+* [content_by_lua dengshiyong 2015.8.12](#content_by_lua)
 * [content_by_lua_file](#content_by_lua_file)
 * [rewrite_by_lua](#rewrite_by_lua)
 * [rewrite_by_lua_file](#rewrite_by_lua_file)

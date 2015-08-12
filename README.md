@@ -35,7 +35,7 @@ Table of Contents
     * [TCP socket connect operation issues](#tcp-socket-connect-operation-issues)
     * [Lua Coroutine Yielding/Resuming](#lua-coroutine-yieldingresuming)
     * [Lua Variable Scope](#lua-variable-scope)
-    * [Locations Configured by Subrequest Directives of Other Modules](#locations-configured-by-subrequest-directives-of-other-modules)
+    * [Locations Configured by Subrequest Directives of Other Modules lance-2015.8.12](doc/locations-configured-by-subrequest-directives-of-other-modules.md)
     * [Cosockets Not Available Everywhere](#cosockets-not-available-everywhere)
     * [特别转义序列 lance-2015.8.5](doc/special-escaping-sequences.md)
     * [Mixing with SSI Not Supported](#mixing-with-ssi-not-supported)

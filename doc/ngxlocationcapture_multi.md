@@ -58,7 +58,7 @@ ngx.location.capture_multi
      end
 ```
 
-请参考 [subrequest directives of other modules](#locations-configured-by-subrequest-directives-of-other-modules) 了解目标地址的配置限制。
+请参考 [subrequest directives of other modules](#locations-configured-by-subrequest-directives-of-other-modules) 了解目标 location 的配置限制。
 
 
 > English Source

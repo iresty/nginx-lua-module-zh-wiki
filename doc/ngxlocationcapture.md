@@ -6,7 +6,7 @@ ngx.location.capture
 
 向 `uri` 发起一个同步非阻塞 *Nginx 子请求*。
 
-Nginx 子请求是一种非常强有力的方式，它可以发起非阻塞的内部请求来访问目标地址。目标地址可以是配置文件中其他文件目录地址，或 *任何* 其他 nginx C 模块，包括 `ngx_proxy`、`ngx_fastcgi`、`ngx_memc`、`ngx_postgres`、`ngx_drizzle`，甚至 ngx_lua 自身等等 。
+Nginx 子请求是一种非常强有力的方式，它可以发起非阻塞的内部请求访问目标 location。目标 location 可以是配置文件中其他文件目录，或 *任何* 其他 nginx C 模块，包括 `ngx_proxy`、`ngx_fastcgi`、`ngx_memc`、`ngx_postgres`、`ngx_drizzle`，甚至 ngx_lua 自身等等 。
 
 需要注意的是，子请求只是模拟 HTTP 接口的形式， *没有* 额外的 HTTP/TCP 流量，也 *没有* IPC (进程间通信) 调用。所有工作在内部高效地在 C 语言级别完成。
 
@@ -45,7 +45,7 @@ URI 请求串可以与 URI 本身连在一起，例如，
  res = ngx.location.capture('/foo/bar?a=3&b=4')
 ```
 
-因为 Nginx 内核限制，子请求不允许类似 `@foo` 命名地址。请使用标准地址，并设置 `internal` 指令，仅服务内部请求。
+因为 Nginx 内核限制，子请求不允许类似 `@foo` 命名 location。请使用标准 location，并设置 `internal` 指令，仅服务内部请求。
 
 可选的选项表可以作为第二个参数传入，支持以下选项：
 
@@ -133,7 +133,7 @@ URI 请求串可以与 URI 本身连在一起，例如，
  }
 ```
 
-请求地址 `/lua` 将输出
+请求 location `/lua` 将输出
 
 
     /other dog: hello world
@@ -250,7 +250,7 @@ URI 请求串可以与 URI 本身连在一起，例如，
     bar
 
 
-请注意，通过 [ngx.location.capture](#ngxlocationcapture) 创建的子请求默认继承当前请求的所有请求头信息，这有可能导致子请求响应中不可预测的副作用。例如，当使用标准的 `ngx_proxy` 模块服务子请求时，如果主请求头中包含 "Accept-Encoding: gzip"，可能导致子请求返回 Lua 代码无法正确处理的 gzip 压缩过的结果。通过设置 [proxy_pass_request_headers](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass_request_headers) 为 `off` ，在子查询地址中忽略原始请求头。
+请注意，通过 [ngx.location.capture](#ngxlocationcapture) 创建的子请求默认继承当前请求的所有请求头信息，这有可能导致子请求响应中不可预测的副作用。例如，当使用标准的 `ngx_proxy` 模块服务子请求时，如果主请求头中包含 "Accept-Encoding: gzip"，可能导致子请求返回 Lua 代码无法正确处理的 gzip 压缩过的结果。通过设置 [proxy_pass_request_headers](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass_request_headers) 为 `off` ，在子查询 location 中忽略原始请求头。
 
 当没有设置 `body` 选项，且 `always_forward_body` 选项为 false (默认值) 时，`POST` 和 `PUT` 子请求将继承父请求的请求体 (如果有的话)。
 
@@ -262,7 +262,7 @@ Nginx 代码中有一个硬编码的数字，来控制每个主请求最多可�
 
 如果需要修改这个限制，可以手工在 Nginx 源代码树的 `nginx/src/http/ngx_http_request.h` 文件中修改 `NGX_HTTP_MAX_SUBREQUESTS` 宏定义。
 
-请参考 [subrequest directives of other modules](#locations-configured-by-subrequest-directives-of-other-modules) 了解目标地址的配置限制。
+请参考 [subrequest directives of other modules](#locations-configured-by-subrequest-directives-of-other-modules) 了解目标 location 的配置限制。
 
 
 

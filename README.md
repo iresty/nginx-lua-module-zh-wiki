@@ -28,7 +28,7 @@ Table of Contents
 * [Bugs and Patches](#bugs-and-patches)
 * [Lua/LuaJIT bytecode support](#lualuajit-bytecode-support)
 * [System Environment Variable Support](#system-environment-variable-support)
-* [HTTP 1.0 support](#http-10-support)
+* [HTTP 1.0 support lance-2015.8.13](doc/http-10-support.md)
 * [Statically Linking Pure Lua Modules](#statically-linking-pure-lua-modules)
 * [Nginx Worker内的数据共享 lance-2015.8.5](doc/data-sharing-within-an-nginx-worker.md)
 * [Known Issues](#known-issues)

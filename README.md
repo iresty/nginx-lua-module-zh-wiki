@@ -108,7 +108,7 @@ Nginx API for Lua
 * [ngx.var.VARIABLE](#ngxvarvariable)
 * [Core constants](#core-constants)
 * [HTTP method constants](#http-method-constants)
-* [HTTP status constants](#http-status-constants)
+* [HTTP status constants lance-2015.8.13](doc/http-status-constants.md)
 * [Nginx log level constants](#nginx-log-level-constants)
 * [print](#print)
 * [ngx.ctx](#ngxctx)

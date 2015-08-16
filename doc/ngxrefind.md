@@ -1,6 +1,8 @@
+ngx.re.find
+-----------
 **语法:** *from, to, err = ngx.re.find(subject, regex, options?, ctx?, nth?)*
 
-**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *init_worker_by_lua*\**, set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\**, ngx.timer.*\*
 
 与 [ngx.re.match](#ngxrematch) 类似但只返回匹配结果子字符串的开始索引 (`from`) 和结束索引 (`to`)。返回的索引值是基于 1 的，可以直接被用于 Lua 的 [string.sub](http://www.lua.org/manual/5.1/manual.html#pdf-string.sub) API 函数来获取匹配结果子串。
 
@@ -55,7 +57,7 @@
 
 **syntax:** *from, to, err = ngx.re.find(subject, regex, options?, ctx?, nth?)*
 
-**context:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**context:** *init_worker_by_lua*\**, set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\**, ngx.timer.*\*
 
 Similar to [ngx.re.match](#ngxrematch) but only returns the begining index (`from`) and end index (`to`) of the matched substring. The returned indexes are 1-based and can be fed directly into the [string.sub](http://www.lua.org/manual/5.1/manual.html#pdf-string.sub) API function to obtain the matched substring.
 
@@ -102,3 +104,5 @@ Since the `0.9.3` release, an optional 5th argument, `nth`, is supported to spec
 ```
 
 This API function was first introduced in the `v0.9.2` release.
+
+[返回目录](#nginx-api-for-lua)

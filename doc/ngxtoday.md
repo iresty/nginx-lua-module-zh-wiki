@@ -16,4 +16,4 @@ Returns current date (in the format yyyy-mm-dd) from the nginx cached time (no s
 
 This is the local time.
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)

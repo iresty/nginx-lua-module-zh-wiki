@@ -16,4 +16,4 @@ Forcibly updates the Nginx current time cache. This call involves a syscall and 
 
 This API was first introduced in `v0.3.1rc32`.
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)

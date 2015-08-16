@@ -15,7 +15,7 @@ Table of Contents
 * [Status yuansheng-8.6](doc/status.md)
 * [Version](#version)
 * [Synopsis yuansheng-8.6](doc/synopsis.md)
-* [Description](#description)
+* [Description yuansheng-8.6](doc/description.md)
 * [Typical Uses](#typical-uses)
 * [Nginx Compatibility](#nginx-compatibility)
 * [Installation](#installation)

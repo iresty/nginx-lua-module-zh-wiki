@@ -166,7 +166,7 @@ Nginx API for Lua
 * [ngx.today bells-2015.8.8](doc/ngxtoday.md)
 * [ngx.time](#ngxtime)
 * [ngx.now](#ngxnow)
-* [ngx.update_time](#ngxupdate_time)
+* [ngx.update_time bells-2015.8.16](doc/ngxupdate_time.md)
 * [ngx.localtime](#ngxlocaltime)
 * [ngx.utctime](#ngxutctime)
 * [ngx.cookie_time](#ngxcookie_time)

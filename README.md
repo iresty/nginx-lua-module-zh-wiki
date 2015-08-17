@@ -17,7 +17,7 @@ Table of Contents
 * [Synopsis yuansheng-8.6](doc/synopsis.md)
 * [Description yuansheng-8.16](doc/description.md)
 * [Typical Uses yuansheng-8.16](doc/typical-uses.md)
-* [Nginx Compatibility](#nginx-compatibility)
+* [Nginx Compatibility yuansheng-8.17](doc/nginx-compatibility.md)
 * [Installation](#installation)
     * [C Macro Configurations](#c-macro-configurations)
     * [Installation on Ubuntu 11.10](#installation-on-ubuntu-1110)

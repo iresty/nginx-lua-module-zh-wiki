@@ -9,7 +9,7 @@ While building this module either via OpenResty or with the NGINX core, you can 
 * `NGX_LUA_ABORT_AT_PANIC`
     当Lua/LuaJIT虚拟机出现panic错误，ngx_lua将默认安排当前的工作进程优雅的退出。通过指定这个宏定义，ngx_lua将立即终止当前的nginx工作进程（通常会生成一个core dump文件）。这个选项主要用来调试虚拟机的panic错误。在`v0.9.8`版本中首次引入此选项。
 * `NGX_LUA_NO_FFI_API`
-    排除Nginx中需要的FFI-based Lua API的纯净C函数(例如 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) 所需要的)。开启这个宏可以让Nginx二进制代码更小。
+    去除Nginx中FFI-based Lua API需要的的纯净C函数(例如 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) 所需要的)。开启这个宏可以让Nginx二进制代码更小。
 
 启用一个或多个宏定义，无论是NGINX还是OpenResty，通过`./configure`脚本的额外选项提供给C编译器。例如：
 

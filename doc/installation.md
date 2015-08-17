@@ -10,7 +10,7 @@
 3. 下载最新版本的ngx_lua [这里](https://github.com/openresty/lua-nginx-module/tags) 。
 4. 下载最新版本的Nginx [这里](http://nginx.org/) (查看 [Nginx 兼容列表](#nginx-compatibility))。
 
-使用这些模块来构建：
+使用这些模块来构建应用：
 
 ```bash
 

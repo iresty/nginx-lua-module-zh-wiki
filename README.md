@@ -20,7 +20,7 @@ Table of Contents
 * [Nginx Compatibility yuansheng-8.17](doc/nginx-compatibility.md)
 * [Installation yuansheng-8.17](doc/installation.md)
     * [C Macro Configurations yuansheng-8.17](doc/c-macro-configurations.md)
-    * [Installation on Ubuntu 11.10](#installation-on-ubuntu-1110)
+    * [Installation on Ubuntu 11.10 yuansheng-8.18](doc/installation-on-ubuntu-1110.md)
 * [Community](#community)
     * [English Mailing List](#english-mailing-list)
     * [Chinese Mailing List](#chinese-mailing-list)

@@ -19,7 +19,7 @@ Table of Contents
 * [Typical Uses yuansheng-8.16](doc/typical-uses.md)
 * [Nginx Compatibility yuansheng-8.17](doc/nginx-compatibility.md)
 * [Installation yuansheng-8.17](doc/installation.md)
-    * [C Macro Configurations](#c-macro-configurations)
+    * [C Macro Configurations yuansheng-8.17](doc/c-macro-configurations.md)
     * [Installation on Ubuntu 11.10](#installation-on-ubuntu-1110)
 * [Community](#community)
     * [English Mailing List](#english-mailing-list)

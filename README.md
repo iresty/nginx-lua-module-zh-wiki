@@ -152,7 +152,7 @@ Nginx API for Lua
 * [ngx.sleep lance-2015.8.18](doc/ngxsleep.md)
 * [ngx.escape_uri lance-2015.8.18](doc/ngxescape_uri.md)
 * [ngx.unescape_uri lance-2015.8.18](doc/ngxunescape_uri.md)
-* [ngx.encode_args](#ngxencode_args)
+* [ngx.encode_args lance-2015.8.18](doc/ngxencode_args.md)
 * [ngx.decode_args](#ngxdecode_args)
 * [ngx.encode_base64](#ngxencode_base64)
 * [ngx.decode_base64](#ngxdecode_base64)

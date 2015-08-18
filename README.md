@@ -148,7 +148,7 @@ Nginx API for Lua
 * [ngx.log lance-2015.8.13](doc/ngxlog.md)
 * [ngx.flush lance-2015.8.13](doc/ngxflush.md)
 * [ngx.exit lance-2015.8.13](doc/ngxexit.md)
-* [ngx.eof](#ngxeof)
+* [ngx.eof lance-2015.8.18](#ngxeof)
 * [ngx.sleep](#ngxsleep)
 * [ngx.escape_uri](#ngxescape_uri)
 * [ngx.unescape_uri](#ngxunescape_uri)

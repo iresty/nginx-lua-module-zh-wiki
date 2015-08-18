@@ -4,7 +4,7 @@ ngx.escape_uri
 
 **环境:** *init_by_lua*\**, init_worker_by_lua*\**, set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\**, ngx.timer.*\*
 
-将 `str` 作为 URI 组件进行转义。
+对 `str` 进行 URI 编码。
 
 
 > English Source

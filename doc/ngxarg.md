@@ -4,7 +4,7 @@ ngx.arg
 
 **环境:** *set_by_lua*\**, body_filter_by_lua*\*
 
-当被用在 [set_by_lua](#set_by_lua) 或 [set_by_lua_file](#set_by_lua_file) 指令环境中时，本表是一个只读表，包含输入参数估配置命令使用：
+当被用在 [set_by_lua](#set_by_lua) 或 [set_by_lua_file](#set_by_lua_file) 指令环境中时，本表是一个只读表，包含输入参数供配置命令使用：
 
 ```lua
 

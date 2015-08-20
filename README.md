@@ -24,7 +24,7 @@ Table of Contents
 * [Community](#community)
     * [English Mailing List](#english-mailing-list)
     * [Chinese Mailing List](#chinese-mailing-list)
-* [Code Repository](#code-repository)
+* [Code Repository yuansheng-8.20](doc/code-repository.md)
 * [Bugs and Patches](#bugs-and-patches)
 * [Lua/LuaJIT bytecode support](#lualuajit-bytecode-support)
 * [System Environment Variable Support](#system-environment-variable-support)

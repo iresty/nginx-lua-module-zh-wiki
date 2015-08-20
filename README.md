@@ -79,7 +79,7 @@ Directives
 * [log_by_lua](#log_by_lua)
 * [log_by_lua_file](#log_by_lua_file)
 * [lua_need_request_body](#lua_need_request_body)
-* [lua_shared_dict](#lua_shared_dict)
+* [lua_shared_dict lance-2015.8.20](#lua_shared_dict)
 * [lua_socket_connect_timeout](#lua_socket_connect_timeout)
 * [lua_socket_send_timeout](#lua_socket_send_timeout)
 * [lua_socket_send_lowat](#lua_socket_send_lowat)

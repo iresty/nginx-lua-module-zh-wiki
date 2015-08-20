@@ -25,7 +25,7 @@ Table of Contents
     * [English Mailing List](#english-mailing-list)
     * [Chinese Mailing List](#chinese-mailing-list)
 * [Code Repository yuansheng-8.20](doc/code-repository.md)
-* [Bugs and Patches](#bugs-and-patches)
+* [Bugs and Patches yuansheng-8.20](doc/bugs-and-patches.md)
 * [Lua/LuaJIT bytecode support](#lualuajit-bytecode-support)
 * [System Environment Variable Support](#system-environment-variable-support)
 * [HTTP 1.0 support lance-2015.8.13](doc/http-10-support.md)

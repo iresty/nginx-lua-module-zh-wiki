@@ -4,7 +4,7 @@
 
 返回从新纪元到从nginx时间缓存(不像Lua的日期库，该时间不涉及系统调用))获取的当前时间戳所经过的秒数。
 
-通过先调用[ngx.update_time](#ngxupdate_time)会强制更新nginx的时间缓存
+通过先调用[ngx.update_time](#ngxupdate_time)会强制更新nginx的时间缓存。
 
 > English Source
 

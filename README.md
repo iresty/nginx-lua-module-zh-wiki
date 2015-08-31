@@ -26,7 +26,7 @@ Table of Contents
     * [Chinese Mailing List](#chinese-mailing-list)
 * [Code Repository yuansheng-8.20](doc/code-repository.md)
 * [Bugs and Patches yuansheng-8.20](doc/bugs-and-patches.md)
-* [Lua/LuaJIT bytecode support](#lualuajit-bytecode-support)
+* [Lua/LuaJIT bytecode support yuansheng-8.31](doc/lualuajit-bytecode-support.md)
 * [System Environment Variable Support](#system-environment-variable-support)
 * [HTTP 1.0 support lance-2015.8.13](doc/http-10-support.md)
 * [Statically Linking Pure Lua Modules](#statically-linking-pure-lua-modules)

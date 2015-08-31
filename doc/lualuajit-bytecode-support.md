@@ -1,7 +1,7 @@
 Lua/LuaJIT 字节码支持
 ===========================
 
-从`v0.5.0rc32` release 开始，所有 `*_by_lua_file` 的配置小节例如 [content_by_lua_file](#content_by_lua_file)) 支持直接加载 Lua 5.1 和 LuaJIT 2.0/2.1 的二进制字节码文件。
+从`v0.5.0rc32` release 开始，所有 `*_by_lua_file` 的配置小节例如 [content_by_lua_file](#content_by_lua_file) 都支持直接加载 Lua 5.1 和 LuaJIT 2.0/2.1 的二进制字节码文件。
 
 请注意，由 LuaJIT 2.0/2.1 生成的二进制格式与标准 Lua 5.1 解析器是不兼容的。所以如果使用在ngx_lua下使用LuaJIT 2.0/2.1，那么LuaJIT兼容的二进制文件必需是下面这样生成的：
 
@@ -41,7 +41,7 @@ Lua/LuaJIT 字节码支持
 
     [error] 13909#0: *1 failed to load Lua inlined code: bad byte-code header in /path/to/test_file.luac
 
-使用Lua原语`require` 和 `dofile`这类加载字节码文件，应该总能按照预期工作。
+使用Lua`require` 和 `dofile`这类原语加载字节码文件，应该总能按照预期工作。
 
 [Back to TOC](#table-of-contents)
 

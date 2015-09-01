@@ -1,11 +1,11 @@
 header_filter_by_lua
 ---------------
 
-**语法:** *header_filter_by_lua &lt;lua-script-str&gt;*
+**语法：** *header_filter_by_lua &lt;lua-script-str&gt;*
 
-**环境:** *http, server, location, location if*
+**环境：** *http, server, location, location if*
 
-**nginx执行阶段:** *output-header-filter*
+**nginx执行阶段：** *output-header-filter*
 
 用`<lua-script-str>`中的lua代码，来设置应答消息的头部信息。
 
@@ -13,9 +13,9 @@ header_filter_by_lua
 
 - 输出类函数（例：ngx.say和ngx.send_headers）
 
-- 控制类函数(例：ngx.redirect和ngx.exec)
+- 控制类函数（例：ngx.redirect和ngx.exec）
 
-- 子请求相关函数 （例：ngx.location.capture和ngx.location.capture_multi）
+- 子请求相关函数（例：ngx.location.capture和ngx.location.capture_multi）
 
 - 套接字类函数（例：ngx.socket.tcp和ngx.req.socket）
 
@@ -30,7 +30,7 @@ header_filter_by_lua
 
 ```
 
-这个指令最早出现在版本 `v0.2.1rc20 中。
+这个指令最早出现在版本 `v0.2.1rc20` 中。
 
 [返回目录](#directives)
 
@@ -58,12 +58,14 @@ Note that the following API functions are currently disabled within this context
 Here is an example of overriding a response header (or adding one if absent) in our Lua header filter:
 
 ```nginx
+
     location / {
         proxy_pass http://mybackend;
         header_filter_by_lua 'ngx.header.Foo = "blah"';
     }
-```nginx
 
-This directive was first introduced in the v0.2.1rc20 release.
+```
+
+This directive was first introduced in the `v0.2.1rc20` release.
 
 [BACK TO TOC](#directives)

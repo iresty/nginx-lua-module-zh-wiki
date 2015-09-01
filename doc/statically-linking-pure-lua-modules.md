@@ -1,11 +1,11 @@
-静态连接纯净Lua模块
+静态链接纯净Lua模块
 ===================================
 
-When LuaJIT 2.x is used, it is possible to statically link the bytecode of pure Lua modules into the Nginx executable.
+当使用LuaJIT 2.x时，静态链接一个纯净的Lua字节码模块到可运行的Nginx中是可行的。
 
-Basically you use the `luajit` executable to compile `.lua` Lua module files to `.o` object files containing the exported bytecode data, and then link the `.o` files directly in your Nginx build.
+首先你要使用`luajit`，把`.lua`的Lua模块编译成`.o`的目标文件（包含导出的字节码数据），然后链接这些`.o`文件到Nginx的构造环境。
 
-Below is a trivial example to demonstrate this. Consider that we have the following `.lua` file named `foo.lua`:
+下面这个常见的小例子来印证一下。这里我们的`.lua`文件使用`foo.lua`名字：
 
 ```lua
 
@@ -19,9 +19,10 @@ Below is a trivial example to demonstrate this. Consider that we have the follow
  return _M
 ```
 
-And then we compile this `.lua` file to `foo.o` file:
+并且我们把这个`.lua`文件编译成`foo.o`文件：
 
     /path/to/luajit/bin/luajit -bg foo.lua foo.o
+
 
 What matters here is the name of the `.lua` file, which determines how you use this module later on the Lua land. The file name `foo.o` does not matter at all except the `.o` file extension (which tells `luajit` what output format is used). If you want to strip the Lua debug information from the resulting bytecode, you can just specify the `-b` option above instead of `-bg`.
 

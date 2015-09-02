@@ -34,7 +34,7 @@ Table of Contents
 * [Known Issues](#known-issues)
     * [TCP socket connect operation issues yuansheng-9.2](doc/tcp-socket-connect-operation-issues.md)
     * [Lua Coroutine Yielding/Resuming yuansheng-9.2](doc/lua-coroutine-yieldingresuming.md)
-    * [Lua Variable Scope](#lua-variable-scope)
+    * [Lua Variable Scope yuansheng-9.2](doc/lua-variable-scope.md)
     * [Locations Configured by Subrequest Directives of Other Modules lance-2015.8.12](doc/locations-configured-by-subrequest-directives-of-other-modules.md)
     * [Cosockets Not Available Everywhere](#cosockets-not-available-everywhere)
     * [特别转义序列 lance-2015.8.5](doc/special-escaping-sequences.md)

@@ -39,7 +39,7 @@ Table of Contents
     * [Cosockets Not Available Everywhere yuansheng-9.2](doc/cosockets-not-available-everywhere.md)
     * [特别转义序列 lance-2015.8.5](doc/special-escaping-sequences.md)
     * [Mixing with SSI Not Supported yuansheng-9.2](doc/mixing-with-ssi-not-supported.md)
-    * [SPDY Mode Not Fully Supported](#spdy-mode-not-fully-supported)
+    * [SPDY Mode Not Fully Supported yuansheng-9.2](doc/spdy-mode-not-fully-supported.md)
     * [Missing data on short circuited requests](#missing-data-on-short-circuited-requests)
 * [TODO](#todo)
 * [Changes](#changes)

@@ -36,7 +36,7 @@ Table of Contents
     * [Lua Coroutine Yielding/Resuming yuansheng-9.2](doc/lua-coroutine-yieldingresuming.md)
     * [Lua Variable Scope yuansheng-9.2](doc/lua-variable-scope.md)
     * [Locations Configured by Subrequest Directives of Other Modules lance-2015.8.12](doc/locations-configured-by-subrequest-directives-of-other-modules.md)
-    * [Cosockets Not Available Everywhere](#cosockets-not-available-everywhere)
+    * [Cosockets Not Available Everywhere yuansheng-9.2](doc/cosockets-not-available-everywhere.md)
     * [特别转义序列 lance-2015.8.5](doc/special-escaping-sequences.md)
     * [Mixing with SSI Not Supported](#mixing-with-ssi-not-supported)
     * [SPDY Mode Not Fully Supported](#spdy-mode-not-fully-supported)

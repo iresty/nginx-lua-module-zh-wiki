@@ -32,7 +32,7 @@ Table of Contents
 * [Statically Linking Pure Lua Modules yuansheng-9.1](doc/statically-linking-pure-lua-modules.md)
 * [Nginx Worker内的数据共享 lance-2015.8.5](doc/data-sharing-within-an-nginx-worker.md)
 * [Known Issues](#known-issues)
-    * [TCP socket connect operation issues](#tcp-socket-connect-operation-issues)
+    * [TCP socket connect operation issues yuansheng-9.2](doc/tcp-socket-connect-operation-issues.md)
     * [Lua Coroutine Yielding/Resuming](#lua-coroutine-yieldingresuming)
     * [Lua Variable Scope](#lua-variable-scope)
     * [Locations Configured by Subrequest Directives of Other Modules lance-2015.8.12](doc/locations-configured-by-subrequest-directives-of-other-modules.md)

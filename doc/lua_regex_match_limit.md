@@ -12,7 +12,7 @@ lua_regex_match_limit
 
 当设置了限制为0，将使用编译PCRE库的默认"match limit"。这也是这个配置的默认值。
 
-这个配置是在`v0.8.5`发行版被首次引入的。
+这个指令是在`v0.8.5`发行版被首次引入的。
 
 [Back to TOC](#directives)
 

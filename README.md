@@ -47,7 +47,7 @@ Table of Contents
 * [Copyright and License yuansheng-9.3](doc/copyright-and-license.md)
 * [See Also yuansheng-9.3](doc/see-also.md)
 * [Directives yuansheng-9.3](doc/directives.md)
-* [Nginx API for Lua](#nginx-api-for-lua)
+* [Nginx API for Lua yuansheng-9.3](doc/nginx-api-for-lua.md)
 * [Obsolete Sections](#obsolete-sections)
     * [Special PCRE Sequences](#special-pcre-sequences)
 

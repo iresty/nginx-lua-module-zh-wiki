@@ -56,7 +56,7 @@ Directives
 
 * [lua_use_default_type 孙晓辉 2015.8.5](doc/lua-use-default-type.md)
 * [lua_code_cache 孙晓辉 2015.8.5](doc/lua-code-cache.md)
-* [lua_regex_cache_max_entries](#lua_regex_cache_max_entries)
+* [lua_regex_cache_max_entries yuansheng-9.3](doc/lua_regex_cache_max_entries.md)
 * [lua_regex_match_limit](#lua_regex_match_limit)
 * [lua_package_path](#lua_package_path)
 * [lua_package_cpath](#lua_package_cpath)

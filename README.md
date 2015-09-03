@@ -49,7 +49,7 @@ Table of Contents
 * [Directives yuansheng-9.3](doc/directives.md)
 * [Nginx API for Lua yuansheng-9.3](doc/nginx-api-for-lua.md)
 * [Obsolete Sections yuansheng-9.3](doc/obsolete-sections.md)
-    * [Special PCRE Sequences](#special-pcre-sequences)
+    * [Special PCRE Sequences yuansheng-9.3](doc/special-pcre-sequences.md)
 
 Directives
 ==========

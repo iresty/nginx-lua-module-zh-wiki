@@ -43,7 +43,7 @@ Table of Contents
     * [Missing data on short circuited requests yuansheng-9.2](doc/missing-data-on-short-circuited-requests.md)
 * [TODO yuansheng-9.3](doc/todo.md)
 * [Changes yuansheng-9.3](doc/changes.md)
-* [Test Suite](#test-suite)
+* [Test Suite yuansheng-9.3](doc/test-suite.md)
 * [Copyright and License](#copyright-and-license)
 * [See Also](#see-also)
 * [Directives](#directives)

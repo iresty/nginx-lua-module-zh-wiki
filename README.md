@@ -44,7 +44,7 @@ Table of Contents
 * [TODO yuansheng-9.3](doc/todo.md)
 * [Changes yuansheng-9.3](doc/changes.md)
 * [Test Suite yuansheng-9.3](doc/test-suite.md)
-* [Copyright and License](#copyright-and-license)
+* [Copyright and License yuansheng-9.3](doc/copyright-and-license.md)
 * [See Also](#see-also)
 * [Directives](#directives)
 * [Nginx API for Lua](#nginx-api-for-lua)

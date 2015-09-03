@@ -1,7 +1,7 @@
 日志变更
 =======
 
-The changes of every release of this module can be obtained from the ngx_openresty bundle's change logs:
+这个模块每个发行版本日志变更，可以从ngx_openresty绑定的日志变更中获取：
 
 <http://openresty.org/#Changes>
 

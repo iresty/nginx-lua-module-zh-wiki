@@ -42,7 +42,7 @@ Table of Contents
     * [SPDY Mode Not Fully Supported yuansheng-9.2](doc/spdy-mode-not-fully-supported.md)
     * [Missing data on short circuited requests yuansheng-9.2](doc/missing-data-on-short-circuited-requests.md)
 * [TODO yuansheng-9.3](doc/todo.md)
-* [Changes](#changes)
+* [Changes yuansheng-9.3](doc/changes.md)
 * [Test Suite](#test-suite)
 * [Copyright and License](#copyright-and-license)
 * [See Also](#see-also)

@@ -45,7 +45,7 @@ Table of Contents
 * [Changes yuansheng-9.3](doc/changes.md)
 * [Test Suite yuansheng-9.3](doc/test-suite.md)
 * [Copyright and License yuansheng-9.3](doc/copyright-and-license.md)
-* [See Also](#see-also)
+* [See Also yuansheng-9.3](doc/see-also.md)
 * [Directives](#directives)
 * [Nginx API for Lua](#nginx-api-for-lua)
 * [Obsolete Sections](#obsolete-sections)

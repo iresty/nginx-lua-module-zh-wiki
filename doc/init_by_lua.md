@@ -47,9 +47,11 @@ init_by_lua
  }
 ```
 
-But note that, the [lua_shared_dict](#lua_shared_dict)'s shm storage will not be cleared through a config reload (via the `HUP` signal, for example). So if you do *not* want to re-initialize the shm storage in your `init_by_lua` code in this case, then you just need to set a custom flag in the shm storage and always check the flag in your `init_by_lua` code.
+需要注意，当配置重载（例如`HUP`信号）时[lua_shared_dict](#lua_shared_dict)的共享数据是不会被清空。这种情况下，如果你不想在`init_by_lua`再次再初始化你的共享数据，你需要设置一个个性标识并且在你的`init_by_lua`代码中每次都做检查。
 
-Because the Lua code in this context runs before Nginx forks its worker processes (if any), data or code loaded here will enjoy the [Copy-on-write (COW)](http://en.wikipedia.org/wiki/Copy-on-write) feature provided by many operating systems among all the worker processes, thus saving a lot of memory.
+因为在这个指令的Lua代码执行是在Nginx fork他的工作进程（如果有），加载的数据和代码将被友好[Copy-on-write (COW)](http://en.wikipedia.org/wiki/Copy-on-write)特性提供给其他所有工作进程，从而节省了大量内存。
+
+<!-- todo wangyuansheng -->
 
 Do *not* initialize your own Lua global variables in this context because use of Lua global variables have performance penalties and can lead to global namespace pollution (see the [Lua Variable Scope](#lua-variable-scope) section for more details). The recommended way is to use proper [Lua module](http://www.lua.org/manual/5.1/manual.html#5.3) files (but do not use the standard Lua function [module()](http://www.lua.org/manual/5.1/manual.html#pdf-module) to define Lua modules because it pollutes the global namespace as well) and call [require()](http://www.lua.org/manual/5.1/manual.html#pdf-require) to load your own module files in `init_by_lua` or other contexts ([require()](http://www.lua.org/manual/5.1/manual.html#pdf-require) does cache the loaded Lua modules in the global `package.loaded` table in the Lua registry so your modules will only loaded once for the whole Lua VM instance).
 

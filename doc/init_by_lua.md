@@ -51,17 +51,17 @@ init_by_lua
 
 因为在这个指令的Lua代码执行是在Nginx fork他的工作进程（如果有），加载的数据和代码将被友好[Copy-on-write (COW)](http://en.wikipedia.org/wiki/Copy-on-write)特性提供给其他所有工作进程，从而节省了大量内存。
 
-<!-- todo wangyuansheng -->
+不要在这个上下文中初始化你自己的Lua全局变量，因为全局变量的使用有性能损失并会带来全局命名污染（可以查看[Lua 变量范围](#lua-variable-scope)获取更多细节）。推荐的方式是正确使用[Lua模块](http://www.lua.org/manual/5.1/manual.html#5.3) 文件（不要使用标准Lua函数[module()](http://www.lua.org/manual/5.1/manual.html#pdf-module)来定义Lua模块，因为它同样对全局命名空间有污染），在`init_by_lua` 或 其他上下文中调用[require()](http://www.lua.org/manual/5.1/manual.html#pdf-require)来加载你自己的模块文件。[require()](http://www.lua.org/manual/5.1/manual.html#pdf-require)会在全局Lua注册的`package.loaded`表中缓存Lua模块，所以在整个Lua虚拟机实例中你的模块将只会加载一次。
 
-Do *not* initialize your own Lua global variables in this context because use of Lua global variables have performance penalties and can lead to global namespace pollution (see the [Lua Variable Scope](#lua-variable-scope) section for more details). The recommended way is to use proper [Lua module](http://www.lua.org/manual/5.1/manual.html#5.3) files (but do not use the standard Lua function [module()](http://www.lua.org/manual/5.1/manual.html#pdf-module) to define Lua modules because it pollutes the global namespace as well) and call [require()](http://www.lua.org/manual/5.1/manual.html#pdf-require) to load your own module files in `init_by_lua` or other contexts ([require()](http://www.lua.org/manual/5.1/manual.html#pdf-require) does cache the loaded Lua modules in the global `package.loaded` table in the Lua registry so your modules will only loaded once for the whole Lua VM instance).
+在这个上下文中，只有一小部分的[Nginx Lua API](#nginx-api-for-lua)是被支持的：
 
-Only a small set of the [Nginx API for Lua](#nginx-api-for-lua) is supported in this context:
 
-* Logging APIs: [ngx.log](#ngxlog) and [print](#print),
-* Shared Dictionary API: [ngx.shared.DICT](#ngxshareddict).
+* 记录日志的APIs：[ngx.log](#ngxlog) 和 [print](#print)
+* 共享内存字典APIs：[ngx.shared.DICT](#ngxshareddict)
 
-More Nginx APIs for Lua may be supported in this context upon future user requests.
+在这个上下文中，根据用户的后续需要，将会支持更多的Nginx Lua APIs。
 
+基本上，在这个上下文中，你可以保守使用Lua库完成阻塞I/O调用，因为在master进程的阻塞调用在服务的启动过程中是完全没问题的。<!-- todo wangyuansheng -->
 Basically you can safely use Lua libraries that do blocking I/O in this very context because blocking the master process during server start-up is completely okay. Even the Nginx core does blocking I/O (at least on resolving upstream's host names) at the configure-loading phase.
 
 You should be very careful about potential security vulnerabilities in your Lua code registered in this context because the Nginx master process is often run under the `root` account.

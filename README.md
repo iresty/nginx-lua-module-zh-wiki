@@ -115,7 +115,7 @@ Nginx API for Lua
 * [ngx.location.capture lance-2015.8.11](doc/ngxlocationcapture.md)
 * [ngx.location.capture_multi lance-2015.8.11](doc/ngxlocationcapture_multi.md)
 * [ngx.status lance-2015.8.18](doc/ngxstatus.md)
-* [ngx.header.HEADER](#ngxheaderheader)
+* [ngx.header.HEADER lance-2015.9.6](doc/ngxheaderheader.md)
 * [ngx.resp.get_headers](#ngxrespget_headers)
 * [ngx.req.start_time](#ngxreqstart_time)
 * [ngx.req.http_version](#ngxreqhttp_version)

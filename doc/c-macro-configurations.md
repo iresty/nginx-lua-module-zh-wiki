@@ -1,7 +1,6 @@
 C 宏定义配置
 ----------------------
-通过OpenResty或者Nginx方式构建该模块，你可以定义下面的C宏定义作为可选项提供给C编译器：
-<!--原文的nginx core，指的应该是http://wiki.nginx.org/Modules#Nginx_core_module -->
+通过OpenResty或者Nginx内核方式构建该模块，你可以定义下面的C宏定义作为可选项提供给C编译器：
 
 * `NGX_LUA_USE_ASSERT`
     声明后，将在ngx_lua C代码中开启断言。推荐用在调试或者测试版本中。启用后，它会引入额外一些（小的）运行时开销。在`v0.9.10`版本中首次引入此选项。

@@ -6,6 +6,18 @@
 
 章节写好后，存放到`doc`目录下。章节命名用具体小节的锚点名称。例如`Code Repository`章节，存放路径就应是`doc/code-repository.md`。
 
+通过`grep`命令，看以看到更多内部注释信息，方便内部人员进行交流、协作。参考：
+
+```shell
+# cd doc
+# find *.md | xargs grep "<\!\-\-"
+
+init_by_lua.md:基本上，在这个上下文中，你可以保 。。。<!-- todo wangyuansheng -->
+name.md:此模块属第三方扩展，不在Nginx源码中。安装介绍。。。<!-- 超链接没有带 -->
+todo.md:<!-- todo 没懂，后面看看怎么翻译  -->
+# 
+```
+
 有任何疑问，可以随时联系我。翻译交流QQ群：435558580 。
 
 Table of Contents

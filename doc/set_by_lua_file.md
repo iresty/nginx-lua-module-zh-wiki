@@ -19,6 +19,8 @@ switching [lua_code_cache](#lua_code_cache) `off` in `nginx.conf` to avoid reloa
 
 This directive requires the [ngx_devel_kit](https://github.com/simpl/ngx_devel_kit) module.
 
+<!-- todo 还没开始翻译，先记录 yuansheng -->
+
 [Back to TOC](#directives)
 
 > English source:

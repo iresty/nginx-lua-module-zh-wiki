@@ -1,7 +1,9 @@
-谁写哪个章节，大家把自己名字在下面直接标记一下自己网名+日期。
+谁写哪个章节，大家在相应章节目录标记一下 网名+日期。
+谁审哪个章节，大家在相应章节目录标记一下 网名(√)。
 
 ```
 * [Name](#name)     ->      * [Name 某某 2015.8.4](doc/name.md)
+* [Name 某某 2015.8.4](doc/name.md)   ->  * [Name 某某 2015.8.4 某某(√)](doc/name.md)
 ```
 
 章节写好后，存放到`doc`目录下。章节命名用具体小节的锚点名称。例如`Code Repository`章节，存放路径就应是`doc/code-repository.md`。
@@ -23,7 +25,7 @@ todo.md:<!-- todo 没懂，后面看看怎么翻译  -->
 Table of Contents
 =================
 
-* [Name yuansheng-8.4](doc/name.md)
+* [Name yuansheng-8.4 moonbingbing(√)](doc/name.md)
 * [Status yuansheng-8.6](doc/status.md)
 * [Version](#version)
 * [Synopsis yuansheng-8.6](doc/synopsis.md)
@@ -31,13 +33,13 @@ Table of Contents
 * [Typical Uses yuansheng-8.16](doc/typical-uses.md)
 * [Nginx Compatibility yuansheng-8.17](doc/nginx-compatibility.md)
 * [Installation yuansheng-8.17](doc/installation.md)
-    * [C Macro Configurations yuansheng-8.17](doc/c-macro-configurations.md)
+    * [C Macro Configurations yuansheng-8.17 moonbingbing(√)](doc/c-macro-configurations.md)
     * [Installation on Ubuntu 11.10 yuansheng-8.18](doc/installation-on-ubuntu-1110.md)
 * [Community](#community)
     * [English Mailing List](#english-mailing-list)
     * [Chinese Mailing List](#chinese-mailing-list)
-* [Code Repository yuansheng-8.20](doc/code-repository.md)
-* [Bugs and Patches yuansheng-8.20](doc/bugs-and-patches.md)
+* [Code Repository yuansheng-8.20 moonbingbing(√)](doc/code-repository.md)
+* [Bugs and Patches yuansheng-8.20 moonbingbing(√)](doc/bugs-and-patches.md)
 * [Lua/LuaJIT bytecode support yuansheng-8.31](doc/lualuajit-bytecode-support.md)
 * [System Environment Variable Support yuansheng-9.1](doc/system-environment-variable-support.md)
 * [HTTP 1.0 support lance-2015.8.13](doc/http-10-support.md)
@@ -54,7 +56,7 @@ Table of Contents
     * [SPDY Mode Not Fully Supported yuansheng-9.2](doc/spdy-mode-not-fully-supported.md)
     * [Missing data on short circuited requests yuansheng-9.2](doc/missing-data-on-short-circuited-requests.md)
 * [TODO yuansheng-9.3](doc/todo.md)
-* [Changes yuansheng-9.3](doc/changes.md)
+* [Changes yuansheng-9.3 moonbingbing(√)](doc/changes.md)
 * [Test Suite yuansheng-9.3](doc/test-suite.md)
 * [Copyright and License yuansheng-9.3](doc/copyright-and-license.md)
 * [See Also yuansheng-9.3](doc/see-also.md)

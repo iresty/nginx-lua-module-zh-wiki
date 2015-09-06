@@ -61,14 +61,13 @@ init_by_lua
 
 在这个上下文中，根据用户的后续需要，将会支持更多的Nginx Lua APIs。
 
-基本上，在这个上下文中，你可以保守使用Lua库完成阻塞I/O调用，因为在master进程的阻塞调用在服务的启动过程中是完全没问题的。<!-- todo wangyuansheng -->
-Basically you can safely use Lua libraries that do blocking I/O in this very context because blocking the master process during server start-up is completely okay. Even the Nginx core does blocking I/O (at least on resolving upstream's host names) at the configure-loading phase.
+基本上，在这个上下文中，你可以保守使用Lua库完成阻塞I/O调用，因为在master进程的阻塞调用在服务的启动过程中是完全没问题的。进一步说在配置加载阶段，Nginx核心就是阻塞 I/O 方式处理的（至少在解析上游主机名称时）。
 
-You should be very careful about potential security vulnerabilities in your Lua code registered in this context because the Nginx master process is often run under the `root` account.
+你应该非常小心，在这种情况下注册的Lua代码潜在的安全漏洞，因为Nginx的主进程经常是'root`帐户下运行。
 
-This directive was first introduced in the `v0.5.5` release.
+这个指令是`v0.5.5`版本中第一次引入的。
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 > English source:
 

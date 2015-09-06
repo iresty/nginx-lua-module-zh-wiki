@@ -103,7 +103,7 @@ Directives
 Nginx API for Lua
 =================
 
-* [Introduction](#introduction)
+* [Introduction lance-2015.9.6](doc/introduction.md)
 * [ngx.arg lance-2015.8.19](doc/ngxarg.md)
 * [ngx.var.VARIABLE lance-2015.8.19](doc/ngxvarvariable.md)
 * [Core constants lance-2015.8.14](doc/core-constants.md)

@@ -7,7 +7,7 @@ Bugs和补丁
 1. 或者发到这里 [OpenResty community](#community).
 
 [返回目录](#table-of-contents)
-
+<!-- review by WenMing -->
 > English source:
 
 Bugs and Patches

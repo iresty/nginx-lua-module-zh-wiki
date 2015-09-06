@@ -1,25 +1,25 @@
 header_filter_by_lua
 ---------------
 
-**Óï·¨£º** *header_filter_by_lua &lt;lua-script-str&gt;*
+**è¯­æ³•ï¼š** *header_filter_by_lua &lt;lua-script-str&gt;*
 
-**»·¾³£º** *http, server, location, location if*
+**ç¯å¢ƒï¼š** *http, server, location, location if*
 
-**nginxÖ´ĞĞ½×¶Î£º** *output-header-filter*
+**nginxæ‰§è¡Œé˜¶æ®µï¼š** *output-header-filter*
 
-ÓÃ`<lua-script-str>`ÖĞµÄlua´úÂë£¬À´ÉèÖÃÓ¦´ğÏûÏ¢µÄÍ·²¿ĞÅÏ¢¡£
+ç”¨`<lua-script-str>`ä¸­çš„luaä»£ç ï¼Œæ¥è®¾ç½®åº”ç­”æ¶ˆæ¯çš„å¤´éƒ¨ä¿¡æ¯ã€‚
 
-×¢Òâ£¬ÏÂÁĞµÄ½Ó¿Úº¯ÊıÔÚÕâ¸öÖ´ĞĞ½×¶ÎÊÇÊ§Ğ§µÄ£º
+æ³¨æ„ï¼Œä¸‹åˆ—çš„æ¥å£å‡½æ•°åœ¨è¿™ä¸ªæ‰§è¡Œé˜¶æ®µæ˜¯å¤±æ•ˆçš„ï¼š
 
-- Êä³öÀàº¯Êı£¨Àı£ºngx.sayºÍngx.send_headers£©
+- è¾“å‡ºç±»å‡½æ•°ï¼ˆä¾‹ï¼šngx.sayå’Œngx.send_headersï¼‰
 
-- ¿ØÖÆÀàº¯Êı£¨Àı£ºngx.redirectºÍngx.exec£©
+- æ§åˆ¶ç±»å‡½æ•°ï¼ˆä¾‹ï¼šngx.redirectå’Œngx.execï¼‰
 
-- ×ÓÇëÇóÏà¹Øº¯Êı£¨Àı£ºngx.location.captureºÍngx.location.capture_multi£©
+- å­è¯·æ±‚ç›¸å…³å‡½æ•°ï¼ˆä¾‹ï¼šngx.location.captureå’Œngx.location.capture_multiï¼‰
 
-- Ì×½Ó×ÖÀàº¯Êı£¨Àı£ºngx.socket.tcpºÍngx.req.socket£©
+- å¥—æ¥å­—ç±»å‡½æ•°ï¼ˆä¾‹ï¼šngx.socket.tcpå’Œngx.req.socketï¼‰
 
-ÏÂÃæÕâ¸öÀı×ÓÕ¹Ê¾µÄÊÇ£¬ÔÚheader_filter_by_lua½×¶ÎÖĞ,»á½«Ó¦´ğÏûÏ¢Í·²¿ÖĞµÄÄ³¸öµÄ×Ö¶Î¸²¸Çµô£¨Èç¹ûÃ»ÓĞÕâ¸ö×Ö¶Î£¬ÔòÊÇ½«ÆäÌí¼Ó½øÍ·²¿£©
+ä¸‹é¢è¿™ä¸ªä¾‹å­å±•ç¤ºçš„æ˜¯ï¼Œåœ¨header_filter_by_luaé˜¶æ®µä¸­,ä¼šå°†åº”ç­”æ¶ˆæ¯å¤´éƒ¨ä¸­çš„æŸä¸ªçš„å­—æ®µè¦†ç›–æ‰ï¼ˆå¦‚æœæ²¡æœ‰è¿™ä¸ªå­—æ®µï¼Œåˆ™æ˜¯å°†å…¶æ·»åŠ è¿›å¤´éƒ¨ï¼‰
 
 ```nginx
 
@@ -30,9 +30,9 @@ header_filter_by_lua
 
 ```
 
-Õâ¸öÖ¸Áî×îÔç³öÏÖÔÚ°æ±¾ `v0.2.1rc20` ÖĞ¡£
+è¿™ä¸ªæŒ‡ä»¤æœ€æ—©å‡ºç°åœ¨ç‰ˆæœ¬ `v0.2.1rc20` ä¸­ã€‚
 
-[·µ»ØÄ¿Â¼](#directives)
+[è¿”å›ç›®å½•](#directives)
 
 
 > English Source

@@ -1,12 +1,12 @@
-日志变更
+变更日志
 =======
 
-这个模块每个发行版本日志变更，可以从ngx_openresty绑定的日志变更中获取：
+该模块每个发行版本的变更，都记录在ngx_openresty绑定的变更日志中：
 
 <http://openresty.org/#Changes>
 
 [返回目录](#table-of-contents)
-
+<!-- review by WenMing -->
 > English source:
 
 Changes

@@ -76,7 +76,7 @@ Directives
 * [lua_package_cpath yuansheng-9.4](doc/lua_package_cpath.md)
 * [init_by_lua yuansheng-9.4](doc/init_by_lua.md)
 * [init_by_lua_file yuansheng-9.4](doc/init_by_lua_file.md)
-* [init_worker_by_lua](#init_worker_by_lua)
+* [init_worker_by_lua yuansheng](doc/init_worker_by_lua.md)
 * [init_worker_by_lua_file](#init_worker_by_lua_file)
 * [set_by_lua 森林狼-20150818](#set_by_lua)
 * [set_by_lua_file 森林狼-20150818](#set_by_lua_file)

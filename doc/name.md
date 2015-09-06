@@ -1,7 +1,8 @@
 ngx_lua - 把强大的Lua(LuaJIT)嵌入到Nginx中
 
-此模块属第三方扩展，不在Nginx源码中。请看安装说明。<!-- 超链接没有带 -->
+此模块属第三方扩展，不在Nginx源码中。请看[安装说明](#installation)。
 <!-- review by WenMing -->
+
 > Egnlish version
 
 ```

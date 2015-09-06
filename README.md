@@ -77,7 +77,7 @@ Directives
 * [init_by_lua yuansheng-9.4](doc/init_by_lua.md)
 * [init_by_lua_file yuansheng-9.4](doc/init_by_lua_file.md)
 * [init_worker_by_lua yuansheng](doc/init_worker_by_lua.md)
-* [init_worker_by_lua_file](#init_worker_by_lua_file)
+* [init_worker_by_lua_file yuansheng](doc/init_worker_by_lua_file.md)
 * [set_by_lua 森林狼-20150818](#set_by_lua)
 * [set_by_lua_file 森林狼-20150818](#set_by_lua_file)
 * [content_by_lua dengshiyong 2015.8.12](doc/content_by_lua.md)

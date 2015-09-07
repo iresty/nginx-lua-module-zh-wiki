@@ -1,26 +1,25 @@
 核心常量
 --------
 **环境:** *init_by_lua*\**, set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua, *\**log_by_lua*\**, ngx.timer.*\*
-
 ```lua
-
-   ngx.OK (0)
-   ngx.ERROR (-1)
-   ngx.AGAIN (-2)
-   ngx.DONE (-4)
-   ngx.DECLINED (-5)
+    ngx.OK (0)
+    ngx.ERROR (-1)
+    ngx.AGAIN (-2)
+    ngx.DONE (-4)
+    ngx.DECLINED (-5)
 ```
 
-请注意，这些常量中只有三个可以被 [Nginx API for Lua](#nginx-api-for-lua) 使用 (即 [ngx.exit](#ngxexit) 接受 `NGX_OK`, `NGX_ERROR`, 和 `NGX_DECLINED` 作为输入)。
+请注意，这些常量中只有三个可以被 [Nginx API for Lua](#nginx-api-for-lua) 使用
+(比如 [ngx.exit](#ngxexit) 接受 `NGX_OK`, `NGX_ERROR`, 和 `NGX_DECLINED` 作为输入)。
 
 ```lua
 
    ngx.null
 ```
 
-`ngx.null` 常量是一个 `NULL` 轻用户数据 (light userdata)，一般被用来表达 Lua 表或者其他地方的 nil (空) 值，类似于 [lua-cjson](http://www.kyne.com.au/~mark/software/lua-cjson.php) 库中的 `cjson.null` 常量。此常量最早出现在 `v0.5.0rc5` 版本中。
+`ngx.null` 常量是一个`NULL`的[轻量用户数据](http://www.lua.org/pil/28.5.html)，一般被用来表达Lua table等里面的 nil (空) 值，类似于 [lua-cjson](http://www.kyne.com.au/~mark/software/lua-cjson.php) 库中的 `cjson.null` 常量。在`v0.5.0rc5` 版本中首次引入这个常量。
 
-`ngx.DECLINED` 常量最早出现在 `v0.5.0rc19` 版本中。
+`ngx.DECLINED`这个常量在`v0.5.0rc19`版本中首次引入。
 
 
 > English Source

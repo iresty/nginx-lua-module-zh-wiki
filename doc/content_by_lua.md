@@ -2,7 +2,7 @@ content_by_lua
 --------------
 **语法：** *content_by_lua &lt;lua-script-str&gt;*
 
-**作用域：** *location, location if*
+**上下文环境：** *location, location if*
 
 **阶段：** *content*
 

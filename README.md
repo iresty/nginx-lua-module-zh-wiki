@@ -17,7 +17,7 @@
 init_by_lua.md:基本上，在这个上下文中，你可以保 。。。<!-- todo wangyuansheng -->
 name.md:此模块属第三方扩展，不在Nginx源码中。安装介绍。。。<!-- 超链接没有带 -->
 todo.md:<!-- todo 没懂，后面看看怎么翻译  -->
-# 
+#
 ```
 
 有任何疑问，可以随时联系我。翻译交流QQ群：435558580 。
@@ -80,7 +80,7 @@ Directives
 * [init_worker_by_lua_file yuansheng-9.6](doc/init_worker_by_lua_file.md)
 * [set_by_lua yuansheng-9.6](doc/set_by_lua.md)
 * [set_by_lua_file yuansheng-9.6](doc/set_by_lua_file.md)
-* [content_by_lua dengshiyong 2015.8.12](doc/content_by_lua.md)
+* [content_by_lua dengshiyong 2015.8.12 moonbingbing(√)](doc/content_by_lua.md)
 * [content_by_lua_file](#content_by_lua_file)
 * [rewrite_by_lua](#rewrite_by_lua)
 * [rewrite_by_lua_file](#rewrite_by_lua_file)

@@ -50,7 +50,7 @@
  }
 ```
 
-* ssl：实现`ssl_certificate_by_lua` 和 `ssl_certificate_by_lua_file`小节，使用Lua完成下游动态服务SSL证书和密钥的握手（在CloudFlare的私有分之中已经完成，给CloudFlare全球的SSL网络提供强有力支持。预期2015年3月进行开源）。
+* ssl：实现`ssl_certificate_by_lua` 和 `ssl_certificate_by_lua_file`小节，使用Lua完成下游动态服务SSL证书和密钥的握手（在CloudFlare的私有分支中已经完成，给CloudFlare全球的SSL网络提供强有力支持。预期2015年3月进行开源）。
 * shm：实现一个"shared queue API"，对[shared dict](#lua_shared_dict) 补充API。
 * cosocket：在[init_by_lua*](#init_by_lua)添加支持。
 * cosocket：对于流式cosocket，实现bind()方法。

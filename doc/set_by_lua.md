@@ -3,7 +3,7 @@ set_by_lua
 
 **语法:** *set_by_lua $res &lt;lua-script-str&gt; [$arg1 $arg2 ...]*
 
-**作用域:** *server, server if, location, location if*
+**环境:** *server, server if, location, location if*
 
 **阶段:** *rewrite*
 

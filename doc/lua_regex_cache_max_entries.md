@@ -4,7 +4,7 @@ lua_regex_cache_max_entries
 
 **默认:** *lua_regex_cache_max_entries 1024*
 
-**作用域:** *http*
+**环境:** *http*
 
 在工作进程级别，指定正则表达式编译缓存允许的最大数目。
 

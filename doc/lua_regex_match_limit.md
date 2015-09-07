@@ -4,7 +4,7 @@ lua_regex_match_limit
 
 **默认:** *lua_regex_match_limit 0*
 
-**作用域:** *http*
+**环境:** *http*
 
 指定执行[ngx.re API](#ngxrematch)时使用PCRE库的"匹配限制"。引述PCRE手册，“the limit ... has the effect of limiting the amount of backtracking that can take place.”。
 

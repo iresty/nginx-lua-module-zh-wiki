@@ -3,7 +3,7 @@ init_by_lua_file
 
 **语法:** *init_by_lua_file &lt;path-to-lua-script-file&gt;*
 
-**作用域:** *http*
+**环境:** *http*
 
 **阶段:** *loading-config*
 
@@ -33,4 +33,3 @@ When a relative path like `foo/bar.lua` is given, they will be turned into the a
 This directive was first introduced in the `v0.5.5` release.
 
 [Back to TOC](#directives)
-

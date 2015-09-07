@@ -3,7 +3,7 @@ init_worker_by_lua_file
 
 **语法:** *init_worker_by_lua_file &lt;lua-file-path&gt;*
 
-**作用域:** *http*
+**环境:** *http*
 
 **阶段:** *starting-worker*
 

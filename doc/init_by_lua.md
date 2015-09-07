@@ -3,7 +3,7 @@ init_by_lua
 
 **语法:** *init_by_lua &lt;lua-script-str&gt;*
 
-**作用域:** *http*
+**环境:** *http*
 
 **阶段:** *loading-config*
 
@@ -140,4 +140,3 @@ You should be very careful about potential security vulnerabilities in your Lua 
 This directive was first introduced in the `v0.5.5` release.
 
 [Back to TOC](#directives)
-

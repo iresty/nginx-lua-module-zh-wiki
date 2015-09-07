@@ -5,7 +5,7 @@ lua_package_cpath
 
 **默认:** *The content of LUA_CPATH environment variable or Lua's compiled-in defaults.*
 
-**作用域:** *http*
+**环境:** *http*
 
 设置[set_by_lua](#set_by_lua)，[content_by_lua](#content_by_lua) 和 其他脚本对Lua C模块的查找路径。 cpath路径字符串是标准Luacpath路径格式，`;;` 可被用来代表原始cpath路径。
 

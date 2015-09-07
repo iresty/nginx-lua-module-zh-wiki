@@ -26,7 +26,7 @@ Table of Contents
 =================
 
 * [Name yuansheng-8.4 moonbingbing(√)](doc/name.md)
-* [Status yuansheng-8.6](doc/status.md)
+* [Status yuansheng-8.6 moonbingbing(√)](doc/status.md)
 * [Version](#version)
 * [Synopsis yuansheng-8.6](doc/synopsis.md)
 * [Description yuansheng-8.16](doc/description.md)

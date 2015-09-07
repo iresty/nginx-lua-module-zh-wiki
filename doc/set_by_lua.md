@@ -53,9 +53,9 @@ Executes code specified in `<lua-script-str>` with optional input arguments `$ar
  set $baz "bar: $bar";  # $baz == "bar: 33"
 ```
 
-
+自 `v0.5.0rc29` 版本开始，本指令的 `<lua-script-str>` 参数中不再解析 Nginx 变量，所以可以直接使用 $ 符号 (`$`)。
 As from the `v0.5.0rc29` release, Nginx variable interpolation is disabled in the `<lua-script-str>` argument of this directive and therefore, the dollar sign character (`$`) can be used directly. 
-<!-- todo 又是一段看不懂的文字 yuansheng -->
+<!-- todo 又是一段看不懂的文字 yuansheng, 中文翻译添加 lance -->
 
 这个指令需要[ngx_devel_kit](https://github.com/simpl/ngx_devel_kit)模块。
 

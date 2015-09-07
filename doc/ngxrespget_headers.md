@@ -15,7 +15,7 @@ ngx.resp.get_headers
 ```
 
 此函数与 [ngx.req.get_headers](#ngxreqget_headers) 处理方法相同，唯一区别是获取的是响应头信息而不是请求头信息。
-<!-- TODO 此处 same signature 的翻译需要确认 -->
+<!-- todo 此处 same signature 的翻译需要确认 -->
 
 这个 API 最早出现在 `v0.9.5` 版中。
 

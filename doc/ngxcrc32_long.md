@@ -12,16 +12,6 @@ ngx.crc32_long
 
 这个方法最早出现在版本 `v0.3.1rc8` 中。
 
-```lua
-
- local args = ngx.decode_args(str, 0)
-```
-
-强烈不推荐移除 `max_args` 限制。
-
-这个方法最早出现在版本 `v0.5.0rc29` 中。
-
-
 > English Source
 
 **syntax:** *intval = ngx.crc32_short(str)*

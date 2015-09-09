@@ -68,8 +68,8 @@ Table of Contents
 Directives
 ==========
 
-* [lua_use_default_type 孙晓辉 2015.8.5](doc/lua-use-default-type.md)
-* [lua_code_cache 孙晓辉 2015.8.5](doc/lua-code-cache.md)
+* [lua_use_default_type hambut 2015.8.5](doc/lua-use-default-type.md)
+* [lua_code_cache hambut 2015.8.5](doc/lua-code-cache.md)
 * [lua_regex_cache_max_entries yuansheng-9.3](doc/lua_regex_cache_max_entries.md)
 * [lua_regex_match_limit yuansheng-9.3](doc/lua_regex_match_limit.md)
 * [lua_package_path yuansheng-9.4](doc/lua_package_path.md)
@@ -170,8 +170,8 @@ Nginx API for Lua
 * [ngx.decode_args lance-2015.8.18](doc/ngxdecode_args.md)
 * [ngx.encode_base64](#ngxencode_base64)
 * [ngx.decode_base64](#ngxdecode_base64)
-* [ngx.crc32_short](#ngxcrc32_short)
-* [ngx.crc32_long](#ngxcrc32_long)
+* [ngx.crc32_short hambut-2015.9.9](doc/ngxcrc32_short.md)
+* [ngx.crc32_long hambut-2015.9.9](doc/ngxcrc32_long.md)
 * [ngx.hmac_sha1](#ngxhmac_sha1)
 * [ngx.md5](#ngxmd5)
 * [ngx.md5_bin](#ngxmd5_bin)

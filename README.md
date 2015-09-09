@@ -172,7 +172,7 @@ Nginx API for Lua
 * [ngx.decode_base64](#ngxdecode_base64)
 * [ngx.crc32_short hambut-2015.9.9](doc/ngxcrc32_short.md)
 * [ngx.crc32_long hambut-2015.9.9](doc/ngxcrc32_long.md)
-* [ngx.hmac_sha1](#ngxhmac_sha1)
+* [ngx.hmac_sha1 hambut-2015.9.9](doc/ngxhmac_sha1.md)
 * [ngx.md5](#ngxmd5)
 * [ngx.md5_bin](#ngxmd5_bin)
 * [ngx.sha1_bin](#ngxsha1_bin)

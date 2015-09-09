@@ -4,10 +4,7 @@ ngx.hmac_sha1
 
 **环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Computes the [HMAC-SHA1](http://en.wikipedia.org/wiki/HMAC) digest of the argument `str` and turns the result using the secret key `<secret_key>`.
-
 通过 `str` 待运算数据和 `secret_key` 密钥串生成结果。关于[HMAC-SHA1](http://en.wikipedia.org/wiki/HMAC)。
-
 
 通过 `HMAC-SHA1` 的运算会得到二进制数据，如果你想要把结果转为文本形式，你可以使用 [ngx.encode_base64](ngxencode_base64.md) 函数。
 

@@ -33,6 +33,8 @@ ngx.hmac_sha1
 
 
 > English source:
+
+
 **syntax:** *digest = ngx.hmac_sha1(secret_key, str)*
 
 **context:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**

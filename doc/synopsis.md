@@ -1,10 +1,10 @@
 ## 使用摘要
 
 ```nginx
- # 设置纯Lua扩展库PATH(';;' is the default path):
+ # 设置纯Lua扩展库的搜寻路径(';;' 是默认路径):
  lua_package_path '/foo/bar/?.lua;/blah/?.lua;;';
 
- # 设置C扩展Lua模块，CPATH(can also use ';;'):
+ # 设置C编写的Lua扩展模块的搜寻路径(也可以用 ';;'):
  lua_package_cpath '/bar/baz/?.so;/blah/blah/?.so;;';
 
  server {

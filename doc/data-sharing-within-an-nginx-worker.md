@@ -1,4 +1,5 @@
 Nginx Worker内的数据共享
+========================
 
 在同一个nginx worker进程处理的所有请求中共享数据，需要将共享数据封装进一个Lua模块中，并使用Lua语言内置的`require` 方法加载该模块，之后就可以在 Lua 中操作共享数据了。这种方法之所以工作，是因为(在同一个nginx worker中)加载模块的操作仅被执行一次，所有的协程都会共享同一份拷贝(包括代码和数据)。但是请注意，Lua的全局变量(注意，不是模块级变量)将因为“每个请求一个协程”的隔离要求而不被保持。
 
@@ -102,3 +103,5 @@ If server-wide data sharing is required, then use one or more of the following a
 1. Use the [ngx.shared.DICT](#ngxshareddict) API provided by this module.
 1. Use only a single nginx worker and a single server (this is however not recommended when there is a multi core CPU or multiple CPUs in a single machine).
 1. Use data storage mechanisms such as `memcached`, `redis`, `MySQL` or `PostgreSQL`. [The ngx_openresty bundle](http://openresty.org) associated with this module comes with a set of companion Nginx modules and Lua libraries that provide interfaces with these data storage mechanisms.
+
+[返回目录](#nginx-api-for-lua)

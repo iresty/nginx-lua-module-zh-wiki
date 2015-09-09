@@ -134,7 +134,7 @@ Nginx API for Lua
 * [ngx.req.start_time lance-2015.9.9](doc/ngxreqstart_time.md)
 * [ngx.req.http_version lance-2015.9.9](doc/ngxreqhttp_version.md)
 * [ngx.req.raw_header lance-2015.9.9](doc/ngxreqraw_header.md)
-* [ngx.req.get_method](#ngxreqget_method)
+* [ngx.req.get_method lance-2015.9.9](doc/ngxreqget_method.md)
 * [ngx.req.set_method](#ngxreqset_method)
 * [ngx.req.set_uri](#ngxreqset_uri)
 * [ngx.req.set_uri_args](#ngxreqset_uri_args)

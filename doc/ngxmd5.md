@@ -4,7 +4,7 @@ ngx.md5
 
 **环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-通过计算 `str` 字符串返回十六进制的数据。
+通过 `MD5` 计算 `str` 字符串返回十六进制的数据。
 
 举一个例子,
 

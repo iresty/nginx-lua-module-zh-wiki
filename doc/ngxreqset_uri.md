@@ -151,7 +151,7 @@ A more sophisticated example involving regex substitutions is as follows
 
  location /test {
      rewrite_by_lua '
-         local uri = ngx.re.sub(ngx.var.uri, "^/test/(.*)", "$1", "o")
+         local uri = ngx.re.sub(ngx.var.uri, "^/test/(.*)", "/$1", "o")
          ngx.req.set_uri(uri)
      ';
      proxy_pass http://my_backend;

@@ -142,7 +142,7 @@ Nginx API for Lua
 * [ngx.req.get_post_args lance-2015.9.10](doc/ngxreqget_post_args.md)
 * [ngx.req.get_headers lance-2015.9.11](doc/ngxreqget_headers.md)
 * [ngx.req.set_header lance-2015.9.14](doc/ngxreqset_header.md)
-* [ngx.req.clear_header](#ngxreqclear_header)
+* [ngx.req.clear_header lance-2015.9.14](doc/ngxreqclear_header.md)
 * [ngx.req.read_body](#ngxreqread_body)
 * [ngx.req.discard_body](#ngxreqdiscard_body)
 * [ngx.req.get_body_data](#ngxreqget_body_data)

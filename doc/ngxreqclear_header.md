@@ -4,7 +4,7 @@ ngx.req.clear_header
 
 **环境:** *set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\*
 
-清除当前请求的名为 `header_name` 的请求头信息。已经存在子请求不受影响，此命令之后发起的新的子请求将默认继承修改后的头信息。
+清除当前请求的名为 `header_name` 的请求头信息。已经存在的子请求不受影响，此命令之后发起的子请求将默认继承修改后的头信息。
 
 
 > English Source

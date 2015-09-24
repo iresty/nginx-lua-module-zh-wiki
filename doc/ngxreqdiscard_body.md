@@ -12,7 +12,7 @@ ngx.req.discard_body
 
 这个函数在 `v0.3.1rc17`` 版本中首次引入。
 
-更多用法请参考 [ngx.req.read_body](#ngxreqread_body).
+更多用法请参考 [ngx.req.read_body](#ngxreqread_body)。
 
 
 > English Source

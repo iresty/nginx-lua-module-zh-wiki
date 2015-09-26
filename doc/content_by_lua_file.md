@@ -7,7 +7,7 @@ content_by_lua_file
 
 **阶段:** *content*
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[content_by_lua](#content_by_lua)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT bytecode](#lualuajit-bytecode-support)的执行
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[content_by_lua](#content_by_lua)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT bytecode](#lualuajit-bytecode-support)的执行。
 
 在`<path-to-lua-script-file>`中可以使用 Nginx 的内置变量用来提高灵活性，然而这带有一定的风险，通常并不推荐使用。
 

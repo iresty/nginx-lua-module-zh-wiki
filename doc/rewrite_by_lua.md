@@ -9,8 +9,7 @@ rewrite_by_lua
 
 作为一个重写阶段的处理程序，为每个请求执行由`<lua-script-str>`指定的 Lua 代码。
 
-The Lua code may make [API calls](#nginx-api-for-lua) and is executed as a new spawned coroutine in an independent global environment (i.e. a sandbox).
-<!-- waiting todo completely -->
+这些 Lua 代码可以调用[全部 API](#nginx-api-for-lua)，并作为一个新的协程，在一个独立的全局环境中执行（就像一个沙盒）。
 
 注意这个处理过程总是在标准[ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html)的 *后* 面。所以下面的示例可以按照预期执行：
 

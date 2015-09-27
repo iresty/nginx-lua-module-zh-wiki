@@ -9,7 +9,7 @@ access_by_lua
 
 扮演 access 阶段处理，对每次请求执行在`<lua-script-str>`中指名的 Lua 代码。
 
-这里的 Lua 代码可以使用 [API calls](#nginx-api-for-lua)，它们都是在一个独立的全局环境中新建的子协程中执行的（比如：沙盒）。
+这些 Lua 代码可以调用[全部 API](#nginx-api-for-lua)，并作为一个新的协程，在一个独立的全局环境中执行（就像一个沙盒）。
 
 注意：本指令的处理总是在标准[ngx_http_access_module](http://nginx.org/en/docs/http/ngx_http_access_module.html)的*后*面。所以下面的示例可以按照预期工作：
 

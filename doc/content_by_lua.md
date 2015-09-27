@@ -7,7 +7,8 @@ content_by_lua
 **阶段：** *content*
 
 作为"内容处理程序"，为每一个请求执行`<lua-script-str>`中指定的Lua代码。
-这些Lua代码可以调用[各种API](#nginx-api-for-lua)，并作为一个新的协程，在一个独立的全局环境中执行（就像一个沙盒）。
+
+这些 Lua 代码可以调用[全部 API](#nginx-api-for-lua)，并作为一个新的协程，在一个独立的全局环境中执行（就像一个沙盒）。
 
 不要将本指令和其他内容处理程序指令放到同一个location中。
 比如，本指令和[proxy_pass](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass)指令就不能在同一个location中使用。

@@ -8,7 +8,7 @@ set_by_lua
 **阶段:** *rewrite*
 
 使用可选的输入参数`$arg1 $arg2 ...`，执行指定的代码`<lua-script-str>`，并返回字符串结果到`$res`。
-Executes code specified in `<lua-script-str>` with optional input arguments `$arg1 $arg2 ...`, and returns string output to `$res`. 
+Executes code specified in `<lua-script-str>` with optional input arguments `$arg1 $arg2 ...`, and returns string output to `$res`.
 
 `<lua-script-str>`的代码可以做[API调用](#nginx-api-for-lua)，并能从`ngx.arg`表中获取输入参数（下标起始值是`1`并顺序增长）。
 
@@ -19,7 +19,7 @@ Executes code specified in `<lua-script-str>` with optional input arguments `$ar
 在`set_by_lua`的上下文中，至少下列API 函数目前是被禁止的：
 
 * 输出 API 函数 (例如 [ngx.say](#ngxsay) 和 [ngx.send_headers](#ngxsend_headers))
-* 控制 API 函数 (例如 [ngx.exit](#ngxexit)) 
+* 控制 API 函数 (例如 [ngx.exit](#ngxexit))
 * 子请求 API 函数 (例如 [ngx.location.capture](#ngxlocationcapture) 和 [ngx.location.capture_multi](#ngxlocationcapture_multi))
 * Cosocket API 函数 (例如 [ngx.socket.tcp](#ngxsockettcp) 和 [ngx.req.socket](#ngxreqsocket))
 * 休眠 API 函数 [ngx.sleep](#ngxsleep)
@@ -49,13 +49,11 @@ Executes code specified in `<lua-script-str>` with optional input arguments `$ar
 ```nginx
 
  set $foo 32;
- set_by_lua $bar 'tonumber(ngx.var.foo) + 1';
+ set_by_lua $bar 'return tonumber(ngx.var.foo) + 1';
  set $baz "bar: $bar";  # $baz == "bar: 33"
 ```
 
-自 `v0.5.0rc29` 版本开始，本指令的 `<lua-script-str>` 参数中不再解析 Nginx 变量，所以可以直接使用 $ 符号 (`$`)。
-As from the `v0.5.0rc29` release, Nginx variable interpolation is disabled in the `<lua-script-str>` argument of this directive and therefore, the dollar sign character (`$`) can be used directly. 
-<!-- todo 又是一段看不懂的文字 yuansheng, 中文翻译添加 lance -->
+自 `v0.5.0rc29` 版本开始，本指令的 `<lua-script-str>` 参数中不再支持内联 Nginx 变量，所以可以直接使用 $ 字符作为其字面值。
 
 这个指令需要[ngx_devel_kit](https://github.com/simpl/ngx_devel_kit)模块。
 
@@ -72,7 +70,7 @@ set_by_lua
 
 **phase:** *rewrite*
 
-Executes code specified in `<lua-script-str>` with optional input arguments `$arg1 $arg2 ...`, and returns string output to `$res`. 
+Executes code specified in `<lua-script-str>` with optional input arguments `$arg1 $arg2 ...`, and returns string output to `$res`.
 The code in `<lua-script-str>` can make [API calls](#nginx-api-for-lua) and can retrieve input arguments from the `ngx.arg` table (index starts from `1` and increases sequentially).
 
 This directive is designed to execute short, fast running code blocks as the Nginx event loop is blocked during code execution. Time consuming code sequences should therefore be avoided.
@@ -82,7 +80,7 @@ This directive is implemented by injecting custom commands into the standard [ng
 At least the following API functions are currently disabled within the context of `set_by_lua`:
 
 * Output API functions (e.g., [ngx.say](#ngxsay) and [ngx.send_headers](#ngxsend_headers))
-* Control API functions (e.g., [ngx.exit](#ngxexit)) 
+* Control API functions (e.g., [ngx.exit](#ngxexit))
 * Subrequest API functions (e.g., [ngx.location.capture](#ngxlocationcapture) and [ngx.location.capture_multi](#ngxlocationcapture_multi))
 * Cosocket API functions (e.g., [ngx.socket.tcp](#ngxsockettcp) and [ngx.req.socket](#ngxreqsocket)).
 * Sleeping API function [ngx.sleep](#ngxsleep).

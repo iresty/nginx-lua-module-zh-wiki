@@ -8,7 +8,7 @@ set_by_lua_file
 
 除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[set_by_lua](#set_by_lua)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT bytecode](#lualuajit-bytecode-support)的执行。
 
-对于该指令，对`<path-to-lua-script-file>`的字符串参数支持 Nginx 变量插值。但必须要额外注意注入攻击。
+对于该指令，对`<path-to-lua-script-file>`的字符串参数支持内联 Nginx 变量。但必须要额外注意注入攻击。
 
 当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 

@@ -15,7 +15,7 @@ content_by_lua_file
 
 当 Lua 代码缓存开启（默认），用户代码在第一次请求时完成加载（只有一次）并缓存，当 Lua 文件被修改时，每次都要对 Nginx 配置进行重新加载。Lua 代码缓存是可以暂时被禁用，通过开关[lua_code_cache](#lua_code_cache)在`nginx.conf`中设置为`off`，这样就可以避免反复重新加载 Nginx。
 
-动态调度文件路径是支持 Nginx 变量的，例如：
+支持通过 Nginx 变量完成动态调度文件路径，例如：
 
 ```nginx
 

@@ -13,6 +13,8 @@ lua_socket_connect_timeout
 
 这个指令最早出现在版本 `v0.5.0rc1` 中。
 
+[返回目录](#directives)
+
 > English source:
 
 lua_socket_connect_timeout
@@ -29,3 +31,5 @@ This directive controls the default timeout value used in TCP/unix-domain socket
 The `<time>` argument can be an integer, with an optional time unit, like `s` (second), `ms` (millisecond), `m` (minute). The default time unit is `s`, i.e., "second". The default setting is `60s`.
 
 This directive was first introduced in the `v0.5.0rc1` release.
+
+[Back to TOC](#directives)

@@ -13,7 +13,7 @@ body_filter_by_lua_file
 
 该指令是在`v0.5.0rc32`版本第一次引入。
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 > English source:
 

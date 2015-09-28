@@ -89,7 +89,7 @@ Directives
 * [header_filter_by_lua liujinxuan 2015.9.1](doc/header_filter_by_lua.md)
 * [header_filter_by_lua_file yuansheng-9.28](doc/header_filter_by_lua_file.md)
 * [body_filter_by_lua yuansheng-9.28](doc/body_filter_by_lua.md)
-* [body_filter_by_lua_file](#body_filter_by_lua_file)
+* [body_filter_by_lua_file yuansheng-9.28](doc/body_filter_by_lua_file.md)
 * [log_by_lua yuansheng-9.28](doc/log_by_lua.md)
 * [log_by_lua_file](#log_by_lua_file)
 * [lua_need_request_body yuansheng-9.28](doc/lua_need_request_body.md)

@@ -151,7 +151,7 @@ Nginx API for Lua
 * [ngx.req.set_body_file lance-2015.9.28](doc/ngxreqset_body_file.md)
 * [ngx.req.init_body lance-2015.9.28](doc/ngxreqinit_body.md)
 * [ngx.req.append_body lance-2015.9.28](doc/ngxreqappend_body.md)
-* [ngx.req.finish_body](#ngxreqfinish_body)
+* [ngx.req.finish_body lance-2015.9.28](doc/ngxreqfinish_body.md)
 * [ngx.req.socket](#ngxreqsocket)
 * [ngx.exec](#ngxexec)
 * [ngx.redirect](#ngxredirect)

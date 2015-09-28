@@ -92,7 +92,7 @@ Directives
 * [body_filter_by_lua_file](#body_filter_by_lua_file)
 * [log_by_lua yuansheng-9.28](doc/log_by_lua.md)
 * [log_by_lua_file](#log_by_lua_file)
-* [lua_need_request_body](#lua_need_request_body)
+* [lua_need_request_body yuansheng-9.28](doc/lua_need_request_body.md)
 * [lua_shared_dict lance-2015.8.20](doc/lua_shared_dict.md)
 * [lua_socket_connect_timeout](#lua_socket_connect_timeout)
 * [lua_socket_send_timeout](#lua_socket_send_timeout)

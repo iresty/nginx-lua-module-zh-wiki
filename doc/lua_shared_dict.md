@@ -3,13 +3,13 @@ lua_shared_dict
 
 **语法:** *lua_shared_dict &lt;name&gt; &lt;size&gt;*
 
-**默认值:** *no*
+**默认:** *no*
 
 **环境:** *http*
 
 **nginx执行阶段:** *depends on usage*
 
-声明一个共享内存区块 `<name>`，用来存储基于共享内存的 Lua 字典 `ngx.shared.<name>`.
+声明一个共享内存区块 `<name>`，用来存储基于共享内存的 Lua 字典 `ngx.shared.<name>`。
 
 在当前 Nginx 服务器实例中，共享内存区块被所有 nginx worker 进程共享。
 
@@ -25,7 +25,7 @@ lua_shared_dict
 
 更多细节请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-这个指令最早出现在版本 `v0.3.1rc22 中。
+这个指令最早出现在版本 `v0.3.1rc22` 中。
 
 
 > English Source

@@ -97,7 +97,7 @@ Directives
 * [lua_socket_connect_timeout yuansheng-9.28](doc/lua_socket_connect_timeout.md)
 * [lua_socket_send_timeout yuansheng-9.28](doc/lua_socket_send_timeout.md)
 * [lua_socket_send_lowat yuansheng-9.28](doc/lua_socket_send_lowat.md)
-* [lua_socket_read_timeout](#lua_socket_read_timeout)
+* [lua_socket_read_timeout yuansheng-9.28](doc/lua_socket_read_timeout.md)
 * [lua_socket_buffer_size](#lua_socket_buffer_size)
 * [lua_socket_pool_size](#lua_socket_pool_size)
 * [lua_socket_keepalive_timeout](#lua_socket_keepalive_timeout)

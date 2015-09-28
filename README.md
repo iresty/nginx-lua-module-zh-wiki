@@ -88,7 +88,7 @@ Directives
 * [access_by_lua_file](#access_by_lua_file)
 * [header_filter_by_lua liujinxuan 2015.9.1](doc/header_filter_by_lua.md)
 * [header_filter_by_lua_file](#header_filter_by_lua_file)
-* [body_filter_by_lua](#body_filter_by_lua)
+* [body_filter_by_lua yuansheng-9.28](doc/body_filter_by_lua.md)
 * [body_filter_by_lua_file](#body_filter_by_lua_file)
 * [log_by_lua](#log_by_lua)
 * [log_by_lua_file](#log_by_lua_file)

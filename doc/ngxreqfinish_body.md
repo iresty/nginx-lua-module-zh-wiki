@@ -4,7 +4,7 @@ ngx.req.finish_body
 
 **环境:** *set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
 
-结束新请求体构造过程，此请求体由 [ngx.req.init_body](#ngxreqinit_body) 和 [ngx.req.append_body](#ngxreqappend_body) 创建。
+结束新请求体构造过程，该请求体由 [ngx.req.init_body](#ngxreqinit_body) 和 [ngx.req.append_body](#ngxreqappend_body) 创建。
 
 此函数可以与 [ngx.req.init_body](#ngxreqinit_body)，[ngx.req.append_body](#ngxreqappend_body)，和 [ngx.req.socket](#ngxreqsocket) 一起，使用纯 Lua 语言实现高效的输入过滤器 (在 [rewrite_by_lua](#rewrite_by_lua)* 或 [access_by_lua](#access_by_lua)* 环境中)，与其他 Nginx 内容处理程序或上游模块例如 [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) 和 [ngx_http_fastcgi_module](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html) 配合使用。
 <!--todo content handler 翻译需要统一 -->

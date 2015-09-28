@@ -5,21 +5,21 @@ header_filter_by_lua
 
 **环境：** *http, server, location, location if*
 
-**nginx执行阶段：** *output-header-filter*
+**阶段：** *output-header-filter*
 
-用`<lua-script-str>`中的lua代码，来设置应答消息的头部信息。
+用`<lua-script-str>`中指名的lua代码，来完成应答消息头部的过滤。
 
-注意，下列的接口函数在这个执行阶段是失效的：
+注意，下列的接口函数在这个执行阶段是被禁用的：
 
-- 输出类函数（例：ngx.say和ngx.send_headers）
+- 输出类函数（例：ngx.say 和 ngx.send_headers）
 
-- 控制类函数（例：ngx.redirect和ngx.exec）
+- 控制类函数（例：ngx.redirect 和 ngx.exec）
 
 - 子请求相关函数（例：ngx.location.capture和ngx.location.capture_multi）
 
-- 套接字类函数（例：ngx.socket.tcp和ngx.req.socket）
+- 异步套接字类函数（例：ngx.socket.tcp 和 ngx.req.socket）
 
-下面这个例子展示的是，在header_filter_by_lua阶段中,会将应答消息头部中的某个的字段覆盖掉（如果没有这个字段，则是将其添加进头部）
+这里有个使用 Lua 过滤完成覆盖应答头的例子（如果没有则添加）：
 
 ```nginx
 
@@ -30,7 +30,7 @@ header_filter_by_lua
 
 ```
 
-这个指令最早出现在版本 `v0.2.1rc20` 中。
+该指令在版本 `v0.2.1rc20` 中第一次引入。
 
 [返回目录](#directives)
 

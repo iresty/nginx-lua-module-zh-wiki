@@ -100,7 +100,7 @@ Directives
 * [lua_socket_read_timeout yuansheng-9.28](doc/lua_socket_read_timeout.md)
 * [lua_socket_buffer_size yuansheng-9.28](doc/lua_socket_buffer_size.md)
 * [lua_socket_pool_size yuansheng-9.28](doc/lua_socket_pool_size.md)
-* [lua_socket_keepalive_timeout](#lua_socket_keepalive_timeout)
+* [lua_socket_keepalive_timeout yuansheng-9.28](doc/lua_socket_keepalive_timeout.md)
 * [lua_socket_log_errors](#lua_socket_log_errors)
 * [lua_ssl_ciphers](#lua_ssl_ciphers)
 * [lua_ssl_crl](#lua_ssl_crl)

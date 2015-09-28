@@ -1,18 +1,22 @@
 body_filter_by_lua
 ------------------
 
-**syntax:** *body_filter_by_lua &lt;lua-script-str&gt;*
+**语法:** *body_filter_by_lua &lt;lua-script-str&gt;*
 
-**context:** *http, server, location, location if*
+**环境:** *http, server, location, location if*
 
-**phase:** *output-body-filter*
+**阶段:** *output-body-filter*
 
+使用`<lua-script-str>`指定的 Lua 代码定义一个输出应答体过滤。
 Uses Lua code specified in `<lua-script-str>` to define an output body filter.
 
+输入数据块是 [ngx.arg](#ngxarg)\[1\]（Lua的字符串形式）,结束标识"eof"是应答体数据最后一位[ngx.arg](#ngxarg)\[2\]（Lua的布尔值形式）。
 The input data chunk is passed via [ngx.arg](#ngxarg)\[1\] (as a Lua string value) and the "eof" flag indicating the end of the response body data stream is passed via [ngx.arg](#ngxarg)\[2\] (as a Lua boolean value).
 
+在这个场景下，结束标识"eof"仅仅是 Nginx chain 缓冲区的`last_buf`（主请求）或`last_in_chain`（子请求）。（在`v0.7.14`版本之前，结束标识"eof"在子请求中是完全不能使用的。）
 Behind the scene, the "eof" flag is just the `last_buf` (for main requests) or `last_in_chain` (for subrequests) flag of the Nginx chain link buffers. (Before the `v0.7.14` release, the "eof" flag does not work at all in subrequests.)
 
+使用下面 Lua 代码，可以对输出数据流立即终止：
 The output data stream can be aborted immediately by running the following Lua statement:
 
 ```lua
@@ -20,7 +24,10 @@ The output data stream can be aborted immediately by running the following Lua s
  return ngx.ERROR
 ```
 
+这样截断响应体，通常导致结果不完整的，也是无效的响应。
 This will truncate the response body and usually result in incomplete and also invalid responses.
+
+这里的 Lua 代码可以使用 Lua 字符串或字符串的表重写[ngx.arg](#ngxarg)\[1\]输入数据块内容，从而完成 Nginx 输出体下游过滤数据修改。例如，在输出体转换所有的小写字母，位门可以这样写：
 
 The Lua code can pass its own modified version of the input data chunk to the downstream Nginx output body filters by overriding [ngx.arg](#ngxarg)\[1\] with a Lua string or a Lua table of strings. For example, to transform all the lowercase letters in the response body, we can just write:
 
@@ -32,8 +39,10 @@ The Lua code can pass its own modified version of the input data chunk to the do
  }
 ```
 
+当设置`nil`或一个空的 Lua 字符串值给`ngx.arg[1]`，将没有任何数据块下发到 Nginx 下游。
 When setting `nil` or an empty Lua string value to `ngx.arg[1]`, no data chunk will be passed to the downstream Nginx output filters at all.
 
+同样，新的结束标识"eof"也可以通过对[ngx.arg](#ngxarg)\[2\]设定一个布尔值。例如：
 Likewise, new "eof" flag can also be specified by setting a boolean value to [ngx.arg](#ngxarg)\[2\]. For example,
 
 ```nginx
@@ -55,12 +64,12 @@ Likewise, new "eof" flag can also be specified by setting a boolean value to [ng
  }
 ```
 
+然后 `GET /t` 将返回下面的结果：
 Then `GET /t` will just return the output
-
 
     hello world
 
-
+就是说，当应答体过滤发现一个块包含关键字"hello"，它将立即设置结束标识"eof"为 true ，结果被截断尽管后面还有有效的应答数据。
 That is, when the body filter sees a chunk containing the word "hello", then it will set the "eof" flag to true immediately, resulting in truncated but still valid responses.
 
 When the Lua code may change the length of the response body, then it is required to always clear out the `Content-Length` response header (if any) in a header filter to enforce streaming output, as in

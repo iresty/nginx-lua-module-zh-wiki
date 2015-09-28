@@ -4,7 +4,7 @@ ngx.req.init_body
 
 **环境:** *set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
 
-为当前请求创建一个新的空请求体并初始化缓存，为后续通过 [ngx.req.append_body](#ngxreqappend_body) 和 [ngx.req.finish_body](#ngxreqfinish_body) API 写请求体数据做好准备。
+为当前请求创建一个新的空请求体并初始化缓冲区，为后续通过 [ngx.req.append_body](#ngxreqappend_body) 和 [ngx.req.finish_body](#ngxreqfinish_body) API 写请求体数据做好准备。
 
 如果设置了 `buffer_size` 参数，将设置该大小的内存缓冲区，用于后续的 [ngx.req.append_body](#ngxreqappend_body) 写请求体数据。如果省略此参数，将使用 Nginx 标准指令 [client_body_buffer_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size) 中设置的值作为缓冲区大小。
 

@@ -95,7 +95,7 @@ Directives
 * [lua_need_request_body yuansheng-9.28](doc/lua_need_request_body.md)
 * [lua_shared_dict lance-2015.8.20](doc/lua_shared_dict.md)
 * [lua_socket_connect_timeout yuansheng-9.28](doc/lua_socket_connect_timeout.md)
-* [lua_socket_send_timeout](#lua_socket_send_timeout)
+* [lua_socket_send_timeout yuansheng-9.28](doc/lua_socket_send_timeout.md)
 * [lua_socket_send_lowat](#lua_socket_send_lowat)
 * [lua_socket_read_timeout](#lua_socket_read_timeout)
 * [lua_socket_buffer_size](#lua_socket_buffer_size)

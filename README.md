@@ -106,7 +106,7 @@ Directives
 * [lua_ssl_crl yuansheng-9.29](doc/lua_ssl_crl.md)
 * [lua_ssl_protocols yuansheng-9.29](doc/lua_ssl_protocols.md)
 * [lua_ssl_trusted_certificate yuansheng-9.29](doc/lua_ssl_trusted_certificate.md)
-* [lua_ssl_verify_depth](#lua_ssl_verify_depth)
+* [lua_ssl_verify_depth yuansheng-9.29](doc/lua_ssl_verify_depth.md)
 * [lua_http10_buffering](#lua_http10_buffering)
 * [rewrite_by_lua_no_postpone](#rewrite_by_lua_no_postpone)
 * [lua_transform_underscores_in_response_headers](#lua_transform_underscores_in_response_headers)

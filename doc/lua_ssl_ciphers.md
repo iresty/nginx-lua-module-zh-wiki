@@ -7,7 +7,7 @@ lua_ssl_ciphers
 
 **环境:** *http, server, location*
 
-指定 SSL/TLS 服务请求中 [tcpsock:sslhandshake](#tcpsocksslhandshake) 方法的加密方式。 其中参数 ciphers 是 OpenSSL 库里面指定的格式。
+指定在[tcpsock:sslhandshake](#tcpsocksslhandshake) 方法中请求 SSL/TLS 服务 的加密方式。 其中参数 ciphers 是 OpenSSL 库里面指定的格式。
 
 可以使用 “openssl ciphers” 来查看完整的加密方式列表。
 

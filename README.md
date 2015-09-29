@@ -102,7 +102,7 @@ Directives
 * [lua_socket_pool_size yuansheng-9.28](doc/lua_socket_pool_size.md)
 * [lua_socket_keepalive_timeout yuansheng-9.28](doc/lua_socket_keepalive_timeout.md)
 * [lua_socket_log_errors yuansheng-9.28](doc/lua_socket_log_errors.md)
-* [lua_ssl_ciphers](#lua_ssl_ciphers)
+* [lua_ssl_ciphers yuansheng-9.28](doc/lua_ssl_ciphers.md)
 * [lua_ssl_crl](#lua_ssl_crl)
 * [lua_ssl_protocols](#lua_ssl_protocols)
 * [lua_ssl_trusted_certificate](#lua_ssl_trusted_certificate)

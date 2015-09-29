@@ -109,7 +109,7 @@ Directives
 * [lua_ssl_verify_depth yuansheng-9.29](doc/lua_ssl_verify_depth.md)
 * [lua_http10_buffering yuansheng-9.29](doc/lua_http10_buffering.md)
 * [rewrite_by_lua_no_postpone yuansheng-9.29](doc/rewrite_by_lua_no_postpone.md)
-* [lua_transform_underscores_in_response_headers](#lua_transform_underscores_in_response_headers)
+* [lua_transform_underscores_in_response_headers yuansheng-9.29](doc/lua_transform_underscores_in_response_headers.md)
 * [lua_check_client_abort](#lua_check_client_abort)
 * [lua_max_pending_timers](#lua_max_pending_timers)
 * [lua_max_running_timers](#lua_max_running_timers)

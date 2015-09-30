@@ -8,9 +8,9 @@ coroutine.create
 
 类似标准的 Lua [coroutine.create](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.create) API，但它是在 ngx_lua 创建的 Lua 协程环境中运行。
 
-这个 API 在 [init_by_lua*](#init_by_lua) 的环境中可用，是从 `0.9.2` 开始的。
+该 API 在 [init_by_lua*](#init_by_lua) 的环境中可用，是从 `0.9.2` 开始的。
 
-这个 API 在`v0.6.0`版本首次引入。
+该 API 在`v0.6.0`版本首次引入。
 
 [返回目录](#nginx-api-for-lua)
 

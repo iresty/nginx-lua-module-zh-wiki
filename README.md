@@ -239,7 +239,7 @@ Nginx API for Lua
 * [ndk.set_var.DIRECTIVE yuansheng-9.30](doc/ndkset_vardirective.md)
 * [coroutine.create yuansheng-9.30](doc/coroutinecreate.md)
 * [coroutine.resume yuansheng-9.30](doc/coroutineresume.md)
-* [coroutine.yield](#coroutineyield)
+* [coroutine.yield yuansheng-9.30](doc/coroutineyield.md)
 * [coroutine.wrap](#coroutinewrap)
 * [coroutine.running](#coroutinerunning)
 * [coroutine.status](#coroutinestatus)

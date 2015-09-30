@@ -229,7 +229,7 @@ Nginx API for Lua
 * [ngx.thread.kill](#ngxthreadkill)
 * [ngx.on_abort](#ngxon_abort)
 * [ngx.timer.at](#ngxtimerat)
-* [ngx.config.debug](#ngxconfigdebug)
+* [ngx.config.debug yuansheng-9.30](doc/ngxconfigdebug.md)
 * [ngx.config.prefix yuansheng-9.30](doc/ngxconfigprefix.md)
 * [ngx.config.nginx_version yuansheng-9.30](doc/ngxconfignginx_version.md)
 * [ngx.config.nginx_configure yuansheng-9.30](doc/ngxconfignginx_configure.md)

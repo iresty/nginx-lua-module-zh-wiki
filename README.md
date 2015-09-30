@@ -233,7 +233,7 @@ Nginx API for Lua
 * [ngx.config.prefix](#ngxconfigprefix)
 * [ngx.config.nginx_version](#ngxconfignginx_version)
 * [ngx.config.nginx_configure](#ngxconfignginx_configure)
-* [ngx.config.ngx_lua_version](#ngxconfigngx_lua_version)
+* [ngx.config.ngx_lua_version yuansheng-9.30](doc/ngxconfigngx_lua_version.md)
 * [ngx.worker.exiting yuansheng-9.30](doc/ngxworkerexiting.md)
 * [ngx.worker.pid yuansheng-9.30](doc/ngxworkerpid.md)
 * [ndk.set_var.DIRECTIVE yuansheng-9.30](doc/ndkset_vardirective.md)

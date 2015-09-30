@@ -236,7 +236,7 @@ Nginx API for Lua
 * [ngx.config.ngx_lua_version](#ngxconfigngx_lua_version)
 * [ngx.worker.exiting](#ngxworkerexiting)
 * [ngx.worker.pid](#ngxworkerpid)
-* [ndk.set_var.DIRECTIVE](#ndkset_vardirective)
+* [ndk.set_var.DIRECTIVE yuansheng-9.30](doc/ndkset_vardirective.md)
 * [coroutine.create](#coroutinecreate)
 * [coroutine.resume](#coroutineresume)
 * [coroutine.yield](#coroutineyield)

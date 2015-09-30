@@ -240,6 +240,6 @@ Nginx API for Lua
 * [coroutine.create yuansheng-9.30](doc/coroutinecreate.md)
 * [coroutine.resume yuansheng-9.30](doc/coroutineresume.md)
 * [coroutine.yield yuansheng-9.30](doc/coroutineyield.md)
-* [coroutine.wrap](#coroutinewrap)
+* [coroutine.wrap yuansheng-9.30](doc/coroutinewrap.md)
 * [coroutine.running](#coroutinerunning)
 * [coroutine.status](#coroutinestatus)

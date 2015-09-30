@@ -230,7 +230,7 @@ Nginx API for Lua
 * [ngx.on_abort](#ngxon_abort)
 * [ngx.timer.at](#ngxtimerat)
 * [ngx.config.debug](#ngxconfigdebug)
-* [ngx.config.prefix](#ngxconfigprefix)
+* [ngx.config.prefix yuansheng-9.30](doc/ngxconfigprefix.md)
 * [ngx.config.nginx_version yuansheng-9.30](doc/ngxconfignginx_version.md)
 * [ngx.config.nginx_configure yuansheng-9.30](doc/ngxconfignginx_configure.md)
 * [ngx.config.ngx_lua_version yuansheng-9.30](doc/ngxconfigngx_lua_version.md)

@@ -225,7 +225,7 @@ Nginx API for Lua
 * [ngx.socket.connect](#ngxsocketconnect)
 * [ngx.get_phase](#ngxget_phase)
 * [ngx.thread.spawn yuansheng-10.2](doc/ngxthreadspawn.md)
-* [ngx.thread.wait](#ngxthreadwait)
+* [ngx.thread.wait yuansheng-10.4](doc/ngxthreadwait.md)
 * [ngx.thread.kill](#ngxthreadkill)
 * [ngx.on_abort yuansheng-10.2](doc/ngxon_abort.md)
 * [ngx.timer.at yuansheng-10.1](doc/ngxtimerat.md)

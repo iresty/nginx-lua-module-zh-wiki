@@ -223,7 +223,7 @@ Nginx API for Lua
 * [tcpsock:setkeepalive](#tcpsocksetkeepalive)
 * [tcpsock:getreusedtimes](#tcpsockgetreusedtimes)
 * [ngx.socket.connect](#ngxsocketconnect)
-* [ngx.get_phase](#ngxget_phase)
+* [ngx.get_phase yuansheng-10.2](doc/ngxget_phase.md)
 * [ngx.thread.spawn yuansheng-10.2](doc/ngxthreadspawn.md)
 * [ngx.thread.wait yuansheng-10.4](doc/ngxthreadwait.md)
 * [ngx.thread.kill yuansheng-10.4](doc/ngxthreadkill.md)

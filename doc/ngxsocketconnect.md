@@ -21,7 +21,6 @@ ngx.socket.connect
 这里没办法使用 [settimeout](#tcpsocksettimeout) 方法来指定连接时间，只能通过指令 [lua_socket_connect_timeout](#lua_socket_connect_timeout) 预先配置作为替代方案。
 
 该特性是在 `v0.5.0rc1` 版本首次引入的。
-This feature was first introduced in the `v0.5.0rc1` release.
 
 [返回目录](#nginx-api-for-lua)
 

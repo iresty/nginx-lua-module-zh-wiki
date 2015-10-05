@@ -7,7 +7,7 @@ lua_socket_send_timeout
 
 **环境:** *http, server, location*
 
-该指令控制 TCP/unix-domain 套接字对象的[send](#tcpsocksend)方法默认超时时间，这个值可以被[settimeout](#tcpsocksettimeout)方法覆盖。
+该指令控制 TCP/unix-domain socket 对象的[send](#tcpsocksend)方法默认超时时间，这个值可以被[settimeout](#tcpsocksettimeout)方法覆盖。
 
 `<time>`参数可以是整数，后面可以跟着像`s` (秒), `ms` (毫秒), `m` (分钟)的单位可选项。 默认的时间单位是`s`，也就是"秒"。默认值是`60s`。
 

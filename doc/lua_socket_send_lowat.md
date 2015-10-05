@@ -7,8 +7,7 @@ lua_socket_send_lowat
 
 **环境:** *http, server, location*
 
-控制异步socket发送缓冲区 `lowat`（低水位）的值。
-Controls the `lowat` (low water) value for the cosocket send buffer.
+控制 cosocket 发送缓冲区 `lowat`（低水位）的值。
 
 [返回目录](#directives)
 

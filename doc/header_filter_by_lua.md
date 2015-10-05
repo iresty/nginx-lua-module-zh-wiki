@@ -17,7 +17,7 @@ header_filter_by_lua
 
 - 子请求相关函数（例：ngx.location.capture和ngx.location.capture_multi）
 
-- 异步套接字类函数（例：ngx.socket.tcp 和 ngx.req.socket）
+- cosocket 类函数（例：ngx.socket.tcp 和 ngx.req.socket）
 
 这里有个使用 Lua 过滤完成覆盖应答头的例子（如果没有则添加）：
 

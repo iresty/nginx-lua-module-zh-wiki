@@ -12,16 +12,16 @@ ngx.thread.spawn
 
 `ngx.thread.spawn` 返回后，新创建的“轻线程”将开始异步方式在各个 I/O 事件上执行。
 
-在 [rewrite_by_lua](#rewrite_by_lua)、[access_by_lua](#access_by_lua) 中的 Lua 代码块是在 ngx_lua 自动创建的“轻线程”样板执行的。这类样板的“轻线程”也被称为“进入线程”。
+在 [rewrite_by_lua](#rewrite_by_lua)、[access_by_lua](#access_by_lua) 中的 Lua 代码块是在 ngx_lua 自动创建的“轻线程”样板执行的。这类样板的“轻线程”也被称为“入口线程”。
 
 默认的，相应的 Nginx 处理部分（例如 [rewrite_by_lua](#rewrite_by_lua) 部分）将不会终止，直到：
 By default, the corresponding Nginx handler (e.g., [rewrite_by_lua](#rewrite_by_lua) handler) will not terminate until
 
-1. “进入线程”和用户所有的“轻线程”都终止了
-1. 一个“轻线程”（无论“进入线程”或用户“轻线程”），由于调用 [ngx.exit](#ngxexit)、 [ngx.exec](#ngxexec)、 [ngx.redirect](#ngxredirect)、 [ngx.req.set_uri(uri, true)](#ngxreqset_uri) 中止执行
-1. “进入线程” 因为 Lua 错误的终止
+1. “入口线程”和用户所有的“轻线程”都终止了
+1. 一个“轻线程”（无论“入口线程”或用户“轻线程”），由于调用 [ngx.exit](#ngxexit)、 [ngx.exec](#ngxexec)、 [ngx.redirect](#ngxredirect)、 [ngx.req.set_uri(uri, true)](#ngxreqset_uri) 中止执行
+1. “入口线程” 因为 Lua 错误的终止
 
-当用户"轻线程"因为 Lua 错误而中止，无论如何，它将不会中止其他运行的“轻线程”，就像“进入线程”一样。
+当用户"轻线程"因为 Lua 错误而中止，无论如何，它将不会中止其他运行的“轻线程”，就像“入口线程”一样。
 
 归咎于 Nginx 子请求模型的限制，一般来说终止一个正在运行的 Nginx 子请求是不被允许的。挂起在一个或多个 Nginx 子请求结果的“轻线程”，也是禁止终止的。你必须调用 [ngx.thread.wait](#ngxthreadwait) 等待这些“轻线程”退出这个“世界”。这里有个非正式异常办法，你可以调用 [ngx.exit](#ngxexit) 完成挂起子请求的终止，可以使用的状态码有：`ngx.ERROR` (-1)， `408`， `444`， 或 `499`。
 

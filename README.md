@@ -219,7 +219,7 @@ Nginx API for Lua
 * [tcpsock:receiveuntil](#tcpsockreceiveuntil)
 * [tcpsock:close](#tcpsockclose)
 * [tcpsock:settimeout](#tcpsocksettimeout)
-* [tcpsock:setoption](#tcpsocksetoption)
+* [tcpsock:setoption yuansheng-10.5](doc/tcpsocksetoption.md)
 * [tcpsock:setkeepalive yuansheng-10.5](doc/tcpsocksetkeepalive.md)
 * [tcpsock:getreusedtimes yuansheng-10.5](doc/tcpsockgetreusedtimes.md)
 * [ngx.socket.connect yuansheng-10.4](doc/ngxsocketconnect.md)

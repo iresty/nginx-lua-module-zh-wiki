@@ -213,7 +213,7 @@ Nginx API for Lua
 * [udpsock:settimeout](#udpsocksettimeout)
 * [ngx.socket.tcp](#ngxsockettcp)
 * [tcpsock:connect](#tcpsockconnect)
-* [tcpsock:sslhandshake](#tcpsocksslhandshake)
+* [tcpsock:sslhandshake yuansheng-10.7](doc/tcpsocksslhandshake.md)
 * [tcpsock:send yuansheng-10.7](doc/tcpsocksend.md)
 * [tcpsock:receive yuansheng-10.5](doc/tcpsockreceive.md)
 * [tcpsock:receiveuntil yuansheng-10.5](doc/tcpsockreceiveuntil.md)

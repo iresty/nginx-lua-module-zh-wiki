@@ -22,7 +22,7 @@ tcpsock:receive
 
 如果没有参数指定，它将被假定为规则 `'*l'` ，也就是说，使用按行读取的规则。
 
-读操作超时控制，是由 [lua_socket_read_timeout](#lua_socket_read_timeout) 指令配置和 [settimeout](#tcpsocksettimeout) 方法设置的。而后者有更高的优先级，例如：
+读操作超时控制，是由 [lua_socket_read_timeout](#lua_socket_read_timeout) 配置指令和 [settimeout](#tcpsocksettimeout) 方法设置的。而后者有更高的优先级，例如：
 
 ```lua
 
@@ -36,7 +36,7 @@ tcpsock:receive
 ```
 
 
-调用这个方法 *之前* 调用 [settimeout](#tcpsocksettimeout) 方法设置超时时间，在这里是非常重要的。
+调用这个方法 *之前* 调用 [settimeout](#tcpsocksettimeout) 方法设置超时时间，是非常重要的。
 
 自从 `v0.8.8` 版本，当出现读取超时错误时，该方法不再自动关闭当前连接。对于其他连接错误，该方法总是会自动关闭连接。
 

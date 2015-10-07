@@ -214,7 +214,7 @@ Nginx API for Lua
 * [ngx.socket.tcp](#ngxsockettcp)
 * [tcpsock:connect](#tcpsockconnect)
 * [tcpsock:sslhandshake](#tcpsocksslhandshake)
-* [tcpsock:send](#tcpsocksend)
+* [tcpsock:send yuansheng-10.7](doc/tcpsocksend.md)
 * [tcpsock:receive yuansheng-10.5](doc/tcpsockreceive.md)
 * [tcpsock:receiveuntil yuansheng-10.5](doc/tcpsockreceiveuntil.md)
 * [tcpsock:close yuansheng-10.5](doc/tcpsockclose.md)

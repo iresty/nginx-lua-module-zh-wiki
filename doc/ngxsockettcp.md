@@ -5,7 +5,7 @@ ngx.socket.tcp
 
 **内容:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-创建并得到一个 TCP 或流式 unix domain socket 对象（也被称为 "cosocket" 对象的一种类型）。该对象支持下面这些方法：
+创建并得到一个 TCP 或 unix 域流式 socket 对象（也被称为 "cosocket" 对象的一种类型）。该对象支持下面这些方法：
 
 * [connect](#tcpsockconnect)
 * [sslhandshake](#tcpsocksslhandshake)

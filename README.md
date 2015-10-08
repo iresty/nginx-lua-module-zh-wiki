@@ -205,7 +205,7 @@ Nginx API for Lua
 * [ngx.shared.DICT.flush_all lance-2015.8.10](doc/ngxshareddictflush_all.md)
 * [ngx.shared.DICT.flush_expired lance-2015.8.10](doc/ngxshareddictflush_expired.md)
 * [ngx.shared.DICT.get_keys lance-2015.8.10](doc/ngxshareddictget_keys.md)
-* [ngx.socket.udp](#ngxsocketudp)
+* [ngx.socket.udp yuansheng-10.8](doc/ngxsocketudp.md)
 * [udpsock:setpeername yuansheng-10.8](doc/udpsocksetpeername.md)
 * [udpsock:send yuansheng-10.8](doc/udpsocksend.md)
 * [udpsock:receive yuansheng-10.8](doc/udpsockreceive.md)

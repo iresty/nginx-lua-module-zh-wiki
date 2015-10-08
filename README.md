@@ -208,7 +208,7 @@ Nginx API for Lua
 * [ngx.socket.udp](#ngxsocketudp)
 * [udpsock:setpeername](#udpsocksetpeername)
 * [udpsock:send](#udpsocksend)
-* [udpsock:receive](#udpsockreceive)
+* [udpsock:receive yuansheng-10.8](doc/udpsockreceive.md)
 * [udpsock:close yuansheng-10.8](doc/udpsockclose.md)
 * [udpsock:settimeout yuansheng-10.8](doc/udpsocksettimeout.md)
 * [ngx.socket.tcp yuansheng-10.7](doc/ngxsockettcp.md)

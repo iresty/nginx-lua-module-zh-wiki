@@ -209,7 +209,7 @@ Nginx API for Lua
 * [udpsock:setpeername](#udpsocksetpeername)
 * [udpsock:send](#udpsocksend)
 * [udpsock:receive](#udpsockreceive)
-* [udpsock:close](#udpsockclose)
+* [udpsock:close yuansheng-10.8](doc/udpsockclose.md)
 * [udpsock:settimeout yuansheng-10.8](doc/udpsocksettimeout.md)
 * [ngx.socket.tcp yuansheng-10.7](doc/ngxsockettcp.md)
 * [tcpsock:connect yuansheng-10.7](doc/tcpsockconnect.md)

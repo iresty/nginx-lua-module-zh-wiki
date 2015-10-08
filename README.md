@@ -207,7 +207,7 @@ Nginx API for Lua
 * [ngx.shared.DICT.get_keys lance-2015.8.10](doc/ngxshareddictget_keys.md)
 * [ngx.socket.udp](#ngxsocketudp)
 * [udpsock:setpeername](#udpsocksetpeername)
-* [udpsock:send](#udpsocksend)
+* [udpsock:send yuansheng-10.8](doc/udpsocksend.md)
 * [udpsock:receive yuansheng-10.8](doc/udpsockreceive.md)
 * [udpsock:close yuansheng-10.8](doc/udpsockclose.md)
 * [udpsock:settimeout yuansheng-10.8](doc/udpsocksettimeout.md)

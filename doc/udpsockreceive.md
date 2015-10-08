@@ -5,7 +5,7 @@ udpsock:receive
 
 **环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-使用一个可选的接收缓冲区大小参数 `size` ，从 UDP 或 unix 数据报 socket 对象中读取数据。
+使用一个可选的接收缓冲区大小参数 `size` ，从 UDP 或 unix 域数据报 socket 对象中读取数据。
 
 该方法是异步操作并且 100% 非阻塞。
 

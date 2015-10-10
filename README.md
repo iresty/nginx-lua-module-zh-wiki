@@ -185,7 +185,7 @@ Nginx API for Lua
 * [ngx.utctime bells-2015.8.22](doc/ngxutctime.md)
 * [ngx.cookie_time](#ngxcookie_time)
 * [ngx.http_time](#ngxhttp_time)
-* [ngx.parse_http_time](#ngxparse_http_time)
+* [ngx.parse_http_time yuansheng-10.10](doc/ngxparse_http_time.md)
 * [ngx.is_subrequest yuansheng-10.8](doc/ngxis_subrequest.md)
 * [ngx.re.match lance-2015.8.6](doc/ngxrematch.md)
 * [ngx.re.find lance-2015.8.6](doc/ngxrefind.md)

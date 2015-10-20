@@ -63,7 +63,7 @@
           content_by_lua 'ngx.print(ngx.var.request_body)';
      }
 
-     # 在子查询中直接发起非阻塞 IO 调用
+     # 在子请求中直接发起非阻塞 IO 调用
      location /lua {
          # 通过default_type设置默认的MIME type：
          default_type 'text/plain';

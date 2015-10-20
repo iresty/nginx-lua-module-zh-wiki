@@ -1,9 +1,9 @@
 
 udpsock:close
 -------------
-**syntax:** *ok, err = udpsock:close()*
+**语法:** *ok, err = udpsock:close()*
 
-**context:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
 关闭当前 UDP 或 unix 域数据报 socket 。成功情况返回 `1` ，反之错误情况返回 `nil` 和 错误描述信息。
 Closes the current UDP or datagram unix domain socket. It returns the `1` in case of success and returns `nil` with a string describing the error otherwise.

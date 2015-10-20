@@ -1,8 +1,8 @@
 ngx.encode_base64
 -----------------
-**syntax:** *newstr = ngx.encode_base64(str, no_padding?)*
+**语法:** *newstr = ngx.encode_base64(str, no_padding?)*
 
-**context:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
 通过 `base64` 对 `str` 字符串编码。
 

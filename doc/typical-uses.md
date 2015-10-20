@@ -3,19 +3,19 @@
 
 列举部分：
 
-* 在lua中混合处理不同nginx模块输出（proxy, drizzle, postgres, redis, memcached等）
-* 在请求真正到达上游服务之前，lua中处理复杂的准入控制和安全检查
-* 比较随意的控制应答头（通过Lua）
+* 在 lua 中混合处理不同 nginx 模块输出（proxy, drizzle, postgres, redis, memcached等）
+* 在请求真正到达上游服务之前， lua 中处理复杂的准入控制和安全检查
+* 可以以任意的方式控制应答头（通过 Lua）
 * 从外部存储中获取后端信息，并用这些信息来实时选择哪一个后端来完成业务访问
-* 在内容handler中随意编写复杂的web应用，同步编写异步访问后端数据库和其他存储
-* 在rewrite阶段，通过Lua完成非常复杂的处理
-* 在Nginx子查询、location调用中，通过Lua实现高级缓存机制
+* 在内容 handler 中随意编写复杂的web应用，同步编写异步访问后端数据库和其他存储
+* 在 rewrite 阶段，通过 Lua 完成非常复杂的处理
+* 在 Nginx 子请求、location调用中，通过Lua实现高级缓存机制
 
-对外暴露强劲的Lua语言，允许使用各种Nginx模块，自由拼合没有任何限制。该模块的脚本有充分的灵活性，同时提供的性能水平与本地C语言程序无论是在CPU时间方面以及内存占用差距非常小。所有这些都要求LuaJIT 2.x是启用的。
+对外暴露强劲的Lua语言，允许使用各种 Nginx 模块，自由拼合没有任何限制。该模块的脚本有充分的灵活性，同时提供的性能水平与原生C语言程序无论是在 CPU 时间方面以及内存占用差距非常小。所有这些都要求 LuaJIT 2.x 是启用的。
 
-其他脚本语言实现通常很难满足这一性能水平。
+其他脚本语言的实现通常很难达到与其相称的性能。
 
-Lua state（Lua VM instance）会被共享给单个nginx worker内所有的请求，从而达到最小化内存消耗。
+Lua state（Lua VM instance）会被共享给单个 nginx worker 内所有的请求，从而达到最小化内存消耗。
 
 [返回目录](#table-of-contents)
 

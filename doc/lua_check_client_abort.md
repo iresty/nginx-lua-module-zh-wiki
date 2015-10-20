@@ -13,7 +13,7 @@ lua_check_client_abort
 
 根据目前实现，无论如何，如果请求正在通过 [ngx.req.socket](#ngxreqsocket) 读取请求体，在它之前客户连接发生关闭，ngx_lua 将不会停止任何正在执行的“轻线程”也不会调用用户的回调（尽管已经调用 [ngx.on_abort](#ngxon_abort) ）。作为替代，使用 [ngx.req.socket](#ngxreqsocket) 的读操作第二个参数将直接返回错误信息 “client aborted” 作为返回值（第一个返回值确定是`nil`）。
 
-当 TCP 长连接被禁用，它依靠客户端关闭套接字的优雅实现（通过发送一个`FIN`包或类似的东西）。
+当 TCP 长连接被禁用，它依靠客户端 socket 关闭的优雅实现（通过发送一个`FIN`包或类似的东西）。
 
 对与（软）实时 Web 应用，严重推荐使用系统 TCP 协议栈支持的选项对 [TCP keepalive](http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html) 进行配置，以便及时发现“半开” TCP 连接。
 

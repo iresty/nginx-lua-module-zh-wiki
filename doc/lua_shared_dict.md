@@ -7,7 +7,7 @@ lua_shared_dict
 
 **环境:** *http*
 
-**nginx执行阶段:** *depends on usage*
+**阶段:** *depends on usage*
 
 声明一个共享内存区块 `<name>`，用来存储基于共享内存的 Lua 字典 `ngx.shared.<name>`。
 

@@ -1,8 +1,8 @@
 ngx.exec
 --------
-**syntax:** *ngx.exec(uri, args?)*
+**语法:** *ngx.exec(uri, args?)*
 
-**context:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
 
 使用 `uri`、`args` 参数执行一个内部跳转，与 [echo-nginx-module](http://github.com/openresty/echo-nginx-module) 的 [echo_exec](http://github.com/openresty/echo-nginx-module#echo_exec) 指令有些相似。
 

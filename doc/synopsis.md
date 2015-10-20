@@ -1,20 +1,20 @@
 ## 使用摘要
 
 ```nginx
- # 设置纯Lua扩展库的搜寻路径(';;' 是默认路径):
+ # 设置纯 Lua 扩展库的搜寻路径(';;' 是默认路径):
  lua_package_path '/foo/bar/?.lua;/blah/?.lua;;';
 
- # 设置C编写的Lua扩展模块的搜寻路径(也可以用 ';;'):
+ # 设置 C 编写的 Lua 扩展模块的搜寻路径(也可以用 ';;'):
  lua_package_cpath '/bar/baz/?.so;/blah/blah/?.so;;';
 
  server {
      location /inline_concat {
-         # default_type指令设置默认MIME头:
+         # default_type 指令设置默认 MIME 类型:
          default_type 'text/plain';
 
          set $a "hello";
          set $b "world";
-         # 内嵌lua代码
+         # 内嵌 Lua 代码
          set_by_lua $res "return ngx.arg[1]..ngx.arg[2]" $a $b;
          echo $res;
      }
@@ -22,8 +22,8 @@
      location /rel_file_concat {
          set $a "foo";
          set $b "bar";
-         # 脚本路径是nginx prefix的相对地址
-         # 文件 $ngx_prefix/conf/concat.lua 内容:
+         # 脚本使用 nginx prefix 的相对路径
+         # 文件 $ngx_prefix/conf/concat.lua 的内容是:
          #
          #    return ngx.arg[1]..ngx.arg[2]
          #
@@ -34,23 +34,23 @@
      location /abs_file_concat {
          set $a "fee";
          set $b "baz";
-         # 绝对地址直接使用
+         # 脚本的绝对路径
          set_by_lua_file $res /usr/nginx/conf/concat.lua $a $b;
          echo $res;
      }
 
      location /lua_content {
-         # 通过default_type设置默认的MIME type
+         # 通过 default_type 设置默认的 MIME 类型：
          default_type 'text/plain';
 
          content_by_lua "ngx.say('Hello,world!')";
      }
 
      location /nginx_var {
-         # 通过default_type设置默认的MIME type
+         # 通过 default_type 设置默认的 MIME 类型：
          default_type 'text/plain';
 
-         # 外部尝试访问： /nginx_var?a=hello,world
+         # 试试访问 /nginx_var?a=hello,world
          content_by_lua "ngx.print(ngx.var['arg_a'], '\\n')";
      }
 
@@ -63,9 +63,9 @@
           content_by_lua 'ngx.print(ngx.var.request_body)';
      }
 
-     # 在子请求中直接发起非阻塞 IO 调用
+     # 在子请求中直接发起 Lua 非阻塞 I/O 调用
      location /lua {
-         # 通过default_type设置默认的MIME type：
+         # 通过 default_type 设置默认的 MIME 类型：
          default_type 'text/plain';
 
          content_by_lua '
@@ -77,7 +77,7 @@
 
      # GET /recur?num=5
      location /recur {
-         # 通过default_type设置默认的MIME type：
+         # 通过 default_type 设置默认的 MIME 类型：
          default_type 'text/plain';
 
          content_by_lua '
@@ -134,9 +134,8 @@
          content_by_lua_file /path/to/content.lua;
      }
 
-     # 在代码路径中使用nginx变量
-     * use nginx var in code path
-     # 注意： nginx var 的变量一定要谨慎，否则将会带来非常大的风险
+     # 在代码中使用 NGINX 变量
+     # 注意： NGINX 变量的内容一定要做仔细的过滤，否则会有很大的安全风险
      location ~ ^/app/([-_a-zA-Z0-9/]+) {
          set $path $1;
          content_by_lua_file /path/to/lua/app/root/$path.lua;

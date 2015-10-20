@@ -28,7 +28,7 @@ Table of Contents
 * [Name yuansheng-8.4 moonbingbing(√)](doc/name.md)
 * [Status yuansheng-8.6 moonbingbing(√)](doc/status.md)
 * [Version](#version)
-* [Synopsis yuansheng-8.6](doc/synopsis.md)
+* [Synopsis yuansheng-8.6 moonbingbing(√)](doc/synopsis.md)
 * [Description yuansheng-8.16](doc/description.md)
 * [Typical Uses yuansheng-8.16](doc/typical-uses.md)
 * [Nginx Compatibility yuansheng-8.17](doc/nginx-compatibility.md)

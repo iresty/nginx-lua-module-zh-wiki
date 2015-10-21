@@ -34,7 +34,7 @@ Table of Contents
 * [NGINX Compatibility yuansheng-8.17 WenMing(√)](doc/nginx-compatibility.md)
 * [Installation yuansheng-8.17 WenMing(√)](doc/installation.md)
     * [C Macro Configurations yuansheng-8.17 WenMing(√)](doc/c-macro-configurations.md)
-    * [Installation on Ubuntu 11.10 yuansheng-8.18](doc/installation-on-ubuntu-1110.md)
+    * [Installation on Ubuntu 11.10 yuansheng-8.18  WenMing(√)](doc/installation-on-ubuntu-1110.md)
 * [Community](#community)
     * [English Mailing List](#english-mailing-list)
     * [Chinese Mailing List](#chinese-mailing-list)

@@ -1,7 +1,8 @@
 安装
 ============
 
-强烈推荐使用[ngx_openresty](http://openresty.org)的捆绑包：NGINX, ngx_lua,  LuaJIT 2.0/2.1 (或者可选的标准 Lua 5.1解释器)，它们也是强劲、好用的 NGINX 模块。
+强烈推荐使用[ngx_openresty](http://openresty.org)，它包含了 NGINX, ngx_lua, LuaJIT 2.0/2.1 (或者可选的标准 Lua 5.1解释器)，
+还包含很多强劲、好用的 NGINX 模块。
 使用一个简单的命令就可以完成基础安装：`./configure --with-luajit && make && make install`。
 
 当然，ngx_lua 也可以手动的编译到 NGINX 中：

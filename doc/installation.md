@@ -1,16 +1,20 @@
 安装
 ============
 
-严重推荐使用[ngx_openresty](http://openresty.org)的捆绑包：Nginx, ngx_lua,  LuaJIT 2.0/2.1 (或着可选的standard Lua 5.1解释器)，以及一揽子强劲、好用的Nginx模块。使用一个简单的命令就可以基本安装：`./configure --with-luajit && make && make install`。
+强烈推荐使用[ngx_openresty](http://openresty.org)的捆绑包：NGINX, ngx_lua,  LuaJIT 2.0/2.1 (或者可选的标准 Lua 5.1解释器)，
+以及一揽子强劲、好用的 NGINX 模块。
+使用一个简单的命令就可以完成基础安装：`./configure --with-luajit && make && make install`。
 
-当然，ngx_lua也可以手动的编译到Nginx中：
+当然，ngx_lua 也可以手动的编译到 NGINX 中：
 
-1. 安装LuaJIT 2.0 或 2.1 (推荐) 或 Lua 5.1 (Lua 5.2 暂时还*不支持*)。LuaJIT可从 [The LuaJIT project website](http://luajit.org/download.html) 获取，Lua 5.1可从 [Lua project website](http://www.lua.org/) 获取。
-2. 下载最新版本的ngx_devel_kit (NDK)开发模块 [这里](https://github.com/simpl/ngx_devel_kit/tags) 。
-3. 下载最新版本的ngx_lua [这里](https://github.com/openresty/lua-nginx-module/tags) 。
-4. 下载最新版本的Nginx [这里](http://nginx.org/) (查看 [Nginx 兼容列表](#nginx-compatibility))。
+1. 安装LuaJIT 2.0 或 2.1 (推荐) 或 Lua 5.1 (Lua 5.2 暂时还*不支持*)。
+LuaJIT可从 [The LuaJIT project website](http://luajit.org/download.html) 获取，
+Lua 5.1可从 [Lua project website](http://www.lua.org/) 获取。
+2. 下载最新版本的 ngx_devel_kit (NDK)开发模块 [这里](https://github.com/simpl/ngx_devel_kit/tags) 。
+3. 下载最新版本的 ngx_lua [这里](https://github.com/openresty/lua-nginx-module/tags) 。
+4. 下载最新版本的 NGINX [这里](http://nginx.org/) (查看 [Nginx 兼容列表](#nginx-compatibility))。
 
-使用这些模块来构建应用：
+源码编译本模块：
 
 ```bash
 

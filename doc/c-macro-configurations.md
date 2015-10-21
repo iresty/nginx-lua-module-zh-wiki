@@ -1,16 +1,16 @@
 C 宏定义配置
 ----------------------
-通过OpenResty或者Nginx内核方式构建该模块，你可以定义下面的C宏定义作为可选项提供给C编译器：
+通过 OpenResty 或者 NGINX 内核方式构建该模块，你可以定义下面的 C 宏定义作为可选项提供给 C 编译器：
 
 * `NGX_LUA_USE_ASSERT`
     声明后，将在ngx_lua C代码中开启断言。推荐用在调试或者测试版本中。启用后，它会引入额外一些（小的）运行时开销。在`v0.9.10`版本中首次引入此选项。
 
 * `NGX_LUA_ABORT_AT_PANIC`
-    当Lua/LuaJIT虚拟机出现panic错误时，ngx_lua默认会让当前的工作进程优雅退出。通过指定这个宏定义，ngx_lua将立即终止当前的nginx工作进程（通常会生成一个core dump文件）。这个选项主要用来调试虚拟机的panic错误。在`v0.9.8`版本中首次引入此选项。
+    当 Lua/LuaJIT 虚拟机出现panic错误时，ngx_lua默认会让当前的工作进程优雅退出。通过指定这个宏定义，ngx_lua将立即终止当前的 NGINX 工作进程（通常会生成一个core dump文件）。这个选项主要用来调试虚拟机的panic错误。在`v0.9.8`版本中首次引入此选项。
 * `NGX_LUA_NO_FFI_API`
-    去除Nginx中FFI-based Lua API需要的的纯C函数(例如 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) 所需要的)。开启这个宏可以让Nginx二进制代码更小。
+    去除 NGINX 中FFI-based Lua API需要的的纯 C 函数(例如 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) 所需要的)。开启这个宏可以让 NGINX 二进制代码更小。
 
-在NGINX或者OpenResty启用一个或多个宏定义，只用传给`./configure`脚本几个额外的C编译选项。例如：
+在 NGINX 或者 OpenResty 启用一个或多个宏定义，只用传给`./configure`脚本几个额外的C编译选项。例如：
 
 ```
 #    ./configure --with-cc-opt="-DNGX_LUA_USE_ASSERT -DNGX_LUA_ABORT_AT_PANIC"

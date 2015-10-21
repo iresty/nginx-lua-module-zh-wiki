@@ -15,7 +15,7 @@
 # find *.md | xargs grep "<\!\-\-"
 
 init_by_lua.md:基本上，在这个上下文中，你可以保 。。。<!-- todo wangyuansheng -->
-name.md:此模块属第三方扩展，不在Nginx源码中。安装介绍。。。<!-- 超链接没有带 -->
+name.md:此模块属第三方扩展，不在NGINX源码中。安装介绍。。。<!-- 超链接没有带 -->
 todo.md:<!-- todo 没懂，后面看看怎么翻译  -->
 #
 ```
@@ -31,7 +31,7 @@ Table of Contents
 * [Synopsis yuansheng-8.6 WenMing(√)](doc/synopsis.md)
 * [Description yuansheng-8.16 WenMing(√)](doc/description.md)
 * [Typical Uses yuansheng-8.16 WenMing(√)](doc/typical-uses.md)
-* [Nginx Compatibility yuansheng-8.17 WenMing(√)](doc/nginx-compatibility.md)
+* [NGINX Compatibility yuansheng-8.17 WenMing(√)](doc/nginx-compatibility.md)
 * [Installation yuansheng-8.17 WenMing(√)](doc/installation.md)
     * [C Macro Configurations yuansheng-8.17 WenMing(√)](doc/c-macro-configurations.md)
     * [Installation on Ubuntu 11.10 yuansheng-8.18](doc/installation-on-ubuntu-1110.md)
@@ -44,7 +44,7 @@ Table of Contents
 * [System Environment Variable Support yuansheng-9.1](doc/system-environment-variable-support.md)
 * [HTTP 1.0 support lance-2015.8.13](doc/http-10-support.md)
 * [Statically Linking Pure Lua Modules yuansheng-9.1](doc/statically-linking-pure-lua-modules.md)
-* [Nginx Worker内的数据共享 lance-2015.8.5](doc/data-sharing-within-an-nginx-worker.md)
+* [NGINX Worker内的数据共享 lance-2015.8.5](doc/data-sharing-within-an-nginx-worker.md)
 * [Known Issues](#known-issues)
     * [TCP socket connect operation issues yuansheng-9.2](doc/tcp-socket-connect-operation-issues.md)
     * [Lua Coroutine Yielding/Resuming yuansheng-9.2](doc/lua-coroutine-yieldingresuming.md)
@@ -61,7 +61,7 @@ Table of Contents
 * [Copyright and License yuansheng-9.3](doc/copyright-and-license.md)
 * [See Also yuansheng-9.3](doc/see-also.md)
 * [Directives yuansheng-9.3](doc/directives.md)
-* [Nginx API for Lua yuansheng-9.3](doc/nginx-api-for-lua.md)
+* [NGINX API for Lua yuansheng-9.3](doc/nginx-api-for-lua.md)
 * [Obsolete Sections yuansheng-9.3](doc/obsolete-sections.md)
     * [Special PCRE Sequences yuansheng-9.3](doc/special-pcre-sequences.md)
 
@@ -114,7 +114,7 @@ Directives
 * [lua_max_pending_timers yuansheng-9.29](doc/lua_max_pending_timers.md)
 * [lua_max_running_timers yuansheng-9.29](doc/lua_max_running_timers.md)
 
-Nginx API for Lua
+NGINX API for Lua
 =================
 
 * [Introduction lance-2015.9.6](doc/introduction.md)
@@ -123,7 +123,7 @@ Nginx API for Lua
 * [Core constants lance-2015.8.14 WenMing(√)](doc/core-constants.md)
 * [HTTP method constants lance-2015.8.13](doc/http-method-constants.md)
 * [HTTP status constants lance-2015.8.13](doc/http-status-constants.md)
-* [Nginx log level constants lance-2015.8.13](doc/nginx-log-level-constants.md)
+* [NGINX log level constants lance-2015.8.13](doc/nginx-log-level-constants.md)
 * [print lance-2015.8.14](doc/print.md)
 * [ngx.ctx lance-2015.8.14](doc/ngxctx.md)
 * [ngx.location.capture lance-2015.8.11](doc/ngxlocationcapture.md)

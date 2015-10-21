@@ -31,7 +31,7 @@ Table of Contents
 * [Synopsis yuansheng-8.6 WenMing(√)](doc/synopsis.md)
 * [Description yuansheng-8.16 WenMing(√)](doc/description.md)
 * [Typical Uses yuansheng-8.16 WenMing(√)](doc/typical-uses.md)
-* [Nginx Compatibility yuansheng-8.17](doc/nginx-compatibility.md)
+* [Nginx Compatibility yuansheng-8.17 WenMing(√)](doc/nginx-compatibility.md)
 * [Installation yuansheng-8.17](doc/installation.md)
     * [C Macro Configurations yuansheng-8.17 WenMing(√)](doc/c-macro-configurations.md)
     * [Installation on Ubuntu 11.10 yuansheng-8.18](doc/installation-on-ubuntu-1110.md)

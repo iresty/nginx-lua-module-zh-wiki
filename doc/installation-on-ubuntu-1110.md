@@ -1,18 +1,18 @@
 在Ubuntu 11.10上安装
 ----------------------------
 
-注意：这里推荐使用LuaJIT 2.0 或 LuaJIT 2.1替换掉标准Lua 5.1解析器。
+注意：这里推荐使用 LuaJIT 2.0 或 LuaJIT 2.1 替换掉标准 Lua 5.1 解释器。
 
-如果标准解析器是必须的，执行下面的命令完成在Ubuntu上的安装：
+如果不得不使用标准的 Lua 5.1 解释器，在 Ubuntu 上使用这个命令完成安装：
 
 ```bash
 
  apt-get install -y lua5.1 liblua5.1-0 liblua5.1-0-dev
 ```
 
-所有反馈都应该是正确的，除了一条小"纠结"：
+应该可以正确被安装，除了一个小"纠结"：
 
-`liblua.so`库在liblua5.1包中已经发生改变，只能使用`liblua5.1.so`，并且需要被连接到`/usr/lib`，这样才可以在configure执行阶段被找到。
+`liblua.so`库在 liblua5.1 包中已经发生改变，只能使用`liblua5.1.so`，并且需要被链接到`/usr/lib`，这样才可以在 configure 执行阶段被找到。
 
 ```bash
 

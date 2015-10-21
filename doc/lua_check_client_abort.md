@@ -15,7 +15,7 @@ lua_check_client_abort
 
 当 TCP 长连接被禁用，它依靠客户端 socket 关闭的优雅实现（通过发送一个`FIN`包或类似的东西）。
 
-对与（软）实时 Web 应用，严重推荐使用系统 TCP 协议栈支持的选项对 [TCP keepalive](http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html) 进行配置，以便及时发现“半开” TCP 连接。
+对与（软）实时 Web 应用，强烈推荐使用系统 TCP 协议栈支持的选项对 [TCP keepalive](http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html) 进行配置，以便及时发现“半开” TCP 连接。
 
 例如，在 Linux，在你的`nginx.conf`文件中你能使用标准 [listen](http://nginx.org/en/docs/http/ngx_http_core_module.html#listen) 指令配置，像这样：
 

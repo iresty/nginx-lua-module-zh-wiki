@@ -40,7 +40,7 @@ Table of Contents
     * [Chinese Mailing List](#chinese-mailing-list)
 * [Code Repository yuansheng-8.20 WenMing(√)](doc/code-repository.md)
 * [Bugs and Patches yuansheng-8.20 WenMing(√)](doc/bugs-and-patches.md)
-* [Lua/LuaJIT bytecode support yuansheng-8.31](doc/lualuajit-bytecode-support.md)
+* [Lua/LuaJIT bytecode support yuansheng-8.31 WenMing(√)](doc/lualuajit-bytecode-support.md)
 * [System Environment Variable Support yuansheng-9.1](doc/system-environment-variable-support.md)
 * [HTTP 1.0 support lance-2015.8.13](doc/http-10-support.md)
 * [Statically Linking Pure Lua Modules yuansheng-9.1](doc/statically-linking-pure-lua-modules.md)

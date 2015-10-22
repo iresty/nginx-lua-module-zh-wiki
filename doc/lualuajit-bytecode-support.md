@@ -1,9 +1,11 @@
 Lua/LuaJIT 字节码支持
 ===========================
 
-从`v0.5.0rc32` release 开始，所有 `*_by_lua_file` 的配置小节例如 [content_by_lua_file](#content_by_lua_file) 都支持直接加载 Lua 5.1 和 LuaJIT 2.0/2.1 的二进制字节码文件。
+从`v0.5.0rc32` release 开始，所有 `*_by_lua_file` 的配置指令（比如 [content_by_lua_file](#content_by_lua_file)）
+都支持直接加载 Lua 5.1 和 LuaJIT 2.0/2.1 的二进制字节码文件。
 
-请注意，由 LuaJIT 2.0/2.1 生成的二进制格式与标准 Lua 5.1 解析器是不兼容的。所以如果使用在ngx_lua下使用LuaJIT 2.0/2.1，那么LuaJIT兼容的二进制文件必需是下面这样生成的：
+请注意，LuaJIT 2.0/2.1 生成的二进制格式与标准 Lua 5.1 解析器是不兼容的。
+所以如果使用在 ngx_lua 下使用LuaJIT 2.0/2.1，那么 LuaJIT 兼容的二进制文件必须是下面这样生成的：
 
 ```bash
 
@@ -21,27 +23,29 @@ Lua/LuaJIT 字节码支持
 
 <http://luajit.org/running.html#opt_b>
 
-同样的，由 LuaJIT 2.1 生成的字节码文件对于 LuaJIT 2.0 也是 *不* 兼容的，反之亦然。第一次对于 LuaJIT 2.1 版本的字节支持，是在 v0.9.3 上完成的。
+同样的，由 LuaJIT 2.1 生成的字节码文件对于 LuaJIT 2.0 也是 *不* 兼容的，反之亦然。
+第一次对于 LuaJIT 2.1 版本的字节支持，是在 v0.9.3 上完成的。
 
-近似的，如果使用标准Lua 5.1解析器，Lua 的兼容字节码文件是必须使用下面的命令行生成：
+近似的，如果使用标准 Lua 5.1 解释器，Lua 的兼容字节码文件必须用 **luac** 命令行来生成：
 
 ```bash
 
  luac -o /path/to/output_file.luac /path/to/input_file.lua
 ```
 
-与LuaJIT不太一样，调试信息是默认被包含到字节码文件中的。这里可以使用 `-s` 选项剥离掉去掉调试信息：
+与 LuaJIT 不太一样， Lua 5.1 的字节码文件是默认包含调试信息的。这里可以使用 `-s` 选项去掉调试信息：
 
 ```bash
 
  luac -s -o /path/to/output_file.luac /path/to/input_file.lua
 ```
 
-相似的，加载标准Lua 5.1字节码文件到使用LuaJIT 2.0/2.1的ngx_lua实例中（反之亦然），将会在error日志中收到下面一条类似的错误：
+在使用 LuaJIT 2.0/2.1 的 ngx_lua 实例中试图加载标准 Lua 5.1 字节码文件（反之亦然），将会在 error.log 中记录一条类似的错误信息：
 
-    [error] 13909#0: *1 failed to load Lua inlined code: bad byte-code header in /path/to/test_file.luac
+>> [error] 13909#0: *1 failed to load Lua inlined code: bad byte-code header in /path/to/test_file.luac
 
-使用Lua`require` 和 `dofile`这类原语加载字节码文件，应该总能按照预期工作。
+
+使用 Lua`require` 和 `dofile` 这类原语加载字节码文件，应该总能按照预期工作。
 
 [Back to TOC](#table-of-contents)
 

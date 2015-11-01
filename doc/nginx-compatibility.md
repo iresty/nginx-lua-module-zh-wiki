@@ -3,6 +3,7 @@ NGINX 兼容列表
 
 最新模块和 NGINX 的兼容列表：
 
+* 1.9.x (最后测试: 1.9.3)
 * 1.7.x (最后测试: 1.7.10)
 * 1.6.x
 * 1.5.x (最后测试: 1.5.12)
@@ -22,6 +23,7 @@ Nginx Compatibility
 ===================
 The latest module is compatible with the following versions of Nginx:
 
+* 1.9.x (last tested: 1.9.3)
 * 1.7.x (last tested: 1.7.10)
 * 1.6.x
 * 1.5.x (last tested: 1.5.12)

@@ -1,26 +1,6 @@
 未完成列表
 ====
 
-* 对存在`*_by_lua`的小节，添加`*_by_lua_block`支持，这样我们就可以直接把Lua代码放到当前小节中，替代原有的字符串形式。例如：
-
-```nginx
-
- content_by_lua_block {
-     ngx.say("hello, world\r\n")
- }
-```
-
-等价于
-
-```nginx
-
- content_by_lua '
-     ngx.say("hello, world\\r\\n")
- ';
-```
-
-但是格式更加清晰、友好。
-
 * cosocket：实现LuaSocket非连接的UDP API。
 * 实现普通的TCP服务替代HTTP服务，并支持Lua代码。例如：
 
@@ -76,21 +56,6 @@
 TODO
 ====
 
-* add `*_by_lua_block` directives for existing `*_by_lua` directives so that we put literal Lua code directly in curly braces instead of an nginx literal string. For example,
-```nginx
-
- content_by_lua_block {
-     ngx.say("hello, world\r\n")
- }
-```
-    which is equivalent to
-```nginx
-
- content_by_lua '
-     ngx.say("hello, world\\r\\n")
- ';
-```
-    but the former is much cleaner and nicer.
 * cosocket: implement LuaSocket's unconnected UDP API.
 * add support for implementing general TCP servers instead of HTTP servers in Lua. For example,
 ```lua

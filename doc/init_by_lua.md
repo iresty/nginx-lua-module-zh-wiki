@@ -7,6 +7,8 @@ init_by_lua
 
 **阶段:** *loading-config*
 
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [init_by_lua_block](#init_by_lua_block) 指令进行替代。
+
 当Nginx master进程（如果有）加载Nginx配置文件时，在全局的Lua虚拟机上运行`<lua-script-str>`指定的Lua代码。
 
 当Nginx收到`HUP`信号并开始重新加载配置文件，Lua虚拟机将重新创建并且`init_by_lua`在新的Lua虚拟机中再次执行。为防止[lua_code_cache](#lua_code_cache)指令是关闭的（默认打开），对于这个场景`init_by_lua`将在每个请求之上运行，因为在这个场景中，每个请求都会创建新的Lua虚拟机，他们都是独立存在。
@@ -79,6 +81,9 @@ init_by_lua
 **context:** *http*
 
 **phase:** *loading-config*
+
+**WARNING** Since the `v0.9.17` release, use of this directive is *discouraged*;
+use the new [init_by_lua_block](#init_by_lua_block) directive instead.
 
 Runs the Lua code specified by the argument `<lua-script-str>` on the global Lua VM level when the Nginx master process (if any) is loading the Nginx config file.
 

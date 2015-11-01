@@ -7,8 +7,9 @@ set_by_lua
 
 **阶段:** *rewrite*
 
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [set_by_lua_block](#set_by_lua_block) 指令进行替代。
+
 使用可选的输入参数`$arg1 $arg2 ...`，执行指定的代码`<lua-script-str>`，并返回字符串结果到`$res`。
-Executes code specified in `<lua-script-str>` with optional input arguments `$arg1 $arg2 ...`, and returns string output to `$res`.
 
 `<lua-script-str>`的代码可以做[API调用](#nginx-api-for-lua)，并能从`ngx.arg`表中获取输入参数（下标起始值是`1`并顺序增长）。
 
@@ -70,7 +71,10 @@ set_by_lua
 
 **phase:** *rewrite*
 
+**WARNING** Since the `v0.9.17` release, use of this directive is *discouraged*; use the new [set_by_lua_block](#set_by_lua_block) directive instead.
+
 Executes code specified in `<lua-script-str>` with optional input arguments `$arg1 $arg2 ...`, and returns string output to `$res`.
+
 The code in `<lua-script-str>` can make [API calls](#nginx-api-for-lua) and can retrieve input arguments from the `ngx.arg` table (index starts from `1` and increases sequentially).
 
 This directive is designed to execute short, fast running code blocks as the Nginx event loop is blocked during code execution. Time consuming code sequences should therefore be avoided.
@@ -110,7 +114,7 @@ This directive can be freely mixed with all directives of the [ngx_http_rewrite_
 ```nginx
 
  set $foo 32;
- set_by_lua $bar 'tonumber(ngx.var.foo) + 1';
+ set_by_lua $bar 'return tonumber(ngx.var.foo) + 1';
  set $baz "bar: $bar";  # $baz == "bar: 33"
 ```
 

@@ -8,6 +8,8 @@ header_filter_by_lua
 
 **阶段：** *output-header-filter*
 
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [header_filter_by_lua_block](#header_filter_by_lua_block) 指令进行替代。
+
 用`<lua-script-str>`中指名的lua代码，来完成应答消息头部的过滤。
 
 注意，下列的接口函数在这个执行阶段是被禁用的：
@@ -43,6 +45,9 @@ header_filter_by_lua
 **context:** *http, server, location, location if*
 
 **phase:** *output-header-filter*
+
+**WARNING** Since the `v0.9.17` release, use of this directive is *discouraged*;
+use the new [header_filter_by_lua_block](#header_filter_by_lua_block) directive instead.
 
 Uses Lua code specified in `<lua-script-str>` to define an output header filter.
 

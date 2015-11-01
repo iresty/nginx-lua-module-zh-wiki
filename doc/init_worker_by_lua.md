@@ -7,6 +7,8 @@ init_worker_by_lua
 
 **阶段:** *starting-worker*
 
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [init_worker_by_lua_block](#init_worker_by_lua_block) 指令进行替代。
+
 开启master进程模式，Nginx工作进程启动时执行指定的Lua代码。关闭master模式，将在[init_by_lua*](#init_by_lua)后直接运行。
 
 这个指令经常被用来创建单进程的反复执行定时器（通过[ngx.timer.at](#ngxtimerat) Lua API创建），可以是后端服务健康检查，也可以是其他定时的日常工作。下面是个例子：
@@ -53,6 +55,8 @@ init_worker_by_lua
 **context:** *http*
 
 **phase:** *starting-worker*
+
+**WARNING** Since the `v0.9.17` release, use of this directive is *discouraged*; use the new [init_worker_by_lua_block](#init_worker_by_lua_block) directive instead.
 
 Runs the specified Lua code upon every Nginx worker process's startup when the master process is enabled. When the master process is disabled, this hook will just run after [init_by_lua*](#init_by_lua).
 

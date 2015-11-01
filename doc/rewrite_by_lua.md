@@ -7,6 +7,8 @@ rewrite_by_lua
 
 **阶段:** *rewrite tail*
 
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [rewrite_by_lua_block](#rewrite_by_lua_block) 指令进行替代。
+
 作为一个重写阶段的处理程序，为每个请求执行由`<lua-script-str>`指定的 Lua 代码。
 
 这些 Lua 代码可以调用[全部 API](#nginx-api-for-lua)，并作为一个新的协程，在一个独立的全局环境中执行（就像一个沙盒）。
@@ -134,6 +136,9 @@ rewrite_by_lua
 **context:** *http, server, location, location if*
 
 **phase:** *rewrite tail*
+
+**WARNING** Since the `v0.9.17` release, use of this directive is *discouraged*;
+use the new [rewrite_by_lua_block](#rewrite_by_lua_block) directive instead.
 
 Acts as a rewrite phase handler and executes Lua code string specified in `<lua-script-str>` for every request.
 The Lua code may make [API calls](#nginx-api-for-lua) and is executed as a new spawned coroutine in an independent global environment (i.e. a sandbox).

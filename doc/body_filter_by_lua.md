@@ -7,6 +7,8 @@ body_filter_by_lua
 
 **阶段:** *output-body-filter*
 
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [body_filter_by_lua_block](#body_filter_by_lua_block) 指令进行替代。
+
 使用`<lua-script-str>`指定的 Lua 代码定义一个输出应答体过滤器。
 
 输入数据块是 [ngx.arg](#ngxarg)\[1\]（Lua的字符串形式）,结束标识"eof"是应答体数据最后一位[ngx.arg](#ngxarg)\[2\]（Lua的布尔值形式）。
@@ -76,7 +78,7 @@ body_filter_by_lua
 注意：下面这些API函数在这个环境中是禁用的，这受制于当前 Nginx 输出过滤器的实现：
 
 * 输出API函数类（例如：[ngx.say](#ngxsay) 和 [ngx.send_headers](#ngxsend_headers)）
-* 控制API函数类（例如：[ngx.exit](#ngxexit) 和 [ngx.exec](#ngxexec)）
+* 控制API函数类（例如：[ngx.redirect](#ngxredirect) 和 [ngx.exec](#ngxexec)）
 * 子请求函数类（例如：[ngx.location.capture](#ngxlocationcapture) 和 [ngx.location.capture_multi](#ngxlocationcapture_multi)）
 * cosocket 函数类（例如：[ngx.socket.tcp](#ngxsockettcp) 和 [ngx.req.socket](#ngxreqsocket)）
 
@@ -96,6 +98,9 @@ body_filter_by_lua
 **context:** *http, server, location, location if*
 
 **phase:** *output-body-filter*
+
+**WARNING** Since the `v0.9.17` release, use of this directive is *discouraged*;
+use the new [body_filter_by_lua_block](#body_filter_by_lua_block) directive instead.
 
 Uses Lua code specified in `<lua-script-str>` to define an output body filter.
 
@@ -168,7 +173,7 @@ When the Lua code may change the length of the response body, then it is require
 Note that the following API functions are currently disabled within this context due to the limitations in NGINX output filter's current implementation:
 
 * Output API functions (e.g., [ngx.say](#ngxsay) and [ngx.send_headers](#ngxsend_headers))
-* Control API functions (e.g., [ngx.exit](#ngxexit) and [ngx.exec](#ngxexec))
+* Control API functions (e.g., [ngx.redirect](#ngxredirect) and [ngx.exec](#ngxexec))
 * Subrequest API functions (e.g., [ngx.location.capture](#ngxlocationcapture) and [ngx.location.capture_multi](#ngxlocationcapture_multi))
 * Cosocket API functions (e.g., [ngx.socket.tcp](#ngxsockettcp) and [ngx.req.socket](#ngxreqsocket)).
 

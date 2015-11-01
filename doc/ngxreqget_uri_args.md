@@ -39,7 +39,7 @@ key 和 value 将根据 URI 编码规则进行解码。访问上面的配置文�
  a b: 1a 2
 ```
 
-不包含 `=<value>` 部分的参数被视为布尔值参数。`GET /test?foo&bar` 输出：
+不包含 `=<value>` 部分的参数被视为布尔值参数。`POST /test`，请求体是 `foo&bar` 则输出：
 
 ```bash
 
@@ -134,7 +134,7 @@ Keys and values are unescaped according to URI escaping rules. In the settings a
  a b: 1a 2
 ```
 
-Arguments without the `=<value>` parts are treated as boolean arguments. `GET /test?foo&bar` will yield:
+Arguments without the `=<value>` parts are treated as boolean arguments. `POST /test` with the request body `foo&bar` will yield:
 
 ```bash
 

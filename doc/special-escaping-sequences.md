@@ -1,5 +1,8 @@
 特别转义序列
 ------------
+
+**注意** 自引入 `*_by_lua_block {}` 配置指令，我们将不再被该问题折磨。
+
 PCRE 的转义符号例如 `\d`,`\s` 以及 `\w` 等需要特别注意，因为在字符串语义中，反斜线字符 `\` 会被 Lua 语言解析器和 Nginx 配置文件解析器在执行前同时处理掉，所以以下代码片段将无法按预期运行：
 ```nginx
  # nginx.conf
@@ -81,6 +84,9 @@ PCRE 的转义符号例如 `\d`,`\s` 以及 `\w` 等需要特别注意，因为�
 
 
 > English source:
+
+**WARNING** We no longer suffer from this pitfall since the introduction of the
+`*_by_lua_block {}` configuration directives.
 
 PCRE sequences such as `\d`, `\s`, or `\w`, require special attention because in string literals, the backslash character, `\`, is stripped out by both the Lua language parser and by the Nginx config file parser before processing. So the following snippet will not work as expected:
 

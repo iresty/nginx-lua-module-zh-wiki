@@ -1,11 +1,12 @@
-静态链接纯净Lua模块
+静态链接纯 Lua 模块
 ===================================
 
-当使用LuaJIT 2.x时，静态链接一个纯净的Lua字节码模块到可运行的Nginx中是可行的。
+当使用 LuaJIT 2.x 时，可以把一个纯 Lua 字节码模块，静态链接到可运行的 Nginx 中。
 
-首先你要使用`luajit`，把`.lua`的Lua模块编译成`.o`的目标文件（包含导出的字节码数据），然后链接这些`.o`文件到Nginx的构造环境。
+首先你要使用`luajit` 的可执行程序， 把 `.lua` 的 Lua 模块编译成 `.o` 的目标文件（包含导出的字节码数据），
+然后链接这些 `.o` 文件到你的 Nginx 构造环境。
 
-用下面这个小例子来印证一下。这里我们的`.lua`文件使用`foo.lua`名字：
+用下面这个小例子来印证一下。这里我们的 `.lua` 文件使用 `foo.lua`：
 
 ```lua
 
@@ -19,11 +20,15 @@
  return _M
 ```
 
-我们把`.lua`文件编译成`foo.o`文件：
+我们把 `.lua` 文件编译成 `foo.o` 文件：
 
     /path/to/luajit/bin/luajit -bg foo.lua foo.o
 
-这里重要的是`.lua`文件名，它决定了这个模块在业务Lua中是如何使用的。文件名`foo.o`除了扩展名是`.o`以外其他都不重要（只是用来告诉`luajit`什么输出格式）。如果你想对字节码输出去掉Lua调试信息，你可以指明`-b`选项替代原有的`-bg`。
+这里重要的是 `.lua` 文件名，
+它决定了这个模块在业务 Lua 中是如何使用的。
+文件名 `foo.o` 除了扩展名是 `.o` 以外其他都不重要（只是用来告诉 `luajit` 使用什么格式输出）。
+如果你想从输出的字节码中去掉 Lua 调试信息，
+你可以用 `-b` 选项替代原有的 `-bg` 。
 
 然后你构建Nginx或者OpenResty，对`./configure`脚本添加`--with-ld-opt="foo.o"`选项：
 
@@ -51,7 +56,9 @@
 
 在你使用`luajit`命令行工具把他编译成`.o`文件之前，你需要把`foo.lua`文件重命名为`resty_foo.lua`。
 
-`.lua`文件编译成`.o`文件，构建nginx + ngx_lua，这两者使用相同版本的LuaJIT是至关重要的。这是因为LuaJIT字节码格式在不同版本之间可能是不兼容的。当字节码文件出现了不兼容情况，你将看到一行Lua运行时错误信息：没找到Lua模块。
+`.lua`文件编译成`.o`文件，构建nginx + ngx_lua，这两者使用相同版本的LuaJIT是至关重要的。
+这是因为LuaJIT字节码格式在不同版本之间可能是不兼容的。
+当字节码文件出现了不兼容情况，你将看到一行Lua运行时错误信息：没找到Lua模块。
 
 当你拥有多个`.lua`文件需要链接，你可以一次指明所有的`.o`文件，并赋给`--with-ld-opt`选项，参考：
 
@@ -60,7 +67,8 @@
  ./configure --with-ld-opt="/path/to/foo.o /path/to/bar.o" ...
 ```
 
-如果你有非常多的`.o`文件，把这些文件的名字写到命令行中都不太可行，这种情况下，对你的`.o`文件可以构建一个静态库（或者归档），参考：
+如果你有非常多的`.o`文件，把这些文件的名字写到命令行中都不太可行，
+这种情况下，对你的`.o`文件可以构建一个静态库（或者归档），参考：
 
 ```bash
 
@@ -75,8 +83,8 @@
      --with-ld-opt="-L/path/to/lib -Wl,--whole-archive -lmyluafiles -Wl,--no-whole-archive"
 ```
 
-`/path/to/lib`目录中应包含`libmyluafiles.a`文件。 应当指出的是，这里要添加链接选项`--whole-archive`，否则我们的归档将被跳过，因为在我们的归档没有导出nginx执行需要的函数符号。
-where `/path/to/lib` is the path of the directory containing the `libmyluafiles.a` file. It should be noted that the linker option `--whole-archive` is required here because otherwise our archive will be skipped because no symbols in our archive are mentioned in the main parts of the nginx executable.
+`/path/to/lib`目录中应包含`libmyluafiles.a`文件。 应当指出的是，这里要添加链接选项`--whole-archive`，
+否则我们的归档将被跳过，因为在我们的归档没有导出nginx执行需要的函数符号。
 
 [返回目录](#table-of-contents)
 

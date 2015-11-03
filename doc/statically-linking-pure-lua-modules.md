@@ -65,22 +65,23 @@
 这是因为 LuaJIT 字节码格式在不同版本之间可能是不兼容的。
 当字节码文件出现了不兼容情况，你将看到一行 Lua 运行时错误信息：没找到 Lua 模块。
 
-当你拥有多个`.lua`文件需要链接，你可以一次指明所有的`.o`文件，并赋给`--with-ld-opt`选项，参考：
+当你拥有多个 `.lua` 文件需要链接，
+你可以一次指明所有的 `.o` 文件，并赋给 `--with-ld-opt` 选项，参考：
 
 ```bash
 
  ./configure --with-ld-opt="/path/to/foo.o /path/to/bar.o" ...
 ```
 
-如果你有非常多的`.o`文件，把这些文件的名字写到命令行中都不太可行，
-这种情况下，对你的`.o`文件可以构建一个静态库（或者归档），参考：
+如果你有非常多的 `.o` 文件，把这些文件的名字写到命令行中都不太可行，
+这种情况下，对你的 `.o` 文件可以构建一个静态库（或者归档），参考：
 
 ```bash
 
  ar rcus libmyluafiles.a *.o
 ```
 
-然后你就可以把`myluafiles`链接到你的nginx可执行程序中：
+然后你就可以把 `myluafiles` 链接到你的 nginx 可执行程序中：
 
 ```bash
 
@@ -88,8 +89,9 @@
      --with-ld-opt="-L/path/to/lib -Wl,--whole-archive -lmyluafiles -Wl,--no-whole-archive"
 ```
 
-`/path/to/lib`目录中应包含`libmyluafiles.a`文件。 应当指出的是，这里要添加链接选项`--whole-archive`，
-否则我们的归档将被跳过，因为在我们的归档没有导出nginx执行需要的函数符号。
+`/path/to/lib` 目录中应包含 `libmyluafiles.a` 文件。
+应当指出的是，这里要添加链接选项 `--whole-archive`，
+否则我们的归档将被跳过，因为在我们的归档没有导出 nginx 执行需要的函数符号。
 
 [返回目录](#table-of-contents)
 

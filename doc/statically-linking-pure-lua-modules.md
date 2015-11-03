@@ -30,7 +30,8 @@
 如果你想从输出的字节码中去掉 Lua 调试信息，
 你可以用 `-b` 选项替代原有的 `-bg` 。
 
-然后你构建Nginx或者OpenResty，对`./configure`脚本添加`--with-ld-opt="foo.o"`选项：
+然后在构建 Nginx 或者 OpenResty时，
+传给 `./configure` 脚本 `--with-ld-opt="foo.o"` 选项：
 
 ```bash
 

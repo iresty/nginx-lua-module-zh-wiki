@@ -44,7 +44,7 @@ Table of Contents
 * [System Environment Variable Support yuansheng-9.1 WenMing(√)](doc/system-environment-variable-support.md)
 * [HTTP 1.0 support lance-2015.8.13 WenMing(√)](doc/http-10-support.md)
 * [Statically Linking Pure Lua Modules yuansheng-9.1 WenMing(√)](doc/statically-linking-pure-lua-modules.md)
-* [NGINX Worker内的数据共享 lance-2015.8.5](doc/data-sharing-within-an-nginx-worker.md)
+* [NGINX Worker内的数据共享 lance-2015.8.5 WenMing(√)](doc/data-sharing-within-an-nginx-worker.md)
 * [Known Issues](#known-issues)
     * [TCP socket connect operation issues yuansheng-9.2](doc/tcp-socket-connect-operation-issues.md)
     * [Lua Coroutine Yielding/Resuming yuansheng-9.2](doc/lua-coroutine-yieldingresuming.md)

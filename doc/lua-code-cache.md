@@ -8,25 +8,31 @@ lua_code_cache
 
 打开或者关闭 *_by_lua_file 指令（类似 set_by_lua_file 和 content_by_lua_file）
 中指定的 Lua 代码，以及 Lua 模块的 Lua 代码缓存。
-。
 
-当它关闭时，每个请求都将会运行在一个单独的 Lua 虚拟机中，在 v0.9.3 release 版本中引入。所以在 set_by_lua_file, content_by_lua_file, access_by_lua_file 中引用 lua 文件时不会被缓存并且模块每次会重新加载。有了这个选项开发者很容易通过编辑文件并重新请求的方法进行测试。
+当缓存关闭时，每个 ngx_lua 处理的请求都将会运行在一个单独的 Lua 虚拟机实例中，从 0.9.3 版本开始。
+所以在 set_by_lua_file, content_by_lua_file, access_by_lua_file 中引用的 Lua 文件不会被缓存，
+并且所有使用的 Lua 模块都会从头开始加载。有了这个选项，开发者很容易通过编辑文件并重新请求的方法进行测试。
 
-
-然而需要注意的是，当你在编辑直接写在 nginx 配置中的 lua 代码时，它并不是像 set_by_lua,content_by_lua, access_by_lua, rewrite_by_lua 指令一样通过保存就能更新。 只有 nginx 的配置解释器才能正确解析 nginx 的配置文件，所以此时唯一的办法是向 nginx 发送重新加载配置文件的指令或者重启 nginx 进程的指令。
+然而需要注意的是，当你编辑写在 nginx.conf 中内嵌的 Lua 代码时，
+比如通过 set_by_lua, content_by_lua, access_by_lua, rewrite_by_lua 这些指令
+写在 nginx.conf 里面的 Lua 代码，缓存不会被更新。
+因为只有 Nginx 的配置文件解释器才能正确解析 nginx.conf，
+所以重新加载配置文件的唯一办法是发送 HUP 信号或者重启 Nginx。
 
 ```shell
 kill -HUP pid
 nginx -s reload
 ```
 
-即使代码缓存指定打开时，在 *_by_lua_file 指令中使用 dofile 或 loadfile 函数时内容不会被缓存（除非你自己直接缓存结果）。通常你可以在  init_by_lua 或 init_by_lua_file 指令中加载这些文件或通过真正的 lua 模块去实现他们。
+即使代码缓存打开了，在 *_by_lua_file 中使用 dofile 或 loadfile
+函数时内容不会被缓存（除非你自己缓存结果）。
+通常你可以在 init_by_lua 或 init_by_lua_file 指令中加载所有这些文件，
+或者让这些 Lua 文件变成真正的 Lua 模块，通过 require 来加载。
 
+现在 ngx_lua 模块还不支持 Apache mod_lua 模块中可用的 stat 模式（stat mode在 TODO 列表中）。
 
-现在 ngx_lua 模块的还不支持 Apache mod_lua 的可用统计模块。
-
-
-不推荐在生产环境中关闭 lua 代码缓存，请确保它只在开发环境中使用，他对整体性能有非常明显的影响。举个例子，输出“你好世界”在没有开启 lua 代码缓存时可以降低一个量级。
+不推荐在生产环境中关闭 lua 代码缓存，请确保它只在开发环境中使用，他对整体性能有非常明显的影响。
+举个例子，输出“你好世界”在没有开启 lua 代码缓存时可以降低一个量级。
 
 
 > English source:

@@ -12,7 +12,7 @@ lua_use_default_type
 
 默认情况下该指令被打开。
 
-这个指令在 v0.9.1 release 版本中首次引入。
+这个指令在 0.9.1 版本中首次引入。
 
 > English source:
 

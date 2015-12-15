@@ -1,11 +1,14 @@
 lua_code_cache
-语法: lua_code_cache on | off
+---------------
+**语法**: *lua_code_cache on | off*
 
-默认: lua_code_cache on
+**默认**: *lua_code_cache on*
 
-环境: http, server, location, location if
+**环境**: *http, server, location, location if*
 
-可以在所有 *_by_lua_file 指令（类似 set_by_lua_file 和 content_by_lua_file）中打开或关闭 Lua 代码缓存和模块。
+打开或者关闭 *_by_lua_file 指令（类似 set_by_lua_file 和 content_by_lua_file）
+中指定的 Lua 代码，以及 Lua 模块的 Lua 代码缓存。
+。
 
 当它关闭时，每个请求都将会运行在一个单独的 Lua 虚拟机中，在 v0.9.3 release 版本中引入。所以在 set_by_lua_file, content_by_lua_file, access_by_lua_file 中引用 lua 文件时不会被缓存并且模块每次会重新加载。有了这个选项开发者很容易通过编辑文件并重新请求的方法进行测试。
 

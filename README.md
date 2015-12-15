@@ -68,7 +68,7 @@ Table of Contents
 Directives
 ==========
 
-* [lua_use_default_type hambut 2015.8.5](doc/lua-use-default-type.md)
+* [lua_use_default_type hambut 2015.8.5 WenMing(√)](doc/lua-use-default-type.md)
 * [lua_code_cache hambut 2015.8.5](doc/lua-code-cache.md)
 * [lua_regex_cache_max_entries yuansheng-9.3](doc/lua_regex_cache_max_entries.md)
 * [lua_regex_match_limit yuansheng-9.3](doc/lua_regex_match_limit.md)
@@ -126,8 +126,8 @@ Directives
 NGINX API for Lua
 =================
 
-* [Introduction lance-2015.9.6](doc/introduction.md)
-* [ngx.arg lance-2015.8.19](doc/ngxarg.md)
+* [Introduction lance-2015.9.6 WenMing(√)](doc/introduction.md)
+* [ngx.arg lance-2015.8.19 WenMing(√)](doc/ngxarg.md)
 * [ngx.var.VARIABLE lance-2015.8.19](doc/ngxvarvariable.md)
 * [Core constants lance-2015.8.14 WenMing(√)](doc/core-constants.md)
 * [HTTP method constants lance-2015.8.13](doc/http-method-constants.md)

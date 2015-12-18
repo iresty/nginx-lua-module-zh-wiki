@@ -7,7 +7,7 @@ init_by_lua
 
 **阶段:** *loading-config*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [init_by_lua_block](#init_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 不鼓励使用该指令，应使用新的 [init_by_lua_block](#init_by_lua_block) 指令进行替代。
 
 当Nginx master进程（如果有）加载Nginx配置文件时，在全局的Lua虚拟机上运行`<lua-script-str>`指定的Lua代码。
 

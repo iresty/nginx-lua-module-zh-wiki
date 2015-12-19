@@ -12,7 +12,9 @@ Nginx 子请求是一种非常强有力的方式，它可以发起非阻塞的�
 
 子请求与 HTTP 301/302 重定向指令 (通过 [ngx.redirect](#ngxredirect)) 完全不同，也与内部重定向 ((通过 [ngx.exec](#ngxexec)) 完全不同。
 
-在发起子请求前，用户程序需要读取完整的 HTTP 请求体 (通过调用 [ngx.req.read_body](#ngxreqread_body) 或设置 [lua_need_request_body](#lua_need_request_body) 指令为 on).
+在发起子请求前，用户程序应总是读取完整的 HTTP 请求体 (通过调用 [ngx.req.read_body](#ngxreqread_body) 或设置 [lua_need_request_body](#lua_need_request_body) 指令为 on).
+
+该 API 方法（[ngx.location.capture_multi](#ngxlocationcapture_multi) 也一样）总是缓冲整个请求体到内存中。因此，当需要处理一个大的子请求响应，用户程序应使用 [cosockets](#ngxsockettcp) 进行流式处理，
 
 下面是一个简单例子：
 
@@ -272,7 +274,7 @@ Nginx 代码中有一个硬编码的数字，来控制每个主请求最多可�
 
 **context:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
 
-Issue a synchronous but still non-blocking *Nginx Subrequest* using `uri`.
+Issues a synchronous but still non-blocking *Nginx Subrequest* using `uri`.
 
 Nginx's subrequests provide a powerful way to make non-blocking internal requests to other locations configured with disk file directory or *any* other nginx C modules like `ngx_proxy`, `ngx_fastcgi`, `ngx_memc`,
 `ngx_postgres`, `ngx_drizzle`, and even ngx_lua itself and etc etc etc.
@@ -282,6 +284,9 @@ Also note that subrequests just mimic the HTTP interface but there is *no* extra
 Subrequests are completely different from HTTP 301/302 redirection (via [ngx.redirect](#ngxredirect)) and internal redirection (via [ngx.exec](#ngxexec)).
 
 You should always read the request body (by either calling [ngx.req.read_body](#ngxreqread_body) or configuring [lua_need_request_body](#lua_need_request_body) on) before initiating a subrequest.
+
+This API function (as well as [ngx.location.capture_multi](#ngxlocationcapture_multi)) always buffers the whole response body of the subrequest in memory. Thus, you should use [cosockets](#ngxsockettcp)
+and streaming processing instead if you have to handle large subrequest responses.
 
 Here is a basic example:
 

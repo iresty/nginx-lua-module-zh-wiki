@@ -51,13 +51,13 @@
 * [lua_ssl_verify_depth](#lua_ssl_verify_depth)
 * [lua_http10_buffering](#lua_http10_buffering)
 * [rewrite_by_lua_no_postpone](#rewrite_by_lua_no_postpone)
+* [access_by_lua_no_postpone](#access_by_lua_no_postpone)
 * [lua_transform_underscores_in_response_headers](#lua_transform_underscores_in_response_headers)
 * [lua_check_client_abort](#lua_check_client_abort)
 * [lua_max_pending_timers](#lua_max_pending_timers)
 * [lua_max_running_timers](#lua_max_running_timers)
 
-
-[Back to TOC](#table-of-contents)
+[返回目录](#table-of-contents)
 
 > English source:
 
@@ -114,6 +114,7 @@ Directives
 * [lua_ssl_verify_depth](#lua_ssl_verify_depth)
 * [lua_http10_buffering](#lua_http10_buffering)
 * [rewrite_by_lua_no_postpone](#rewrite_by_lua_no_postpone)
+* [access_by_lua_no_postpone](#access_by_lua_no_postpone)
 * [lua_transform_underscores_in_response_headers](#lua_transform_underscores_in_response_headers)
 * [lua_check_client_abort](#lua_check_client_abort)
 * [lua_max_pending_timers](#lua_max_pending_timers)

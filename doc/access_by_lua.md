@@ -72,6 +72,7 @@ access_by_lua
 
 注意，在[access_by_lua](#access_by_lua)处理内部，当调用`ngx.exit(ngx.OK)`时，nginx请求将继续下一阶段的内容处理。要在[access_by_lua](#access_by_lua)处理中终结当前请求，调用[ngx.exit](#ngxexit)，成功的请求设定 status >= 200 (`ngx.HTTP_OK`) 并 status < 300 (`ngx.HTTP_SPECIAL_RESPONSE`)，失败的请求设定`ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)` (或其他相关的)。
 
+从 `v0.9.20` 版本开始，你可以使用 [access_by_lua_no_postpone](#access_by_lua_no_postpone) 指令来控制该 handler 在 Nginx 的 "access" 请求处理中的执行时机。
 
 [返回目录](#directives)
 
@@ -151,4 +152,7 @@ As with other access phase handlers, [access_by_lua](#access_by_lua) will *not* 
 
 Note that when calling `ngx.exit(ngx.OK)` within a [access_by_lua](#access_by_lua) handler, the nginx request processing control flow will still continue to the content handler. To terminate the current request from within a [access_by_lua](#access_by_lua) handler, calling [ngx.exit](#ngxexit) with status >= 200 (`ngx.HTTP_OK`) and status < 300 (`ngx.HTTP_SPECIAL_RESPONSE`) for successful quits and `ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)` (or its friends) for failures.
 
+Starting from the `v0.9.20` release, you can use the [access_by_lua_no_postpone](#access_by_lua_no_postpone) directive to control when to run this handler inside the "access" request-processing phase of NGINX.
+
 [Back to TOC](#directives)
+

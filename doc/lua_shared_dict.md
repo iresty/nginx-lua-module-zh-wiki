@@ -23,6 +23,8 @@ lua_shared_dict
  }
 ```
 
+硬编码限制最小大小是 8KB，而实际的最小大小取决于实际中用户数据集（有些人是从 12KB 开始）。
+
 更多细节请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 这个指令最早出现在版本 `v0.3.1rc22` 中。
@@ -51,6 +53,9 @@ The `<size>` argument accepts size units such as `k` and `m`:
      ...
  }
 ```
+
+The hard-coded minimum size is 8KB while the practical minimum size depends
+on actual user data set (some people start with 12KB).
 
 See [ngx.shared.DICT](#ngxshareddict) for details.
 

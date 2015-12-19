@@ -48,6 +48,8 @@ Nginx 正则表达式捕获组变量 `$1`、`$2`、`$3` 等，也可以通过这
 
 以避免在当前请求周期内的 (临时) 内存泄露。另外一个缓存结果的方法是使用 [ngx.ctx](#ngxctx) 表。
 
+未定义的 NGINX 变量会被认定为 `nil` ，而未初始化（但已定义）的 NGINX 变量会被认定为空 Lua 字符串。
+
 这个 API 需要进行相对“昂贵”的元方法调用，所以请避免高频使用。
 
 
@@ -104,7 +106,8 @@ Setting `ngx.var.Foo` to a `nil` value will unset the `$Foo` Nginx variable.
 
 to prevent (temporary) memory leaking within the current request's lifetime. Another way of caching the result is to use the [ngx.ctx](#ngxctx) table.
 
-This API requires a relatively expensive metamethod call and it is recommended to avoid using it on hot code paths.
+Undefined NGINX variables are evaluated to `nil` while uninitialized (but defined) NGINX variables are evaluated to an empty Lua string.
 
+This API requires a relatively expensive metamethod call and it is recommended to avoid using it on hot code paths.
 
 [返回目录](#nginx-api-for-lua)

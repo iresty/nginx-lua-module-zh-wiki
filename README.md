@@ -22,6 +22,8 @@ todo.md:<!-- todo 没懂，后面看看怎么翻译  -->
 
 有任何疑问，可以随时联系我。翻译交流QQ群：435558580 。
 
+版本更新：This document describes ngx_lua [v0.9.19](https://github.com/openresty/lua-nginx-module/tags) released on 11 November 2015.
+
 Table of Contents
 =================
 
@@ -118,6 +120,7 @@ Directives
 * [lua_ssl_verify_depth yuansheng-9.29](doc/lua_ssl_verify_depth.md)
 * [lua_http10_buffering yuansheng-9.29](doc/lua_http10_buffering.md)
 * [rewrite_by_lua_no_postpone yuansheng-9.29](doc/rewrite_by_lua_no_postpone.md)
+* [access_by_lua_no_postpone yuansheng-12.19](doc/access_by_lua_no_postpone.md)
 * [lua_transform_underscores_in_response_headers yuansheng-9.29](doc/lua_transform_underscores_in_response_headers.md)
 * [lua_check_client_abort yuansheng-9.29](doc/lua_check_client_abort.md)
 * [lua_max_pending_timers yuansheng-9.29](doc/lua_max_pending_timers.md)
@@ -140,6 +143,7 @@ NGINX API for Lua
 * [ngx.status lance-2015.8.18 yuansheng(√)](doc/ngxstatus.md)
 * [ngx.header.HEADER lance-2015.9.6 yuansheng(√)](doc/ngxheaderheader.md)
 * [ngx.resp.get_headers lance-2015.9.7 yuansheng(√)](doc/ngxrespget_headers.md)
+* [ngx.req.is_internal yuansheng-2015.12.19](doc/ngxreqis_internal.md)
 * [ngx.req.start_time lance-2015.9.9 yuansheng(√)](doc/ngxreqstart_time.md)
 * [ngx.req.http_version lance-2015.9.9 yuansheng(√)](doc/ngxreqhttp_version.md)
 * [ngx.req.raw_header lance-2015.9.9 yuansheng(√)](doc/ngxreqraw_header.md)
@@ -238,6 +242,8 @@ NGINX API for Lua
 * [ngx.thread.kill yuansheng-10.4](doc/ngxthreadkill.md)
 * [ngx.on_abort yuansheng-10.2](doc/ngxon_abort.md)
 * [ngx.timer.at yuansheng-10.1](doc/ngxtimerat.md)
+* [ngx.timer.running_count yuansheng-12.9](doc/ngxtimerrunning_count.md)
+* [ngx.timer.pending_count yuansheng-12.9](doc/ngxtimerpending_count.md)
 * [ngx.config.debug yuansheng-9.30](doc/ngxconfigdebug.md)
 * [ngx.config.prefix yuansheng-9.30](doc/ngxconfigprefix.md)
 * [ngx.config.nginx_version yuansheng-9.30](doc/ngxconfignginx_version.md)
@@ -245,6 +251,8 @@ NGINX API for Lua
 * [ngx.config.ngx_lua_version yuansheng-9.30](doc/ngxconfigngx_lua_version.md)
 * [ngx.worker.exiting yuansheng-9.30](doc/ngxworkerexiting.md)
 * [ngx.worker.pid yuansheng-9.30](doc/ngxworkerpid.md)
+* [ngx.worker.count yuansheng-12.19](doc/ngxworkercount.md)
+* [ngx.worker.id yuansheng-12.19](doc/ngxworkerid.md)
 * [ndk.set_var.DIRECTIVE yuansheng-9.30](doc/ndkset_vardirective.md)
 * [coroutine.create yuansheng-9.30](doc/coroutinecreate.md)
 * [coroutine.resume yuansheng-9.30](doc/coroutineresume.md)

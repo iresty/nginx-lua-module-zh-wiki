@@ -5,7 +5,7 @@ body_filter_by_lua_block
 
 **环境:** *http, server, location, location if*
 
-**语法:** *output-body-filter*
+**阶段:** *output-body-filter*
 
 与 [body_filter_by_lua](#body_filter_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 NGINX 的字符串（需要特殊字符转义）。
 

@@ -2,7 +2,7 @@ ngx.var.VARIABLE
 ----------------
 **语法:** *ngx.var.VAR_NAME*
 
-**环境:** *set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;*
 
 读写 Nginx 变量值。
 
@@ -57,7 +57,7 @@ Nginx 正则表达式捕获组变量 `$1`、`$2`、`$3` 等，也可以通过这
 
 **syntax:** *ngx.var.VAR_NAME*
 
-**context:** *set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\*
+**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;*
 
 Read and write Nginx variable values.
 

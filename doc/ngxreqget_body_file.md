@@ -2,7 +2,7 @@ ngx.req.get_body_file
 ---------------------
 **语法:** *file_name = ngx.req.get_body_file()*
 
-**环境:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 获取存储请求体数据的临时文件名。如果请求体尚未被读取或已被读取到内存中，此函数将返回 `nil`。
 
@@ -23,7 +23,7 @@ ngx.req.get_body_file
 
 **syntax:** *file_name = ngx.req.get_body_file()*
 
-**context:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 Retrieves the file name for the in-file request body data. Returns `nil` if the request body has not been read or has been read into memory.
 

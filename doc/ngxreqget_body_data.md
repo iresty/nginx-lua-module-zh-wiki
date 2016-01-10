@@ -2,7 +2,7 @@ ngx.req.get_body_data
 ---------------------
 **语法:** *data = ngx.req.get_body_data()*
 
-**环境:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 取回内存中的请求体数据。本函数返回 Lua 字符串而不是包含解析过参数的 Lua table。如果想要返回 Lua table，请使用 [ngx.req.get_post_args](#ngxreqget_post_args) 函数。
 
@@ -29,7 +29,7 @@ ngx.req.get_body_data
 
 **syntax:** *data = ngx.req.get_body_data()*
 
-**context:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 Retrieves in-memory request body data. It returns a Lua string rather than a Lua table holding all the parsed query arguments. Use the [ngx.req.get_post_args](#ngxreqget_post_args) function instead if a Lua table is required.
 

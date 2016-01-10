@@ -2,7 +2,7 @@ ngx.crc32_short
 ---------------
 **语法:** *intval = ngx.crc32_short(str)*
 
-**环境:** set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\**, ngx.timer.*\**
+**环境:** set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;
 
 通过一个字符串计算循环冗余校验码。
 
@@ -16,7 +16,7 @@ ngx.crc32_short
 
 **syntax:** *intval = ngx.crc32_short(str)*
 
-**context:** set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\**, body_filter_by_lua*\**, log_by_lua*\**, ngx.timer.*\**
+**context:** set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;
 
 Calculates the CRC-32 (Cyclic Redundancy Code) digest for the str argument.
 

@@ -2,7 +2,7 @@ ngx.sleep
 ---------
 **语法:** *ngx.sleep(seconds)*
 
-**环境:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, ngx.timer.*\*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;*
 
 无阻塞地休眠特定秒。时间可以精确到 0.001 秒 (毫秒)。
 
@@ -17,7 +17,7 @@ ngx.sleep
 
 **syntax:** *ngx.sleep(seconds)*
 
-**context:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, ngx.timer.*\*
+**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;*
 
 Sleeps for the specified seconds without blocking. One can specify time resolution up to 0.001 seconds (i.e., one milliseconds).
 

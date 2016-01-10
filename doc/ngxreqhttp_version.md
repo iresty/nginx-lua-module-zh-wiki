@@ -2,7 +2,7 @@ ngx.req.http_version
 --------------------
 **语法:** *num = ngx.req.http_version()*
 
-**环境:** *set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;*
 
 返回一个 Lua 数字代表当前请求的 HTTP 版本号。
 
@@ -15,7 +15,7 @@ ngx.req.http_version
 
 **syntax:** *num = ngx.req.http_version()*
 
-**context:** *set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\*
+**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;*
 
 Returns the HTTP version number for the current request as a Lua number.
 

@@ -2,7 +2,7 @@ ngx.req.set_body_file
 ---------------------
 **语法:** *ngx.req.set_body_file(file_name, auto_clean?)*
 
-**环境:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 使用 `file_name` 参数指定的数据文件设置当前请求的请求体。
 
@@ -21,7 +21,7 @@ ngx.req.set_body_file
 
 **syntax:** *ngx.req.set_body_file(file_name, auto_clean?)*
 
-**context:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 Set the current request's request body using the in-file data specified by the `file_name` argument.
 

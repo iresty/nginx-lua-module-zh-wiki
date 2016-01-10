@@ -2,7 +2,7 @@ ngx.flush
 ---------
 **语法:** *ok, err = ngx.flush(wait?)*
 
-**环境:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 向客户端刷新响应输出。
 
@@ -20,7 +20,7 @@ ngx.flush
 
 **syntax:** *ok, err = ngx.flush(wait?)*
 
-**context:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 Flushes response output to the client. 
 

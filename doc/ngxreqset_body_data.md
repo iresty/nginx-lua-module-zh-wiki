@@ -2,7 +2,7 @@ ngx.req.set_body_data
 ---------------------
 **语法:** *ngx.req.set_body_data(data)*
 
-**环境:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 使用 `data` 参数指定的内存数据设置当前请求的请求体。
 
@@ -16,7 +16,7 @@ ngx.req.set_body_data
 
 **syntax:** *ngx.req.set_body_data(data)*
 
-**context:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 Set the current request's request body using the in-memory data specified by the `data` argument.
 

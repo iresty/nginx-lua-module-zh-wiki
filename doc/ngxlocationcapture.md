@@ -2,7 +2,7 @@ ngx.location.capture
 --------------------
 **语法:** *res = ngx.location.capture(uri, options?)*
 
-**环境:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 向 `uri` 发起一个同步非阻塞 *Nginx 子请求*。
 
@@ -272,7 +272,7 @@ Nginx 代码中有一个硬编码的数字，来控制每个主请求最多可�
 
 **syntax:** *res = ngx.location.capture(uri, options?)*
 
-**context:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 Issues a synchronous but still non-blocking *Nginx Subrequest* using `uri`.
 

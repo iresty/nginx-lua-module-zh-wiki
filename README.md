@@ -22,7 +22,7 @@ todo.md:<!-- todo 没懂，后面看看怎么翻译  -->
 
 有任何疑问，可以随时联系我。翻译交流QQ群：435558580 。
 
-版本更新：This document describes ngx_lua [v0.9.19](https://github.com/openresty/lua-nginx-module/tags) released on 11 November 2015.
+版本更新：This document describes ngx_lua [v0.9.20](https://github.com/openresty/lua-nginx-module/tags) released on 19 December 2015.
 
 Table of Contents
 =================
@@ -103,7 +103,11 @@ Directives
 * [log_by_lua yuansheng-9.28](doc/log_by_lua.md)
 * [log_by_lua_block yuansheng-11.1](doc/log_by_lua_block.md)
 * [log_by_lua_file yuansheng-9.28](doc/log_by_lua_file.md)
+* [balancer_by_lua_block](#balancer_by_lua_block)
+* [balancer_by_lua_file](#balancer_by_lua_file)
 * [lua_need_request_body yuansheng-9.28](doc/lua_need_request_body.md)
+* [ssl_certificate_by_lua_block](#ssl_certificate_by_lua_block)
+* [ssl_certificate_by_lua_file](#ssl_certificate_by_lua_file)
 * [lua_shared_dict lance-2015.8.20](doc/lua_shared_dict.md)
 * [lua_socket_connect_timeout yuansheng-9.28](doc/lua_socket_connect_timeout.md)
 * [lua_socket_send_timeout yuansheng-9.28](doc/lua_socket_send_timeout.md)
@@ -253,6 +257,10 @@ NGINX API for Lua
 * [ngx.worker.pid yuansheng-9.30](doc/ngxworkerpid.md)
 * [ngx.worker.count yuansheng-12.19](doc/ngxworkercount.md)
 * [ngx.worker.id yuansheng-12.19](doc/ngxworkerid.md)
+* [ngx.semaphore](#ngxsemaphore)
+* [ngx.balancer](#ngxbalancer)
+* [ngx.ssl](#ngxssl)
+* [ngx.ocsp](#ngxocsp)
 * [ndk.set_var.DIRECTIVE yuansheng-9.30](doc/ndkset_vardirective.md)
 * [coroutine.create yuansheng-9.30](doc/coroutinecreate.md)
 * [coroutine.resume yuansheng-9.30](doc/coroutineresume.md)

@@ -2,7 +2,7 @@ ngx.req.read_body
 -----------------
 **语法:** *ngx.req.read_body()*
 
-**环境:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 同步读取客户端请求体，不阻塞 Nginx 事件循环。
 
@@ -32,7 +32,7 @@ ngx.req.read_body
 
 **syntax:** *ngx.req.read_body()*
 
-**context:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 Reads the client request body synchronously without blocking the Nginx event loop.
 

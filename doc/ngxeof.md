@@ -2,7 +2,7 @@ ngx.eof
 -------
 **语法:** *ok, err = ngx.eof()*
 
-**环境:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 明确指定响应输出流的末尾。在 HTTP 1.1 分块编码输出模式下，它会触发 Nginx 内核发送“最后一块”。
 
@@ -36,7 +36,7 @@ ngx.eof
 
 **syntax:** *ok, err = ngx.eof()*
 
-**context:** **context:** *rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\*
+**context:** **context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 Explicitly specify the end of the response output stream. In the case of HTTP 1.1 chunked encoded output, it will just trigger the Nginx core to send out the "last chunk".
 

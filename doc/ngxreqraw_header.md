@@ -2,7 +2,7 @@ ngx.req.raw_header
 ------------------
 **语法:** *str = ngx.req.raw_header(no_request_line?)*
 
-**环境:** *set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;*
 
 返回 Nginx 服务器接收到的原始 HTTP 协议头。
 
@@ -46,7 +46,7 @@ ngx.req.raw_header
 
 **syntax:** *str = ngx.req.raw_header(no_request_line?)*
 
-**context:** *set_by_lua*\**, rewrite_by_lua*\**, access_by_lua*\**, content_by_lua*\**, header_filter_by_lua*\*
+**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;*
 
 Returns the original raw HTTP protocol header received by the Nginx server.
 

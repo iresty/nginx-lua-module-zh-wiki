@@ -7310,72 +7310,58 @@ ngx.semaphore
 
 ngx.balancer
 ------------
-**syntax:** *local balancer = require "ngx.balancer"*
+**语法:** *local balancer = require "ngx.balancer"*
 
-This is a Lua module that provides a Lua API to allow defining completely dynamic load balancers
-in pure Lua.
+这是一个允许使用纯 Lua 语言，完整定义一个动态负载均衡 Lua API 模块。
 
-This Lua module does not ship with this ngx_lua module itself rather it is shipped with
-the
-[lua-resty-core](https://github.com/openresty/lua-resty-core) library.
+该模块没与 ngx_lua 模块一起发行，而是与 [lua-resty-core](https://github.com/openresty/lua-resty-core) 库一起发行。
 
-Please refer to the [documentation](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/balancer.md)
-for this `ngx.balancer` Lua module in [lua-resty-core](https://github.com/openresty/lua-resty-core)
-for more details.
+为获取更多信息，请参考 [lua-resty-core](https://github.com/openresty/lua-resty-core) Lua　模块的 `ngx.balancer` 章节，[文档](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/balancer.md) 。
 
-This feature requires at least ngx_lua `v0.10.0`.
+该特性在 `v0.10.0` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.ssl
 -------
-**syntax:** *local ssl = require "ngx.ssl"*
+**语法:** *local ssl = require "ngx.ssl"*
 
-This Lua module provides API functions to control the SSL handshake process in contexts like
-[ssl_certificate_by_lua*](#ssl_certificate_by_lua_block).
+该 Lua 模块提供 API 函数，可以在诸如 [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block) 环境中完成 SSL 握手过程的控制。
 
-This Lua module does not ship with this ngx_lua module itself rather it is shipped with
-the
-[lua-resty-core](https://github.com/openresty/lua-resty-core) library.
+该模块没与 ngx_lua 模块一起发行，而是与 [lua-resty-core](https://github.com/openresty/lua-resty-core) 库一起发行。
 
-Please refer to the [documentation](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md)
-for this `ngx.ssl` Lua module for more details.
+获取更多 `ngx.ssl` Lua 模块信息，请参考 [文档](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md) 。
 
-This feature requires at least ngx_lua `v0.10.0`.
+该特性在　`v0.10.0`　版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.ocsp
 --------
-**syntax:** *local ocsp = require "ngx.ocsp"*
+**语法:** *local ocsp = require "ngx.ocsp"*
 
-This Lua module provides API to perform OCSP queries, OCSP response validations, and
-OCSP stapling planting.
+该模块提供 API 完成 OCSP 查询、OCSP 响应验证和 OCSP stapling planting 。
+<!-- todo，最后的单词，不知道如何翻译 -->
 
-Usually, this module is used together with the [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md)
-module in the
-context of [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block).
+通常，该模块与 [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md) 模块一起配合在 [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block) 的环境中使用。
 
-This Lua module does not ship with this ngx_lua module itself rather it is shipped with
-the
-[lua-resty-core](https://github.com/openresty/lua-resty-core) library.
+该模块没与 ngx_lua 模块一起发行，而是与 [lua-resty-core](https://github.com/openresty/lua-resty-core) 库一起发行。
 
-Please refer to the [documentation](https://github.com/openresty/lua-resty-core/blob/ocsp-cert-by-lua-2/lib/ngx/ocsp.md)
-for this `ngx.ocsp` Lua module for more details.
+获取更多 `ngx.ocsp` Lua 模块信息，请参考 [文档](https://github.com/openresty/lua-resty-core/blob/ocsp-cert-by-lua-2/lib/ngx/ocsp.md)。
 
-This feature requires at least ngx_lua `v0.10.0`.
+该特性在　`v0.10.0`　版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ndk.set_var.DIRECTIVE
 ---------------------
-**syntax:** *res = ndk.set_var.DIRECTIVE_NAME*
+**语法:** *res = ndk.set_var.DIRECTIVE_NAME*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-This mechanism allows calling other nginx C modules' directives that are implemented by [Nginx Devel Kit](https://github.com/simpl/ngx_devel_kit) (NDK)'s set_var submodule's `ndk_set_var_value`.
+该机制允许调用这类 nginx C 模块指令：使用 [Nginx Devel Kit](https://github.com/simpl/ngx_devel_kit) (NDK) 的 set_var 的子模块的`ndk_set_var_value` 实现。
 
-For example, the following [set-misc-nginx-module](http://github.com/openresty/set-misc-nginx-module) directives can be invoked this way:
+例如，下列[set-misc-nginx-module](http://github.com/openresty/set-misc-nginx-module)指令是可以通过这个方式调用的：
 
 * [set_quote_sql_str](http://github.com/openresty/set-misc-nginx-module#set_quote_sql_str)
 * [set_quote_pgsql_str](http://github.com/openresty/set-misc-nginx-module#set_quote_pgsql_str)
@@ -7391,7 +7377,7 @@ For example, the following [set-misc-nginx-module](http://github.com/openresty/s
 * [set_sha1](http://github.com/openresty/set-misc-nginx-module#set_encode_base64)
 * [set_md5](http://github.com/openresty/set-misc-nginx-module#set_decode_base64)
 
-For instance,
+举例：
 
 ```lua
 
@@ -7399,116 +7385,120 @@ For instance,
  -- now res == 'a%2fb'
 ```
 
-Similarly, the following directives provided by [encrypted-session-nginx-module](http://github.com/openresty/encrypted-session-nginx-module) can be invoked from within Lua too:
+相似的，下列指令是由 [encrypted-session-nginx-module](http://github.com/openresty/encrypted-session-nginx-module) 提供，他们在 Lua 中也可以被调用：
 
 * [set_encrypt_session](http://github.com/openresty/encrypted-session-nginx-module#set_encrypt_session)
 * [set_decrypt_session](http://github.com/openresty/encrypted-session-nginx-module#set_decrypt_session)
 
-This feature requires the [ngx_devel_kit](https://github.com/simpl/ngx_devel_kit) module.
+这个特性需要 [ngx_devel_kit](https://github.com/simpl/ngx_devel_kit) 模块。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 coroutine.create
 ----------------
-**syntax:** *co = coroutine.create(f)*
+**语法:** *co = coroutine.create(f)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, init_by_lua&#42;, ngx.timer.&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, init_by_lua*, ngx.timer.*, header_filter_by_lua*, body_filter_by_lua**
 
-Creates a user Lua coroutines with a Lua function, and returns a coroutine object.
+通过一个 Lua 函数创建一个用户的 Lua 协程，并返回一个协程对象。、
 
-Similar to the standard Lua [coroutine.create](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.create) API, but works in the context of the Lua coroutines created by ngx_lua.
+类似标准的 Lua [coroutine.create](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.create) API，但它是在 ngx_lua 创建的 Lua 协程环境中运行。
 
-This API was first usable in the context of [init_by_lua*](#init_by_lua) since the `0.9.2`.
+该 API 在 [init_by_lua*](#init_by_lua) 的环境中可用，是从 `0.9.2` 开始的。
 
-This API was first introduced in the `v0.6.0` release.
+该 API 在`v0.6.0`版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 coroutine.resume
 ----------------
-**syntax:** *ok, ... = coroutine.resume(co, ...)*
+**语法:** *ok, ... = coroutine.resume(co, ...)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, init_by_lua&#42;, ngx.timer.&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, init_by_lua*, ngx.timer.*, header_filter_by_lua*, body_filter_by_lua**
 
-Resumes the executation of a user Lua coroutine object previously yielded or just created.
+恢复以前挂起或刚创建的用户 Lua 协程对象的执行。
+Resume the executation of a user Lua coroutine object previously yielded or just created.
 
-Similar to the standard Lua [coroutine.resume](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.resume) API, but works in the context of the Lua coroutines created by ngx_lua.
+类似标准的 Lua [coroutine.resume](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.resume) API，但它是在 ngx_lua 创建的 Lua 协程环境中运行。
 
-This API was first usable in the context of [init_by_lua*](#init_by_lua) since the `0.9.2`.
+该 API 在 [init_by_lua*](#init_by_lua) 的环境中可用，是从 `0.9.2` 开始的。
 
-This API was first introduced in the `v0.6.0` release.
+该 API 在 `v0.6.0` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 coroutine.yield
 ---------------
-**syntax:** *... = coroutine.yield(...)*
+**语法:** *... = coroutine.yield(...)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, init_by_lua&#42;, ngx.timer.&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, init_by_lua*, ngx.timer.*, header_filter_by_lua*, body_filter_by_lua**
 
-Yields the execution of the current user Lua coroutine.
+挂起当前用户 Lua 协程的执行。
 
-Similar to the standard Lua [coroutine.yield](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.yield) API, but works in the context of the Lua coroutines created by ngx_lua.
+类似标准的 Lua [coroutine.yield](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.yield) API，但它是在 ngx_lua 创建的 Lua 协程环境中运行。
 
-This API was first usable in the context of [init_by_lua*](#init_by_lua) since the `0.9.2`.
+该 API 在 [init_by_lua*](#init_by_lua) 的环境中可用，是从 `0.9.2` 开始的。
 
-This API was first introduced in the `v0.6.0` release.
+该 API 在 `v0.6.0` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 coroutine.wrap
 --------------
-**syntax:** *co = coroutine.wrap(f)*
+**语法:** *co = coroutine.wrap(f)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, init_by_lua&#42;, ngx.timer.&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, init_by_lua*, ngx.timer.*, header_filter_by_lua*, body_filter_by_lua**
 
-Similar to the standard Lua [coroutine.wrap](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.wrap) API, but works in the context of the Lua coroutines created by ngx_lua.
+类似标准的 Lua [coroutine.wrap](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.wrap) API，但它是在 ngx_lua 创建的 Lua 协程环境中运行。
 
-This API was first usable in the context of [init_by_lua*](#init_by_lua) since the `0.9.2`.
+该 API 在 [init_by_lua*](#init_by_lua) 的环境中可用，是从 `0.9.2` 开始的。
 
-This API was first introduced in the `v0.6.0` release.
+该 API 在 `v0.6.0` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 coroutine.running
 -----------------
-**syntax:** *co = coroutine.running()*
+**语法:** *co = coroutine.running()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, init_by_lua&#42;, ngx.timer.&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, init_by_lua*, ngx.timer.*, header_filter_by_lua*, body_filter_by_lua**
 
-Identical to the standard Lua [coroutine.running](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.running) API.
+与标准的 Lua [coroutine.running](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.running) API 相同。
 
-This API was first usable in the context of [init_by_lua*](#init_by_lua) since the `0.9.2`.
+该 API 在 [init_by_lua*](#init_by_lua) 的环境中可用，是从 `0.9.2` 开始的。
 
-This API was first enabled in the `v0.6.0` release.
+该 API 在 `v0.6.0` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 coroutine.status
 ----------------
-**syntax:** *status = coroutine.status(co)*
+**语法:** *status = coroutine.status(co)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, init_by_lua&#42;, ngx.timer.&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, init_by_lua*, ngx.timer.*, header_filter_by_lua*, body_filter_by_lua**
 
-Identical to the standard Lua [coroutine.status](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.status) API.
+与标准的 Lua [coroutine.status](http://www.lua.org/manual/5.1/manual.html#pdf-coroutine.status) API 相同。
 
-This API was first usable in the context of [init_by_lua*](#init_by_lua) since the `0.9.2`.
+该 API 在 [init_by_lua*](#init_by_lua) 的环境中可用，是从 `0.9.2` 开始的。
 
-This API was first enabled in the `v0.6.0` release.
+该 API 在 `v0.6.0` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 Obsolete Sections
 =================
 
-This section is just holding obsolete documentation sections that have been either renamed or removed so that existing links over the web are still valid.
 
-[Back to TOC](#table-of-contents)
+这里保留一些过期文档小节，虽然他们可能被重命名、删除，但他们的链接将一直有效。
+
+[返回目录](#table-of-contents)
 
 Special PCRE Sequences
 ----------------------
 
-This section has been renamed to [Special Escaping Sequences](#special-escaping-sequences).
+本章节已经被重命名为[特殊的转义序列](#special-escaping-sequences)。
+
+[返回目录](#table-of-contents)
 
 
 

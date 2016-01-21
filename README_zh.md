@@ -2923,11 +2923,11 @@ Nginx API for Lua
 
 Introduction
 ------------
-The various `*_by_lua` and `*_by_lua_file` configuration directives serve as gateways to the Lua API within the `nginx.conf` file. The Nginx Lua API described below can only be called within the user Lua code run in the context of these configuration directives.
+`nginx.conf` 文件中各种 `*_by_lua` 和 `*_by_lua_file` 配置指令的作用是提供 Lua API 的网关。下面介绍的这些 Lua API 指令，只能在上述配置指令的环境中，通过用户 Lua 代码调用。
 
-The API is exposed to Lua in the form of two standard packages `ngx` and `ndk`. These packages are in the default global scope within ngx_lua and are always available within ngx_lua directives.
+Lua 中使用的 API 以两个标准模块的形式封装：`ngx` 和 `ndk`。这两个模块在 ngx_lua 默认的全局作用域中，在 ngx_lua 指令中总是可用。
 
-The packages can be introduced into external Lua modules like this:
+这两个模块可以被用在外部 Lua 模块中，例如：
 
 ```lua
 
@@ -2942,9 +2942,9 @@ The packages can be introduced into external Lua modules like this:
  return _M
 ```
 
-Use of the [package.seeall](http://www.lua.org/manual/5.1/manual.html#pdf-package.seeall) flag is strongly discouraged due to its various bad side-effects.
+强烈不推荐使用 [package.seeall](http://www.lua.org/manual/5.1/manual.html#pdf-package.seeall) 标记，因为它有很多不好的副作用。
 
-It is also possible to directly require the packages in external Lua modules:
+在外部 Lua 模块中也可以直接 require 这两个模块：
 
 ```lua
 
@@ -2952,26 +2952,26 @@ It is also possible to directly require the packages in external Lua modules:
  local ndk = require "ndk"
 ```
 
-The ability to require these packages was introduced in the `v0.2.1rc19` release.
+自 `v0.2.1rc19` 版开始可以 requrie 这两个模块。
 
-Network I/O operations in user code should only be done through the Nginx Lua API calls as the Nginx event loop may be blocked and performance drop off dramatically otherwise. Disk operations with relatively small amount of data can be done using the standard Lua `io` library but huge file reading and writing should be avoided wherever possible as they may block the Nginx process significantly. Delegating all network and disk I/O operations to Nginx's subrequests (via the [ngx.location.capture](#ngxlocationcapture) method and similar) is strongly recommended for maximum performance.
+用户代码中的网络 I/O 操作应该使用这些 Nginx Lua API 实现，否则 Nginx 的事件循环可能被阻塞，从而严重影响性能。相对小数据量的磁盘操作可以通过标准的 Lua `io` 库来实现，但大规模的文件读写如果可能应该避免，因为可能会严重阻塞 Nginx 进程。为获得最好性能，强烈建议将所有网络和磁盘 I/O 操作发送到 Nginx 的子请求中 (通过类似 [ngx.location.capture](#ngxlocationcapture) 的方法) 处理。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.arg
 -------
-**syntax:** *val = ngx.arg\[index\]*
+**语法:** *val = ngx.arg\[index\]*
 
-**context:** *set_by_lua&#42;, body_filter_by_lua&#42;*
+**环境:** *set_by_lua&#42;, body_filter_by_lua&#42;*
 
-When this is used in the context of the [set_by_lua](#set_by_lua) or [set_by_lua_file](#set_by_lua_file) directives, this table is read-only and holds the input arguments to the config directives:
+当被用在 [set_by_lua](#set_by_lua) 或 [set_by_lua_file](#set_by_lua_file) 指令环境中时，本表是一个只读表，包含输入参数供配置命令使用：
 
 ```lua
 
  value = ngx.arg[n]
 ```
 
-Here is an example
+例如，
 
 ```nginx
 
@@ -2987,21 +2987,21 @@ Here is an example
  }
 ```
 
-that writes out `88`, the sum of `32` and `56`.
+将输出 `88`，是 `32` 和 `56` 的和。
 
-When this table is used in the context of [body_filter_by_lua](#body_filter_by_lua) or [body_filter_by_lua_file](#body_filter_by_lua_file), the first element holds the input data chunk to the output filter code and the second element holds the boolean flag for the "eof" flag indicating the end of the whole output data stream.
+当被用在 [body_filter_by_lua](#body_filter_by_lua) 或 [body_filter_by_lua_file](#body_filter_by_lua_file) 指令环境中时，本表第一个元素是送给输出过滤器的输入数据块，第二个元素是 "eof" 布尔标记，用以标识整个输出数据流是否结束。
 
-The data chunk and "eof" flag passed to the downstream Nginx output filters can also be overridden by assigning values directly to the corresponding table elements. When setting `nil` or an empty Lua string value to `ngx.arg[1]`, no data chunk will be passed to the downstream Nginx output filters at all.
+可以通过直接给相应的表元素赋值，设置送给下游 Nginx 输出过滤器的数据块和 "eof" 标记。当给 `ngx.arg[1]` 赋值 `nil` 或 Lua 空字符串时，将不发送任何数据给下游的 Nginx 输出过滤器。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.var.VARIABLE
 ----------------
-**syntax:** *ngx.var.VAR_NAME*
+**语法:** *ngx.var.VAR_NAME*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;*
 
-Read and write Nginx variable values.
+读写 Nginx 变量值。
 
 ```nginx
 
@@ -3009,13 +3009,12 @@ Read and write Nginx variable values.
  ngx.var.some_nginx_variable_name = value
 ```
 
-Note that only already defined nginx variables can be written to.
-For example:
+请注意，只有已经定义的 nginx 变量可以被写入。例如，
 
 ```nginx
 
  location /foo {
-     set $my_var ''; # this line is required to create $my_var at config time
+     set $my_var ''; # 需要在设置时创建 $my_var 变量
      content_by_lua '
          ngx.var.my_var = 123;
          ...
@@ -3023,86 +3022,83 @@ For example:
  }
 ```
 
-That is, nginx variables cannot be created on-the-fly.
+也就是说，nginx 变量无法“随用随创建”。
 
-Some special nginx variables like `$args` and `$limit_rate` can be assigned a value,
-many others are not, like `$query_string`, `$arg_PARAMETER`, and `$http_NAME`.
+一些特殊的 nginx 变量，比如 `$args` 和 `$limit_rate`，可以被赋值，但许多其他的变量不能，包括 `$query_string`，`$arg_PARAMETER`，和 `$http_NAME` 等。
 
-Nginx regex group capturing variables `$1`, `$2`, `$3`, and etc, can be read by this
-interface as well, by writing `ngx.var[1]`, `ngx.var[2]`, `ngx.var[3]`, and etc.
+Nginx 正则表达式捕获组变量 `$1`、`$2`、`$3` 等，也可以通过这个界面读取，方式为通过 `ngx.var[1]`、`ngx.var[2]`、`ngx.var[3]` 等。
 
-Setting `ngx.var.Foo` to a `nil` value will unset the `$Foo` Nginx variable.
+设置 `ngx.var.Foo` 为 `nil` 值将删除 Nginx 变量 `$Foo`。
 
 ```lua
 
  ngx.var.args = nil
 ```
 
-**WARNING** When reading from an Nginx variable, Nginx will allocate memory in the per-request memory pool which is freed only at request termination. So when you need to read from an Nginx variable repeatedly in your Lua code, cache the Nginx variable value to your own Lua variable, for example,
+**注意** 当从 Nginx 变量中读取值时，Nginx 将从基于请求的内存池中分配内存，只有在请求中止时才释放。所以如果用户的 Lua 代码中需要反复读取 Nginx 变量，请在用户程序的 Lua 变量中缓存，例如，
 
 ```lua
 
  local val = ngx.var.some_var
- --- use the val repeatedly later
+ --- 在后面反复使用变量 val
 ```
 
-to prevent (temporary) memory leaking within the current request's lifetime. Another way of caching the result is to use the [ngx.ctx](#ngxctx) table.
+以避免在当前请求周期内的 (临时) 内存泄露。另外一个缓存结果的方法是使用 [ngx.ctx](#ngxctx) 表。
 
-Undefined NGINX variables are evaluated to `nil` while uninitialized (but defined) NGINX variables are evaluated to an empty Lua string.
+未定义的 NGINX 变量会被认定为 `nil` ，而未初始化（但已定义）的 NGINX 变量会被认定为空 Lua 字符串。
 
-This API requires a relatively expensive metamethod call and it is recommended to avoid using it on hot code paths.
+这个 API 需要进行相对“昂贵”的元方法调用，所以请避免高频使用。
 
 [Back to TOC](#nginx-api-for-lua)
 
 Core constants
 --------------
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, &#42;log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, &#42;log_by_lua&#42;, ngx.timer.&#42;*
 
 ```lua
-
-   ngx.OK (0)
-   ngx.ERROR (-1)
-   ngx.AGAIN (-2)
-   ngx.DONE (-4)
-   ngx.DECLINED (-5)
+    ngx.OK (0)
+    ngx.ERROR (-1)
+    ngx.AGAIN (-2)
+    ngx.DONE (-4)
+    ngx.DECLINED (-5)
 ```
 
-Note that only three of these constants are utilized by the [Nginx API for Lua](#nginx-api-for-lua) (i.e., [ngx.exit](#ngxexit) accepts `NGX_OK`, `NGX_ERROR`, and `NGX_DECLINED` as input).
+请注意，这些常量中只有三个可以被 [Nginx API for Lua](#nginx-api-for-lua) 使用
+(即 [ngx.exit](#ngxexit) 只接受 `NGX_OK`, `NGX_ERROR`, 和 `NGX_DECLINED` 作为输入)。
 
 ```lua
 
    ngx.null
 ```
 
-The `ngx.null` constant is a `NULL` light userdata usually used to represent nil values in Lua tables etc and is similar to the [lua-cjson](http://www.kyne.com.au/~mark/software/lua-cjson.php) library's `cjson.null` constant. This constant was first introduced in the `v0.5.0rc5` release.
+`ngx.null` 常量是一个 `NULL` 的[轻量用户数据](http://www.lua.org/pil/28.5.html)，一般被用来表达 Lua table 等里面的 nil (空) 值，类似于 [lua-cjson](http://www.kyne.com.au/~mark/software/lua-cjson.php) 库中的 `cjson.null` 常量。在`v0.5.0rc5` 版本中首次引入这个常量。
 
-The `ngx.DECLINED` constant was first introduced in the `v0.5.0rc19` release.
+`ngx.DECLINED` 这个常量在`v0.5.0rc19`版本中首次引入。
 
 [Back to TOC](#nginx-api-for-lua)
 
 HTTP method constants
 ---------------------
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;*
-
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;*
 
       ngx.HTTP_GET
       ngx.HTTP_HEAD
       ngx.HTTP_PUT
       ngx.HTTP_POST
       ngx.HTTP_DELETE
-      ngx.HTTP_OPTIONS   (added in the v0.5.0rc24 release)
-      ngx.HTTP_MKCOL     (added in the v0.8.2 release)
-      ngx.HTTP_COPY      (added in the v0.8.2 release)
-      ngx.HTTP_MOVE      (added in the v0.8.2 release)
-      ngx.HTTP_PROPFIND  (added in the v0.8.2 release)
-      ngx.HTTP_PROPPATCH (added in the v0.8.2 release)
-      ngx.HTTP_LOCK      (added in the v0.8.2 release)
-      ngx.HTTP_UNLOCK    (added in the v0.8.2 release)
-      ngx.HTTP_PATCH     (added in the v0.8.2 release)
-      ngx.HTTP_TRACE     (added in the v0.8.2 release)
+      ngx.HTTP_OPTIONS   (v0.5.0rc24 版本加入)
+      ngx.HTTP_MKCOL     (v0.8.2 版本加入)
+      ngx.HTTP_COPY      (v0.8.2 版本加入)
+      ngx.HTTP_MOVE      (v0.8.2 版本加入)
+      ngx.HTTP_PROPFIND  (v0.8.2 版本加入)
+      ngx.HTTP_PROPPATCH (v0.8.2 版本加入)
+      ngx.HTTP_LOCK      (v0.8.2 版本加入)
+      ngx.HTTP_UNLOCK    (v0.8.2 版本加入)
+      ngx.HTTP_PATCH     (v0.8.2 版本加入)
+      ngx.HTTP_TRACE     (v0.8.2 版本加入)
 
 
-These constants are usually used in [ngx.location.capture](#ngxlocationcapture) and [ngx.location.capture_multi](#ngxlocationcapture_multi) method calls.
+这些常量一般被用在 [ngx.location.capture](#ngxlocationcapture) 和 [ngx.location.capture_multi](#ngxlocationcapture_multi) 方法中。
 
 [Back to TOC](#nginx-api-for-lua)
 
@@ -3148,11 +3144,11 @@ HTTP status constants
    value = ngx.HTTP_INSUFFICIENT_STORAGE (507) (first added in the v0.9.20 release)
 ```
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 Nginx log level constants
 -------------------------
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;*
 
 ```lua
 
@@ -3167,38 +3163,39 @@ Nginx log level constants
    ngx.DEBUG
 ```
 
-These constants are usually used by the [ngx.log](#ngxlog) method.
+这些常量一般用于 [ngx.log](#ngxlog) 方法.
 
 [Back to TOC](#nginx-api-for-lua)
 
 print
 -----
-**syntax:** *print(...)*
+**语法:** *print(...)*
 
-**context:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, certificate_by_lua&#42;*
+**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, certificate_by_lua&#42;*
 
+将参数值以 `ngx.NOTICE` 日志级别写入 nginx 的 `error.log` 文件。
 Writes argument values into the nginx `error.log` file with the `ngx.NOTICE` log level.
 
-It is equivalent to
+等同于
 
 ```lua
 
  ngx.log(ngx.NOTICE, ...)
 ```
 
-Lua `nil` arguments are accepted and result in literal `"nil"` strings while Lua booleans result in literal `"true"` or `"false"` strings. And the `ngx.null` constant will yield the `"null"` string output.
+Lua 的 `nil` 值输出 `"nil"` 字符串，Lua 的布尔值输出 `"true"` 或 `"false"` 字符串。`ngx.null` 常量输出为 `"null"` 字符串。
 
-There is a hard coded `2048` byte limitation on error message lengths in the Nginx core. This limit includes trailing newlines and leading time stamps. If the message size exceeds this limit, Nginx will truncate the message text accordingly. This limit can be manually modified by editing the `NGX_MAX_ERROR_STR` macro definition in the `src/core/ngx_log.h` file in the Nginx source tree.
+在 Nginx 内核中硬编码限制了单条错误信息最长为 `2048` 字节。这个长度包含了最后的换行符和开始的时间戳。如果信息长度超过这个限制，Nginx 将把信息文本截断。这个限制可以通过修改 Nginx 源码中 `src/core/ngx_log.h` 文件中的 `NGX_MAX_ERROR_STR` 宏定义调整。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.ctx
 -------
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;*
 
-This table can be used to store per-request Lua context data and has a life time identical to the current request (as with the Nginx variables). 
+本 Lua 表可以用来存储基于请求的 Lua 环境数据，其生存周期与当前请求相同 (类似 Nginx 变量)。
 
-Consider the following example,
+参考下面例子，
 
 ```nginx
 
@@ -3215,16 +3212,16 @@ Consider the following example,
  }
 ```
 
-Then `GET /test` will yield the output
+访问 `GET /test` 输出
 
 ```bash
 
  79
 ```
 
-That is, the `ngx.ctx.foo` entry persists across the rewrite, access, and content phases of a request.
+也就是说，`ngx.ctx.foo` 条目跨越一个请求的 rewrite (重写)，access (访问)，和 content (内容) 各处理阶段保持一致。
 
-Every request, including subrequests, has its own copy of the table. For example:
+每个请求，包括子请求，都有一份自己的 `ngx.ctx` 表。例如：
 
 ```nginx
 
@@ -3247,7 +3244,7 @@ Every request, including subrequests, has its own copy of the table. For example
  }
 ```
 
-Then `GET /main` will give the output
+访问 `GET /main` 输出
 
 ```bash
 
@@ -3257,9 +3254,9 @@ Then `GET /main` will give the output
  main post: 73
 ```
 
-Here, modification of the `ngx.ctx.blah` entry in the subrequest does not affect the one in the parent request. This is because they have two separate versions of `ngx.ctx.blah`.
+这里，在子请求中修改 `ngx.ctx.blah` 条目并不影响父请求中的同名条目，因为它们各自维护不同版本的 `ngx.ctx.blah`。
 
-Internal redirection will destroy the original request `ngx.ctx` data (if any) and the new request will have an empty `ngx.ctx` table. For instance,
+内部重定向将摧毁原始请求中的 `ngx.ctx` 数据 (如果有)，新请求将会有一个空白的 `ngx.ctx` 表。例如，
 
 ```nginx
 
@@ -3277,38 +3274,41 @@ Internal redirection will destroy the original request `ngx.ctx` data (if any) a
  }
 ```
 
-Then `GET /orig` will give
+访问 `GET /orig` 将输出
 
 ```bash
 
  nil
 ```
 
-rather than the original `"hello"` value.
+而不是原始的 `"hello"` 值。
 
-Arbitrary data values, including Lua closures and nested tables, can be inserted into this "magic" table. It also allows the registration of custom meta methods.
+任意数据值，包括 Lua 闭包与嵌套表，都可以被插入这个“魔法”表，也允许注册自定义元方法。
 
-Overriding `ngx.ctx` with a new Lua table is also supported, for example,
+也可以将 `ngx.ctx` 覆盖为一个新 Lua 表，例如，
 
 ```lua
 
  ngx.ctx = { foo = 32, bar = 54 }
 ```
 
-When being used in the context of [init_worker_by_lua*](#init_worker_by_lua), this table just has the same lifetime of the current Lua handler.
+当用在 [init_worker_by_lua*](#init_worker_by_lua) 环境中，这个表与当前 Lua 句柄生命周期相同。
 
 The `ngx.ctx` lookup requires relatively expensive metamethod calls and it is much slower than explicitly passing per-request data along by your own function arguments. So do not abuse this API for saving your own function arguments because it usually has quite some performance impact.
 
+`ngx.ctx` 表查询需要相对昂贵的元方法调用，这比通过用户自己的函数参数直接传递基于请求的数据要慢得多。所以不要为了节约用户函数参数而滥用此 API，因为它可能对性能有明显影响。
+
 Because of the metamethod magic, never "local" the `ngx.ctx` table outside your Lua function scope on the Lua module level level due to [worker-level data sharing](#data-sharing-within-an-nginx-worker). For example, the following is bad:
+
+而且由于元方法“魔法”，不要在 lua 模块级别试图使用 "local" 级别的 `ngx.ctx` ，例如 [worker-level data sharing](#data-sharing-within-an-nginx-worker)。下面示例是糟糕的：
 
 ```lua
 
  -- mymodule.lua
  local _M = {}
 
- -- the following line is bad since ngx.ctx is a per-request
- -- data while this `ctx` variable is on the Lua module level
- -- and thus is per-nginx-worker.
+ -- 下面一行的 ngx.ctx 是属于单个请求的，但 `ctx` 变量是在 Lua 模块级别
+ -- 并且属于单个 worker 的。
  local ctx = ngx.ctx
 
  function _M.main()
@@ -3318,7 +3318,7 @@ Because of the metamethod magic, never "local" the `ngx.ctx` table outside your 
  return _M
 ```
 
-Use the following instead:
+应使用下面方式替代：
 
 ```lua
 
@@ -3332,46 +3332,40 @@ Use the following instead:
  return _M
 ```
 
-That is, let the caller pass the `ctx` table explicitly via a function argument.
+就是说，调用者对 `ctx` 表调用应通过函数传参方式完成。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.location.capture
 --------------------
-**syntax:** *res = ngx.location.capture(uri, options?)*
+**语法:** *res = ngx.location.capture(uri, options?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Issues a synchronous but still non-blocking *Nginx Subrequest* using `uri`.
+向 `uri` 发起一个同步非阻塞 *Nginx 子请求*。
 
-Nginx's subrequests provide a powerful way to make non-blocking internal requests to other locations configured with disk file directory or *any* other nginx C modules like `ngx_proxy`, `ngx_fastcgi`, `ngx_memc`,
-`ngx_postgres`, `ngx_drizzle`, and even ngx_lua itself and etc etc etc.
+Nginx 子请求是一种非常强有力的方式，它可以发起非阻塞的内部请求访问目标 location。目标 location 可以是配置文件中其他文件目录，或 *任何* 其他 nginx C 模块，包括 `ngx_proxy`、`ngx_fastcgi`、`ngx_memc`、`ngx_postgres`、`ngx_drizzle`，甚至 ngx_lua 自身等等 。
 
-Also note that subrequests just mimic the HTTP interface but there is *no* extra HTTP/TCP traffic *nor* IPC involved. Everything works internally, efficiently, on the C level.
+需要注意的是，子请求只是模拟 HTTP 接口的形式， *没有* 额外的 HTTP/TCP 流量，也 *没有* IPC (进程间通信) 调用。所有工作在内部高效地在 C 语言级别完成。
 
-Subrequests are completely different from HTTP 301/302 redirection (via [ngx.redirect](#ngxredirect)) and internal redirection (via [ngx.exec](#ngxexec)).
+子请求与 HTTP 301/302 重定向指令 (通过 [ngx.redirect](#ngxredirect)) 完全不同，也与内部重定向 ((通过 [ngx.exec](#ngxexec)) 完全不同。
 
-You should always read the request body (by either calling [ngx.req.read_body](#ngxreqread_body) or configuring [lua_need_request_body](#lua_need_request_body) on) before initiating a subrequest.
+在发起子请求前，用户程序应总是读取完整的 HTTP 请求体 (通过调用 [ngx.req.read_body](#ngxreqread_body) 或设置 [lua_need_request_body](#lua_need_request_body) 指令为 on).
 
-This API function (as well as [ngx.location.capture_multi](#ngxlocationcapture_multi)) always buffers the whole response body of the subrequest in memory. Thus, you should use [cosockets](#ngxsockettcp)
-and streaming processing instead if you have to handle large subrequest responses.
+该 API 方法（[ngx.location.capture_multi](#ngxlocationcapture_multi) 也一样）总是缓冲整个请求体到内存中。因此，当需要处理一个大的子请求响应，用户程序应使用 [cosockets](#ngxsockettcp) 进行流式处理，
 
-Here is a basic example:
+下面是一个简单例子：
 
 ```lua
 
  res = ngx.location.capture(uri)
 ```
 
-Returns a Lua table with 4 slots: `res.status`, `res.header`, `res.body`, and `res.truncated`.
+返回一个包含四个元素的 Lua 表 (`res.status`, `res.header`, `res.body`, 和 `res.truncated`)。
 
-`res.status` holds the response status code for the subrequest response.
+`res.status` (状态) 保存子请求的响应状态码。
 
-`res.header` holds all the response headers of the
-subrequest and it is a normal Lua table. For multi-value response headers,
-the value is a Lua (array) table that holds all the values in the order that
-they appear. For instance, if the subrequest response headers contain the following
-lines:
+`res.header` (头) 用一个标准 Lua 表储子请求响应的所有头信息。如果是“多值”响应头，这些值将使用 Lua (数组) 表顺序存储。例如，如果子请求响应头包含下面的行：
 
 ```bash
 
@@ -3380,43 +3374,39 @@ lines:
  Set-Cookie: baz=blah
 ```
 
-Then `res.header["Set-Cookie"]` will be evaluated to the table value
-`{"a=3", "foo=bar", "baz=blah"}`.
+则 `res.header["Set-Cookie"]` 将存储 Lua 表 `{"a=3", "foo=bar", "baz=blah"}`。
 
-`res.body` holds the subrequest's response body data, which might be truncated. You always need to check the `res.truncated` boolean flag to see if `res.body` contains truncated data. The data truncation here can only be caused by those unrecoverable errors in your subrequests like the cases that the remote end aborts the connection prematurely in the middle of the response body data stream or a read timeout happens when your subrequest is receiving the response body data from the remote.
+`res.body` (体) 保存子请求的响应体数据，它可能被截断。用户需要检测 `res.truncated` (截断) 布尔值标记来判断 `res.body` 是否包含截断的数据。这种数据截断的原因只可能是因为子请求发生了不可恢复的错误，例如远端在发送响应体时过早中断了连接，或子请求在接收远端响应体时超时。
 
-URI query strings can be concatenated to URI itself, for instance,
+URI 请求串可以与 URI 本身连在一起，例如，
 
 ```lua
 
  res = ngx.location.capture('/foo/bar?a=3&b=4')
 ```
 
-Named locations like `@foo` are not allowed due to a limitation in
-the nginx core. Use normal locations combined with the `internal` directive to
-prepare internal-only locations.
+因为 Nginx 内核限制，子请求不允许类似 `@foo` 命名 location。请使用标准 location，并设置 `internal` 指令，仅服务内部请求。
 
-An optional option table can be fed as the second
-argument, which supports the options:
+可选的选项表可以作为第二个参数传入，支持以下选项：
 
 * `method`
-    specify the subrequest's request method, which only accepts constants like `ngx.HTTP_POST`.
+    指定子请求的请求方法, 只接受类似 `ngx.HTTP_POST` 的常量。
 * `body`
-    specify the subrequest's request body (string value only).
+    指定子请求的请求体 (仅接受字符串值)。
 * `args`
-    specify the subrequest's URI query arguments (both string value and Lua tables are accepted)
+    指定子请求的 URI 请求参数 (可以是字符串或者 Lua 表)。
 * `ctx`
-    specify a Lua table to be the [ngx.ctx](#ngxctx) table for the subrequest. It can be the current request's [ngx.ctx](#ngxctx) table, which effectively makes the parent and its subrequest to share exactly the same context table. This option was first introduced in the `v0.3.1rc25` release.
+        指定一个 Lua 表作为子请求的 [ngx.ctx](#ngxctx) 表，可以是当前请求的 [ngx.ctx](#ngxctx) 表。这种方式可以让父请求和子请求共享完全相同的上下文环境。此选项最早出现在版本 `v0.3.1rc25` 中。
 * `vars`
-    take a Lua table which holds the values to set the specified Nginx variables in the subrequest as this option's value. This option was first introduced in the `v0.3.1rc31` release.
+    用一个 Lua 表设置子请求中的 Nginx 变量值。此选项最早出现在版本 `v0.3.1rc31` 中。
 * `copy_all_vars`
-    specify whether to copy over all the Nginx variable values of the current request to the subrequest in question. modifications of the nginx variables in the subrequest will not affect the current (parent) request. This option was first introduced in the `v0.3.1rc31` release.
+        设置是否复制所有当前请求的 Nginx 变量值到子请求中，修改子请求的 nginx 变量值不影响当前 (父) 请求。此选项最早出现在版本 `v0.3.1rc31` 中。
 * `share_all_vars`
-    specify whether to share all the Nginx variables of the subrequest with the current (parent) request. modifications of the Nginx variables in the subrequest will affect the current (parent) request. Enabling this option may lead to hard-to-debug issues due to bad side-effects and is considered bad and harmful. Only enable this option when you completely know what you are doing.
+    设置是否共享所有当前 (父) 请求的 Nginx 变量值到子请求中，修改子请求的 nginx 变量值将影响当前 (父) 请求。应用此选项将可能导致非常难以发现的错误，这种副作用是非常有害的。所以只有当完全明确知道自己在做什么时才打开此选项。
 * `always_forward_body`
-    when set to true, the current (parent) request's request body will always be forwarded to the subrequest being created if the `body` option is not specified. The request body read by either [ngx.req.read_body()](#ngxreqread_body) or [lua_need_request_body on](#lua_need_request_body) will be directly forwarded to the subrequest without copying the whole request body data when creating the subrequest (no matter the request body data is buffered in memory buffers or temporary files). By default, this option is `false` and when the `body` option is not specified, the request body of the current (parent) request is only forwarded when the subrequest takes the `PUT` or `POST` request method.
+        当设置为 true 时，如果没有设置 `body` 选项，当前 (父) 请求的请求体将被转发给子请求。被 [ngx.req.read_body()](#ngxreqread_body) 或 [lua_need_request_body on](#lua_need_request_body) 指令读取的请求体将直接转发给子请求，而不是在创建子请求时再复制整个请求体 (无论此请求体是缓存在内存中还是临时文件中)。默认情况下，此选项值为 `false`，当 `body` 选项没有设置，且当子请求的请求方法是 `PUT` 和 `POST` 时，当前 (父) 请求的请求体才被转发。
 
-Issuing a POST subrequest, for example, can be done as follows
+例如，发送一个 POST 子请求，可以这样做：
 
 ```lua
 
@@ -3426,10 +3416,10 @@ Issuing a POST subrequest, for example, can be done as follows
  )
 ```
 
-See HTTP method constants methods other than POST.
-The `method` option is `ngx.HTTP_GET` by default.
+除了 POST 的其他 HTTP 请求方法请参考 [HTTP method constants](#http-method-constants)。
+`method` 选项默认值是 `ngx.HTTP_GET`。
 
-The `args` option can specify extra URI arguments, for instance,
+`args` 选项可以设置附加的 URI 参数，例如：
 
 ```lua
 
@@ -3438,17 +3428,16 @@ The `args` option can specify extra URI arguments, for instance,
  )
 ```
 
-is equivalent to
+等同于
 
 ```lua
 
  ngx.location.capture('/foo?a=1&b=3&c=%3a')
 ```
 
-that is, this method will escape argument keys and values according to URI rules and
-concatenate them together into a complete query string. The format for the Lua table passed as the `args` argument is identical to the format used in the [ngx.encode_args](#ngxencode_args) method.
+也就是说，这个方法将根据 URI 规则转义参数键和值，并将它们拼接在一起组成一个完整的请求串。`args` 选项要求的 Lua 表的格式与 [ngx.encode_args](#ngxencode_args) 方法中使用的完全相同。
 
-The `args` option can also take plain query strings:
+`args` 选项也可以直接包含 (转义过的) 请求串：
 
 ```lua
 
@@ -3457,14 +3446,13 @@ The `args` option can also take plain query strings:
  )
 ```
 
-This is functionally identical to the previous examples.
+这个例子与上个例子的功能相同。
 
-The `share_all_vars` option controls whether to share nginx variables among the current request and its subrequests. 
-If this option is set to `true`, then the current request and associated subrequests will share the same Nginx variable scope. Hence, changes to Nginx variables made by a subrequest will affect the current request.
+`share_all_vars` 选项控制是否让当前请求与其子请求共享 nginx 变量。如果设为 `true`，则当前请求与所有子请求共享所有 nginx 变量作用域。因此，在子请求中修改 nginx 变量将影响当前请求。
 
-Care should be taken in using this option as variable scope sharing can have unexpected side effects. The `args`, `vars`, or `copy_all_vars` options are generally preferable instead.
+使用此选项时需要非常小心，因为共享变量作用域容易导致难以预测的副作用。一般来说，推荐使用 `args`、`vars`、或 `copy_all_vars` 来代替。
 
-This option is set to `false` by default
+此选项默认值是 `false`。
 
 ```nginx
 
@@ -3485,14 +3473,14 @@ This option is set to `false` by default
  }
 ```
 
-Accessing location `/lua` gives
+请求 location `/lua` 将输出
 
 
     /other dog: hello world
     /lua: hello world
 
 
-The `copy_all_vars` option provides a copy of the parent request's Nginx variables to subrequests when such subrequests are issued. Changes made to these variables by such subrequests will not affect the parent request or any other subrequests sharing the parent request's variables.
+`copy_all_vars` 在子请求被创建时，提供给它一份父请求的 Nginx 变量拷贝。在子请求中对这些变量的修改将不会影响父请求和其他任何共享父请求变量的子请求。
 
 ```nginx
 
@@ -3513,21 +3501,16 @@ The `copy_all_vars` option provides a copy of the parent request's Nginx variabl
  }
 ```
 
-Request `GET /lua` will give the output
+请求 `GET /lua` 会输出
 
 
     /other dog: hello world
     /lua: hello
 
 
-Note that if both `share_all_vars` and `copy_all_vars` are set to true, then `share_all_vars` takes precedence.
+请注意，当 `share_all_vars` 和 `copy_all_vars` 都被设置为 true 时，`share_all_vars` 优先。
 
-In addition to the two settings above, it is possible to specify
-values for variables in the subrequest using the `vars` option. These
-variables are set after the sharing or copying of variables has been
-evaluated, and provides a more efficient method of passing specific
-values to a subrequest over encoding them as URL arguments and 
-unescaping them in the Nginx config file.
+除了上面提到的两个设置方法外，也可以通过配置 `vars` 选项来设置子请求的变量值。在共享或复制父请求的 nginx 变量值后，子请求被设置这些值。和把特定参数通过 URL 参数编码传入子请求，再在 Nginx 配置文件中解码相比，这个方法效率更高。
 
 ```nginx
 
@@ -3550,14 +3533,14 @@ unescaping them in the Nginx config file.
  }
 ```
 
-Accessing `/lua` will yield the output
+访问 `/lua` 将输出
 
 
     dog = hello
     cat = 32
 
 
-The `ctx` option can be used to specify a custom Lua table to serve as the [ngx.ctx](#ngxctx) table for the subrequest.
+选项 `ctx` 被用于给子请求设定一个自定义的 Lua 表作为 [ngx.ctx](#ngxctx) 表。
 
 ```nginx
 
@@ -3577,14 +3560,14 @@ The `ctx` option can be used to specify a custom Lua table to serve as the [ngx.
  }
 ```
 
-Then request `GET /lua` gives
+请求 `GET /lua` 输出
 
 
     bar
     nil
 
 
-It is also possible to use this `ctx` option to share the same [ngx.ctx](#ngxctx) table between the current (parent) request and the subrequest:
+也可以通过 `ctx` 选项设置当前 (父) 请求与子请求共享同一个 [ngx.ctx](#ngxctx) 表。
 
 ```nginx
 
@@ -3601,42 +3584,37 @@ It is also possible to use this `ctx` option to share the same [ngx.ctx](#ngxctx
  }
 ```
 
-Request `GET /lua` yields the output
+请求 `GET /lua` 输出
 
 
     bar
 
 
-Note that subrequests issued by [ngx.location.capture](#ngxlocationcapture) inherit all the
-request headers of the current request by default and that this may have unexpected side effects on the
-subrequest responses. For example, when using the standard `ngx_proxy` module to serve
-subrequests, an "Accept-Encoding: gzip" header in the main request may result
-in gzipped responses that cannot be handled properly in Lua code. Original request headers should be ignored by setting 
-[proxy_pass_request_headers](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass_request_headers) to `off` in subrequest locations.
+请注意，通过 [ngx.location.capture](#ngxlocationcapture) 创建的子请求默认继承当前请求的所有请求头信息，这有可能导致子请求响应中不可预测的副作用。例如，当使用标准的 `ngx_proxy` 模块服务子请求时，如果主请求头中包含 "Accept-Encoding: gzip"，可能导致子请求返回 Lua 代码无法正确处理的 gzip 压缩过的结果。通过设置 [proxy_pass_request_headers](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass_request_headers) 为 `off` ，在子请求 location 中忽略原始请求头。
 
-When the `body` option is not specified and the `always_forward_body` option is false (the default value), the `POST` and `PUT` subrequests will inherit the request bodies of the parent request (if any).
+当没有设置 `body` 选项，且 `always_forward_body` 选项为 false (默认值) 时，`POST` 和 `PUT` 子请求将继承父请求的请求体 (如果有的话)。
 
-There is a hard-coded upper limit on the number of concurrent subrequests possible for every main request. In older versions of Nginx, the limit was `50` concurrent subrequests and in more recent versions, Nginx `1.1.x` onwards, this was increased to `200` concurrent subrequests. When this limit is exceeded, the following error message is added to the `error.log` file:
+Nginx 代码中有一个硬编码的数字，来控制每个主请求最多可以有多少个并发的子请求。在旧版 Nginx 中，这个数字是 `50`，自 Nginx `1.1.x` 以后，并发子请求数被提高到了 `200`。当超过这个限制时，`error.log` 文件中将出现下面的信息：
 
 
     [error] 13983#0: *1 subrequests cycle while processing "/uri"
 
 
-The limit can be manually modified if required by editing the definition of the `NGX_HTTP_MAX_SUBREQUESTS` macro in the `nginx/src/http/ngx_http_request.h` file in the Nginx source tree.
+如果需要修改这个限制，可以手工在 Nginx 源代码树的 `nginx/src/http/ngx_http_request.h` 文件中修改 `NGX_HTTP_MAX_SUBREQUESTS` 宏定义。
 
-Please also refer to restrictions on capturing locations configured by [subrequest directives of other modules](#locations-configured-by-subrequest-directives-of-other-modules).
+请参考 [subrequest directives of other modules](#locations-configured-by-subrequest-directives-of-other-modules) 了解目标 location 的配置限制。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.location.capture_multi
 --------------------------
-**syntax:** *res1, res2, ... = ngx.location.capture_multi({ {uri, options?}, {uri, options?}, ... })*
+**语法:** *res1, res2, ... = ngx.location.capture_multi({ {uri, options?}, {uri, options?}, ... })*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Just like [ngx.location.capture](#ngxlocationcapture), but supports multiple subrequests running in parallel.
+与 [ngx.location.capture](#ngxlocationcapture) 类似，并允许多个子请求并行访问。
 
-This function issues several parallel subrequests specified by the input table and returns their results in the same order. For example,
+此函数根据输入列表并行发起多个子请求，并按原顺序返回结果。例如，
 
 ```lua
 
@@ -3655,31 +3633,30 @@ This function issues several parallel subrequests specified by the input table a
  end
 ```
 
-This function will not return until all the subrequests terminate.
-The total latency is the longest latency of the individual subrequests rather than the sum.
+此函数只有在所有子请求中止后才返回。
+总等待时间是耗时最长一个子请求的时间，而不是所有子请求等待时间的总和。
 
-Lua tables can be used for both requests and responses when the number of subrequests to be issued is not known in advance:
+当子请求数量预先未知时，可以通过 Lua 表来存储所有请求和返回。
 
 ```lua
 
- -- construct the requests table
+ -- 创建请求表
  local reqs = {}
  table.insert(reqs, { "/mysql" })
  table.insert(reqs, { "/postgres" })
  table.insert(reqs, { "/redis" })
  table.insert(reqs, { "/memcached" })
 
- -- issue all the requests at once and wait until they all return
+ -- 同时执行所有请求，并等待所有返回
  local resps = { ngx.location.capture_multi(reqs) }
 
- -- loop over the responses table
+ -- 循环返回表
  for i, resp in ipairs(resps) do
-     -- process the response table "resp"
+     -- 处理返回表 "resp"
  end
 ```
 
-The [ngx.location.capture](#ngxlocationcapture) function is just a special form
-of this function. Logically speaking, the [ngx.location.capture](#ngxlocationcapture) can be implemented like this
+[ngx.location.capture](#ngxlocationcapture) 函数是本函数的特殊形式。逻辑上说，[ngx.location.capture](#ngxlocationcapture) 函数可以按下面方法实现：
 
 ```lua
 
@@ -3689,16 +3666,15 @@ of this function. Logically speaking, the [ngx.location.capture](#ngxlocationcap
      end
 ```
 
-Please also refer to restrictions on capturing locations configured by [subrequest directives of other modules](#locations-configured-by-subrequest-directives-of-other-modules).
+请参考 [subrequest directives of other modules](#locations-configured-by-subrequest-directives-of-other-modules) 了解目标 location 的配置限制。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.status
 ----------
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;*
 
-Read and write the current request's response status. This should be called
-before sending out the response headers.
+读写当前请求的响应状态码。这个方法需要在发送响应头前调用。
 
 ```lua
 
@@ -3706,7 +3682,7 @@ before sending out the response headers.
  status = ngx.status
 ```
 
-Setting `ngx.status` after the response header is sent out has no effect but leaving an error message in your nginx's error log file:
+在发送响应头之后设置 `ngx.status` 不会生效，且 nginx 的错误日志中会有下面一条记录：
 
 
     attempt to set ngx.status after sending out response headers
@@ -3716,34 +3692,34 @@ Setting `ngx.status` after the response header is sent out has no effect but lea
 
 ngx.header.HEADER
 -----------------
-**syntax:** *ngx.header.HEADER = VALUE*
+**语法:** *ngx.header.HEADER = VALUE*
 
-**syntax:** *value = ngx.header.HEADER*
+**语法:** *value = ngx.header.HEADER*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;*
 
-Set, add to, or clear the current request's `HEADER` response header that is to be sent.
+修改、添加、或清除当前请求待发送的 `HEADER` 响应头信息。
 
-Underscores (`_`) in the header names will be replaced by hyphens (`-`) by default. This transformation can be turned off via the [lua_transform_underscores_in_response_headers](#lua_transform_underscores_in_response_headers) directive.
+头名称中的下划线 (`_`) 将被默认替换为连字符 (`-`)。可以通过 [lua_transform_underscores_in_response_headers](#lua_transform_underscores_in_response_headers) 指令关闭这个替换。
 
-The header names are matched case-insensitively.
+头名称大小写不敏感。
 
 ```lua
 
- -- equivalent to ngx.header["Content-Type"] = 'text/plain'
+ -- 与 ngx.header["Content-Type"] = 'text/plain' 相同
  ngx.header.content_type = 'text/plain';
 
  ngx.header["X-My-Header"] = 'blah blah';
 ```
 
-Multi-value headers can be set this way:
+多值头信息可以按以下方法设置：
 
 ```lua
 
  ngx.header['Set-Cookie'] = {'a=32; path=/', 'b=4; path=/'}
 ```
 
-will yield
+在响应头中将输出：
 
 ```bash
 
@@ -3751,43 +3727,41 @@ will yield
  Set-Cookie: b=4; path=/
 ```
 
-in the response headers. 
-
-Only Lua tables are accepted (Only the last element in the table will take effect for standard headers such as `Content-Type` that only accept a single value).
+只接受 Lua 表输入 (对于类似 `Content-Type` 之类的只接受一个值的标准头信息，只有 Lua 表中的最后一个元素有效)。
 
 ```lua
 
  ngx.header.content_type = {'a', 'b'}
 ```
 
-is equivalent to
+等同于
 
 ```lua
 
  ngx.header.content_type = 'b'
 ```
 
-Setting a slot to `nil` effectively removes it from the response headers:
+将一个头信息的值设为 `nil` 将从响应头中移除该输出：
 
 ```lua
 
  ngx.header["X-My-Header"] = nil;
 ```
 
-The same applies to assigning an empty table:
+赋值一个空 Lua 表效果相同：
 
 ```lua
 
  ngx.header["X-My-Header"] = {};
 ```
 
-Setting `ngx.header.HEADER` after sending out response headers (either explicitly with [ngx.send_headers](#ngxsend_headers) or implicitly with [ngx.print](#ngxprint) and similar) will throw out a Lua exception.
+在输出响应头 (不管是显示的通过 [ngx.send_headers](#ngxsend_headers) 或隐式的通过类似 [ngx.print](#ngxprint) 指令) 以后设置 `ngx.header.HEADER` 将抛出 Lua 异常。
 
-Reading `ngx.header.HEADER` will return the value of the response header named `HEADER`. 
+读取 `ngx.header.HEADER` 将返回响应头中名为 `HEADER` 的头信息的值。
 
-Underscores (`_`) in the header names will also be replaced by dashes (`-`) and the header names will be matched case-insensitively. If the response header is not present at all, `nil` will be returned.
+读取时，头名称中的下划线 (`_`) 也会被替换成连字符 (`-`)，并且大小写不敏感。如果该头信息不存在，将返回 `nil`。
 
-This is particularly useful in the context of [header_filter_by_lua](#header_filter_by_lua) and [header_filter_by_lua_file](#header_filter_by_lua_file), for example,
+这个 API 在 [header_filter_by_lua](#header_filter_by_lua) 和 [header_filter_by_lua_file](#header_filter_by_lua_file) 环境中非常有用，例如：
 
 ```nginx
 
@@ -3806,35 +3780,33 @@ This is particularly useful in the context of [header_filter_by_lua](#header_fil
  }
 ```
 
-For multi-value headers, all of the values of header will be collected in order and returned as a Lua table. For example, response headers
+对于多值头信息，所有值将被按顺序放入一个 Lua 表中，例如，响应头
 
 
     Foo: bar
     Foo: baz
 
 
-will result in
+在读取 `ngx.header.Foo` 时返回的结果为
 
 ```lua
 
  {"bar", "baz"}
 ```
 
-to be returned when reading `ngx.header.Foo`.
+需要注意的是，`ngx.header` 不是一个标准 Lua 表，不能通过 Lua 的 `ipairs` 函数进行迭代查询。
 
-Note that `ngx.header` is not a normal Lua table and as such, it is not possible to iterate through it using the Lua `ipairs` function.
-
-For reading *request* headers, use the [ngx.req.get_headers](#ngxreqget_headers) function instead.
+读取 *请求* 头信息，请使用 [ngx.req.get_headers](#ngxreqget_headers) 函数。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.resp.get_headers
 --------------------
-**syntax:** *headers = ngx.resp.get_headers(max_headers?, raw?)*
+**语法:** *headers = ngx.resp.get_headers(max_headers?, raw?)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, balancer_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, balancer_by_lua&#42;*
 
-Returns a Lua table holding all the current response headers for the current request.
+返回一个 Lua 表，包含当前请求的所有响应头信息。
 
 ```lua
 
@@ -3844,78 +3816,77 @@ Returns a Lua table holding all the current response headers for the current req
  end
 ```
 
-This function has the same signature as [ngx.req.get_headers](#ngxreqget_headers) except getting response headers instead of request headers.
+此函数与 [ngx.req.get_headers](#ngxreqget_headers) 有相似之处，唯一区别是获取的是响应头信息而不是请求头信息。
 
-This API was first introduced in the `v0.9.5` release.
+这个 API 最早出现在 `v0.9.5` 版中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.is_internal
 -------------------
-**syntax:** *is_internal = ngx.req.is_internal()*
+**语法:** *is_internal = ngx.req.is_internal()*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;*
 
-Returns a boolean indicating whether the current request is an "internal request", i.e.,
-a request initiated from inside the current nginx server instead of from the client side.
+返回一个布尔值，说明当前请求是否是一个“内部请求”，既：一个请求的初始化是在当前 nginx 服务端完成初始化，不是在客户端。
 
-Subrequests are all internal requests and so are requests after internal redirects.
+子请求都是内部请求，并且都是内部重定向后的请求。
 
-This API was first introduced in the `v0.9.20` release.
+该 API 在 `v0.9.20` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.start_time
 ------------------
-**syntax:** *secs = ngx.req.start_time()*
+**语法:** *secs = ngx.req.start_time()*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;*
 
-Returns a floating-point number representing the timestamp (including milliseconds as the decimal part) when the current request was created.
+返回当前请求创建时的时间戳，格式为浮点数，其中小数部分代表毫秒值。
 
-The following example emulates the `$request_time` variable value (provided by [ngx_http_log_module](http://nginx.org/en/docs/http/ngx_http_log_module.html)) in pure Lua:
+以下用 Lua 代码模拟计算了 `$request_time` 变量值 (由 [ngx_http_log_module](http://nginx.org/en/docs/http/ngx_http_log_module.html) 模块生成)
 
 ```lua
 
  local request_time = ngx.now() - ngx.req.start_time()
 ```
 
-This function was first introduced in the `v0.7.7` release.
+这个函数在 `v0.7.7` 版本中首次引入。
 
-See also [ngx.now](#ngxnow) and [ngx.update_time](#ngxupdate_time).
+更多使用方法请参考 [ngx.now](#ngxnow) 和 [ngx.update_time](#ngxupdate_time)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.http_version
 --------------------
-**syntax:** *num = ngx.req.http_version()*
+**语法:** *num = ngx.req.http_version()*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;*
 
-Returns the HTTP version number for the current request as a Lua number.
+返回一个 Lua 数字代表当前请求的 HTTP 版本号。
 
-Current possible values are 1.0, 1.1, and 0.9. Returns `nil` for unrecognized values.
+当前的可能结果值为 1.0, 1.1 和 0.9。无法识别时值时返回 `nil`。
 
-This method was first introduced in the `v0.7.17` release.
+这个方法在 `v0.7.17` 版本中首次引入。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.raw_header
 ------------------
-**syntax:** *str = ngx.req.raw_header(no_request_line?)*
+**语法:** *str = ngx.req.raw_header(no_request_line?)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;*
 
-Returns the original raw HTTP protocol header received by the Nginx server.
+返回 Nginx 服务器接收到的原始 HTTP 协议头。
 
-By default, the request line and trailing `CR LF` terminator will also be included. For example,
+默认时，请求行和末尾的 `CR LF` 结束符也被包括在内。例如，
 
 ```lua
 
  ngx.print(ngx.req.raw_header())
 ```
 
-gives something like this:
+输出结果类似：
 
 
     GET /t HTTP/1.1
@@ -3925,109 +3896,105 @@ gives something like this:
 
 
 
-You can specify the optional
-`no_request_line` argument as a `true` value to exclude the request line from the result. For example,
+可以通过指定可选的 `no_request_line` 参数为 `true` 来去除结果中的请求行。例如，
 
 ```lua
 
  ngx.print(ngx.req.raw_header(true))
 ```
 
-outputs something like this:
-
+输出结果类似：
 
     Host: localhost
     Connection: close
     Foo: bar
 
-
-
-This method was first introduced in the `v0.7.17` release.
+这个方法在 `v0.7.17` 版本中首次引入。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.get_method
 ------------------
-**syntax:** *method_name = ngx.req.get_method()*
+**语法:** *method_name = ngx.req.get_method()*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, balancer_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, balancer_by_lua&#42;*
 
-Retrieves the current request's request method name. Strings like `"GET"` and `"POST"` are returned instead of numerical [method constants](#http-method-constants).
+获取当前请求的 HTTP 请求方法名称。结果为类似 `"GET"` 和 `"POST"` 的字符串，而不是 [HTTP 方法常量](#http-method-constants) 中定义的数值。
 
-If the current request is an Nginx subrequest, then the subrequest's method name will be returned.
+如果当前请求为 Nginx 子请求，将返回子请求的 HTTP 请求方法名称。
 
-This method was first introduced in the `v0.5.6` release.
+这个方法在 `v0.5.6` 版本中首次引入。
 
-See also [ngx.req.set_method](#ngxreqset_method).
+更多用法请参考 [ngx.req.set_method](#ngxreqset_method)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.set_method
 ------------------
-**syntax:** *ngx.req.set_method(method_id)*
+**语法:** *ngx.req.set_method(method_id)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;*
 
-Overrides the current request's request method with the `method_id` argument. Currently only numerical [method constants](#http-method-constants) are supported, like `ngx.HTTP_POST` and `ngx.HTTP_GET`.
+用 `method_id` 参数的值改写当前请求的 HTTP 请求方法。当前仅支持 [HTTP 请求方法](#http-method-constants) 中定义的数值常量，例如 `ngx.HTTP_POST` 和 `ngx.HTTP_GET`。
 
-If the current request is an Nginx subrequest, then the subrequest's method will be overridden.
+如果当前请求是 Nginx 子请求，子请求的 HTTP 请求方法将被改写。
 
-This method was first introduced in the `v0.5.6` release.
+这个方法在 `v0.5.6` 版本中首次引入。
 
-See also [ngx.req.get_method](#ngxreqget_method).
+更多用法请参考 [ngx.req.get_method](#ngxreqget_method)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.set_uri
 ---------------
-**syntax:** *ngx.req.set_uri(uri, jump?)*
+**语法:** *ngx.req.set_uri(uri, jump?)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;*
 
-Rewrite the current request's (parsed) URI by the `uri` argument. The `uri` argument must be a Lua string and cannot be of zero length, or a Lua exception will be thrown.
+用 `uri` 参数重写当前请求 (已解析过的) URI。该 `uri` 参数必须是 Lua 字符串，并且长度不能是 0，否则将抛出 Lua 异常。
 
-The optional boolean `jump` argument can trigger location rematch (or location jump) as [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html)'s [rewrite](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite) directive, that is, when `jump` is `true` (default to `false`), this function will never return and it will tell Nginx to try re-searching locations with the new URI value at the later `post-rewrite` phase and jumping to the new location.
+可选的布尔值参数 `jump` 会触发类似 [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html) 中 [rewrite](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite) 指令的 location 重匹配 (或 location 跳转)。换句话说，当 `jump` 参数是 `true` (默认值 `false`) 时，此函数将不会返回，它会让 Nginx 在之后的 `post-rewrite` 执行阶段，根据新的 URI 重新搜索 location，并跳转到新 location。
 
-Location jump will not be triggered otherwise, and only the current request's URI will be modified, which is also the default behavior. This function will return but with no returned values when the `jump` argument is `false` or absent altogether.
+默认值时，location 跳转不会被触发，只有当前请求的 URI 被改写。当 `jump` 参数值为 `false` 或不存在时，此函数将正常返回，但没有返回值。
 
-For example, the following nginx config snippet
+例如，下面 nginx 配置片段
 
 ```nginx
 
  rewrite ^ /foo last;
 ```
 
-can be coded in Lua like this:
+可以通过 Lua 代码写成下面这样：
 
 ```lua
 
  ngx.req.set_uri("/foo", true)
 ```
 
-Similarly, Nginx config
+类似的，Nginx 配置
 
 ```nginx
 
  rewrite ^ /foo break;
 ```
 
-can be coded in Lua as
+可以通过 Lua 代码写成：
 
 ```lua
 
  ngx.req.set_uri("/foo", false)
 ```
 
-or equivalently,
+等同于写成：
 
 ```lua
 
  ngx.req.set_uri("/foo")
 ```
 
-The `jump` argument can only be set to `true` in [rewrite_by_lua](#rewrite_by_lua) and [rewrite_by_lua_file](#rewrite_by_lua_file). Use of jump in other contexts is prohibited and will throw out a Lua exception.
+`jump` 参数只可以在 [rewrite_by_lua](#rewrite_by_lua) 和 [rewrite_by_lua_file](#rewrite_by_lua_file) 指令中被设置为 `true`。不能在其他环境中使用 jump，否则将抛出 Lua 异常。
 
-A more sophisticated example involving regex substitutions is as follows
+下面的示例复杂一些，包含正则表达式替换：
 
 ```nginx
 
@@ -4040,7 +4007,7 @@ A more sophisticated example involving regex substitutions is as follows
  }
 ```
 
-which is functionally equivalent to
+功能上等同于：
 
 ```nginx
 
@@ -4050,14 +4017,14 @@ which is functionally equivalent to
  }
 ```
 
-Note that it is not possible to use this interface to rewrite URI arguments and that [ngx.req.set_uri_args](#ngxreqset_uri_args) should be used for this instead. For instance, Nginx config
+请注意，不能使用这个函数重写 URI 参数，应该使用 [ngx.req.set_uri_args](#ngxreqset_uri_args) 代替。例如，Nginx 配置
 
 ```nginx
 
  rewrite ^ /foo?a=3? last;
 ```
 
-can be coded as
+可以被写成
 
 ```nginx
 
@@ -4065,7 +4032,7 @@ can be coded as
  ngx.req.set_uri("/foo", true)
 ```
 
-or
+或
 
 ```nginx
 
@@ -4073,54 +4040,54 @@ or
  ngx.req.set_uri("/foo", true)
 ```
 
-This interface was first introduced in the `v0.3.1rc14` release.
+这个方法在 `v0.3.1rc14` 版本中首次引入。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.set_uri_args
 --------------------
-**syntax:** *ngx.req.set_uri_args(args)*
+**语法:** *ngx.req.set_uri_args(args)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;*
 
-Rewrite the current request's URI query arguments by the `args` argument. The `args` argument can be either a Lua string, as in
+用 `args` 参数重写当前请求的 URI 请求参数。`args` 参数可以是一个 Lua 字符串，比如
 
 ```lua
 
  ngx.req.set_uri_args("a=3&b=hello%20world")
 ```
 
-or a Lua table holding the query arguments' key-value pairs, as in
+或一个包含请求参数 key-value 对的 Lua table，例如
 
 ```lua
 
  ngx.req.set_uri_args({ a = 3, b = "hello world" })
 ```
 
-where in the latter case, this method will escape argument keys and values according to the URI escaping rule.
+在第二种情况下，本方法将根据 URI 转义规则转义参数的 key 和 value。
 
-Multi-value arguments are also supported:
+本方法也支持多值参数：
 
 ```lua
 
  ngx.req.set_uri_args({ a = 3, b = {5, 6} })
 ```
 
-which will result in a query string like `a=3&b=5&b=6`.
+此时请求参数字符串为 `a=3&b=5&b=6`。
 
-This interface was first introduced in the `v0.3.1rc13` release.
+这个方法在 `v0.3.1rc13` 版本中首次引入。
 
-See also [ngx.req.set_uri](#ngxreqset_uri).
+更多用法请参考 [ngx.req.set_uri](#ngxreqset_uri)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.get_uri_args
 --------------------
-**syntax:** *args = ngx.req.get_uri_args(max_args?)*
+**语法:** *args = ngx.req.get_uri_args(max_args?)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, balancer_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;*
 
-Returns a Lua table holding all the current request URL query arguments.
+返回一个 Lua table，包含当前请求的所有 URL 查询参数。
 
 ```nginx
 
@@ -4138,7 +4105,7 @@ Returns a Lua table holding all the current request URL query arguments.
  }
 ```
 
-Then `GET /test?foo=bar&bar=baz&bar=blah` will yield the response body
+访问 `GET /test?foo=bar&bar=baz&bar=blah` 将输出：
 
 ```bash
 
@@ -4146,16 +4113,16 @@ Then `GET /test?foo=bar&bar=baz&bar=blah` will yield the response body
  bar: baz, blah
 ```
 
-Multiple occurrences of an argument key will result in a table value holding all the values for that key in order.
+多次出现同一个参数 key 时，将生成一个 Lua table，按顺序保存其所有 value。
 
-Keys and values are unescaped according to URI escaping rules. In the settings above, `GET /test?a%20b=1%61+2` will yield:
+key 和 value 将根据 URI 编码规则进行解码。访问上面的配置文件，`GET /test?a%20b=1%61+2` 将输出：
 
 ```bash
 
  a b: 1a 2
 ```
 
-Arguments without the `=<value>` parts are treated as boolean arguments. `GET /test?foo&bar` will yield:
+不包含 `=<value>` 部分的参数被视为布尔值参数。`POST /test`，请求体是 `foo&bar` 则输出：
 
 ```bash
 
@@ -4163,7 +4130,7 @@ Arguments without the `=<value>` parts are treated as boolean arguments. `GET /t
  bar: true
 ```
 
-That is, they will take Lua boolean values `true`. However, they are different from arguments taking empty string values. `GET /test?foo=&bar=` will give something like
+换句话说，它们将被赋值 Lua 布尔值 `true`。但是，它们与空字符串值参数不同，如 `GET /test?foo=&bar=` 将输出：
 
 ```bash
 
@@ -4171,9 +4138,9 @@ That is, they will take Lua boolean values `true`. However, they are different f
  bar:
 ```
 
-Empty key arguments are discarded. `GET /test?=hello&=world` will yield an empty output for instance.
+没有 key 的参数将被忽略。例如 `GET /test?=hello&=world` 将没有任何输出。
 
-Updating query arguments via the nginx variable `$args` (or `ngx.var.args` in Lua) at runtime is also supported:
+支持通过 nginx 变量 `$args` (或在 Lua 中访问 `ngx.var.args`) 动态更新查询参数：
 
 ```lua
 
@@ -4181,42 +4148,42 @@ Updating query arguments via the nginx variable `$args` (or `ngx.var.args` in Lu
  local args = ngx.req.get_uri_args()
 ```
 
-Here the `args` table will always look like
+这个例子里的 `args` table 将一直是：
 
 ```lua
 
  {a = 3, b = 42}
 ```
 
-regardless of the actual request query string.
+而无论实际请求查询串是什么内容。
 
-Note that a maximum of 100 request arguments are parsed by default (including those with the same name) and that additional request arguments are silently discarded to guard against potential denial of service attacks.
+请注意，为防止拒绝服务式攻击 (denial of service attacks)，默认最多解析前 100 个请求参数 (包括同名的)，更多的参数将直接忽略。
 
-However, the optional `max_args` function argument can be used to override this limit:
+可选的 `max_args` 函数参数可以用来修改这个限制：
 
 ```lua
 
  local args = ngx.req.get_uri_args(10)
 ```
 
-This argument can be set to zero to remove the limit and to process all request arguments received:
+这个参数可以被设置为 0 以移除此限制，此时将解析所有接收到的请求参数：
 
 ```lua
 
  local args = ngx.req.get_uri_args(0)
 ```
 
-Removing the `max_args` cap is strongly discouraged.
+强烈不推荐移除 `max_args` 限制。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.get_post_args
 ---------------------
-**syntax:** *args, err = ngx.req.get_post_args(max_args?)*
+**语法:** *args, err = ngx.req.get_post_args(max_args?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;*
 
-Returns a Lua table holding all the current request POST query arguments (of the MIME type `application/x-www-form-urlencoded`). Call [ngx.req.read_body](#ngxreqread_body) to read the request body first or turn on the [lua_need_request_body](#lua_need_request_body) directive to avoid errors.
+返回一个 Lua table，包含当前请求的所有 POST 查询参数 (MIME type 是 `application/x-www-form-urlencoded`)。使用前需要调 用 [ngx.req.read_body](#ngxreqread_body) 读取完整请求体，或通过设置 [lua_need_request_body](#lua_need_request_body) 指令为 on 以避免报错。
 
 ```nginx
 
@@ -4239,7 +4206,7 @@ Returns a Lua table holding all the current request POST query arguments (of the
  }
 ```
 
-Then
+请求
 
 ```bash
 
@@ -4247,7 +4214,7 @@ Then
  $ curl --data 'foo=bar&bar=baz&bar=blah' localhost/test
 ```
 
-will yield the response body like
+将输出：
 
 ```bash
 
@@ -4255,11 +4222,11 @@ will yield the response body like
  bar: baz, blah
 ```
 
-Multiple occurrences of an argument key will result in a table value holding all of the values for that key in order.
+多次出现同一个参数 key 时，将生成一个 Lua table，按顺序保存其所有 value。
 
-Keys and values will be unescaped according to URI escaping rules.
+key 和 value 将根据 URI 编码规则进行解码。
 
-With the settings above,
+访问上面的配置文件，
 
 ```bash
 
@@ -4267,14 +4234,14 @@ With the settings above,
  $ curl -d 'a%20b=1%61+2' localhost/test
 ```
 
-will yield:
+将输出：
 
 ```bash
 
  a b: 1a 2
 ```
 
-Arguments without the `=<value>` parts are treated as boolean arguments. `POST /test` with the request body `foo&bar` will yield:
+不包含 `=<value>` 部分的参数被视为布尔值参数。例如 `POST /test` 的请求体是 `foo&bar` 时输出：
 
 ```bash
 
@@ -4282,7 +4249,7 @@ Arguments without the `=<value>` parts are treated as boolean arguments. `POST /
  bar: true
 ```
 
-That is, they will take Lua boolean values `true`. However, they are different from arguments taking empty string values. `POST /test` with request body `foo=&bar=` will return something like
+换句话说，它们将被赋值 Lua 布尔值 `true`。但是，它们与空字符串值参数不同，如 `POST /test` 的请求体是 `foo=&bar=` 将输出：
 
 ```bash
 
@@ -4290,35 +4257,35 @@ That is, they will take Lua boolean values `true`. However, they are different f
  bar:
 ```
 
-Empty key arguments are discarded. `POST /test` with body `=hello&=world` will yield empty outputs for instance.
+没有 key 的参数将被忽略。例如 `POST /test` 的请求体是 `=hello&=world` 时将没有任何输出。
 
-Note that a maximum of 100 request arguments are parsed by default (including those with the same name) and that additional request arguments are silently discarded to guard against potential denial of service attacks.  
+请注意，为防止拒绝服务式攻击 (denial of service attacks)，默认最多解析前 100 个请求参数 (包括同名的)，更多的参数将直接忽略。
 
-However, the optional `max_args` function argument can be used to override this limit:
+可选的 `max_args` 函数参数可以用来修改这个限制：
 
 ```lua
 
  local args = ngx.req.get_post_args(10)
 ```
 
-This argument can be set to zero to remove the limit and to process all request arguments received:
+这个参数可以被设置为 0 以移除此限制，此时将解析所有接收到的请求参数：
 
 ```lua
 
  local args = ngx.req.get_post_args(0)
 ```
 
-Removing the `max_args` cap is strongly discouraged.
+强烈不推荐移除 `max_args` 限制。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.get_headers
 -------------------
-**syntax:** *headers = ngx.req.get_headers(max_headers?, raw?)*
+**语法:** *headers = ngx.req.get_headers(max_headers?, raw?)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;*
 
-Returns a Lua table holding all the current request headers.
+返回一个 Lua table，包含当前请求的所有请求头信息。
 
 ```lua
 
@@ -4328,16 +4295,16 @@ Returns a Lua table holding all the current request headers.
  end
 ```
 
-To read an individual header:
+读某一个头信息：
 
 ```lua
 
  ngx.say("Host: ", ngx.req.get_headers()["Host"])
 ```
 
-Note that the [ngx.var.HEADER](#ngxvarvariable) API call, which uses core [$http_HEADER](http://nginx.org/en/docs/http/ngx_http_core_module.html#var_http_) variables, may be more preferable for reading individual request headers.
+请注意，[ngx.var.HEADER](#ngxvarvariable) API 使用 nginx 内核 [$http_HEADER](http://nginx.org/en/docs/http/ngx_http_core_module.html#var_http) 变量，在读取单个请求头信息时更加适用。
 
-For multiple instances of request headers such as:
+如果请求头中多次出现某一字段，例如：
 
 ```bash
 
@@ -4346,34 +4313,34 @@ For multiple instances of request headers such as:
  Foo: baz
 ```
 
-the value of `ngx.req.get_headers()["Foo"]` will be a Lua (array) table such as:
+`ngx.req.get_headers()["Foo"]` 的值会是一个 Lua (数组) table，类似：
 
 ```lua
 
  {"foo", "bar", "baz"}
 ```
 
-Note that a maximum of 100 request headers are parsed by default (including those with the same name) and that additional request headers are silently discarded to guard against potential denial of service attacks.  
+请注意，为防止拒绝服务式攻击 (denial of service attacks)，默认最多解析前 100 个请求头信息 (包括同名的)，更多的头信息将直接忽略。
 
-However, the optional `max_headers` function argument can be used to override this limit:
+可选的 `max_headers` 函数参数可以用来修改这个限制：
 
 ```lua
 
  local headers = ngx.req.get_headers(10)
 ```
 
-This argument can be set to zero to remove the limit and to process all request headers received:
+这个参数可以被设置为 0 以移除此限制，此时将解析所有接收到的请求头信息：
 
 ```lua
 
  local headers = ngx.req.get_headers(0)
 ```
 
-Removing the `max_headers` cap is strongly discouraged.
+强烈不推荐移除 `max_headers` 限制。
 
-Since the `0.6.9` release, all the header names in the Lua table returned are converted to the pure lower-case form by default, unless the `raw` argument is set to `true` (default to `false`).
+自 `0.6.9` 版本开始，默认情况下，返回的 Lua table 中的所有头名称被转换成纯小写字母形式，除非设置 `raw` 参数为 `true` (默认是 `false`)。
 
-Also, by default, an `__index` metamethod is added to the resulting Lua table and will normalize the keys to a pure lowercase form with all underscores converted to dashes in case of a lookup miss. For example, if a request header `My-Foo-Header` is present, then the following invocations will all pick up the value of this header correctly:
+同时，默认情况下，Lua table 中将被加入 `__index` 元方法 ([metamethod](http://www.lua.org/pil/13.4.1.html))， 用来在查询失败时，将 key 转换为全小写字母、且下划线变为连字符后，重新搜索。例如，如果请求头信息中有 `My-Foo-Header` 字段，下面的调用都将正确取出值：
 
 ```lua
 
@@ -4382,36 +4349,35 @@ Also, by default, an `__index` metamethod is added to the resulting Lua table an
  ngx.say(headers["my-foo-header"])
 ```
 
-The `__index` metamethod will not be added when the `raw` argument is set to `true`.
+当 `raw` 参数设置为 `true` 时，`__index` 元方法不会被加入。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.set_header
 ------------------
-**syntax:** *ngx.req.set_header(header_name, header_value)*
+**语法:** *ngx.req.set_header(header_name, header_value)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;*
 
-Set the current request's request header named `header_name` to value `header_value`, overriding any existing ones.
+将当前请求的名为 `header_name` 的头信息值设置为 `header_value`，如果此头信息名称已经存在，修改其值。
 
-By default, all the subrequests subsequently initiated by [ngx.location.capture](#ngxlocationcapture) and [ngx.location.capture_multi](#ngxlocationcapture_multi) will inherit the new header.
+默认时，之后通过 [ngx.location.capture](#ngxlocationcapture) 和 [ngx.location.capture_multi](#ngxlocationcapture_multi) 发起的所有子请求都将继承新的头信息。
 
-Here is an example of setting the `Content-Type` header:
+下面的例子中将设置 `Content-Type` 头信息：
 
 ```lua
 
  ngx.req.set_header("Content-Type", "text/css")
 ```
 
-The `header_value` can take an array list of values,
-for example,
+`header_value` 可以是一个值数组，例如：
 
 ```lua
 
  ngx.req.set_header("Foo", {"a", "abc"})
 ```
 
-will produce two new request headers:
+将生成两个新的请求头信息：
 
 ```bash
 
@@ -4419,16 +4385,16 @@ will produce two new request headers:
  Foo: abc
 ```
 
-and old `Foo` headers will be overridden if there is any.
+如果原来已经有名为 `Foo` 的头信息，将被覆盖。
 
-When the `header_value` argument is `nil`, the request header will be removed. So
+当 `header_value` 参数是 `nil` 时，此请求头将被移除。所以，
 
 ```lua
 
  ngx.req.set_header("X-Foo", nil)
 ```
 
-is equivalent to
+等同于
 
 ```lua
 
@@ -4439,21 +4405,21 @@ is equivalent to
 
 ngx.req.clear_header
 --------------------
-**syntax:** *ngx.req.clear_header(header_name)*
+**语法:** *ngx.req.clear_header(header_name)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;*
 
-Clears the current request's request header named `header_name`. None of the current request's existing subrequests will be affected but subsequently initiated subrequests will inherit the change by default.
+清除当前请求的名为 `header_name` 的请求头信息。已经存在的子请求不受影响，此命令之后发起的子请求将默认继承修改后的头信息。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.read_body
 -----------------
-**syntax:** *ngx.req.read_body()*
+**语法:** *ngx.req.read_body()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Reads the client request body synchronously without blocking the Nginx event loop.
+同步读取客户端请求体，不阻塞 Nginx 事件循环。
 
 ```lua
 
@@ -4461,228 +4427,238 @@ Reads the client request body synchronously without blocking the Nginx event loo
  local args = ngx.req.get_post_args()
 ```
 
-If the request body is already read previously by turning on [lua_need_request_body](#lua_need_request_body) or by using other modules, then this function does not run and returns immediately.
+如果已经通过打开 [lua_need_request_body](#lua_need_request_body) 选项或其他模块读取请求体，此函数将不会执行，立即返回。
 
-If the request body has already been explicitly discarded, either by the [ngx.req.discard_body](#ngxreqdiscard_body) function or other modules, this function does not run and returns immediately.
+如果已经通过 [ngx.req.discard_body](#ngxreqdiscard_body) 函数或其他模块明确丢弃请求体，此函数将不会执行，立即返回。
 
-In case of errors, such as connection errors while reading the data, this method will throw out a Lua exception *or* terminate the current request with a 500 status code immediately.
+当出错时，例如读取数据时连接出错，此方法将立即抛出 Lua 异常 *或* 以 500 状态码中断当前请求。
 
-The request body data read using this function can be retrieved later via [ngx.req.get_body_data](#ngxreqget_body_data) or, alternatively, the temporary file name for the body data cached to disk using [ngx.req.get_body_file](#ngxreqget_body_file). This depends on
+通过此函数读取的请求体，之后可以通过 [ngx.req.get_body_data](#ngxreqget_body_data) 获得，或者，通过 [ngx.req.get_body_file](#ngxreqget_body_file) 得到请求体数据缓存在磁盘上的临时文件名。这取决于：
 
-1. whether the current request body is already larger than the [client_body_buffer_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size),
-1. and whether [client_body_in_file_only](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_in_file_only) has been switched on.
+1. 是否当前读求体已经大于 [client_body_buffer_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size)，
+1. 是否 [client_body_in_file_only](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_in_file_only) 选项被打开。
 
-In cases where current request may have a request body and the request body data is not required, The [ngx.req.discard_body](#ngxreqdiscard_body) function must be used to explicitly discard the request body to avoid breaking things under HTTP 1.1 keepalive or HTTP 1.1 pipelining.
+在当前请求中包含请求体，但不需要时，必须使用 [ngx.req.discard_body](#ngxreqdiscard_body) 明确丢弃请求体，以避免影响 HTTP 1.1 长连接或 HTTP 1.1 流水线 (pipelining)。
 
-This function was first introduced in the `v0.3.1rc17` release.
+这个函数在 `v0.3.1rc17`` 版本中首次引入。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.discard_body
 --------------------
-**syntax:** *ngx.req.discard_body()*
+**语法:** *ngx.req.discard_body()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Explicitly discard the request body, i.e., read the data on the connection and throw it away immediately. Please note that ignoring request body is not the right way to discard it, and that this function must be called to avoid breaking things under HTTP 1.1 keepalive or HTTP 1.1 pipelining.
+明确丢弃请求体，也就是说，读取连接中的数据后立即丢弃。请注意，忽略请求体并不是丢弃请求体的正确方式，为避免破坏 HTTP 1.1 长连接或 HTTP 1.1 流水线 (pipelining)，必须使用本函数。
 
-This function is an asynchronous call and returns immediately.
+这个函数是异步调用，将立即返回。
 
-If the request body has already been read, this function does nothing and returns immediately.
+如果请求体已经被读取，此函数将不会执行，立即返回。
 
-This function was first introduced in the `v0.3.1rc17` release.
+这个函数在 `v0.3.1rc17`` 版本中首次引入。
 
-See also [ngx.req.read_body](#ngxreqread_body).
+更多用法请参考 [ngx.req.read_body](#ngxreqread_body)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.get_body_data
 ---------------------
-**syntax:** *data = ngx.req.get_body_data()*
+**语法:** *data = ngx.req.get_body_data()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Retrieves in-memory request body data. It returns a Lua string rather than a Lua table holding all the parsed query arguments. Use the [ngx.req.get_post_args](#ngxreqget_post_args) function instead if a Lua table is required.
+取回内存中的请求体数据。本函数返回 Lua 字符串而不是包含解析过参数的 Lua table。如果想要返回 Lua table，请使用 [ngx.req.get_post_args](#ngxreqget_post_args) 函数。
 
-This function returns `nil` if
+当以下情况时，此函数返回 `nil`，
 
-1. the request body has not been read,
-1. the request body has been read into disk temporary files,
-1. or the request body has zero size.
+1. 请求体尚未被读取，
+1. 请求体已经被存入磁盘上的临时文件，
+1. 或请求体大小是 0。
 
-If the request body has not been read yet, call [ngx.req.read_body](#ngxreqread_body) first (or turned on [lua_need_request_body](#lua_need_request_body) to force this module to read the request body. This is not recommended however).
+如果请求体尚未被读取，请先调用 [ngx.req.read_body](#ngxreqread_body) (或打开 [lua_need_request_body](#lua_need_request_body) 选项强制本模块读取请求体。此方法不推荐）。
 
-If the request body has been read into disk files, try calling the [ngx.req.get_body_file](#ngxreqget_body_file) function instead.
+如果请求体已经被存入临时文件，请使用 [ngx.req.get_body_file](#ngxreqget_body_file) 函数代替。
 
-To force in-memory request bodies, try setting [client_body_buffer_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size) to the same size value in [client_max_body_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size).
+如需要强制在内存中保存请求体，请设置 [client_body_buffer_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size) 和 [client_max_body_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size) 为同样大小。
 
-Note that calling this function instead of using `ngx.var.request_body` or `ngx.var.echo_request_body` is more efficient because it can save one dynamic memory allocation and one data copy.
+请注意，调用此函数比使用 `ngx.var.request_body` 或 `ngx.var.echo_request_body` 更有效率，因为本函数能够节省一次内存分配与数据复制。
 
-This function was first introduced in the `v0.3.1rc17` release.
+这个函数在 `v0.3.1rc17`` 版本中首次引入。
 
-See also [ngx.req.get_body_file](#ngxreqget_body_file).
+更多用法请参考 [ngx.req.get_body_file](#ngxreqget_body_file)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.get_body_file
 ---------------------
-**syntax:** *file_name = ngx.req.get_body_file()*
+**语法:** *file_name = ngx.req.get_body_file()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Retrieves the file name for the in-file request body data. Returns `nil` if the request body has not been read or has been read into memory.
+获取存储请求体数据的临时文件名。如果请求体尚未被读取或已被读取到内存中，此函数将返回 `nil`。
 
-The returned file is read only and is usually cleaned up by Nginx's memory pool. It should not be manually modified, renamed, or removed in Lua code.
+本函数返回的文件是只读的，通常情况下会被 Nginx 的内存池清理机制清理。不应该手工修改、更名或删除这个文件。
 
-If the request body has not been read yet, call [ngx.req.read_body](#ngxreqread_body) first (or turned on [lua_need_request_body](#lua_need_request_body) to force this module to read the request body. This is not recommended however).
+如果请求体尚未被读取，请先调用 [ngx.req.read_body](#ngxreqread_body) (或打开 [lua_need_request_body](#lua_need_request_body) 选项强制本模块读取请求体。此方法不推荐）。
 
-If the request body has been read into memory, try calling the [ngx.req.get_body_data](#ngxreqget_body_data) function instead.
+如果请求体已经被读入内存，请使用 [ngx.req.get_body_data](#ngxreqget_body_data) 函数代替。
 
-To force in-file request bodies, try turning on [client_body_in_file_only](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_in_file_only).
+如需要强制在临时文件中保存请求体，请打开 [client_body_in_file_only](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_in_file_only) 选项。
 
-This function was first introduced in the `v0.3.1rc17` release.
+这个函数在 `v0.3.1rc17`` 版本中首次引入。
 
-See also [ngx.req.get_body_data](#ngxreqget_body_data).
+更多用法请参考 [ngx.req.get_body_data](#ngxreqget_body_data)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.set_body_data
 ---------------------
-**syntax:** *ngx.req.set_body_data(data)*
+**语法:** *ngx.req.set_body_data(data)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Set the current request's request body using the in-memory data specified by the `data` argument.
+使用 `data` 参数指定的内存数据设置当前请求的请求体。
 
-If the current request's request body has not been read, then it will be properly discarded. When the current request's request body has been read into memory or buffered into a disk file, then the old request body's memory will be freed or the disk file will be cleaned up immediately, respectively.
+如果当前请求的请求体尚未被读取，它将被安全地丢弃。当请求体已经被读进内存或缓存在磁盘文件中时，相应的内存或磁盘文件将被立即清理回收。
 
-This function was first introduced in the `v0.3.1rc18` release.
+这个函数在 `v0.3.1rc18`` 版本中首次引入。
 
-See also [ngx.req.set_body_file](#ngxreqset_body_file).
+更多用法请参考 [ngx.req.set_body_file](#ngxreqset_body_file)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.set_body_file
 ---------------------
-**syntax:** *ngx.req.set_body_file(file_name, auto_clean?)*
+**语法:** *ngx.req.set_body_file(file_name, auto_clean?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Set the current request's request body using the in-file data specified by the `file_name` argument.
+使用 `file_name` 参数指定的数据文件设置当前请求的请求体。
 
-If the optional `auto_clean` argument is given a `true` value, then this file will be removed at request completion or the next time this function or [ngx.req.set_body_data](#ngxreqset_body_data) are called in the same request. The `auto_clean` is default to `false`.
+当可选参数 `auto_clean` 设置为 `true` 时，在本次请求完成，或本次请求内再次调用本函数或 [ngx.req.set_body_data](#ngxreqset_body_data) 时，`file_name` 文件将被删除。`auto_clean` 默认值是 `false`。
 
-Please ensure that the file specified by the `file_name` argument exists and is readable by an Nginx worker process by setting its permission properly to avoid Lua exception errors.
+请确保 `file_name` 参数指定的文件存在，并设置合适的操作权限对 Nginx worker 可读，以避免抛出 Lua 异常。
 
-If the current request's request body has not been read, then it will be properly discarded. When the current request's request body has been read into memory or buffered into a disk file, then the old request body's memory will be freed or the disk file will be cleaned up immediately, respectively.
+如果当前请求的请求体尚未被读取，它将被安全地丢弃。当请求体已经被读进内存或缓存在磁盘文件中时，相应的内存或磁盘文件将被立即清理回收。
 
-This function was first introduced in the `v0.3.1rc18` release.
+这个函数在 `v0.3.1rc18`` 版本中首次引入。
 
-See also [ngx.req.set_body_data](#ngxreqset_body_data).
+更多用法请参考 [ngx.req.set_body_data](#ngxreqset_body_data)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.init_body
 -----------------
-**syntax:** *ngx.req.init_body(buffer_size?)*
+**语法:** *ngx.req.init_body(buffer_size?)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Creates a new blank request body for the current request and inializes the buffer for later request body data writing via the [ngx.req.append_body](#ngxreqappend_body) and [ngx.req.finish_body](#ngxreqfinish_body) APIs.
+为当前请求创建一个新的空请求体并初始化缓冲区，为后续通过 [ngx.req.append_body](#ngxreqappend_body) 和 [ngx.req.finish_body](#ngxreqfinish_body) API 写请求体数据做好准备。
 
-If the `buffer_size` argument is specified, then its value will be used for the size of the memory buffer for body writing with [ngx.req.append_body](#ngxreqappend_body). If the argument is omitted, then the value specified by the standard [client_body_buffer_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size) directive will be used instead.
+如果设置了 `buffer_size` 参数，将设置该大小的内存缓冲区，用于后续的 [ngx.req.append_body](#ngxreqappend_body) 写请求体数据。如果省略此参数，将使用 Nginx 标准指令 [client_body_buffer_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size) 中设置的值作为缓冲区大小。
 
-When the data can no longer be hold in the memory buffer for the request body, then the data will be flushed onto a temporary file just like the standard request body reader in the Nginx core.
+当请求体数据过大，不再能保存在内存缓冲区中时，数据将被写入一个临时文件，类似 Nginx 内核中的标准请求体处理方式。
 
-It is important to always call the [ngx.req.finish_body](#ngxreqfinish_body) after all the data has been appended onto the current request body. Also, when this function is used together with [ngx.req.socket](#ngxreqsocket), it is required to call [ngx.req.socket](#ngxreqsocket) *before* this function, or you will get the "request body already exists" error message.
+需要强调的是，在当前请求的所有请求体被写入完成后，必须调用 [ngx.req.finish_body](#ngxreqfinish_body) 以结束写入。另外，当此函数与 [ngx.req.socket](#ngxreqsocket) 一起使用时，需要在执行此函数 *之前* 调用 [ngx.req.socket](#ngxreqsocket)，否则将会报 "request body already exists" (请求体已经存在) 错。
 
-The usage of this function is often like this:
+此函数典型用法如下：
 
 ```lua
 
- ngx.req.init_body(128 * 1024)  -- buffer is 128KB
+ ngx.req.init_body(128 * 1024)  -- 缓冲区 128KB
  for chunk in next_data_chunk() do
-     ngx.req.append_body(chunk) -- each chunk can be 4KB
+     ngx.req.append_body(chunk) -- 每块可以是 4KB
  end
  ngx.req.finish_body()
 ```
 
-This function can be used with [ngx.req.append_body](#ngxreqappend_body), [ngx.req.finish_body](#ngxreqfinish_body), and [ngx.req.socket](#ngxreqsocket) to implement efficient input filters in pure Lua (in the context of [rewrite_by_lua](#rewrite_by_lua)* or [access_by_lua](#access_by_lua)*), which can be used with other Nginx content handler or upstream modules like [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) and [ngx_http_fastcgi_module](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html).
+此函数可以与 [ngx.req.append_body](#ngxreqappend_body)，[ngx.req.finish_body](#ngxreqfinish_body)，和 [ngx.req.socket](#ngxreqsocket) 一起，使用纯 Lua 语言实现高效的输入过滤器 (在 [rewrite_by_lua](#rewrite_by_lua)* 或 [access_by_lua](#access_by_lua)* 环境中)，与其他 Nginx 内容处理程序或上游模块例如 [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) 和 [ngx_http_fastcgi_module](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html) 配合使用。
+<!--todo content handler 翻译需要统一 -->
 
-This function was first introduced in the `v0.5.11` release.
+这个函数在 `v0.5.11` 版本中首次引入。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.append_body
 -------------------
-**syntax:** *ngx.req.append_body(data_chunk)*
+**语法:** *ngx.req.append_body(data_chunk)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Append new data chunk specified by the `data_chunk` argument onto the existing request body created by the [ngx.req.init_body](#ngxreqinit_body) call.
+向已存在的请求体中追加写入 `data_chunk` 参数指定的新数据块，此请求体最初使用 [ngx.req.init_body](#ngxreqinit_body) 创建。
 
-When the data can no longer be hold in the memory buffer for the request body, then the data will be flushed onto a temporary file just like the standard request body reader in the Nginx core.
+当请求体数据过大，不再能保存在内存缓冲区中时，数据将被写入一个临时文件，类似 Nginx 内核中的标准请求体处理方式。
 
-It is important to always call the [ngx.req.finish_body](#ngxreqfinish_body) after all the data has been appended onto the current request body.
+需要强调的是，在当前请求的所有请求体被写入完成后，必须调用 [ngx.req.finish_body](#ngxreqfinish_body) 以结束写入。
 
-This function can be used with [ngx.req.init_body](#ngxreqinit_body), [ngx.req.finish_body](#ngxreqfinish_body), and [ngx.req.socket](#ngxreqsocket) to implement efficient input filters in pure Lua (in the context of [rewrite_by_lua](#rewrite_by_lua)* or [access_by_lua](#access_by_lua)*), which can be used with other Nginx content handler or upstream modules like [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) and [ngx_http_fastcgi_module](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html).
+此函数可以与 [ngx.req.init_body](#ngxreqinit_body)，[ngx.req.finish_body](#ngxreqfinish_body)，和 [ngx.req.socket](#ngxreqsocket) 一起，使用纯 Lua 语言实现高效的输入过滤器 (在 [rewrite_by_lua](#rewrite_by_lua)* 或 [access_by_lua](#access_by_lua)* 环境中)，与其他 Nginx 内容处理程序或上游模块例如 [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) 和 [ngx_http_fastcgi_module](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html) 配合使用。
+<!--todo content handler 翻译需要统一 -->
 
-This function was first introduced in the `v0.5.11` release.
+这个函数在 `v0.5.11` 版本中首次引入。
 
-See also [ngx.req.init_body](#ngxreqinit_body).
+更多用法请参考 [ngx.req.init_body](#ngxreqinit_body)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.finish_body
 -------------------
-**syntax:** *ngx.req.finish_body()*
+**语法:** *ngx.req.finish_body()*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Completes the construction process of the new request body created by the [ngx.req.init_body](#ngxreqinit_body) and [ngx.req.append_body](#ngxreqappend_body) calls.
+结束新请求体构造过程，该请求体由 [ngx.req.init_body](#ngxreqinit_body) 和 [ngx.req.append_body](#ngxreqappend_body) 创建。
 
-This function can be used with [ngx.req.init_body](#ngxreqinit_body), [ngx.req.append_body](#ngxreqappend_body), and [ngx.req.socket](#ngxreqsocket) to implement efficient input filters in pure Lua (in the context of [rewrite_by_lua](#rewrite_by_lua)* or [access_by_lua](#access_by_lua)*), which can be used with other Nginx content handler or upstream modules like [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) and [ngx_http_fastcgi_module](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html).
+此函数可以与 [ngx.req.init_body](#ngxreqinit_body)，[ngx.req.append_body](#ngxreqappend_body)，和 [ngx.req.socket](#ngxreqsocket) 一起，使用纯 Lua 语言实现高效的输入过滤器 (在 [rewrite_by_lua](#rewrite_by_lua)* 或 [access_by_lua](#access_by_lua)* 环境中)，与其他 Nginx 内容处理程序或上游模块例如 [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) 和 [ngx_http_fastcgi_module](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html) 配合使用。
+<!--todo content handler 翻译需要统一 -->
 
-This function was first introduced in the `v0.5.11` release.
+这个函数在 `v0.5.11` 版本中首次引入。
 
-See also [ngx.req.init_body](#ngxreqinit_body).
+更多用法请参考 [ngx.req.init_body](#ngxreqinit_body)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.req.socket
 --------------
-**syntax:** *tcpsock, err = ngx.req.socket()*
+**语法:** *tcpsock, err = ngx.req.socket()*
 
-**syntax:** *tcpsock, err = ngx.req.socket(raw)*
+**语法:** *tcpsock, err = ngx.req.socket(raw)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
 
+返回一个包含下游连接的只读 cosocket 对象。只有 [receive](#tcpsockreceive) 和 [receiveuntil](#tcpsockreceiveuntil) 方法在该对象上是支持的。
 Returns a read-only cosocket object that wraps the downstream connection. Only [receive](#tcpsockreceive) and [receiveuntil](#tcpsockreceiveuntil) methods are supported on this object.
 
+错误情况，将返回 `nil` 和错误字符描述信息。
 In case of error, `nil` will be returned as well as a string describing the error.
 
+通过该方法返回的 socket 对象，通常是用流式格式读取当前请求体。不要开启 [lua_need_request_body](#lua_need_request_body) 指令，并且不要混合调用 [ngx.req.read_body](#ngxreqread_body) 和 [ngx.req.discard_body](#ngxreqdiscard_body)。
 The socket object returned by this method is usually used to read the current request's body in a streaming fashion. Do not turn on the [lua_need_request_body](#lua_need_request_body) directive, and do not mix this call with [ngx.req.read_body](#ngxreqread_body) and [ngx.req.discard_body](#ngxreqdiscard_body).
 
+如果任何的请求体数据已经被预读到 Nginx 内核请求缓冲区，得到的 cosocket 对象需要小心对待，应避免由这种预读导致的潜在数据丢失。
 If any request body data has been pre-read into the Nginx core request header buffer, the resulting cosocket object will take care of this to avoid potential data loss resulting from such pre-reading.
 Chunked request bodies are not yet supported in this API.
 
+从 `v0.9.0` 版本开始，该函数接受一个可选的布尔值参数 `raw` 。当该参数为 `true` 时，该方法将返回一个包含原生下游连接的全双工 cosocket 对象，你能对它调用 [receive](#tcpsockreceive)， [receiveuntil](#tcpsockreceiveuntil) 和 [send](#tcpsocksend) 。
 Since the `v0.9.0` release, this function accepts an optional boolean `raw` argument. When this argument is `true`, this function returns a full-duplex cosocket object wrapping around the raw downstream connection socket, upon which you can call the [receive](#tcpsockreceive), [receiveuntil](#tcpsockreceiveuntil), and [send](#tcpsocksend) methods.
 
+当指定 `raw` 参数为 `true` ，这里需要没有任何来自 [ngx.say](#ngxsay)、[ngx.print](#ngxprint) 或 [ngx.send_headers](#ngxsend_headers) 方法调用的待处理数据。所以如果你有下游输出调用，你应当在调用 `ngx.req.socket(true)` 之前调用 [ngx.flush(true)](#ngxflush) 确保这里没有任何待处理数据。如果请求体还没有读取，那么这个“原生 socket”也能用来读取请求体。
 When the `raw` argument is `true`, it is required that no pending data from any previous [ngx.say](#ngxsay), [ngx.print](#ngxprint), or [ngx.send_headers](#ngxsend_headers) calls exists. So if you have these downstream output calls previously, you should call [ngx.flush(true)](#ngxflush) before calling `ngx.req.socket(true)` to ensure that there is no pending output data. If the request body has not been read yet, then this "raw socket" can also be used to read the request body.
 
+你可以使用通过 `ngx.req.socket(true)` 返回的“原生请求 socket”来实现各种样式协议如 [WebSocket](http://en.wikipedia.org/wiki/WebSocket) ，或仅发出自己的 HTTP 请求头或体数据。真实世界，你可以参考 [lua-resty-websocket](https://github.com/openresty/lua-resty-websocket) 库。
 You can use the "raw request socket" returned by `ngx.req.socket(true)` to implement fancy protocols like [WebSocket](http://en.wikipedia.org/wiki/WebSocket), or just emit your own raw HTTP response header or body data. You can refer to the [lua-resty-websocket library](https://github.com/openresty/lua-resty-websocket) for a real world example.
 
-This function was first introduced in the `v0.5.0rc1` release.
+该函数是在 `v0.5.0rc1` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.exec
 --------
-**syntax:** *ngx.exec(uri, args?)*
+**语法:** *ngx.exec(uri, args?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
 
-Does an internal redirect to `uri` with `args` and is similar to the [echo_exec](http://github.com/openresty/echo-nginx-module#echo_exec) directive of the [echo-nginx-module](http://github.com/openresty/echo-nginx-module).
+使用 `uri`、`args` 参数执行一个内部跳转，与 [echo-nginx-module](http://github.com/openresty/echo-nginx-module) 的 [echo_exec](http://github.com/openresty/echo-nginx-module#echo_exec) 指令有些相似。
 
 ```lua
 
@@ -4691,27 +4667,27 @@ Does an internal redirect to `uri` with `args` and is similar to the [echo_exec]
  ngx.exec('/some-location?a=3&b=5', 'c=6');
 ```
 
-The optional second `args` can be used to specify extra URI query arguments, for example:
+可选第二个参数 `args` 可被用来指名额外的 URI 查询参数，例如：
 
 ```lua
 
  ngx.exec("/foo", "a=3&b=hello%20world")
 ```
 
-Alternatively, a Lua table can be passed for the `args` argument for ngx_lua to carry out URI escaping and string concatenation.
+另外，对于 `args` 参数可使用一个 Lua 表，内部通过 ngx_lua 完成 URI 转义和字符串的连接。
 
 ```lua
 
  ngx.exec("/foo", { a = 3, b = "hello world" })
 ```
 
-The result is exactly the same as the previous example.
+该结果和上一个示例是一样的。
 
-The format for the Lua table passed as the `args` argument is identical to the format used in the [ngx.encode_args](#ngxencode_args) method.
+作为 `args` 参数的 Lua 表格式化结果，与使用 [ngx.encode_args](#ngxencode_args) 方法格式化结果是相同的。
 
-Named locations are also supported but the second `args` argument will be ignored if present and the querystring for the new target is inherited from the referring location (if any).
+命名 location 也是支持的，但是第二个 `args` 参数将被忽略（如果存在的话），并且对新目标地址的查询字符串会从引用 location （如果有）中继承。
 
-`GET /foo/file.php?a=hello` will return "hello" and not "goodbye" in the example below
+下面的例子中， `GET /foo/file.php?a=hello` 将返回 "hello" ，而不是 "goodbye" ：
 
 ```nginx
 
@@ -4733,138 +4709,132 @@ Named locations are also supported but the second `args` argument will be ignore
  }
 ```
 
-Note that the `ngx.exec` method is different from [ngx.redirect](#ngxredirect) in that
-it is purely an internal redirect and that no new external HTTP traffic is involved.
+注意，`ngx.exec` 方法与 [ngx.redirect](#ngxredirect) 是完全不同的，前者是个纯粹的内部跳转并且没有引入任何额外 HTTP 信号。
 
-Also note that this method call terminates the processing of the current request and that it *must* be called before [ngx.send_headers](#ngxsend_headers) or explicit response body
-outputs by either [ngx.print](#ngxprint) or [ngx.say](#ngxsay).
+注意，此方法的调用终止当前请求的处理，并且它 *必须* 在 [ngx.send_headers](#ngxsend_headers) 或明确有响应体应答（比如 [ngx.print](#ngxprint) 或 [ngx.say](#ngxsay) 之一）之前调用。
 
-It is recommended that a coding style that combines this method call with the `return` statement, i.e., `return ngx.exec(...)` be adopted when this method call is used in contexts other than [header_filter_by_lua](#header_filter_by_lua) to reinforce the fact that the request processing is being terminated.
+该方法调用与 `return` 语句联合使用，是推荐的代码样式，例如，通过`return ngx.redirect(...)`，可使用在 [header_filter_by_lua](#header_filter_by_lua) 之外的环境中加强处理该请求被终止。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.redirect
 ------------
-**syntax:** *ngx.redirect(uri, status?)*
+**语法:** *ngx.redirect(uri, status?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
 
-Issue an `HTTP 301` or `302` redirection to `uri`.
+发出一个 HTTP `301` 或 `302` 重定向到 `uri`。
 
-The optional `status` parameter specifies whether
-`301` or `302` to be used. It is `302` (`ngx.HTTP_MOVED_TEMPORARILY`) by default.
+可选项 `status` 参数指定 `301` 或 `302` 哪个被使用。 默认使用 `302` （`ngx.HTTP_MOVED_TEMPORARILY`）。
 
-Here is an example assuming the current server name is `localhost` and that it is listening on port 1984:
+假设当前服务名是 `localhost` 并且监听端口是 1984，这里有个例子：
 
 ```lua
 
  return ngx.redirect("/foo")
 ```
 
-which is equivalent to
+和下面例子是等价的：
 
 ```lua
 
  return ngx.redirect("/foo", ngx.HTTP_MOVED_TEMPORARILY)
 ```
 
-Redirecting arbitrary external URLs is also supported, for example:
+重定向到任意外部 URL 也是支持的，例如：
 
 ```lua
 
  return ngx.redirect("http://www.google.com")
 ```
 
-We can also use the numerical code directly as the second `status` argument:
+我们也可以使用数值类型的值当做第二个 `status` 参数：
 
 ```lua
 
  return ngx.redirect("/foo", 301)
 ```
 
-This method is similar to the [rewrite](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite) directive with the `redirect` modifier in the standard
-[ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html), for example, this `nginx.conf` snippet
+该方法与使用 `redirect` 修饰的 [rewrite](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite) 标准指令 [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html) 有些相似，例如，该 `nginx.conf` 片段：
 
 ```nginx
 
  rewrite ^ /foo? redirect;  # nginx config
 ```
 
-is equivalent to the following Lua code
+与下面 Lua 代码是等价的：
 
 ```lua
 
  return ngx.redirect('/foo');  -- Lua code
 ```
 
-while
+当这样
 
 ```nginx
 
  rewrite ^ /foo? permanent;  # nginx config
 ```
 
-is equivalent to
+等同于：
 
 ```lua
 
  return ngx.redirect('/foo', ngx.HTTP_MOVED_PERMANENTLY)  -- Lua code
 ```
 
-URI arguments can be specified as well, for example:
+也可以指定具体 URI 参数，例如：、
 
 ```lua
 
  return ngx.redirect('/foo?a=3&b=4')
 ```
 
-Note that this method call terminates the processing of the current request and that it *must* be called before [ngx.send_headers](#ngxsend_headers) or explicit response body
-outputs by either [ngx.print](#ngxprint) or [ngx.say](#ngxsay).
+注意，此方法的调用终止当前请求的处理，并且它 *必须* 在 [ngx.send_headers](#ngxsend_headers) 或明确有响应体应答（比如 [ngx.print](#ngxprint) 或 [ngx.say](#ngxsay) 之一）之前调用。
 
-It is recommended that a coding style that combines this method call with the `return` statement, i.e., `return ngx.redirect(...)` be adopted when this method call is used in contexts other than [header_filter_by_lua](#header_filter_by_lua) to reinforce the fact that the request processing is being terminated.
+该方法调用与 `return` 语句联合使用，是推荐的代码样式，例如，通过`return ngx.redirect(...)`，可使用在 [header_filter_by_lua](#header_filter_by_lua) 之外的环境中加强处理该请求被终止。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.send_headers
 ----------------
-**syntax:** *ok, err = ngx.send_headers()*
+**语法:** *ok, err = ngx.send_headers()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
 
-Explicitly send out the response headers.
+指名把应答头发送出去。
 
-Since `v0.8.3` this function returns `1` on success, or returns `nil` and a string describing the error otherwise.
+自从 `v0.8.3` 版本开始，成功情况该函数返回 `1` ，否则返回 `nil` 和错误字符描述信息。
 
-Note that there is normally no need to manually send out response headers as ngx_lua will automatically send headers out
-before content is output with [ngx.say](#ngxsay) or [ngx.print](#ngxprint) or when [content_by_lua](#content_by_lua) exits normally.
+注意，在内容通过 [ngx.say](#ngxsay)、[ngx.print](#ngxprint) 输出或当 [content_by_lua](#content_by_lua) 存在时，ngx_lua 将自动发送头部内容，所以通常情况不需要手动发送应答头。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.headers_sent
 ----------------
-**syntax:** *value = ngx.headers_sent*
+**语法:** *value = ngx.headers_sent*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua**
 
-Returns `true` if the response headers have been sent (by ngx_lua), and `false` otherwise.
+如果应答头部已经被发送（通过 ngx_lua）返回 `true` ，否则返回 `false` 。
 
-This API was first introduced in ngx_lua v0.3.1rc6.
+该 API 是在 `v0.3.1rc6` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.print
 ---------
-**syntax:** *ok, err = ngx.print(...)*
+**语法:** *ok, err = ngx.print(...)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Emits arguments concatenated to the HTTP client (as response body). If response headers have not been sent, this function will send headers out first and then output body data.
+将输入参数合并发送给 HTTP 客户端 (作为 HTTP 响应体)。如果此时还没有发送响应头信息，本函数将先发送 HTTP 响应头，再输出响应体。
 
-Since `v0.8.3` this function returns `1` on success, or returns `nil` and a string describing the error otherwise.
+自版本 `v0.8.3` 起，本函数当成功时返回 `1`，失败时返回 `nil` 以及一个描述错误的字符串。
 
-Lua `nil` values will output `"nil"` strings and Lua boolean values will output `"true"` and `"false"` literal strings respectively.
+Lua 的 `nil` 值输出 `"nil"` 字符串，Lua 的布尔值输出 `"true"` 或 `"false"` 字符串。
 
-Nested arrays of strings are permitted and the elements in the arrays will be sent one by one:
+输入允许字符串嵌套数组，数组中所有元素相按顺序输出。
 
 ```lua
 
@@ -4876,93 +4846,92 @@ Nested arrays of strings are permitted and the elements in the arrays will be se
  ngx.print(table)
 ```
 
-will yield the output
+将输出
 
 ```bash
 
  hello, world: true or false: nil
 ```
 
-Non-array table arguments will cause a Lua exception to be thrown.
+非数组表(哈希表)参数将导致抛出 Lua 异常。
 
-The `ngx.null` constant will yield the `"null"` string output.
+`ngx.null` 常量输出为 `"null"` 字符串。
 
-This is an asynchronous call and will return immediately without waiting for all the data to be written into the system send buffer. To run in synchronous mode, call `ngx.flush(true)` after calling `ngx.print`. This can be particularly useful for streaming output. See [ngx.flush](#ngxflush) for more details.
+本函数为异步调用，将立即返回，不会等待所有数据被写入系统发送缓冲区。要以同步模式运行，请在调用 `ngx.print` 之后调用 `ngx.flush(true)`。这种方式在流式输出时非常有用。更多细节请参考 [ngx.flush](#ngxflush)。
 
-Please note that both `ngx.print` and [ngx.say](#ngxsay) will always invoke the whole Nginx output body filter chain, which is an expensive operation. So be careful when calling either of these two in a tight loop; buffer the data yourself in Lua and save the calls.
+请注意，`ngx.print` 和 [ngx.say](#ngxsay) 都会调用 Nginx body 输出过滤器，这种操作非常“昂贵”。所以，在“热”循环中使用这两个函数要非常小心；可以通过 Lua 进行缓存以节约调用。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.say
 -------
-**syntax:** *ok, err = ngx.say(...)*
+**语法:** *ok, err = ngx.say(...)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Just as [ngx.print](#ngxprint) but also emit a trailing newline.
+与 [ngx.print](#ngxprint) 相同,同时末尾添加一个回车符。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.log
 -------
-**syntax:** *ngx.log(log_level, ...)*
+**语法:** *ngx.log(log_level, ...)*
 
-**context:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Log arguments concatenated to error.log with the given logging level.
+将参数拼接起来，按照设定的日志级别记入 error.log。
 
-Lua `nil` arguments are accepted and result in literal `"nil"` string while Lua booleans result in literal `"true"` or `"false"` string outputs. And the `ngx.null` constant will yield the `"null"` string output.
+Lua `nil` 参数将输出 `"nil"` 字符串；Lua 布尔参数将输出 `"true"` 或 `"false"` 字符串；`ngx.null` 常量将输出 `"null"` 字符串。
 
-The `log_level` argument can take constants like `ngx.ERR` and `ngx.WARN`. Check out [Nginx log level constants](#nginx-log-level-constants) for details.
+`log_level` 参数可以使用类似 `ngx.ERR` 和 `ngx.WARN` 的常量。更多信息请参考 [Nginx log level constants](#nginx-log-level-constants)。
 
-There is a hard coded `2048` byte limitation on error message lengths in the Nginx core. This limit includes trailing newlines and leading time stamps. If the message size exceeds this limit, Nginx will truncate the message text accordingly. This limit can be manually modified by editing the `NGX_MAX_ERROR_STR` macro definition in the `src/core/ngx_log.h` file in the Nginx source tree.
+在 Nginx 内核中硬编码限制了单条错误信息最长为 `2048` 字节。这个长度包含了最后的换行符和开始的时间戳。如果信息长度超过这个限制，Nginx 将把信息文本截断。这个限制可以通过修改 Nginx 源码中 `src/core/ngx_log.h` 文件中的 `NGX_MAX_ERROR_STR` 宏定义调整。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.flush
 ---------
-**syntax:** *ok, err = ngx.flush(wait?)*
+**语法:** *ok, err = ngx.flush(wait?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Flushes response output to the client. 
+向客户端刷新响应输出。
 
-`ngx.flush` accepts an optional boolean `wait` argument (Default: `false`) first introduced in the `v0.3.1rc34` release. When called with the default argument, it issues an asynchronous call (Returns immediately without waiting for output data to be written into the system send buffer). Calling the function with the `wait` argument set to `true` switches to synchronous mode. 
+自 `v0.3.1rc34` 版本开始，`ngx.flush` 接受一个布尔型可选参数 `wait` (默认值 `false`)。当通过默认参数调用时，本函数发起一个异步调用 (将直接返回，不等待输出数据被写入系统发送缓冲区)。当把 `wait` 参数设置为 `true` 时，本函数将以同步模式执行。
 
-In synchronous mode, the function will not return until all output data has been written into the system send buffer or until the [send_timeout](http://nginx.org/en/docs/http/ngx_http_core_module.html#send_timeout) setting has expired. Note that using the Lua coroutine mechanism means that this function does not block the Nginx event loop even in the synchronous mode.
+在同步模式下，本函数不会立即返回，一直到所有输出数据被写入系统输出缓冲区，或者到达发送超时  [send_timeout](http://nginx.org/en/docs/http/ngx_http_core_module.html#send_timeout) 时间。请注意，因为使用了 Lua 协程机制，本函数即使在同步模式下也不会阻塞 Nginx 事件循环。
 
-When `ngx.flush(true)` is called immediately after [ngx.print](#ngxprint) or [ngx.say](#ngxsay), it causes the latter functions to run in synchronous mode. This can be particularly useful for streaming output.
+当 `ngx.flush(true)` 在 [ngx.print](#ngxprint) 或 [ngx.say](#ngxsay) 之后被立刻调用时，它将使这两个函数以同步模式执行。这在流式输出时非常有用。
 
-Note that `ngx.flush` is not functional when in the HTTP 1.0 output buffering mode. See [HTTP 1.0 support](#http-10-support).
+请注意，`ngx.flush` 在 HTTP 1.0 缓冲输出模式下不起作用。详情请参考 [HTTP 1.0 support](#http-10-support)。
 
-Since `v0.8.3` this function returns `1` on success, or returns `nil` and a string describing the error otherwise.
+自 `v0.8.3` 版本开始，本函数执行成功是返回 `1`，否则返回 `nil` 和错误信息串。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.exit
 --------
-**syntax:** *ngx.exit(status)*
+**语法:** *ngx.exit(status)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, ngx.timer.&#42;*
 
-When `status >= 200` (i.e., `ngx.HTTP_OK` and above), it will interrupt the execution of the current request and return status code to nginx.
+当 `status >= 200` (即 `ngx.HTTP_OK` 及以上) 时，本函数中断当前请求执行并返回状态值给 nginx。
 
-When `status == 0` (i.e., `ngx.OK`), it will only quit the current phase handler (or the content handler if the [content_by_lua](#content_by_lua) directive is used) and continue to run later phases (if any) for the current request.
+当 `status == 0` (即 `ngx.OK`) 时，本函数退出当前的“处理阶段句柄” (或当使用 [content_by_lua](#content_by_lua) 指令时的“内容句柄”) ，继续执行当前请求的下一个阶段 (如果有)。
 
-The `status` argument can be `ngx.OK`, `ngx.ERROR`, `ngx.HTTP_NOT_FOUND`,
-`ngx.HTTP_MOVED_TEMPORARILY`, or other [HTTP status constants](#http-status-constants).
+`status` 参数可以是 `status` argument can be `ngx.OK`, `ngx.ERROR`, `ngx.HTTP_NOT_FOUND`, `ngx.HTTP_MOVED_TEMPORARILY` 或其它 [HTTP status constants](#http-status-constants)。
 
-To return an error page with custom contents, use code snippets like this:
+要返回一个自定义内容的错误页，使用类似下面的代码：
 
 ```lua
 
  ngx.status = ngx.HTTP_GONE
  ngx.say("This is our own content")
- -- to cause quit the whole request rather than the current phase handler
+ -- 退出整个请求而不是当前处理阶段
  ngx.exit(ngx.HTTP_OK)
 ```
 
-The effect in action:
+实际效果:
 
 ```bash
 
@@ -4977,30 +4946,30 @@ The effect in action:
  This is our own content
 ```
 
-Number literals can be used directly as the argument, for instance,
+可以直接使用数字作为参数，例如：
 
 ```lua
 
  ngx.exit(501)
 ```
 
-Note that while this method accepts all [HTTP status constants](#http-status-constants) as input, it only accepts `NGX_OK` and `NGX_ERROR` of the [core constants](#core-constants).
+请注意，虽然此方法接受所有 [HTTP status constants](#http-status-constants) 作为输入，但在 [core constants](#core-constants)  中仅支持 `NGX_OK` 和 `NGX_ERROR` 作为输入。
 
-Also note that this method call terminates the processing of the current request and that it is recommended that a coding style that combines this method call with the `return` statement, i.e., `return ngx.exit(...)` be used to reinforce the fact that the request processing is being terminated.
+同时请注意，因为调用此方法会中断当前请求处理，所以建议代码风格是与 `return` 语句一起调用此方法，即，使用 `return ngx.exit(...)` 来强调请求处理过程已经中断。
 
-When being used in the context of [header_filter_by_lua](#header_filter_by_lua), `ngx.exit()` is an asynchronous operation and will return immediately. This behavior may change in future and it is recommended that users always use `return` in combination as suggested above.
+当使用在 [header_filter_by_lua](#header_filter_by_lua) 环境中时，`ngx.exit()` 是一个异步操作，会立即返回。这个行为在未来版本中可能会改变，所以建议用户一直使用上述与 `returen` 同时使用的代码风格。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.eof
 -------
-**syntax:** *ok, err = ngx.eof()*
+**语法:** *ok, err = ngx.eof()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-Explicitly specify the end of the response output stream. In the case of HTTP 1.1 chunked encoded output, it will just trigger the Nginx core to send out the "last chunk".
+明确指定响应输出流的末尾。在 HTTP 1.1 分块编码输出模式下，它会触发 Nginx 内核发送“最后一块”。
 
-When you disable the HTTP 1.1 keep-alive feature for your downstream connections, you can rely on descent HTTP clients to close the connection actively for you when you call this method. This trick can be used do back-ground jobs without letting the HTTP clients to wait on the connection, as in the following example:
+当禁用下游连接的 HTTP 1.1 保持连接功能后，用户程序可以通过调用此方法，使下游 HTTP 客户端主动关闭连接。这招可以用来执行后台任务，而无需 HTTP 客户端等待连接关闭，例如：
 
 ```nginx
 
@@ -5008,67 +4977,67 @@ When you disable the HTTP 1.1 keep-alive feature for your downstream connections
      keepalive_timeout 0;
      content_by_lua '
          ngx.say("got the task!")
-         ngx.eof()  -- a descent HTTP client will close the connection at this point
-         -- access MySQL, PostgreSQL, Redis, Memcached, and etc here...
+         ngx.eof()  -- 下游 HTTP 客户端将在这里断开连接
+         -- 在这里访问 MySQL, PostgreSQL, Redis, Memcached 等 ...
      ';
  }
 ```
 
-But if you create subrequests to access other locations configured by Nginx upstream modules, then you should configure those upstream modules to ignore client connection abortions if they are not by default. For example, by default the standard [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) will terminate both the subrequest and the main request as soon as the client closes the connection, so it is important to turn on the [proxy_ignore_client_abort](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_ignore_client_abort) directive in your location block configured by [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html):
+但是，如果用户程序创建子请求通过 Nginx 上游模块访问其他 location 时，需要配置上游模块忽略客户端连接中断 (如果不是默认)。例如，默认时，基本模块 [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) 在客户端关闭连接后，立刻中断主请求和子请求，所以在 [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) 配置的 location 块中打开 [proxy_ignore_client_abort](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_ignore_client_abort) 开关非常重要：
 
 ```nginx
 
  proxy_ignore_client_abort on;
 ```
 
-A better way to do background jobs is to use the [ngx.timer.at](#ngxtimerat) API.
+一个执行后台任务的方法是使用 [ngx.timer.at](#ngxtimerat) API。
 
-Since `v0.8.3` this function returns `1` on success, or returns `nil` and a string describing the error otherwise.
+自版本 `v0.8.3`开始，此函数成功时返回 `1`，失败时返回 `nil` 和错误信息串。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.sleep
 ---------
-**syntax:** *ngx.sleep(seconds)*
+**语法:** *ngx.sleep(seconds)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;*
 
-Sleeps for the specified seconds without blocking. One can specify time resolution up to 0.001 seconds (i.e., one milliseconds).
+无阻塞地休眠特定秒。时间可以精确到 0.001 秒 (毫秒)。
 
-Behind the scene, this method makes use of the Nginx timers.
+在后台，此方法使用 Nginx 的定时器。
 
-Since the `0.7.20` release, The `0` time argument can also be specified.
+自版本 `0.7.20` 开始，`0` 也可以作为时间参数被指定。
 
-This method was introduced in the `0.5.0rc30` release.
+这个方法最早在版本 `0.5.0rc30` 中出现。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.escape_uri
 --------------
-**syntax:** *newstr = ngx.escape_uri(str)*
+**语法:** *newstr = ngx.escape_uri(str)*
 
-**context:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Escape `str` as a URI component.
+对 `str` 进行 URI 编码。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.unescape_uri
 ----------------
-**syntax:** *newstr = ngx.unescape_uri(str)*
+**语法:** *newstr = ngx.unescape_uri(str)*
 
-**context:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Unescape `str` as an escaped URI component.
+将转义过的 URI 内容 `str` 解码。
 
-For example,
+例如,
 
 ```lua
 
  ngx.say(ngx.unescape_uri("b%20r56+7"))
 ```
 
-gives the output
+输出
 
 
     b r56 7
@@ -5078,81 +5047,81 @@ gives the output
 
 ngx.encode_args
 ---------------
-**syntax:** *str = ngx.encode_args(table)*
+**语法:** *str = ngx.encode_args(table)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Encode the Lua table to a query args string according to the URI encoded rules.
+根据 URI 编码规则，将 Lua 表编码成一个查询参数字符串。
 
-For example,
+例如，
 
 ```lua
 
  ngx.encode_args({foo = 3, ["b r"] = "hello world"})
 ```
 
-yields
+生成
 
 
     foo=3&b%20r=hello%20world
 
 
-The table keys must be Lua strings.
+Lua 表的 key 必须是 Lua 字符串。
 
-Multi-value query args are also supported. Just use a Lua table for the argument's value, for example:
+支持多值参数。可以使用 Lua 表存储参数值，例如：
 
 ```lua
 
  ngx.encode_args({baz = {32, "hello"}})
 ```
 
-gives
+输出
 
 
     baz=32&baz=hello
 
 
-If the value table is empty and the effect is equivalent to the `nil` value.
+如果 value 表是空的，效果等同于 `nil` 值。
 
-Boolean argument values are also supported, for instance,
+支持布尔值参数，例如，
 
 ```lua
 
  ngx.encode_args({a = true, b = 1})
 ```
 
-yields
+输出
 
 
     a&b=1
 
 
-If the argument value is `false`, then the effect is equivalent to the `nil` value.
+如果参数值是 `false`，效果等同于 `nil` 值。
 
-This method was first introduced in the `v0.3.1rc27` release.
+这个方法最早出现在版本 `v0.3.1rc27` 中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.decode_args
 ---------------
-**syntax:** *table = ngx.decode_args(str, max_args?)*
+**语法:** *table = ngx.decode_args(str, max_args?)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Decodes a URI encoded query-string into a Lua table. This is the inverse function of [ngx.encode_args](#ngxencode_args).
+将 URI 编码的查询字符串解码为 Lua 表。本函数是 [ngx.encode_args](#ngxencode_args) 的逆函数。
 
-The optional `max_args` argument can be used to specify the maximum number of arguments parsed from the `str` argument. By default, a maximum of 100 request arguments are parsed (including those with the same name) and that additional URI arguments are silently discarded to guard against potential denial of service attacks.
+可选的参数 `max_args` 可以用来指定从 `str` 中最多解析的参数个数。默认时，最多解析 100 个请求参数 (包括同名的)。为避免潜在的拒绝服务式攻击 (denial of services, DOS)，超过 `max_args` 数量上限的 URI 参数被丢弃，
 
-This argument can be set to zero to remove the limit and to process all request arguments received:
+这个参数可以被设成 0 以去掉解析参数数量上限：
 
 ```lua
 
  local args = ngx.decode_args(str, 0)
 ```
 
-Removing the `max_args` cap is strongly discouraged.
+强烈不推荐移除 `max_args` 限制。
 
-This method was introduced in the `v0.5.0rc29`.
+这个方法最早出现在版本 `v0.5.0rc29` 中。
 
 [Back to TOC](#nginx-api-for-lua)
 

@@ -1180,7 +1180,7 @@ lua_package_path
 
 从`v0.5.0rc29`发行版开始，特殊符号`$prefix` 或 `${prefix}`可用于搜索路径字符串中。`server prefix`的值，通常是由Nginx服务启动时的`-p PATH`命令行决定的。
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 lua_package_cpath
 -----------------
@@ -1380,7 +1380,7 @@ init_worker_by_lua_block
 
 该指令在 `v0.9.17` 版本首次引入。
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 init_worker_by_lua_file
 -----------------------
@@ -2195,7 +2195,7 @@ log_by_lua_file
 
 该指令是在`v0.5.0rc31`版本第一次引入。
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 balancer_by_lua_block
 ---------------------
@@ -2368,7 +2368,7 @@ Furthermore, one needs at least OpenSSL 1.0.2e for this directive to work.
 
 This directive was first introduced in the `v0.10.0` release.
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 ssl_certificate_by_lua_file
 ---------------------------
@@ -2385,7 +2385,7 @@ When a relative path like `foo/bar.lua` is given, they will be turned into the a
 
 This directive was first introduced in the `v0.10.0` release.
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 lua_shared_dict
 ---------------
@@ -2418,7 +2418,7 @@ lua_shared_dict
 
 这个指令最早出现在版本 `v0.3.1rc22` 中。
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 lua_socket_connect_timeout
 --------------------------
@@ -2555,7 +2555,7 @@ lua_socket_log_errors
 
 这个指令最早出现在版本 `v0.5.13` 中。
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 lua_ssl_ciphers
 ---------------
@@ -2919,7 +2919,7 @@ Nginx API for Lua
 * [coroutine.status](#coroutinestatus)
 
 
-[Back to TOC](#table-of-contents)
+[返回目录](#table-of-contents)
 
 Introduction
 ------------
@@ -2956,7 +2956,7 @@ Lua 中使用的 API 以两个标准模块的形式封装：`ngx` 和 `ndk`。�
 
 用户代码中的网络 I/O 操作应该使用这些 Nginx Lua API 实现，否则 Nginx 的事件循环可能被阻塞，从而严重影响性能。相对小数据量的磁盘操作可以通过标准的 Lua `io` 库来实现，但大规模的文件读写如果可能应该避免，因为可能会严重阻塞 Nginx 进程。为获得最好性能，强烈建议将所有网络和磁盘 I/O 操作发送到 Nginx 的子请求中 (通过类似 [ngx.location.capture](#ngxlocationcapture) 的方法) 处理。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.arg
 -------
@@ -2993,7 +2993,7 @@ ngx.arg
 
 可以通过直接给相应的表元素赋值，设置送给下游 Nginx 输出过滤器的数据块和 "eof" 标记。当给 `ngx.arg[1]` 赋值 `nil` 或 Lua 空字符串时，将不发送任何数据给下游的 Nginx 输出过滤器。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.var.VARIABLE
 ----------------
@@ -3049,7 +3049,7 @@ Nginx 正则表达式捕获组变量 `$1`、`$2`、`$3` 等，也可以通过这
 
 这个 API 需要进行相对“昂贵”的元方法调用，所以请避免高频使用。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 Core constants
 --------------
@@ -3075,7 +3075,7 @@ Core constants
 
 `ngx.DECLINED` 这个常量在`v0.5.0rc19`版本中首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 HTTP method constants
 ---------------------
@@ -3100,7 +3100,7 @@ HTTP method constants
 
 这些常量一般被用在 [ngx.location.capture](#ngxlocationcapture) 和 [ngx.location.capture_multi](#ngxlocationcapture_multi) 方法中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 HTTP status constants
 ---------------------
@@ -3165,7 +3165,7 @@ Nginx log level constants
 
 这些常量一般用于 [ngx.log](#ngxlog) 方法.
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 print
 -----
@@ -3187,7 +3187,7 @@ Lua 的 `nil` 值输出 `"nil"` 字符串，Lua 的布尔值输出 `"true"` 或 
 
 在 Nginx 内核中硬编码限制了单条错误信息最长为 `2048` 字节。这个长度包含了最后的换行符和开始的时间戳。如果信息长度超过这个限制，Nginx 将把信息文本截断。这个限制可以通过修改 Nginx 源码中 `src/core/ngx_log.h` 文件中的 `NGX_MAX_ERROR_STR` 宏定义调整。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.ctx
 -------
@@ -3334,7 +3334,7 @@ Because of the metamethod magic, never "local" the `ngx.ctx` table outside your 
 
 就是说，调用者对 `ctx` 表调用应通过函数传参方式完成。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.location.capture
 --------------------
@@ -3604,7 +3604,7 @@ Nginx 代码中有一个硬编码的数字，来控制每个主请求最多可�
 
 请参考 [subrequest directives of other modules](#locations-configured-by-subrequest-directives-of-other-modules) 了解目标 location 的配置限制。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.location.capture_multi
 --------------------------
@@ -3668,7 +3668,7 @@ ngx.location.capture_multi
 
 请参考 [subrequest directives of other modules](#locations-configured-by-subrequest-directives-of-other-modules) 了解目标 location 的配置限制。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.status
 ----------
@@ -3688,7 +3688,7 @@ ngx.status
     attempt to set ngx.status after sending out response headers
 
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.header.HEADER
 -----------------
@@ -3798,7 +3798,7 @@ ngx.header.HEADER
 
 读取 *请求* 头信息，请使用 [ngx.req.get_headers](#ngxreqget_headers) 函数。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.resp.get_headers
 --------------------
@@ -3820,7 +3820,7 @@ ngx.resp.get_headers
 
 这个 API 最早出现在 `v0.9.5` 版中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.is_internal
 -------------------
@@ -3855,7 +3855,7 @@ ngx.req.start_time
 
 更多使用方法请参考 [ngx.now](#ngxnow) 和 [ngx.update_time](#ngxupdate_time)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.http_version
 --------------------
@@ -3869,7 +3869,7 @@ ngx.req.http_version
 
 这个方法在 `v0.7.17` 版本中首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.raw_header
 ------------------
@@ -3911,7 +3911,7 @@ ngx.req.raw_header
 
 这个方法在 `v0.7.17` 版本中首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.get_method
 ------------------
@@ -3927,7 +3927,7 @@ ngx.req.get_method
 
 更多用法请参考 [ngx.req.set_method](#ngxreqset_method)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.set_method
 ------------------
@@ -3943,7 +3943,7 @@ ngx.req.set_method
 
 更多用法请参考 [ngx.req.get_method](#ngxreqget_method)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.set_uri
 ---------------
@@ -4042,7 +4042,7 @@ ngx.req.set_uri
 
 这个方法在 `v0.3.1rc14` 版本中首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.set_uri_args
 --------------------
@@ -4079,7 +4079,7 @@ ngx.req.set_uri_args
 
 更多用法请参考 [ngx.req.set_uri](#ngxreqset_uri)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.get_uri_args
 --------------------
@@ -4175,7 +4175,7 @@ key 和 value 将根据 URI 编码规则进行解码。访问上面的配置文�
 
 强烈不推荐移除 `max_args` 限制。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.get_post_args
 ---------------------
@@ -4277,7 +4277,7 @@ key 和 value 将根据 URI 编码规则进行解码。
 
 强烈不推荐移除 `max_args` 限制。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.get_headers
 -------------------
@@ -4351,7 +4351,7 @@ ngx.req.get_headers
 
 当 `raw` 参数设置为 `true` 时，`__index` 元方法不会被加入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.set_header
 ------------------
@@ -4401,7 +4401,7 @@ ngx.req.set_header
  ngx.req.clear_header("X-Foo")
 ```
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.clear_header
 --------------------
@@ -4411,7 +4411,7 @@ ngx.req.clear_header
 
 清除当前请求的名为 `header_name` 的请求头信息。已经存在的子请求不受影响，此命令之后发起的子请求将默认继承修改后的头信息。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.read_body
 -----------------
@@ -4442,7 +4442,7 @@ ngx.req.read_body
 
 这个函数在 `v0.3.1rc17`` 版本中首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.discard_body
 --------------------
@@ -4460,7 +4460,7 @@ ngx.req.discard_body
 
 更多用法请参考 [ngx.req.read_body](#ngxreqread_body)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.get_body_data
 ---------------------
@@ -4488,7 +4488,7 @@ ngx.req.get_body_data
 
 更多用法请参考 [ngx.req.get_body_file](#ngxreqget_body_file)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.get_body_file
 ---------------------
@@ -4510,7 +4510,7 @@ ngx.req.get_body_file
 
 更多用法请参考 [ngx.req.get_body_data](#ngxreqget_body_data)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.set_body_data
 ---------------------
@@ -4526,7 +4526,7 @@ ngx.req.set_body_data
 
 更多用法请参考 [ngx.req.set_body_file](#ngxreqset_body_file)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.set_body_file
 ---------------------
@@ -4546,7 +4546,7 @@ ngx.req.set_body_file
 
 更多用法请参考 [ngx.req.set_body_data](#ngxreqset_body_data)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.init_body
 -----------------
@@ -4578,7 +4578,7 @@ ngx.req.init_body
 
 这个函数在 `v0.5.11` 版本中首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.append_body
 -------------------
@@ -4599,7 +4599,7 @@ ngx.req.append_body
 
 更多用法请参考 [ngx.req.init_body](#ngxreqinit_body)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.finish_body
 -------------------
@@ -4616,7 +4616,7 @@ ngx.req.finish_body
 
 更多用法请参考 [ngx.req.init_body](#ngxreqinit_body)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.req.socket
 --------------
@@ -4861,7 +4861,7 @@ Lua 的 `nil` 值输出 `"nil"` 字符串，Lua 的布尔值输出 `"true"` 或 
 
 请注意，`ngx.print` 和 [ngx.say](#ngxsay) 都会调用 Nginx body 输出过滤器，这种操作非常“昂贵”。所以，在“热”循环中使用这两个函数要非常小心；可以通过 Lua 进行缓存以节约调用。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.say
 -------
@@ -4871,7 +4871,7 @@ ngx.say
 
 与 [ngx.print](#ngxprint) 相同,同时末尾添加一个回车符。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.log
 -------
@@ -4887,7 +4887,7 @@ Lua `nil` 参数将输出 `"nil"` 字符串；Lua 布尔参数将输出 `"true"`
 
 在 Nginx 内核中硬编码限制了单条错误信息最长为 `2048` 字节。这个长度包含了最后的换行符和开始的时间戳。如果信息长度超过这个限制，Nginx 将把信息文本截断。这个限制可以通过修改 Nginx 源码中 `src/core/ngx_log.h` 文件中的 `NGX_MAX_ERROR_STR` 宏定义调整。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.flush
 ---------
@@ -4907,7 +4907,7 @@ ngx.flush
 
 自 `v0.8.3` 版本开始，本函数执行成功是返回 `1`，否则返回 `nil` 和错误信息串。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.exit
 --------
@@ -4959,7 +4959,7 @@ ngx.exit
 
 当使用在 [header_filter_by_lua](#header_filter_by_lua) 环境中时，`ngx.exit()` 是一个异步操作，会立即返回。这个行为在未来版本中可能会改变，所以建议用户一直使用上述与 `returen` 同时使用的代码风格。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.eof
 -------
@@ -4994,7 +4994,7 @@ ngx.eof
 
 自版本 `v0.8.3`开始，此函数成功时返回 `1`，失败时返回 `nil` 和错误信息串。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.sleep
 ---------
@@ -5010,7 +5010,7 @@ ngx.sleep
 
 这个方法最早在版本 `0.5.0rc30` 中出现。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.escape_uri
 --------------
@@ -5020,7 +5020,7 @@ ngx.escape_uri
 
 对 `str` 进行 URI 编码。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.unescape_uri
 ----------------
@@ -5043,7 +5043,7 @@ ngx.unescape_uri
     b r56 7
 
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.encode_args
 ---------------
@@ -5100,7 +5100,7 @@ Lua 表的 key 必须是 Lua 字符串。
 
 这个方法最早出现在版本 `v0.3.1rc27` 中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.decode_args
 ---------------
@@ -5123,7 +5123,7 @@ ngx.decode_args
 
 这个方法最早出现在版本 `v0.5.0rc29` 中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.encode_base64
 -----------------
@@ -5135,7 +5135,7 @@ ngx.encode_base64
 
 自 `0.9.16` 版本后，引入了一个布尔值参数 `no_padding` 用来控制是否需要编码数据填充 `等号` 字符串（默认为 `false`，代表需要填充）。 它表明调用者可以在 `base64` 流数据结尾添加填充数据。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.decode_base64
 -----------------
@@ -5145,7 +5145,7 @@ ngx.decode_base64
 
 通过 `base64` 解码 `str` 字符串得到未编码过的字符串。如果 `str` 字符串没有被正常解码将会返回 `nil`。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.crc32_short
 ---------------
@@ -5161,7 +5161,7 @@ ngx.crc32_short
 
 这个方法最早出现在版本 `v0.3.1rc8` 中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.crc32_long
 --------------
@@ -5177,7 +5177,7 @@ ngx.crc32_long
 
 这个方法最早出现在版本 `v0.3.1rc8` 中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.hmac_sha1
 -------------
@@ -5210,7 +5210,7 @@ ngx.hmac_sha1
 
 这个方法最早出现在版本 `v0.3.1rc29` 中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.md5
 -------
@@ -5235,7 +5235,7 @@ ngx.md5
 
 如果需要返回二进制数据请看 [ngx.md5_bin](ngxmd5_bin.md) 方法。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.md5_bin
 -----------
@@ -5247,7 +5247,7 @@ ngx.md5_bin
 
 如果需要返回纯文本数据请看 [ngx.md5](ngxmd5.md) 方法。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.sha1_bin
 ------------
@@ -5261,7 +5261,7 @@ ngx.sha1_bin
 
 这个方法在 `v0.5.0rc6` 版本中首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.quote_sql_str
 -----------------
@@ -5271,7 +5271,7 @@ ngx.quote_sql_str
 
 根据 `MySQL` 转义规则返回一个转义后字符串。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.today
 ---------
@@ -5283,7 +5283,7 @@ ngx.today
 
 这是个本地时间。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.time
 --------
@@ -5295,7 +5295,7 @@ ngx.time
 
 通过先调用[ngx.update_time](#ngxupdate_time)会强制更新nginx的时间缓存。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.now
 -------
@@ -5309,7 +5309,7 @@ ngx.now
 
 这个API最早出现在 `v0.3.1rc32` 版本中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.update_time
 ---------------
@@ -5321,7 +5321,7 @@ ngx.update_time
 
 这个API最早出现在 `v0.3.1rc32` 版本中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.localtime
 -------------
@@ -5333,7 +5333,7 @@ ngx.localtime
 
 这是个本地时间。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.utctime
 -----------
@@ -5345,7 +5345,7 @@ ngx.utctime
 
 这是个UTC时间。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.cookie_time
 ---------------
@@ -5558,7 +5558,7 @@ ngx.re.match
 
 这个功能最早出现在 `v0.2.1rc11` 版本中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.re.find
 -----------
@@ -5613,7 +5613,7 @@ ngx.re.find
 
 此 API 函数自 `v0.9.2` 版开始提供。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.re.gmatch
 -------------
@@ -5691,7 +5691,7 @@ ngx.re.gmatch
 
 这个功能最早出现在 `v0.2.1rc12` 版本中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.re.sub
 ----------
@@ -5757,7 +5757,7 @@ ngx.re.sub
 
 这个功能最早出现在 `v0.2.1rc13` 版本中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.re.gsub
 -----------
@@ -5795,7 +5795,7 @@ ngx.re.gsub
 
 这个功能最早出现在 `v0.2.1rc15` 版本中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT
 ---------------
@@ -5870,7 +5870,7 @@ ngx.shared.DICT
 
 这个功能最早出现在 `v0.3.1rc22` 版本中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.get
 -------------------
@@ -5908,7 +5908,7 @@ ngx.shared.DICT.get
 
 更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.get_stale
 -------------------------
@@ -5926,7 +5926,7 @@ ngx.shared.DICT.get_stale
 
 更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.set
 -------------------
@@ -5974,7 +5974,7 @@ ngx.shared.DICT.set
 
 更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.safe_set
 ------------------------
@@ -5988,7 +5988,7 @@ ngx.shared.DICT.safe_set
 
 更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.add
 -------------------
@@ -6004,7 +6004,7 @@ ngx.shared.DICT.add
 
 更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.safe_add
 ------------------------
@@ -6018,7 +6018,7 @@ ngx.shared.DICT.safe_add
 
 更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.replace
 -----------------------
@@ -6034,7 +6034,7 @@ ngx.shared.DICT.replace
 
 更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.delete
 ----------------------
@@ -6050,7 +6050,7 @@ ngx.shared.DICT.delete
 
 更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.incr
 --------------------
@@ -6070,7 +6070,7 @@ ngx.shared.DICT.incr
 
 更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.flush_all
 -------------------------
@@ -6084,7 +6084,7 @@ ngx.shared.DICT.flush_all
 
 更多功能请参考 [ngx.shared.DICT.flush_expired](#ngxshareddictflush_expired) 和 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.flush_expired
 -----------------------------
@@ -6100,7 +6100,7 @@ ngx.shared.DICT.flush_expired
 
 更多功能请参考 [ngx.shared.DICT.flush_all](#ngxshareddictflush_all) 和 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.get_keys
 ------------------------
@@ -6116,7 +6116,7 @@ ngx.shared.DICT.get_keys
 
 这个功能最早出现在 `v0.7.3` 版本中。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.socket.udp
 --------------
@@ -6201,7 +6201,7 @@ udpsock:setpeername
 
 [返回目录](#nginx-api-for-lua)
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 udpsock:send
 ------------
@@ -6217,7 +6217,7 @@ udpsock:send
 
 该特性是在 `v0.5.7` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 udpsock:receive
 ---------------
@@ -7234,7 +7234,7 @@ ngx.config.ngx_lua_version
 
 [返回目录](#nginx-api-for-lua)
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.worker.exiting
 ------------------
@@ -7273,7 +7273,7 @@ ngx.worker.count
 
 该 API 从 `v0.9.20` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.worker.id
 -------------

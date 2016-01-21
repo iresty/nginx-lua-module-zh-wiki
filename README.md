@@ -257,7 +257,7 @@ NGINX API for Lua
 * [ngx.worker.pid yuansheng-9.30](doc/ngxworkerpid.md)
 * [ngx.worker.count yuansheng-12.19](doc/ngxworkercount.md)
 * [ngx.worker.id yuansheng-12.19](doc/ngxworkerid.md)
-* [ngx.semaphore](#ngxsemaphore)
+* [ngx.semaphore](doc/ngxsemaphore.md)
 * [ngx.balancer](doc/ngxbalancer.md)
 * [ngx.ssl](#ngxssl)
 * [ngx.ocsp](#ngxocsp)

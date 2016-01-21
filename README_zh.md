@@ -5127,69 +5127,69 @@ ngx.decode_args
 
 ngx.encode_base64
 -----------------
-**syntax:** *newstr = ngx.encode_base64(str, no_padding?)*
+**语法:** *newstr = ngx.encode_base64(str, no_padding?)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Encodes `str` to a base64 digest.
+通过 `base64` 对 `str` 字符串编码。
 
-Since the `0.9.16` release, an optional boolean-typed `no_padding` argument can be specified to control whether the base64 padding should be appended to the resulting digest (default to `false`, i.e., with padding enabled). This enables streaming base64 digest calculation by (data chunks) though it would be the caller's responsibility to append an appropriate padding at the end of data stream.
+自 `0.9.16` 版本后，引入了一个布尔值参数 `no_padding` 用来控制是否需要编码数据填充 `等号` 字符串（默认为 `false`，代表需要填充）。 它表明调用者可以在 `base64` 流数据结尾添加填充数据。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.decode_base64
 -----------------
-**syntax:** *newstr = ngx.decode_base64(str)*
+**语法:** *newstr = ngx.decode_base64(str)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Decodes the `str` argument as a base64 digest to the raw form. Returns `nil` if `str` is not well formed.
+通过 `base64` 解码 `str` 字符串得到未编码过的字符串。如果 `str` 字符串没有被正常解码将会返回 `nil`。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.crc32_short
 ---------------
-**syntax:** *intval = ngx.crc32_short(str)*
+**语法:** *intval = ngx.crc32_short(str)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;
 
-Calculates the CRC-32 (Cyclic Redundancy Code) digest for the `str` argument.
+通过一个字符串计算循环冗余校验码。
 
-This method performs better on relatively short `str` inputs (i.e., less than 30 ~ 60 bytes), as compared to [ngx.crc32_long](#ngxcrc32_long). The result is exactly the same as [ngx.crc32_long](#ngxcrc32_long).
+这个方法最好在字符串较少时调用（比如少于30-60字节），他的结果和 `ngx.crc32_long` 是一样的。
 
-Behind the scene, it is just a thin wrapper around the `ngx_crc32_short` function defined in the Nginx core.
+本质上，它只是 Nginx 内核函数 `ngx_crc32_short` 的简单封装。
 
-This API was first introduced in the `v0.3.1rc8` release.
+这个方法最早出现在版本 `v0.3.1rc8` 中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.crc32_long
 --------------
-**syntax:** *intval = ngx.crc32_long(str)*
+**语法:** *intval = ngx.crc32_long(str)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;
 
-Calculates the CRC-32 (Cyclic Redundancy Code) digest for the `str` argument.
+通过一个字符串计算循环冗余校验码。
 
-This method performs better on relatively long `str` inputs (i.e., longer than 30 ~ 60 bytes), as compared to [ngx.crc32_short](#ngxcrc32_short).  The result is exactly the same as [ngx.crc32_short](#ngxcrc32_short).
+这个方法最好在字符串较多时调用（比如大于30-60字节），他的结果和 `ngx.crc32_short` 是一样的。
 
-Behind the scene, it is just a thin wrapper around the `ngx_crc32_long` function defined in the Nginx core.
+本质上，它只是 Nginx 内核函数 `ngx_crc32_long` 的简单封装。
 
-This API was first introduced in the `v0.3.1rc8` release.
+这个方法最早出现在版本 `v0.3.1rc8` 中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.hmac_sha1
 -------------
-**syntax:** *digest = ngx.hmac_sha1(secret_key, str)*
+**语法:** *digest = ngx.hmac_sha1(secret_key, str)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Computes the [HMAC-SHA1](http://en.wikipedia.org/wiki/HMAC) digest of the argument `str` and turns the result using the secret key `<secret_key>`.
+通过 `str` 待运算数据和 `secret_key` 密钥串生成结果。关于[HMAC-SHA1](http://en.wikipedia.org/wiki/HMAC)。
 
-The raw binary form of the `HMAC-SHA1` digest will be generated, use [ngx.encode_base64](#ngxencode_base64), for example, to encode the result to a textual representation if desired.
+通过 `HMAC-SHA1` 的运算会得到二进制数据，如果你想要把结果转为文本形式，你可以使用 [ngx.encode_base64](ngxencode_base64.md) 函数。
 
-For example,
+举一个例子,
 
 ```lua
 
@@ -5199,27 +5199,28 @@ For example,
  ngx.say(ngx.encode_base64(digest))
 ```
 
-yields the output
+将会输出
 
 
     R/pvxzHC4NLtj7S+kXFg/NePTmk=
 
 
-This API requires the OpenSSL library enabled in the Nginx build (usually by passing the `--with-http_ssl_module` option to the `./configure` script).
+这个 `API` 需要在安装 `Nginx` 时启用 `OpenSSL` 库（通常通过 `./configure` 脚本的 `--with-http_ssl_module` 选项来控制）
 
-This function was first introduced in the `v0.3.1rc29` release.
+
+这个方法最早出现在版本 `v0.3.1rc29` 中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.md5
 -------
-**syntax:** *digest = ngx.md5(str)*
+**语法:** *digest = ngx.md5(str)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Returns the hexadecimal representation of the MD5 digest of the `str` argument.
+通过 `MD5` 计算 `str` 字符串返回十六进制的数据。
 
-For example,
+举一个例子,
 
 ```nginx
 
@@ -5228,133 +5229,131 @@ For example,
  }
 ```
 
-yields the output
-
+将会输出
 
     5d41402abc4b2a76b9719d911017c592
 
-
-See [ngx.md5_bin](#ngxmd5_bin) if the raw binary MD5 digest is required.
+如果需要返回二进制数据请看 [ngx.md5_bin](ngxmd5_bin.md) 方法。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.md5_bin
 -----------
-**syntax:** *digest = ngx.md5_bin(str)*
+**语法:** *digest = ngx.md5_bin(str)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Returns the binary form of the MD5 digest of the `str` argument.
+通过 `MD5` 计算 `str` 字符串返回二进制的数据。
 
-See [ngx.md5](#ngxmd5) if the hexadecimal form of the MD5 digest is required.
+如果需要返回纯文本数据请看 [ngx.md5](ngxmd5.md) 方法。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.sha1_bin
 ------------
-**syntax:** *digest = ngx.sha1_bin(str)*
+**语法:** *digest = ngx.sha1_bin(str)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Returns the binary form of the SHA-1 digest of the `str` argument.
+通过 `SHA-1` 计算 `str` 字符串返回二进制的数据。
 
-This function requires SHA-1 support in the Nginx build. (This usually just means OpenSSL should be installed while building Nginx).
+在安装 `Nginx` 时 这个函数需要 `SHA-1` 的支持。（这通常说明应该在安装 `Nginx` 时一起安装 `OpenSSL` 库）。
 
-This function was first introduced in the `v0.5.0rc6`.
+这个方法在 `v0.5.0rc6` 版本中首次引入。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.quote_sql_str
 -----------------
-**syntax:** *quoted_value = ngx.quote_sql_str(raw_value)*
+**语法:** *quoted_value = ngx.quote_sql_str(raw_value)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Returns a quoted SQL string literal according to the MySQL quoting rules.
+根据 `MySQL` 转义规则返回一个转义后字符串。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.today
 ---------
-**syntax:** *str = ngx.today()*
+**语法:** *str = ngx.today()*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Returns current date (in the format `yyyy-mm-dd`) from the nginx cached time (no syscall involved unlike Lua's date library).
+从nginx的时间缓存(不像Lua的日期库，该时间不涉及系统调用)返回当前的日期(格式：`yyyy-mm-dd`)。
 
-This is the local time.
+这是个本地时间。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.time
 --------
-**syntax:** *secs = ngx.time()*
+**语法:** *secs = ngx.time()*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Returns the elapsed seconds from the epoch for the current time stamp from the nginx cached time (no syscall involved unlike Lua's date library).
+返回从新纪元到从nginx时间缓存(不像Lua的日期库，该时间不涉及系统调用))获取的当前时间戳所经过的秒数。
 
-Updates of the Nginx time cache an be forced by calling [ngx.update_time](#ngxupdate_time) first.
+通过先调用[ngx.update_time](#ngxupdate_time)会强制更新nginx的时间缓存。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.now
 -------
-**syntax:** *secs = ngx.now()*
+**语法:** *secs = ngx.now()*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Returns a floating-point number for the elapsed time in seconds (including milliseconds as the decimal part) from the epoch for the current time stamp from the nginx cached time (no syscall involved unlike Lua's date library).
+返回一个浮点型的数字，该数字是从新纪元到从nginx时间缓存(不像Lua的日期库，该时间不涉及系统调用)获取的当前时间戳所经过的时间(以秒为单位，小数部分是毫秒)。
 
-You can forcibly update the Nginx time cache by calling [ngx.update_time](#ngxupdate_time) first.
+通过先调用[ngx.update_time](#ngxupdate_time)，你可以强制更新nginx时间缓存。
 
-This API was first introduced in `v0.3.1rc32`.
+这个API最早出现在 `v0.3.1rc32` 版本中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.update_time
 ---------------
-**syntax:** *ngx.update_time()*
+**语法:** *ngx.update_time()*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Forcibly updates the Nginx current time cache. This call involves a syscall and thus has some overhead, so do not abuse it.
+强行更新Nginx当前时间缓存。此调用会涉及到一个系统调用，因此会有一些系统开销，所以不要滥用。
 
-This API was first introduced in `v0.3.1rc32`.
+这个API最早出现在 `v0.3.1rc32` 版本中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.localtime
 -------------
-**syntax:** *str = ngx.localtime()*
+**语法:** *str = ngx.localtime()*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Returns the current time stamp (in the format `yyyy-mm-dd hh:mm:ss`) of the nginx cached time (no syscall involved unlike Lua's [os.date](http://www.lua.org/manual/5.1/manual.html#pdf-os.date) function).
+返回nginx时间缓存(不像Lua的[os.date](http://www.lua.org/manual/5.1/manual.html#pdf-os.date)函数，该时间不涉及系统调用)的当前时间戳(格式：`yyyy-mm-dd hh:mm:ss`)。
 
-This is the local time.
+这是个本地时间。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.utctime
 -----------
-**syntax:** *str = ngx.utctime()*
+**语法:** *str = ngx.utctime()*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Returns the current time stamp (in the format `yyyy-mm-dd hh:mm:ss`) of the nginx cached time (no syscall involved unlike Lua's [os.date](http://www.lua.org/manual/5.1/manual.html#pdf-os.date) function).
+返回nginx时间缓存(不像Lua的[os.date](http://www.lua.org/manual/5.1/manual.html#pdf-os.date)函数，该时间不涉及系统调用)的当前时间戳(格式：`yyyy-mm-dd hh:mm:ss`)。
 
-This is the UTC time.
+这是个UTC时间。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.cookie_time
 ---------------
-**syntax:** *str = ngx.cookie_time(sec)*
+**语法:** *str = ngx.cookie_time(sec)*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Returns a formatted string can be used as the cookie expiration time. The parameter `sec` is the time stamp in seconds (like those returned from [ngx.time](#ngxtime)).
+返回一个可以用做 cookie 过期时间的格式化字符串。参数 `sec` 是以秒为单位的时间戳（比如 [ngx.time](#ngxtime) 的返回）。
 
 ```nginx
 
@@ -5362,15 +5361,15 @@ Returns a formatted string can be used as the cookie expiration time. The parame
      -- yields "Thu, 18-Nov-10 11:27:35 GMT"
 ```
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.http_time
 -------------
-**syntax:** *str = ngx.http_time(sec)*
+**语法:** *str = ngx.http_time(sec)*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Returns a formated string can be used as the http header time (for example, being used in `Last-Modified` header). The parameter `sec` is the time stamp in seconds (like those returned from [ngx.time](#ngxtime)).
+返回一个可以用在 http 头部时间的格式化字符串（例如，在 `Last-Modified` 头的使用）。参数 `sec` 是以秒为单位的时间戳（比如 [ngx.time](#ngxtime) 的返回）。
 
 ```nginx
 
@@ -5378,17 +5377,17 @@ Returns a formated string can be used as the http header time (for example, bein
      -- yields "Thu, 18 Nov 2010 11:27:35 GMT"
 ```
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.parse_http_time
 -------------------
-**syntax:** *sec = ngx.parse_http_time(str)*
+**语法:** *sec = ngx.parse_http_time(str)*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**内容:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Parse the http time string (as returned by [ngx.http_time](#ngxhttp_time)) into seconds. Returns the seconds or `nil` if the input string is in bad forms.
+解析 http 时间字符串（比如从 [ngx.http_time](#ngxhttp_time) 返回内容）。成功情况下返回秒数，错误的输入字符格式返回 `nil` 。
 
-```nginx
+```lua
 
  local time = ngx.parse_http_time("Thu, 18 Nov 2010 11:27:35 GMT")
  if time == nil then
@@ -5396,29 +5395,29 @@ Parse the http time string (as returned by [ngx.http_time](#ngxhttp_time)) into 
  end
 ```
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.is_subrequest
 -----------------
-**syntax:** *value = ngx.is_subrequest*
+**语法:** *value = ngx.is_subrequest*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua**
 
-Returns `true` if the current request is an nginx subrequest, or `false` otherwise.
+如果当前请求是 nginx 子请求返回 `true` ，否则返回 `false` 。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.re.match
 ------------
-**syntax:** *captures, err = ngx.re.match(subject, regex, options?, ctx?, res_table?)*
+**语法:** *captures, err = ngx.re.match(subject, regex, options?, ctx?, res_table?)*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Matches the `subject` string using the Perl compatible regular expression `regex` with the optional `options`.
+使用 Perl 兼容正则表达式 `regex` 匹配字符串 `subject`，并使用可选的参数 `options` 作为正则表达式选项。
 
-Only the first occurrence of the match is returned, or `nil` if no match is found. In case of errors, like seeing a bad regular expression or exceeding the PCRE stack limit, `nil` and a string describing the error will be returned.
+仅返回第一个匹配结果，无结果时返回 `nil`。当出错时，例如正则表达式出错或者超出 PCRE 堆栈限制，将返回 `nil` 以及一个描述错误的字符串。
 
-When a match is found, a Lua table `captures` is returned, where `captures[0]` holds the whole substring being matched, and `captures[1]` holds the first parenthesized sub-pattern's capturing, `captures[2]` the second, and so on.
+当匹配成功时，返回一个 Lua 表 `captures`，其中 `captures[0]` 存储(整个模板)匹配出的完整子字符串，`captures[1]` 存储第一个括号内的子模板匹配结果，`captures[2]` 存储第二个，以此类推。
 
 ```lua
 
@@ -5443,8 +5442,8 @@ When a match is found, a Lua table `captures` is returned, where `captures[0]` h
  -- m[1] == "1"
 ```
 
-Named captures are also supported since the `v0.7.14` release
-and are returned in the same Lua table as key-value pairs as the numbered captures.
+
+自 `v0.7.14` 版本后，本模块支持正则表达式命名捕获(Named capture)，结果以键值对的方式与数字编号的结果在同一个 Lua 表中返回。
 
 ```lua
 
@@ -5455,7 +5454,7 @@ and are returned in the same Lua table as key-value pairs as the numbered captur
  -- m["remaining"] == "234"
 ```
 
-Unmatched subpatterns will have `nil` values in their `captures` table fields.
+在 `captures` 表中，不匹配的子模板将返回 `nil` 值。
 
 ```lua
 
@@ -5467,53 +5466,47 @@ Unmatched subpatterns will have `nil` values in their `captures` table fields.
  -- m["named"] == nil
 ```
 
-Specify `options` to control how the match operation will be performed. The following option characters are supported:
+通过指定 `options` (选项)来控制匹配操作的执行方式。支持以下选项字符。
 
 
-    a             anchored mode (only match from the beginning)
+    a             锚定模式 (仅从目标字符串开始位置匹配)
 
-    d             enable the DFA mode (or the longest token match semantics).
-                  this requires PCRE 6.0+ or else a Lua exception will be thrown.
-                  first introduced in ngx_lua v0.3.1rc30.
+    d             启用 DFA 模式(又名最长令牌匹配语义)。
+                  此选项需要 PCRE 6.0 以上版本，否则将抛出 Lua 异常。
+                  此选项最早出现在 ngx_lua v0.3.1rc30 版本中。
 
-    D             enable duplicate named pattern support. This allows named
-                  subpattern names to be repeated, returning the captures in
-                  an array-like Lua table. for example,
+    D             启用重复命名模板支持。子模板命名可以重复，在结果中以数组方式返回。例如：
                     local m = ngx.re.match("hello, world",
                                            "(?<named>\w+), (?<named>\w+)",
                                            "D")
                     -- m["named"] == {"hello", "world"}
-                  this option was first introduced in the v0.7.14 release.
-                  this option requires at least PCRE 8.12.
+                  此选项最早出现在 v0.7.14 版本中，需要 PCRE 8.12 以上版本支持.
 
-    i             case insensitive mode (similar to Perl's /i modifier)
+    i             大小写不敏感模式 (类似 Perl 的 /i 修饰符)
 
-    j             enable PCRE JIT compilation, this requires PCRE 8.21+ which
-                  must be built with the --enable-jit option. for optimum performance,
-                  this option should always be used together with the 'o' option.
-                  first introduced in ngx_lua v0.3.1rc30.
+    j             启用 PCRE JIT 编译，此功能需要 PCRE 8.21 以上版本以 --enable-jit 选项编译。
+                  为达到最佳性能，此选项应与 'o' 选项同时使用。
+                  此选项最早出现在 ngx_lua v0.3.1rc30 版本中。
 
-    J             enable the PCRE Javascript compatible mode. this option was
-                  first introduced in the v0.7.14 release. this option requires
-                  at least PCRE 8.12.
+    J             启用 PCRE Javascript 兼容模式。
+                  此选项最早出现在 v0.7.14 版本中，需要 PCRE 8.12 以上版本支持.
 
-    m             multi-line mode (similar to Perl's /m modifier)
+    m             多行模式 (类似 Perl 的 /m 修饰符)
 
-    o             compile-once mode (similar to Perl's /o modifier),
-                  to enable the worker-process-level compiled-regex cache
+    o             仅编译一次模式 (类似 Perl 的 /o 修饰符)
+                  启用 worker 进程级正则表达式编译缓存。
 
-    s             single-line mode (similar to Perl's /s modifier)
+    s             单行模式 (类似 Perl 的 /s 修饰符)
 
-    u             UTF-8 mode. this requires PCRE to be built with
-                  the --enable-utf8 option or else a Lua exception will be thrown.
+    u             UTF-8 模式。此选项需要 PCRE 以 --enable-utf8 选项编译，否则将抛出 Lua 异常。
 
-    U             similar to "u" but disables PCRE's UTF-8 validity check on
-                  the subject string. first introduced in ngx_lua v0.8.1.
+    U             类似 "u" 模式，但禁用了 PCRE 对目标字符串的 UTF-8 合法性检查。
+                  此选项最早出现在 ngx_lua v0.8.1 版本中。
 
-    x             extended mode (similar to Perl's /x modifier)
+    x             扩展模式 (类似 Perl 的 /x 修饰符)
 
 
-These options can be combined:
+这些选项可以组合使用：
 
 ```nginx
 
@@ -5528,9 +5521,10 @@ These options can be combined:
  -- m[1] == "美好"
 ```
 
-The `o` option is useful for performance tuning, because the regex pattern in question will only be compiled once, cached in the worker-process level, and shared among all requests in the current Nginx worker process. The upper limit of the regex cache can be tuned via the [lua_regex_cache_max_entries](#lua_regex_cache_max_entries) directive.
+在优化性能时，`o` 选项非常有用，因为正则表达式模板将仅仅被编译一次，之后缓存在 worker 级的缓存中，并被此 nginx worker 处理的所有请求共享。缓存数量上限可以通过 [lua_regex_cache_max_entries](#lua_regex_cache_max_entries) 指令调整。
 
-The optional fourth argument, `ctx`, can be a Lua table holding an optional `pos` field. When the `pos` field in the `ctx` table argument is specified, `ngx.re.match` will start matching from that offset (starting from 1). Regardless of the presence of the `pos` field in the `ctx` table, `ngx.re.match` will always set this `pos` field to the position *after* the substring matched by the whole pattern in case of a successful match. When match fails, the `ctx` table will be left intact.
+
+可选的第四个参数 `ctx` 是一个 Lua 表，包含可选的 `pos` 域。当 `ctx` 表的 `pos` 域有值时，`ngx.re.match` 将从该位置起执行匹配(位置下标从 1 开始)。不论 `ctx` 表中是否已经有 `pos` 域，`ngx.re.match` 将在正则表达式被成功匹配后，设置 `pos` 域值为完整匹配子字符串 *之后* 的位置。当匹配失败时，`ctx` 表将保持不变。
 
 ```lua
 
@@ -5548,37 +5542,37 @@ The optional fourth argument, `ctx`, can be a Lua table holding an optional `pos
       -- ctx.pos == 5
 ```
 
-The `ctx` table argument combined with the `a` regex modifier can be used to construct a lexer atop `ngx.re.match`.
+参数 `ctx` 表与正则表达式修饰符 `a` 组合使用，可以用来建立一个基于 `ngx.re.match` 的词法分析器。
 
-Note that, the `options` argument is not optional when the `ctx` argument is specified and that the empty Lua string (`""`) must be used as placeholder for `options` if no meaningful regex options are required.
+注意，当指定参数 `ctx` 时，参数 `options` 不能空缺，当不需要使用 `options` 来指定正则表达式选项时，必须使用 Lua 空字符串 (`""`) 作为占位符。
 
-This method requires the PCRE library enabled in Nginx.  ([Known Issue With Special Escaping Sequences](#special-escaping-sequences)).
+这个方法需要在 Nginx 中启用 PCRE 库。 ([Known Issue With Special Escaping Sequences](#special-escaping-sequences)).
 
-To confirm that PCRE JIT is enabled, activate the Nginx debug log by adding the `--with-debug` option to Nginx or ngx_openresty's `./configure` script. Then, enable the "debug" error log level in `error_log` directive. The following message will be generated if PCRE JIT is enabled:
+要想确认 PCRE JIT 是否已经启用，需要在 Nginx 或 ngx_openresty 的 `./configure` 配置脚本中，添加 `--with-debug` 选项激活 Nginx 的调试日志。然后，在 `error_log` 指令中启用 `error` 错误日志级别。当 PCRE JIT 启用时，将出现下述信息：
 
 
     pcre JIT compiling result: 1
 
 
-Starting from the `0.9.4` release, this function also accepts a 5th argument, `res_table`, for letting the caller supply the Lua table used to hold all the capturing results. Starting from `0.9.6`, it is the caller's responsibility to ensure this table is empty. This is very useful for recycling Lua tables and saving GC and table allocation overhead.
+自 `0.9.4` 版本开始，此函数接受第五个参数，`res_table`，让调用者可以自己指定存储所有匹配结果的 Lua 表。自 `0.9.6` 版本开始，调用者需要自己确保这个表是空的。这个功能对表预分配、重用以及节省 Lua 回收机制 (GC) 非常有用。
 
-This feature was introduced in the `v0.2.1rc11` release.
+这个功能最早出现在 `v0.2.1rc11` 版本中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.re.find
 -----------
-**syntax:** *from, to, err = ngx.re.find(subject, regex, options?, ctx?, nth?)*
+**语法:** *from, to, err = ngx.re.find(subject, regex, options?, ctx?, nth?)*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Similar to [ngx.re.match](#ngxrematch) but only returns the begining index (`from`) and end index (`to`) of the matched substring. The returned indexes are 1-based and can be fed directly into the [string.sub](http://www.lua.org/manual/5.1/manual.html#pdf-string.sub) API function to obtain the matched substring.
+与 [ngx.re.match](#ngxrematch) 类似但只返回匹配结果子字符串的开始索引 (`from`) 和结束索引 (`to`)。返回的索引值是基于 1 的，可以直接被用于 Lua 的 [string.sub](http://www.lua.org/manual/5.1/manual.html#pdf-string.sub) API 函数来获取匹配结果子串。
 
-In case of errors (like bad regexes or any PCRE runtime errors), this API function returns two `nil` values followed by a string describing the error.
+当出现任何错误时 (例如错误的正则表达式或任何 PCRE 运行时错误)，这个 API 函数返回两个 `nil` 以及一个描述错误的的字符串。
 
-If no match is found, this function just returns a `nil` value.
+如果匹配不成功，此函数返回一个 `nil` 值。
 
-Below is an example:
+下面是一个示例：
 
 ```lua
 
@@ -5597,15 +5591,16 @@ Below is an example:
  end
 ```
 
-This example produces the output
+此示例将输出
 
     from: 8
     to: 11
     matched: 1234
 
-Because this API function does not create new Lua strings nor new Lua tables, it is much faster than [ngx.re.match](#ngxrematch). It should be used wherever possible.
 
-Since the `0.9.3` release, an optional 5th argument, `nth`, is supported to specify which (submatch) capture's indexes to return. When `nth` is 0 (which is the default), the indexes for the whole matched substring is returned; when `nth` is 1, then the 1st submatch capture's indexes are returned; when `nth` is 2, then the 2nd submatch capture is returned, and so on. When the specified submatch does not have a match, then two `nil` values will be returned. Below is an example for this:
+因为此 API 函数并不创建任何新 Lua 字符串或 Lua 表，运行速度大大快于 [ngx.re.match](#ngxrematch)。所以如果可能请尽量使用本函数。
+
+自 `0.9.3` 版本开始，添加第 5 个可选参数 `nth`，用来指定第几个子匹配结果索引被返回。当 `nth` 为 0 (默认值) 时，返回完整匹配子串索引；当 `nth` 为 1 时，第一个(括号内的)子匹配结果索引被返回； 当 `nth` 为 2 时，第二个子匹配结果索引被返回，以此类推。当被指定的子匹配没有结果时，返回 `nil`。下面是一个例子：
 
 ```lua
 
@@ -5616,21 +5611,21 @@ Since the `0.9.3` release, an optional 5th argument, `nth`, is supported to spec
  end
 ```
 
-This API function was first introduced in the `v0.9.2` release.
+此 API 函数自 `v0.9.2` 版开始提供。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.re.gmatch
 -------------
-**syntax:** *iterator, err = ngx.re.gmatch(subject, regex, options?)*
+**语法:** *iterator, err = ngx.re.gmatch(subject, regex, options?)*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Similar to [ngx.re.match](#ngxrematch), but returns a Lua iterator instead, so as to let the user programmer iterate all the matches over the `<subject>` string argument with the PCRE `regex`.
+与 [ngx.re.match](#ngxrematch) 行为类似，不同的是本函数返回一个 Lua 迭代器，使用户程序可以自行迭代 PCRE 正则表达式 `regex` 匹配字符串参数 `<subject>` 产生的所有结果。
 
-In case of errors, like seeing an ill-formed regular expression, `nil` and a string describing the error will be returned.
+当出现错误时，例如发现错误的正则表达式时，返回 `nil` 和一个描述错误的字符串。
 
-Here is a small example to demonstrate its basic usage:
+下面用一个小例子演示基本用法：
 
 ```lua
 
@@ -5660,7 +5655,7 @@ Here is a small example to demonstrate its basic usage:
  end
 ```
 
-More often we just put it into a Lua loop:
+更常见的是使用 Lua 循环：
 
 ```lua
 
@@ -5688,27 +5683,27 @@ More often we just put it into a Lua loop:
  end
 ```
 
-The optional `options` argument takes exactly the same semantics as the [ngx.re.match](#ngxrematch) method.
+可选参数 `options` 含义与使用方法与 [ngx.re.match](#ngxrematch) 相同。
 
-The current implementation requires that the iterator returned should only be used in a single request. That is, one should *not* assign it to a variable belonging to persistent namespace like a Lua package.
+在当前实现中，本函数返回的迭代器仅可被用于单一请求。也就是说，此迭代器 *不能* 被赋值给属于持久命名空间的变量，例如 Lua 包(模块)。
 
-This method requires the PCRE library enabled in Nginx.  ([Known Issue With Special Escaping Sequences](#special-escaping-sequences)).
+这个方法需要在 Nginx 中启用 PCRE 库。 ([Known Issue With Special Escaping Sequences](#special-escaping-sequences))。
 
-This feature was first introduced in the `v0.2.1rc12` release.
+这个功能最早出现在 `v0.2.1rc12` 版本中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.re.sub
 ----------
-**syntax:** *newstr, n, err = ngx.re.sub(subject, regex, replace, options?)*
+**语法:** *newstr, n, err = ngx.re.sub(subject, regex, replace, options?)*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Substitutes the first match of the Perl compatible regular expression `regex` on the `subject` argument string with the string or function argument `replace`. The optional `options` argument has exactly the same meaning as in [ngx.re.match](#ngxrematch).
+使用 Perl 兼容正则表达式 `regex` 匹配字符串 `subject`，将第一个结果替换为字符串或函数类型参数 `replace`。可选参数 `options` 含义与 [ngx.re.match](#ngxrematch) 相同。
 
-This method returns the resulting new string as well as the number of successful substitutions. In case of failures, like syntax errors in the regular expressions or the `<replace>` string argument, it will return `nil` and a string describing the error.
+这个方法返回结果字符串以及成功替换的数量。当发生失败时，例如正则表达式或 `<replace>` 字符串参数语法错，将返回 `nil` 以及一个描述错误的字符串。
 
-When the `replace` is a string, then it is treated as a special template for string replacement. For example,
+当 `replace` 是一个字符串时，它们被视为一个特殊字符串替换模板。例如：
 
 ```lua
 
@@ -5722,9 +5717,9 @@ When the `replace` is a string, then it is treated as a special template for str
  end
 ```
 
-where `$0` referring to the whole substring matched by the pattern and `$1` referring to the first parenthesized capturing substring.
+其中 `$0` 指模板匹配的完整子字符串，`$1` 指第一个括号内匹配的子串。
 
-Curly braces can also be used to disambiguate variable names from the background string literals: 
+花括号可以被用来从背景字符串中消除变量名歧义。
 
 ```lua
 
@@ -5733,7 +5728,7 @@ Curly braces can also be used to disambiguate variable names from the background
      -- n == 1
 ```
 
-Literal dollar sign characters (`$`) in the `replace` string argument can be escaped by another dollar sign, for instance,
+要在 `replace` 中使用美元字符(`$`)，可以使用另外一个该符号作为转义，例如，
 
 ```lua
 
@@ -5742,9 +5737,9 @@ Literal dollar sign characters (`$`) in the `replace` string argument can be esc
      -- n == 1
 ```
 
-Do not use backlashes to escape dollar signs; it will not work as expected.
+不要使用反斜线转义美元字符；它不会象你想象的那样工作。
 
-When the `replace` argument is of type "function", then it will be invoked with the "match table" as the argument to generate the replace string literal for substitution. The "match table" fed into the `replace` function is exactly the same as the return value of [ngx.re.match](#ngxrematch). Here is an example:
+当 `replace` 参数是一个 "函数" 时，它将被通过参数 "匹配表" 调用，用来生成替换字符串。被送入 `replace` 函数的 "匹配表" 与 [ngx.re.match](#ngxrematch) 的返回值相同。例如：
 
 ```lua
 
@@ -5756,23 +5751,23 @@ When the `replace` argument is of type "function", then it will be invoked with 
      -- n == 1
 ```
 
-The dollar sign characters in the return value of the `replace` function argument are not special at all.
+在 `replace` 函数返回值中的美元字符没有任何特殊含义。
 
-This method requires the PCRE library enabled in Nginx.  ([Known Issue With Special Escaping Sequences](#special-escaping-sequences)).
+这个方法需要在 Nginx 中启用 PCRE 库。 ([Known Issue With Special Escaping Sequences](#special-escaping-sequences)).
 
-This feature was first introduced in the `v0.2.1rc13` release.
+这个功能最早出现在 `v0.2.1rc13` 版本中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.re.gsub
 -----------
-**syntax:** *newstr, n, err = ngx.re.gsub(subject, regex, replace, options?)*
+**语法:** *newstr, n, err = ngx.re.gsub(subject, regex, replace, options?)*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Just like [ngx.re.sub](#ngxresub), but does global substitution.
+就象 [ngx.re.sub](#ngxresub), 但执行全局替换。
 
-Here is some examples:
+下面是例子:
 
 ```lua
 
@@ -5796,25 +5791,25 @@ Here is some examples:
      -- n == 2
 ```
 
-This method requires the PCRE library enabled in Nginx.  ([Known Issue With Special Escaping Sequences](#special-escaping-sequences)).
+这个方法需要在 Nginx 中启用 PCRE 库。 ([Known Issue With Special Escaping Sequences](#special-escaping-sequences)).
 
-This feature was first introduced in the `v0.2.1rc15` release.
+这个功能最早出现在 `v0.2.1rc15` 版本中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT
 ---------------
-**syntax:** *dict = ngx.shared.DICT*
+**语法:** *dict = ngx.shared.DICT*
 
-**syntax:** *dict = ngx.shared\[name_var\]*
+**语法:** *dict = ngx.shared\[name_var\]*
 
-**context:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Fetching the shm-based Lua dictionary object for the shared memory zone named `DICT` defined by the [lua_shared_dict](#lua_shared_dict) directive.
+获取基于共享内存名为 `DICT` 的 Lua 字典对象，它是一个共享内存区块，通过 [lua_shared_dict](#lua_shared_dict) 指令定义。
 
-Shared memory zones are always shared by all the nginx worker processes in the current nginx server instance.
+所有共享内存区块均被当前 nginx 服务器实例的所有 nginx worker 进程共享。
 
-The resulting object `dict` has the following methods:
+获取的 `dict` 对象有如下方法：
 
 * [get](#ngxshareddictget)
 * [get_stale](#ngxshareddictget_stale)
@@ -5829,7 +5824,7 @@ The resulting object `dict` has the following methods:
 * [flush_expired](#ngxshareddictflush_expired)
 * [get_keys](#ngxshareddictget_keys)
 
-Here is an example:
+例如：
 
 ```nginx
 
@@ -5853,7 +5848,7 @@ Here is an example:
  }
 ```
 
-Let us test it:
+测试结果如下：
 
 ```bash
 
@@ -5867,29 +5862,29 @@ Let us test it:
  8
 ```
 
-The number `8` will be consistently output when accessing `/get` regardless of how many Nginx workers there are because the `dogs` dictionary resides in the shared memory and visible to *all* of the worker processes.
+当访问 `/get` 时，无论有多少 Nginx worker 进程，将一直输出数字 `8`，因为 `dogs` 字典存储在共享内存中，对 *所有* worker 进程可见。
 
-The shared dictionary will retain its contents through a server config reload (either by sending the `HUP` signal to the Nginx process or by using the `-s reload` command-line option).
+当服务器配置重新加载时共享内存字典内容不会丢失 (不管是通过送 `HUP` 信号给 Nginx 进程或使用命令行 `-s reload` 属性)。
 
-The contents in the dictionary storage will be lost, however, when the Nginx server quits.
+但是，当 Nginx 服务器退出时，字典存储内容将丢失。
 
-This feature was first introduced in the `v0.3.1rc22` release.
+这个功能最早出现在 `v0.3.1rc22` 版本中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.get
 -------------------
-**syntax:** *value, flags = ngx.shared.DICT:get(key)*
+**语法:** *value, flags = ngx.shared.DICT:get(key)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Retrieving the value in the dictionary [ngx.shared.DICT](#ngxshareddict) for the key `key`. If the key does not exist or has been expired, then `nil` will be returned.
+从 [ngx.shared.DICT](#ngxshareddict) 字典中获取名为 `key` 的键 (key) 值。如果此 key 不存在或已过期，返回 `nil`。
 
-In case of errors, `nil` and a string describing the error will be returned.
+当发生错误时，将返回 `nil` 和一个描述错误的字符串。
 
-The value returned will have the original data type when they were inserted into the dictionary, for example, Lua booleans, numbers, or strings.
+返回值将保持写入字典时的原始数据类型，例如，Lua 布尔型、数字型、或字符串型。
 
-The first argument to this method must be the dictionary object itself, for example,
+此方法的第一个参数必须是该字典对象本身，例如，
 
 ```lua
 
@@ -5897,7 +5892,7 @@ The first argument to this method must be the dictionary object itself, for exam
  local value, flags = cats.get(cats, "Marry")
 ```
 
-or use Lua's syntactic sugar for method calls:
+或使用 Lua 的“语法糖”形式来调用方法：
 
 ```lua
 
@@ -5905,57 +5900,57 @@ or use Lua's syntactic sugar for method calls:
  local value, flags = cats:get("Marry")
 ```
 
-These two forms are fundamentally equivalent.
+这两种形式完全等价。
 
-If the user flags is `0` (the default), then no flags value will be returned.
+如果用户标志 (`flags`) 是 `0` (默认值)，将不会返回 `flags` 值。
 
-This feature was first introduced in the `v0.3.1rc22` release.
+这个功能最早出现在 `v0.3.1rc22` 版本中。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.get_stale
 -------------------------
-**syntax:** *value, flags, stale = ngx.shared.DICT:get_stale(key)*
+**语法:** *value, flags, stale = ngx.shared.DICT:get_stale(key)*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Similar to the [get](#ngxshareddictget) method but returns the value even if the key has already expired.
+与 [get](#ngxshareddictget) 方法类似，但即使 key 已经过期依然返回值。
 
-Returns a 3rd value, `stale`, indicating whether the key has expired or not.
+返回第三个值，`stale`，来标识该 key 是否已经过期。
 
-Note that the value of an expired key is not guaranteed to be available so one should never rely on the availability of expired items.
+需要注意的是，已过期的 key 无法保证存在，所以永远不应该依赖已过期项的可用性。
 
-This method was first introduced in the `0.8.6` release.
+此方法最早出现在 `0.8.6` 版本中。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.set
 -------------------
-**syntax:** *success, err, forcible = ngx.shared.DICT:set(key, value, exptime?, flags?)*
+**语法:** *success, err, forcible = ngx.shared.DICT:set(key, value, exptime?, flags?)*
 
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Unconditionally sets a key-value pair into the shm-based dictionary [ngx.shared.DICT](#ngxshareddict). Returns three values:
+无条件在基于共享内存的字典 [ngx.shared.DICT](#ngxshareddict) 中设置一个 key-value (键-值)对。返回三个值：
 
-* `success`: boolean value to indicate whether the key-value pair is stored or not.
-* `err`: textual error message, can be `"no memory"`.
-* `forcible`: a boolean value to indicate whether other valid items have been removed forcibly when out of storage in the shared memory zone.
+* `success`: 布尔值，用以标识 key-value 对是否存储成功；
+* `err`: 文字描述的错误信息，例如 `"no memory"` (内存不足)；
+* `forcible`: 布尔值，用以标识是否有其他可用项被强制删除，因为共享内存区块中的存储空间不足。
 
-The `value` argument inserted can be Lua booleans, numbers, strings, or `nil`. Their value type will also be stored into the dictionary and the same data type can be retrieved later via the [get](#ngxshareddictget) method.
+`value` 参数可以是 Lua 布尔值、数字、字符串，或 `nil`。其类型也将被存储在字典中，之后通过 [get](#ngxshareddictget) 方法可以原样取出。
 
-The optional `exptime` argument specifies expiration time (in seconds) for the inserted key-value pair. The time resolution is `0.001` seconds. If the `exptime` takes the value `0` (which is the default), then the item will never expire.
+通过可选的 `exptime` 参数给写入的 key-value 对设定过期时间 (单位秒)。时间的精度是 `0.001` 秒。如果 `exptime` 送入 `0` (默认值)，此项将永不过期。
 
-The optional `flags` argument specifies a user flags value associated with the entry to be stored. It can also be retrieved later with the value. The user flags is stored as an unsigned 32-bit integer internally. Defaults to `0`. The user flags argument was first introduced in the `v0.5.0rc2` release.
+通过可选的 `flags` 参数给写入项设定一个用户标志，之后可以与值一起被取出。用户标志在内部被存储为一个 32 位无符号整数。默认值是 `0`。此参数最早出现在 `v0.5.0rc2` 版本中。
 
-When it fails to allocate memory for the current key-value item, then `set` will try removing existing items in the storage according to the Least-Recently Used (LRU) algorithm. Note that, LRU takes priority over expiration time here. If up to tens of existing items have been removed and the storage left is still insufficient (either due to the total capacity limit specified by [lua_shared_dict](#lua_shared_dict) or memory segmentation), then the `err` return value will be `no memory` and `success` will be `false`.
+当无法给当前的 key-value 项分配内存时，`set` 方法将根据最近最少使用 (Least-Recently Used, LRU) 算法，删除存储中已有的项。需要注意的是，LRU 算法在这里优先考虑过期时间。如果在删除了最多数十项以后剩余存储空间依旧不足 (由于 [lua_shared_dict](#lua_shared_dict) 定义的总存储空间限制或内存碎片化)，`success` 将返回 `false`，同时 `err` 将返回 `no memory`。
 
-If this method succeeds in storing the current item by forcibly removing other not-yet-expired items in the dictionary via LRU, the `forcible` return value will be `true`. If it stores the item without forcibly removing other valid items, then the return value `forcible` will be `false`.
+如果此方法执行成功的同时，根据 LRU 算法强制移除了字典中其他尚未过期的项，`forcible` 返回值将是 `true`。如果存储时没有移除其他有效项，`forcible` 返回值将是 `false`。
 
-The first argument to this method must be the dictionary object itself, for example,
+此方法第一个参数必须是该字典对象本身，例如，
 
 ```lua
 
@@ -5963,7 +5958,7 @@ The first argument to this method must be the dictionary object itself, for exam
  local succ, err, forcible = cats.set(cats, "Marry", "it is a nice cat!")
 ```
 
-or use Lua's syntactic sugar for method calls:
+或使用 Lua 的“语法糖”形式来调用方法：
 
 ```lua
 
@@ -5971,165 +5966,165 @@ or use Lua's syntactic sugar for method calls:
  local succ, err, forcible = cats:set("Marry", "it is a nice cat!")
 ```
 
-These two forms are fundamentally equivalent.
+这两种形式完全等价。
 
-This feature was first introduced in the `v0.3.1rc22` release.
+这个功能最早出现在 `v0.3.1rc22` 版本中。
 
-Please note that while internally the key-value pair is set atomically, the atomicity does not go across the method call boundary.
+这里需要注意的是，虽然在内部 key-value 对设置是原子性的，但这种原子性无法跨过方法调用边界。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.safe_set
 ------------------------
-**syntax:** *ok, err = ngx.shared.DICT:safe_set(key, value, exptime?, flags?)*
+**语法:** *ok, err = ngx.shared.DICT:safe_set(key, value, exptime?, flags?)*
 
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Similar to the [set](#ngxshareddictset) method, but never overrides the (least recently used) unexpired items in the store when running out of storage in the shared memory zone. In this case, it will immediately return `nil` and the string "no memory".
+类似 [set](#ngxshareddictset) 方法，但当共享内存区块存储空间不足时，不覆盖 (最近最少使用的) 有效的项 (非过期项)。此时，它将返回 `nil` 和字符串 "no memory" (内存不足)。
 
-This feature was first introduced in the `v0.7.18` release.
+此方法最早出现在 `0.7.18` 版本中。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.add
 -------------------
-**syntax:** *success, err, forcible = ngx.shared.DICT:add(key, value, exptime?, flags?)*
+**语法:** *success, err, forcible = ngx.shared.DICT:add(key, value, exptime?, flags?)*
 
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Just like the [set](#ngxshareddictset) method, but only stores the key-value pair into the dictionary [ngx.shared.DICT](#ngxshareddict) if the key does *not* exist.
+类似 [set](#ngxshareddictset) 方法，但仅当存储字典 [ngx.shared.DICT](#ngxshareddict) 中 *不存在* 该 key 时执行存储 key-value 对。
 
-If the `key` argument already exists in the dictionary (and not expired for sure), the `success` return value will be `false` and the `err` return value will be `"exists"`.
+如果参数 `key` 在字典中已经存在 (且没有过期)，`success` 返回值为 `false`，同时 `err` 返回 `"exist"` (已存在)。
 
-This feature was first introduced in the `v0.3.1rc22` release.
+这个功能最早出现在 `v0.3.1rc22` 版本中。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.safe_add
 ------------------------
-**syntax:** *ok, err = ngx.shared.DICT:safe_add(key, value, exptime?, flags?)*
+**语法:** *ok, err = ngx.shared.DICT:safe_add(key, value, exptime?, flags?)*
 
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Similar to the [add](#ngxshareddictadd) method, but never overrides the (least recently used) unexpired items in the store when running out of storage in the shared memory zone. In this case, it will immediately return `nil` and the string "no memory".
+类似 [add](#ngxshareddictadd) 方法，但当共享内存区块存储空间不足时，不覆盖 (最近最少使用的) 有效的项 (非过期项)。此时，它将返回 `nil` 和字符串 "no memory" (内存不足)。
 
-This feature was first introduced in the `v0.7.18` release.
+这个功能最早出现在 `v0.7.18` 版本中。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.replace
 -----------------------
-**syntax:** *success, err, forcible = ngx.shared.DICT:replace(key, value, exptime?, flags?)*
+**语法:** *success, err, forcible = ngx.shared.DICT:replace(key, value, exptime?, flags?)*
 
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Just like the [set](#ngxshareddictset) method, but only stores the key-value pair into the dictionary [ngx.shared.DICT](#ngxshareddict) if the key *does* exist.
+与 [set](#ngxshareddictset) 方法类似，但仅当存储字典 [ngx.shared.DICT](#ngxshareddict) 中 *存在* 该 key 时执行存储 key-value 对。
 
-If the `key` argument does *not* exist in the dictionary (or expired already), the `success` return value will be `false` and the `err` return value will be `"not found"`.
+如果参数 `key` 在字典中 *不* 存在 (或已经过期)，`success` 返回值为 `false`，同时 `err` 返回 `"not found"` (没找到)。
 
-This feature was first introduced in the `v0.3.1rc22` release.
+这个功能最早出现在 `v0.3.1rc22` 版本中。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.delete
 ----------------------
-**syntax:** *ngx.shared.DICT:delete(key)*
+**语法:** *ngx.shared.DICT:delete(key)*
 
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Unconditionally removes the key-value pair from the shm-based dictionary [ngx.shared.DICT](#ngxshareddict).
+从基于同享内存的字典 [ngx.shared.DICT](#ngxshareddict) 中无条件移除 key-value 对。
 
-It is equivalent to `ngx.shared.DICT:set(key, nil)`.
+同 `ngx.shared.DICT:set(key, nil)` 等价。
 
-This feature was first introduced in the `v0.3.1rc22` release.
+这个功能最早出现在 `v0.3.1rc22` 版本中。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.incr
 --------------------
-**syntax:** *newval, err = ngx.shared.DICT:incr(key, value)*
+**语法:** *newval, err = ngx.shared.DICT:incr(key, value)*
 
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Increments the (numerical) value for `key` in the shm-based dictionary [ngx.shared.DICT](#ngxshareddict) by the step value `value`. Returns the new resulting number if the operation is successfully completed or `nil` and an error message otherwise.
+在基于共享内存的字典 [ngx.shared.DICT](#ngxshareddict) 中递增 `key` 的 (数字) 值，步长为 `value`。当操作成功时返回结果数字，否则返回 `nil` 和错误信息字符串。
 
-The key must already exist in the dictionary, otherwise it will return `nil` and `"not found"`.
+这个 key 必须已经存储在字典中，否则返回 `nil` 和 `"not found"` (没找到)。
 
-If the original value is not a valid Lua number in the dictionary, it will return `nil` and `"not a number"`.
+如果 key 的原始值不是一个有效的 Lua 数字，返回 `nil` 和 `"not a number"` (不是数字)。
 
-The `value` argument can be any valid Lua numbers, like negative numbers or floating-point numbers.
+参数 `value` 可以是任意有效的 Lua 数字，包括负数和浮点数。
 
-This feature was first introduced in the `v0.3.1rc22` release.
+这个功能最早出现在 `v0.3.1rc22` 版本中。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.flush_all
 -------------------------
-**syntax:** *ngx.shared.DICT:flush_all()*
+**语法:** *ngx.shared.DICT:flush_all()*
 
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Flushes out all the items in the dictionary. This method does not actuall free up all the memory blocks in the dictionary but just marks all the existing items as expired.
+清空字典中的所有内容。这个方法并不实际释放字典占用的内存块，而是标记所有存在的内容为已过期。
 
-This feature was first introduced in the `v0.5.0rc17` release.
+这个功能最早出现在 `v0.5.0rc17` 版本中。
 
-See also [ngx.shared.DICT.flush_expired](#ngxshareddictflush_expired) and [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT.flush_expired](#ngxshareddictflush_expired) 和 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.flush_expired
 -----------------------------
-**syntax:** *flushed = ngx.shared.DICT:flush_expired(max_count?)*
+**语法:** *flushed = ngx.shared.DICT:flush_expired(max_count?)*
 
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Flushes out the expired items in the dictionary, up to the maximal number specified by the optional `max_count` argument. When the `max_count` argument is given `0` or not given at all, then it means unlimited. Returns the number of items that have actually been flushed.
+清除字典中已过期的的内容，最多清除可选参数 `max_count` (最大数量) 个。当参数 `max_count` 值为 `0` 或者未指定时，意为无数量限制。返回值为实际清除的数量。
 
-Unlike the [flush_all](#ngxshareddictflush_all) method, this method actually free up the memory used by the expired items.
+与 [flush_all](#ngxshareddictflush_all) 方法不同，此方法释放删除掉的已过期内容占用的内存。
 
-This feature was first introduced in the `v0.6.3` release.
+这个功能最早出现在 `v0.6.3` 版本中。
 
-See also [ngx.shared.DICT.flush_all](#ngxshareddictflush_all) and [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT.flush_all](#ngxshareddictflush_all) 和 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.shared.DICT.get_keys
 ------------------------
-**syntax:** *keys = ngx.shared.DICT:get_keys(max_count?)*
+**语法:** *keys = ngx.shared.DICT:get_keys(max_count?)*
 
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
 
-Fetch a list of the keys from the dictionary, up to `<max_count>`.
+获取字典中存储的 key 列表，最多 `<max_count>` 个。
 
-By default, only the first 1024 keys (if any) are returned. When the `<max_count>` argument is given the value `0`, then all the keys will be returned even there is more than 1024 keys in the dictionary.
+默认时，前 1024 个 key (如果有) 被返回。当参数 `<max_count>` 值为 `0` 时，字典中所有的 key 被返回，即使超过 1024 个。
 
-**WARNING** Be careful when calling this method on dictionaries with a really huge number of keys. This method may lock the dictionary for quite a while and block all the nginx worker processes that are trying to access the dictionary.
+**警告** 在包含非常多 key 的字典中调用此方法要非常小心。此方法会锁定字典一段时间，会阻塞所有访问字典的 nginx worker 进程。
 
-This feature was first introduced in the `v0.7.3` release.
+这个功能最早出现在 `v0.7.3` 版本中。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.socket.udp
 --------------
-**syntax:** *udpsock = ngx.socket.udp()*
+**语法:** *udpsock = ngx.socket.udp()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Creates and returns a UDP or datagram-oriented unix domain socket object (also known as one type of the "cosocket" objects). The following methods are supported on this object:
+创建并得到一个 UDP 或 unix 域数据报 socket 对象（也被称为 "cosocket" 对象的一种类型）。该对象支持下面这些方法：
 
 * [setpeername](#udpsocksetpeername)
 * [send](#udpsocksend)
@@ -6137,36 +6132,36 @@ Creates and returns a UDP or datagram-oriented unix domain socket object (also k
 * [close](#udpsockclose)
 * [settimeout](#udpsocksettimeout)
 
-It is intended to be compatible with the UDP API of the [LuaSocket](http://w3.impa.br/~diego/software/luasocket/udp.html) library but is 100% nonblocking out of the box.
+兼容 [LuaSocket](http://w3.impa.br/~diego/software/luasocket/udp.html) 库的 UDP API 是需要的，额外的它却是 100% 非阻塞。
 
-This feature was first introduced in the `v0.5.7` release.
+该特性是在 `v0.5.7` 版本首次引入的。
 
-See also [ngx.socket.tcp](#ngxsockettcp).
+也可以看看 [ngx.socket.tcp](#ngxsockettcp) 。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 udpsock:setpeername
 -------------------
-**syntax:** *ok, err = udpsock:setpeername(host, port)*
+**语法:** *ok, err = udpsock:setpeername(host, port)*
 
-**syntax:** *ok, err = udpsock:setpeername("unix:/path/to/unix-domain.socket")*
+**语法:** *ok, err = udpsock:setpeername("unix:/path/to/unix-domain.socket")*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Attempts to connect a UDP socket object to a remote server or to a datagram unix domain socket file. Because the datagram protocol is actually connection-less, this method does not really establish a "connection", but only just set the name of the remote peer for subsequent read/write operations.
+尝试对远端服务或 unix 域数据报 socket 文件建立 UDP socket 对象。因为数据报协议实际上 *连接少* ，该方法并没有真正建立一条连接，但为了后续读/写操作只是设置了远程端点的名称。
 
-Both IP addresses and domain names can be specified as the `host` argument. In case of domain names, this method will use Nginx core's dynamic resolver to parse the domain name without blocking and it is required to configure the [resolver](http://nginx.org/en/docs/http/ngx_http_core_module.html#resolver) directive in the `nginx.conf` file like this:
+对 `host` 参数 IP 地址和域名在这里都是可以使用的。当使用域名时，该方法将使用 Nginx 内部的动态域名解析器（非阻塞并且需要在 `nginx.conf` 文件中配置 [resolver](http://nginx.org/en/docs/http/ngx_http_core_module.html#resolver) 指令），例如：
 
 ```nginx
 
  resolver 8.8.8.8;  # use Google's public DNS nameserver
 ```
 
-If the nameserver returns multiple IP addresses for the host name, this method will pick up one randomly.
+如果域名服务器对这个主机名返回多个 IP 地址，该方法将从中随机挑选一个。
 
-In case of error, the method returns `nil` followed by a string describing the error. In case of success, the method returns `1`.
+失败情况下，该方法返回 `nil` 和 错误字符描述信息。成功情况下，该方法返回 `1` 。
 
-Here is an example for connecting to a UDP (memcached) server:
+这里是个连接到 UDP （memcached） 服务的示例：
 
 ```nginx
 
@@ -6186,7 +6181,7 @@ Here is an example for connecting to a UDP (memcached) server:
  }
 ```
 
-Since the `v0.7.18` release, connecting to a datagram unix domain socket file is also possible on Linux:
+自 `v0.7.18` 版本以来，在 Linux 平台连接到 unix 域数据报 socket 文件也是可能的：
 
 ```lua
 
@@ -6198,47 +6193,49 @@ Since the `v0.7.18` release, connecting to a datagram unix domain socket file is
  end
 ```
 
-assuming the datagram service is listening on the unix domain socket file `/tmp/some-datagram-service.sock` and the client socket will use the "autobind" feature on Linux.
+假设数据报服务在 unix domain socket 文件 `/tmp/some-datagram-service.sock` 上监听，并且客户端 socket 将在 Linux 上使用 "autobind" 。
 
-Calling this method on an already connected socket object will cause the original connection to be closed first.
+对已经连接的 socket 对象调用该方法将导致原始连接将先被关闭。
 
-This method was first introduced in the `v0.5.7` release.
+该特性是在 `v0.5.7` 版本首次引入的。
+
+[返回目录](#nginx-api-for-lua)
 
 [Back to TOC](#nginx-api-for-lua)
 
 udpsock:send
 ------------
-**syntax:** *ok, err = udpsock:send(data)*
+**语法:** *ok, err = udpsock:send(data)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Sends data on the current UDP or datagram unix domain socket object.
+对当前 UDP 或 unix 域数据报 socket 对象发送数据。
 
-In case of success, it returns `1`. Otherwise, it returns `nil` and a string describing the error.
+成功情况下，返回 `1`。其他情况，返回 `nil` 和错误描述信息。
 
-The input argument `data` can either be a Lua string or a (nested) Lua table holding string fragments. In case of table arguments, this method will copy all the string elements piece by piece to the underlying Nginx socket send buffers, which is usually optimal than doing string concatenation operations on the Lua land.
+输入参数 `data` 可以是 Lua 字符串，也可以是包含字符串的（嵌套）Lua 表。对于输入参数是表的情况，该方法将逐一拷贝所有的字符串对象到底层的 Nginx socket 发送缓冲区，这是比 Lua 层面完成字符串拼接更好的优化方案。
 
-This feature was first introduced in the `v0.5.7` release.
+该特性是在 `v0.5.7` 版本首次引入的。
 
 [Back to TOC](#nginx-api-for-lua)
 
 udpsock:receive
 ---------------
-**syntax:** *data, err = udpsock:receive(size?)*
+**语法:** *data, err = udpsock:receive(size?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Receives data from the UDP or datagram unix domain socket object with an optional receive buffer size argument, `size`.
+使用一个可选的接收缓冲区大小参数 `size` ，从 UDP 或 unix 域数据报 socket 对象中读取数据。
 
-This method is a synchronous operation and is 100% nonblocking.
+该方法是异步操作并且 100% 非阻塞。
 
-In case of success, it returns the data received; in case of error, it returns `nil` with a string describing the error.
+成功情况，返回已经接收的数据；错误情况，返回 `nil` 和错误描述信息。
 
-If the `size` argument is specified, then this method will use this size as the receive buffer size. But when this size is greater than `8192`, then `8192` will be used instead.
+如果指定了 `size` 参数，该方法将使用它作为缓冲区大小。但是当该值比 `8192` 大时，将继续使用 `8192` 这个大小。
 
-If no argument is specified, then the maximal buffer size, `8192` is assumed.
+如果没有参数指定，那么最大的缓冲区大小，将假定 `8192` 。
 
-Timeout for the reading operation is controlled by the [lua_socket_read_timeout](#lua_socket_read_timeout) config directive and the [settimeout](#udpsocksettimeout) method. And the latter takes priority. For example:
+读操作超时控制，是由 [lua_socket_read_timeout](#lua_socket_read_timeout) 配置指令和 [settimeout](#udpsocksettimeout) 方法设置的。而后者有更高的优先级，例如：
 
 ```lua
 
@@ -6251,47 +6248,48 @@ Timeout for the reading operation is controlled by the [lua_socket_read_timeout]
  ngx.say("successfully read a packet: ", data)
 ```
 
-It is important here to call the [settimeout](#udpsocksettimeout) method *before* calling this method.
+调用这个方法 *之前* 调用 [settimeout](#udpsocksettimeout) 方法设置超时时间，是非常重要的。
 
-This feature was first introduced in the `v0.5.7` release.
+该特性是在 `v0.5.7` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 udpsock:close
 -------------
-**syntax:** *ok, err = udpsock:close()*
+**语法:** *ok, err = udpsock:close()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
+关闭当前 UDP 或 unix 域数据报 socket 。成功情况返回 `1` ，反之错误情况返回 `nil` 和 错误描述信息。
 Closes the current UDP or datagram unix domain socket. It returns the `1` in case of success and returns `nil` with a string describing the error otherwise.
 
-Socket objects that have not invoked this method (and associated connections) will be closed when the socket object is released by the Lua GC (Garbage Collector) or the current client HTTP request finishes processing.
+当 socket 对象被 Lua GC（垃圾回收）释放或当前客户端请求处理完毕，还没有调用该方法的 socket 对象（关联连接）都将被关闭。
 
-This feature was first introduced in the `v0.5.7` release.
+该特性是在 `v0.5.7` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 udpsock:settimeout
 ------------------
-**syntax:** *udpsock:settimeout(time)*
+**语法:** *udpsock:settimeout(time)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Set the timeout value in milliseconds for subsequent socket operations (like [receive](#udpsockreceive)).
+设置随后的 socket 操作（例如 [receive](#udpsockreceive)）的超时时间（毫秒为单位）。
 
-Settings done by this method takes priority over those config directives, like [lua_socket_read_timeout](#lua_socket_read_timeout).
+通过该方法设置内容相比这些配置指令有更高的优先级，例如：[lua_socket_read_timeout](#lua_socket_read_timeout)。
 
-This feature was first introduced in the `v0.5.7` release.
+该特性在 `v0.5.7` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.socket.tcp
 --------------
-**syntax:** *tcpsock = ngx.socket.tcp()*
+**语法:** *tcpsock = ngx.socket.tcp()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**内容:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Creates and returns a TCP or stream-oriented unix domain socket object (also known as one type of the "cosocket" objects). The following methods are supported on this object:
+创建并得到一个 TCP 或 unix 域流式 socket 对象（也被称为 "cosocket" 对象的一种类型）。该对象支持下面这些方法：
 
 * [connect](#tcpsockconnect)
 * [sslhandshake](#tcpsocksslhandshake)
@@ -6304,55 +6302,49 @@ Creates and returns a TCP or stream-oriented unix domain socket object (also kno
 * [setkeepalive](#tcpsocksetkeepalive)
 * [getreusedtimes](#tcpsockgetreusedtimes)
 
-It is intended to be compatible with the TCP API of the [LuaSocket](http://w3.impa.br/~diego/software/luasocket/tcp.html) library but is 100% nonblocking out of the box. Also, we introduce some new APIs to provide more functionalities.
+兼容 [LuaSocket](http://w3.impa.br/~diego/software/luasocket/tcp.html) 库的 TCP API 是需要的，额外的它却是 100% 非阻塞。此外，我们引入了一些新的API，提供更多的功能。
 
-The cosocket object created by this API function has exactly the same lifetime as the Lua handler creating it. So never pass the cosocket object to any other Lua handler (including ngx.timer callback functions) and never share the cosocket object between different NGINX requests.
+通过该 API 函数创建的 cosocket 对象，与创造它的 Lua 环境拥有相同的生命周期。所以永远不要把 cosocket 对象传递给其他 Lua 环境（包括 ngx.timer 回调函数），并且永远不要在两个不同的 Nginx 请求之间共享 cosocket 对象。
 
-For every cosocket object's underlying connection, if you do not
-explicitly close it (via [close](#tcpsockclose)) or put it back to the connection
-pool (via [setkeepalive](#tcpsocksetkeepalive)), then it is automatically closed when one of
-the following two events happens:
+对于任何一个 cosocket 对象的底层连接，如果你没有显式关闭（通过 [close](#tcpsockclose)）或把它放到连接池中（通过 [setkeepalive](#tcpsocksetkeepalive)），一旦下面的的两个事件中任何一个发生，它将被自动关闭：
 
-* the current request handler completes, or
-* the Lua cosocket object value gets collected by the Lua GC.
+* 当前请求处理执行完毕
+* Lua cosocket 对象被 Lua GC（垃圾回收机制）回收
 
-Fatal errors in cosocket operations always automatically close the current
-connection (note that, read timeout error is the only error that is
-not fatal), and if you call [close](#tcpsockclose) on a closed connection, you will get
-the "closed" error.
+进行 cosocket 操作时发生致命错误总是会自动关闭当前连接（注意，读超时是这里唯一的非致命错误），并且如果你对一个已经关闭的连接调用 [close](#tcpsockclose) ，你将得到 "closed" 的错误信息。
 
-Starting from the `0.9.9` release, the cosocket object here is full-duplex, that is, a reader "light thread" and a writer "light thread" can operate on a single cosocket object simultaneously (both "light threads" must belong to the same Lua handler though, see reasons above). But you cannot have two "light threads" both reading (or writing or connecting) the same cosocket, otherwise you might get an error like "socket busy reading" when calling the methods of the cosocket object.
+从 `0.9.9` 版本开始，cosocket 对象是全双工的，也就是说，一个专门读取的 "light thread"，一个专门写入的 "light thread"，它们可以同时对同一个 cosocket 对象进行操作（两个 "light threads" 必须运行在同一个 Lua 环境中，原因见上）。但是你不能让两个 "light threads" 对同一个 cosocket 对象都进行读（或者写入、或者连接）操作，否则当调用 cosocket 对象时，你将得到一个类似 "socket busy reading" 的错误。
 
-This feature was first introduced in the `v0.5.0rc1` release.
+该特性在 `v0.5.0rc1` 版本首次引入。
 
-See also [ngx.socket.udp](#ngxsocketudp).
+也可以看看 [ngx.socket.udp](#ngxsocketudp)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 tcpsock:connect
 ---------------
-**syntax:** *ok, err = tcpsock:connect(host, port, options_table?)*
+**语法:** *ok, err = tcpsock:connect(host, port, options_table?)*
 
-**syntax:** *ok, err = tcpsock:connect("unix:/path/to/unix-domain.socket", options_table?)*
+**语法:** *ok, err = tcpsock:connect("unix:/path/to/unix-domain.socket", options_table?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Attempts to connect a TCP socket object to a remote server or to a stream unix domain socket file without blocking.
+尝试以非阻塞的方式，对远端服务或 unix domain socket 文件建立 TCP socket 对象。
 
-Before actually resolving the host name and connecting to the remote backend, this method will always look up the connection pool for matched idle connections created by previous calls of this method (or the [ngx.socket.connect](#ngxsocketconnect) function).
+在真正解析主机名并连接到后端服务之前，该方法将永远优先在连接池内（都是调用该方法或 [ngx.socket.connect](#ngxsocketconnect) 函数的连接）查找符合条件的空闲连接。
 
-Both IP addresses and domain names can be specified as the `host` argument. In case of domain names, this method will use Nginx core's dynamic resolver to parse the domain name without blocking and it is required to configure the [resolver](http://nginx.org/en/docs/http/ngx_http_core_module.html#resolver) directive in the `nginx.conf` file like this:
+对 `host` 参数 IP 地址和域名在这里都是可以使用的。当使用域名时，该方法将使用 Nginx 内部的动态域名解析器（非阻塞并且需要在 `nginx.conf` 文件中配置 [resolver](http://nginx.org/en/docs/http/ngx_http_core_module.html#resolver) 指令），例如：
 
 ```nginx
 
- resolver 8.8.8.8;  # use Google's public DNS nameserver
+ resolver 8.8.8.8;  # 使用 Google 的公用域名解析服务器
 ```
 
-If the nameserver returns multiple IP addresses for the host name, this method will pick up one randomly.
+如果域名服务器对这个主机名返回多个 IP 地址，该方法将从中随机挑选一个。
 
-In case of error, the method returns `nil` followed by a string describing the error. In case of success, the method returns `1`.
+错误情况下，该方法返回 `nil` 及错误描述信息。成功情况下，该方法返回 `1` 。
 
-Here is an example for connecting to a TCP server:
+这里是个连接到 TCP 服务的示例：
 
 ```nginx
 
@@ -6372,7 +6364,7 @@ Here is an example for connecting to a TCP server:
  }
 ```
 
-Connecting to a Unix Domain Socket file is also possible:
+连接到 Unix Domain Socket 文件也是可能的：
 
 ```lua
 
@@ -6384,9 +6376,10 @@ Connecting to a Unix Domain Socket file is also possible:
  end
 ```
 
-assuming memcached (or something else) is listening on the unix domain socket file `/tmp/memcached.sock`.
 
-Timeout for the connecting operation is controlled by the [lua_socket_connect_timeout](#lua_socket_connect_timeout) config directive and the [settimeout](#tcpsocksettimeout) method. And the latter takes priority. For example:
+假设 memcached （或其他服务）正在 Unix Domain Socket 文件 `/tmp/memcached.sock` 监听。
+
+连接操作超时控制，是由 [lua_socket_connect_timeout](#lua_socket_connect_timeout) 配置指令和 [settimeout](#tcpsocksettimeout) 方法设置的。而后者有更高的优先级，例如：
 
 ```lua
 
@@ -6395,27 +6388,28 @@ Timeout for the connecting operation is controlled by the [lua_socket_connect_ti
  local ok, err = sock:connect(host, port)
 ```
 
-It is important here to call the [settimeout](#tcpsocksettimeout) method *before* calling this method.
+调用这个方法 *之前* 调用 [settimeout](#tcpsocksettimeout) 方法设置超时时间，是非常重要的。
 
-Calling this method on an already connected socket object will cause the original connection to be closed first.
+对已经连接状态的 socket 对象再次调用该方法，将导致原本的连接首先被关闭。
 
-An optional Lua table can be specified as the last argument to this method to specify various connect options:
+对于该方法的最后一个参数是个可选的 Lua 表，用来指定各种连接选项：
 
 * `pool`
-    specify a custom name for the connection pool being used. If omitted, then the connection pool name will be generated from the string template `"<host>:<port>"` or `"<unix-socket-path>"`.
+    对即将被使用的连接池指定一个名字。如果没有指定该参数，连接池的名字将自动生成，使用 `"<host>:<port>"` 或 `"<unix-socket-path>"` 的命名方式。
 
-The support for the options table argument was first introduced in the `v0.5.7` release.
+支持可选的表参数，是在 `v0.5.7` 版本首次引入。
 
-This method was first introduced in the `v0.5.0rc1` release.
+该特性在 `v0.5.0rc1` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 tcpsock:sslhandshake
 --------------------
-**syntax:** *session, err = tcpsock:sslhandshake(reused_session?, server_name?, ssl_verify?, send_status_req?)*
+**语法:** *session, err = tcpsock:sslhandshake(reused_session?, server_name?, ssl_verify?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**内容:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
+对当前建立的连接上完成 SSL/TLS 握手。
 Does SSL/TLS handshake on the currently established connection.
 
 The optional `reused_session` argument can take a former SSL
@@ -6448,28 +6442,32 @@ to validate the server name in the server certificate.
 The optional `send_status_req` argument takes a boolean that controls whether to send
 the OCSP status request in the SSL handshake request (which is for requesting OCSP stapling).
 
+<!-- todo 这三个章节，搞不定。主要是完全没用过 -->
+
+对已经完成 SSL/TLS 握手的连接，该方法立即返回。
 For connections that have already done SSL/TLS handshake, this method returns
 immediately.
 
+该特性在 `v0.9.11` 版本首次引入。
 This method was first introduced in the `v0.9.11` release.
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 tcpsock:send
 ------------
-**syntax:** *bytes, err = tcpsock:send(data)*
+**语法:** *bytes, err = tcpsock:send(data)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**内容:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Sends data without blocking on the current TCP or Unix Domain Socket connection.
+在当前 TCP 或 Unix Domain Socket 连接上非阻塞的发送数据。
 
-This method is a synchronous operation that will not return until *all* the data has been flushed into the system socket send buffer or an error occurs.
+该方法是个异步操作，直到 *所有* 的数据全部被刷写到系统 socket 发送缓冲区或有错误发生，否则不会返回。
 
-In case of success, it returns the total number of bytes that have been sent. Otherwise, it returns `nil` and a string describing the error.
+成功情况下，返回已经发送数据字节数的总数。其他情况，返回 `nil` 和错误描述信息。
 
-The input argument `data` can either be a Lua string or a (nested) Lua table holding string fragments. In case of table arguments, this method will copy all the string elements piece by piece to the underlying Nginx socket send buffers, which is usually optimal than doing string concatenation operations on the Lua land.
+输入参数 `data` 可以是 Lua 字符串，也可以是包含字符串的（嵌套）Lua 表。对于输入参数是表的情况，该方法将逐一拷贝所有的字符串对象到底层的 Nginx socket 发送缓冲区，这是比 Lua 层面完成字符串拼接更好的优化方案。
 
-Timeout for the sending operation is controlled by the [lua_socket_send_timeout](#lua_socket_send_timeout) config directive and the [settimeout](#tcpsocksettimeout) method. And the latter takes priority. For example:
+发送操作超时控制，是由 [lua_socket_send_timeout](#lua_socket_send_timeout) 配置指令和 [settimeout](#tcpsocksettimeout) 方法设置的。而后者有更高的优先级，例如：
 
 ```lua
 
@@ -6477,38 +6475,38 @@ Timeout for the sending operation is controlled by the [lua_socket_send_timeout]
  local bytes, err = sock:send(request)
 ```
 
-It is important here to call the [settimeout](#tcpsocksettimeout) method *before* calling this method.
+调用这个方法 *之前* 调用 [settimeout](#tcpsocksettimeout) 方法设置超时时间，是非常重要的。
 
-In case of any connection errors, this method always automatically closes the current connection.
+一旦有任何错误发生，该方法将自动关闭当前连接。
 
-This feature was first introduced in the `v0.5.0rc1` release.
+该特性在 `v0.5.0rc1` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 tcpsock:receive
 ---------------
-**syntax:** *data, err, partial = tcpsock:receive(size)*
+**语法:** *data, err, partial = tcpsock:receive(size)*
 
-**syntax:** *data, err, partial = tcpsock:receive(pattern?)*
+**语法:** *data, err, partial = tcpsock:receive(pattern?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Receives data from the connected socket according to the reading pattern or size.
+根据读取规则或大小，从当前连接 socket 中接收数据。
 
-This method is a synchronous operation just like the [send](#tcpsocksend) method and is 100% nonblocking.
+该方法是一个异步操作就像 [send](#tcpsocksend) 方法一样，并且是 100% 非阻塞的。
 
-In case of success, it returns the data received; in case of error, it returns `nil` with a string describing the error and the partial data received so far.
+成功情况下，返回接收到的数据；失败情况，返回 `nil` 、一个错误描述信息以及目前接收到的部分数据。
 
-If a number-like argument is specified (including strings that look like numbers), then it is interpreted as a size. This method will not return until it reads exactly this size of data or an error occurs.
+如果指定一个像数字的参数（里面是数字的字符串），它将解析为大小。该方法将不回返回直到读取明确大小的数据或有错误发生。
 
-If a non-number-like string argument is specified, then it is interpreted as a "pattern". The following patterns are supported:
+如果一个不像数字的字符串参数被指定，它将解析为“规则”。支持下面的规则：
 
-* `'*a'`: reads from the socket until the connection is closed. No end-of-line translation is performed;
-* `'*l'`: reads a line of text from the socket. The line is terminated by a `Line Feed` (LF) character (ASCII 10), optionally preceded by a `Carriage Return` (CR) character (ASCII 13). The CR and LF characters are not included in the returned line. In fact, all CR characters are ignored by the pattern.
+* `'*a'`：从 socket 中读取内容直到连接被关闭。这里是不执行 `end-of-line` 翻译。
+* `'*l'`：从 socket 中读取一行文本信息。行结束符是 `Line Feed` （LF） 字符（ASCII 10），前面是一个可选 `Carriage Return` （CR）字符（ASCII 13）。返回行信息中不包含 CR 和 LF 字符。实际上，所有的 CR 字符在此规则中都是被忽略的。
 
-If no argument is specified, then it is assumed to be the pattern `'*l'`, that is, the line reading pattern.
+如果没有参数指定，它将被假定为规则 `'*l'` ，也就是说，使用按行读取的规则。
 
-Timeout for the reading operation is controlled by the [lua_socket_read_timeout](#lua_socket_read_timeout) config directive and the [settimeout](#tcpsocksettimeout) method. And the latter takes priority. For example:
+读操作超时控制，是由 [lua_socket_read_timeout](#lua_socket_read_timeout) 配置指令和 [settimeout](#tcpsocksettimeout) 方法设置的。而后者有更高的优先级，例如：
 
 ```lua
 
@@ -6521,23 +6519,24 @@ Timeout for the reading operation is controlled by the [lua_socket_read_timeout]
  ngx.say("successfully read a line: ", line)
 ```
 
-It is important here to call the [settimeout](#tcpsocksettimeout) method *before* calling this method.
 
-Since the `v0.8.8` release, this method no longer automatically closes the current connection when the read timeout error happens. For other connection errors, this method always automatically closes the connection.
+调用这个方法 *之前* 调用 [settimeout](#tcpsocksettimeout) 方法设置超时时间，是非常重要的。
 
-This feature was first introduced in the `v0.5.0rc1` release.
+自从 `v0.8.8` 版本，当出现读取超时错误时，该方法不再自动关闭当前连接。对于其他连接错误，该方法总是会自动关闭连接。
 
-[Back to TOC](#nginx-api-for-lua)
+该特性是在 `v0.5.0rc1` 版本首次引入的。
+
+[返回目录](#nginx-api-for-lua)
 
 tcpsock:receiveuntil
 --------------------
-**syntax:** *iterator = tcpsock:receiveuntil(pattern, options?)*
+**语法:** *iterator = tcpsock:receiveuntil(pattern, options?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-This method returns an iterator Lua function that can be called to read the data stream until it sees the specified pattern or an error occurs.
+该方法返回一个迭代的 Lua 函数，该函数可以被调用读取数据流直到指定的规则或有错误发生。
 
-Here is an example for using this method to read a data stream with the boundary sequence `--abcedhb`:
+这里有个例子，使用这个方法读取边界序列为 `--abcedhb` 数据流：
 
 ```lua
 
@@ -6549,13 +6548,13 @@ Here is an example for using this method to read a data stream with the boundary
  ngx.say("read the data stream: ", data)
 ```
 
-When called without any argument, the iterator function returns the received data right *before* the specified pattern string in the incoming data stream. So for the example above, if the incoming data stream is `'hello, world! -agentzh\r\n--abcedhb blah blah'`, then the string `'hello, world! -agentzh'` will be returned.
+当不使用任何参数调用时，迭代函数返回的接收数据是指定规则 *之前* 的输入数据流。所以对于上面的例子，如果输入数据流是 `'hello, world! -agentzh\r\n--abcedhb blah blah'` ，然后将返回字符串 `'hello, world! -agentzh'` 。
 
-In case of error, the iterator function will return `nil` along with a string describing the error and the partial data bytes that have been read so far.
+错误的情况下，迭代函数将返回 `nil` 、错误描述信息以及已经读取到的部分数据内容。
 
-The iterator function can be called multiple times and can be mixed safely with other cosocket method calls or other iterator function calls.
+迭代函数可以被多次调用，并且可以安全的与其他 cosocket 方法或其他迭代函数混合调用。
 
-The iterator function behaves differently (i.e., like a real iterator) when it is called with a `size` argument. That is, it will read that `size` of data on each invocation and will return `nil` at the last invocation (either sees the boundary pattern or meets an error). For the last successful invocation of the iterator function, the `err` return value will be `nil` too. The iterator function will be reset after the last successful invocation that returns `nil` data and `nil` error. Consider the following example:
+当这个迭代函数使用 `size` 参数时的行为有点不同（比如，真正的迭代）。就是说，每次调用它将读取 `size` 大小的数据，最后一次调用（无论找到边界规则或遇到错误）将返回 `nil` 。该迭代函数的最后一次成功调用， `err` 的返回值也将是 `nil` 。在最后一次成功调用（返回数据 `nil`，错误信息 `nil`）之后，该迭代函数将会被重置。细看下面的例子：
 
 ```lua
 
@@ -6576,7 +6575,7 @@ The iterator function behaves differently (i.e., like a real iterator) when it i
  end
 ```
 
-Then for the incoming data stream `'hello, world! -agentzh\r\n--abcedhb blah blah'`, we shall get the following output from the sample code above:
+对于输入数据是 `'hello, world! -agentzh\r\n--abcedhb blah blah'` ，使用上面的示例代码我们将得到下面输出：
 
 
     read chunk: [hell]
@@ -6588,9 +6587,9 @@ Then for the incoming data stream `'hello, world! -agentzh\r\n--abcedhb blah bla
     read done
 
 
-Note that, the actual data returned *might* be a little longer than the size limit specified by the `size` argument when the boundary pattern has ambiguity for streaming parsing. Near the boundary of the data stream, the data string actually returned could also be shorter than the size limit.
+注意，当边界规则对数据流解析有歧义时，实际返回数据长度 *可能* 会略大于 `size` 参数指定的大小限制。在数据流的边界，返回的字符数据长度同样也可能小于 `size` 参数限制。
 
-Timeout for the iterator function's reading operation is controlled by the [lua_socket_read_timeout](#lua_socket_read_timeout) config directive and the [settimeout](#tcpsocksettimeout) method. And the latter takes priority. For example:
+迭代函数的读操作超时控制，是由 [lua_socket_read_timeout](#lua_socket_read_timeout) 指令配置和 [settimeout](#tcpsocksettimeout) 方法设置的。而后者有更高的优先级，例如：
 
 ```lua
 
@@ -6605,13 +6604,13 @@ Timeout for the iterator function's reading operation is controlled by the [lua_
  ngx.say("successfully read a line: ", line)
 ```
 
-It is important here to call the [settimeout](#tcpsocksettimeout) method *before* calling the iterator function (note that the `receiveuntil` call is irrelevant here).
+在调用迭代函数（注意 `receiveuntil` 调用在这里是不相干的） *之前* 调用 [settimeout](#tcpsocksettimeout) 方法是非常重要的。
 
-As from the `v0.5.1` release, this method also takes an optional `options` table argument to control the behavior. The following options are supported:
+从 `v0.5.1` 版本开始，该方法接收一个可选的 `options` 表参数来控制一些行为。支持下面这些选项：
 
 * `inclusive`
 
-The `inclusive` takes a boolean value to control whether to include the pattern string in the returned data string. Default to `false`. For example,
+`inclusive` 用一个布尔值来控制返回数据串是否包含规则字符串，默认是 `false`。例如：
 
 ```lua
 
@@ -6620,109 +6619,109 @@ The `inclusive` takes a boolean value to control whether to include the pattern 
  ngx.say(data)
 ```
 
-Then for the input data stream `"hello world _END_ blah blah blah"`, then the example above will output `hello world _END_`, including the pattern string `_END_` itself.
+然后对于数据数据流 `"hello world _END_ blah blah blah"` ，根据上面的示例代码将得到 `hello world _END_` 的输出，包含规则字符串 `_END_` 自身。
 
-Since the `v0.8.8` release, this method no longer automatically closes the current connection when the read timeout error happens. For other connection errors, this method always automatically closes the connection.
+自从 `v0.8.8` 版本，当出现读取超时错误时，该方法不再自动关闭当前连接。对于其他连接错误，该方法总是会自动关闭连接。
 
-This method was first introduced in the `v0.5.0rc1` release.
+该特性是在 `v0.5.0rc1` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 tcpsock:close
 -------------
-**syntax:** *ok, err = tcpsock:close()*
+**语法:** *ok, err = tcpsock:close()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Closes the current TCP or stream unix domain socket. It returns the `1` in case of success and returns `nil` with a string describing the error otherwise.
+关闭当前 TCP 或 unix domain socket 。成功情况下返回 `1` ，否则将返回 `nil` 和 错误描述信息。
 
-Note that there is no need to call this method on socket objects that have invoked the [setkeepalive](#tcpsocksetkeepalive) method because the socket object is already closed (and the current connection is saved into the built-in connection pool).
+注意，调用了 [setkeepalive](#tcpsocksetkeepalive) 方法的 socket 对象，不再需要调用这个方法，因为这个 socket 对象已经关闭（当前连接已经保存到内建的连接池内）。
 
-Socket objects that have not invoked this method (and associated connections) will be closed when the socket object is released by the Lua GC (Garbage Collector) or the current client HTTP request finishes processing.
+当 socket 对象已经被 Lua GC（垃圾回收）或当前客户 HTTP 请求完成处理时，没有调用这个方法的 socket 对象（和其他关联连接）将会被关闭。
 
-This feature was first introduced in the `v0.5.0rc1` release.
+该特性是在 `v0.5.0rc1` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 tcpsock:settimeout
 ------------------
-**syntax:** *tcpsock:settimeout(time)*
+**语法:** *tcpsock:settimeout(time)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Set the timeout value in milliseconds for subsequent socket operations ([connect](#tcpsockconnect), [receive](#tcpsockreceive), and iterators returned from [receiveuntil](#tcpsockreceiveuntil)).
+对 [connect](#tcpsockconnect)、[receive](#tcpsockreceive)、 基于 [receiveuntil](#tcpsockreceiveuntil) 迭代返回，设置随后的 socket 操作的超时时间（毫秒为单位）。
 
-Settings done by this method takes priority over those config directives, i.e., [lua_socket_connect_timeout](#lua_socket_connect_timeout), [lua_socket_send_timeout](#lua_socket_send_timeout), and [lua_socket_read_timeout](#lua_socket_read_timeout).
+通过该方法设置内容相比这些配置指令有更高的优先级，例如：[lua_socket_connect_timeout](#lua_socket_connect_timeout)、 [lua_socket_send_timeout](#lua_socket_send_timeout)、 [lua_socket_read_timeout](#lua_socket_read_timeout)。
 
-Note that this method does *not* affect the [lua_socket_keepalive_timeout](#lua_socket_keepalive_timeout) setting; the `timeout` argument to the [setkeepalive](#tcpsocksetkeepalive) method should be used for this purpose instead.
+注意，该方法 *不* 会对 [lua_socket_keepalive_timeout](#lua_socket_keepalive_timeout) 有任何影响，这个目的应换用 [setkeepalive](#tcpsocksetkeepalive) 的 `timeout` 参数。
 
-This feature was first introduced in the `v0.5.0rc1` release.
+该特性是在 `v0.5.0rc1` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 tcpsock:setoption
 -----------------
-**syntax:** *tcpsock:setoption(option, value?)*
+**语法:** *tcpsock:setoption(option, value?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-This function is added for [LuaSocket](http://w3.impa.br/~diego/software/luasocket/tcp.html) API compatibility and does nothing for now. Its functionality will be implemented in future.
+该函数是为兼容 [LuaSocket](http://w3.impa.br/~diego/software/luasocket/tcp.html) API，目前没做任何事情。它的功能将在将来实现。
 
-This feature was first introduced in the `v0.5.0rc1` release.
+该特性是在 `v0.5.0rc1` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 tcpsock:setkeepalive
 --------------------
-**syntax:** *ok, err = tcpsock:setkeepalive(timeout?, size?)*
+**语法:** *ok, err = tcpsock:setkeepalive(timeout?, size?)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Puts the current socket's connection immediately into the cosocket built-in connection pool and keep it alive until other [connect](#tcpsockconnect) method calls request it or the associated maximal idle timeout is expired.
+把当前 socket 连接立即放到内建的 cosocket 连接池中，维持活动状态直到被其他 [connect](#tcpsockconnect) 方法调用请求，或者达到自身绑定的最大空闲时间后连接过期。
 
-The first optional argument, `timeout`, can be used to specify the maximal idle timeout (in milliseconds) for the current connection. If omitted, the default setting in the [lua_socket_keepalive_timeout](#lua_socket_keepalive_timeout) config directive will be used. If the `0` value is given, then the timeout interval is unlimited.
+第一个可选参数参数 `timeout` ，可以用来指定当前连接的最大空闲时间（单位毫秒）。如果没指定该参数，将使用配置在 [lua_socket_keepalive_timeout](#lua_socket_keepalive_timeout) 指令的值作为默认值使用。如果给定的值是 `0` ，那么超时时间是没有限制的。
 
-The second optional argument, `size`, can be used to specify the maximal number of connections allowed in the connection pool for the current server (i.e., the current host-port pair or the unix domain socket file path). Note that the size of the connection pool cannot be changed once the pool is created. When this argument is omitted, the default setting in the [lua_socket_pool_size](#lua_socket_pool_size) config directive will be used.
+第二个参数 `size`，可以用来指定当前服务（例如，当前主机+端口配对或 unix socket 文件路径作为标识）在连接池中允许存放的最大连接数。注意，连接池大小一旦创建后，是不能被修改的。如果没指定该参数，将使用配置在 [lua_socket_pool_size](#lua_socket_pool_size) 指令的值作为默认值使用。
 
-When the connection pool exceeds the available size limit, the least recently used (idle) connection already in the pool will be closed to make room for the current connection.
+当连接池中连接数超过限制大小，在连接池中最近最少使用的（空闲）连接将被关闭，给当前连接腾挪空间。
 
-Note that the cosocket connection pool is per Nginx worker process rather than per Nginx server instance, so the size limit specified here also applies to every single Nginx worker process.
+注意，cosocket 连接池是每个 Nginx 工作进程使用的，而不是每个 Nginx 服务实例，所以这里指定的限制也只能在每个独立的 nginx 工作进程上生效。
 
-Idle connections in the pool will be monitored for any exceptional events like connection abortion or unexpected incoming data on the line, in which cases the connection in question will be closed and removed from the pool.
+连接池中空闲连接的任何异常事件都将会被监控，例如连接终止、在线收到非预期数据，在这种情况下有问题的连接，将被关闭并从池子中移除。
 
-In case of success, this method returns `1`; otherwise, it returns `nil` and a string describing the error.
+成功情况，该方法返回 `1`；否则，将返回 `nil` 和错误描述字符信息。
 
-When the system receive buffer for the current connection has unread data, then this method will return the "connection in dubious state" error message (as the second return value) because the previous session has unread data left behind for the next session and the connection is not safe to be reused.
+对于当前连接，当系统接收缓冲区有未读取完的数据，这时该方法将返回 "connection in dubious state" 的错误信息（作为第二个返回值），因为前一个会话留下了一些未读取数据给下一个会话，这种连接被重用是不安全的。
 
-This method also makes the current cosocket object enter the "closed" state, so there is no need to manually call the [close](#tcpsockclose) method on it afterwards.
+该方法也可以让当前 cosocket 对象进入 `closed` 状态，所以这里不再需要事后手工调用 [close](#tcpsockclose) 方法。
 
-This feature was first introduced in the `v0.5.0rc1` release.
+该特性是在 `v0.5.0rc1` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 tcpsock:getreusedtimes
 ----------------------
-**syntax:** *count, err = tcpsock:getreusedtimes()*
+**语法:** *count, err = tcpsock:getreusedtimes()*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-This method returns the (successfully) reused times for the current connection. In case of error, it returns `nil` and a string describing the error.
+该方法返回当前连接的使用次数（调用成功）。失败时，返回`nil`和错误描述字符信息。
 
-If the current connection does not come from the built-in connection pool, then this method always returns `0`, that is, the connection has never been reused (yet). If the connection comes from the connection pool, then the return value is always non-zero. So this method can also be used to determine if the current connection comes from the pool.
+如果当前连接不是从内建连接池中获取的，该方法总是返回 `0` ，也就是说，该连接还没有被使用过。如果连接来自连接池，那么返回值永远都是非零。所以这个方法可以用来确认当前连接是否来自池子。
 
-This feature was first introduced in the `v0.5.0rc1` release.
+该特性是在 `v0.5.0rc1` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.socket.connect
 ------------------
-**syntax:** *tcpsock, err = ngx.socket.connect(host, port)*
+**语法:** *tcpsock, err = ngx.socket.connect(host, port)*
 
-**syntax:** *tcpsock, err = ngx.socket.connect("unix:/path/to/unix-domain.socket")*
+**语法:** *tcpsock, err = ngx.socket.connect("unix:/path/to/unix-domain.socket")*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-This function is a shortcut for combining [ngx.socket.tcp()](#ngxsockettcp) and the [connect()](#tcpsockconnect) method call in a single operation. It is actually implemented like this:
+该函数是融合 [ngx.socket.tcp()](#ngxsockettcp) 和 [connect()](#tcpsockconnect) 方法到一个单独操作的快捷方式。 它实际上可以这样实现：
 
 ```lua
 
@@ -6734,93 +6733,93 @@ This function is a shortcut for combining [ngx.socket.tcp()](#ngxsockettcp) and 
  return sock
 ```
 
-There is no way to use the [settimeout](#tcpsocksettimeout) method to specify connecting timeout for this method and the [lua_socket_connect_timeout](#lua_socket_connect_timeout) directive must be set at configure time instead.
+这里没办法使用 [settimeout](#tcpsocksettimeout) 方法来指定连接时间，只能通过指令 [lua_socket_connect_timeout](#lua_socket_connect_timeout) 预先配置作为替代方案。
 
-This feature was first introduced in the `v0.5.0rc1` release.
+该特性是在 `v0.5.0rc1` 版本首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.get_phase
 -------------
-**syntax:** *str = ngx.get_phase()*
+**语法:** *str = ngx.get_phase()*
 
-**context:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *init_by_lua*, init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
+检索当前正在执行的阶段名称。返回值可能有：
 Retrieves the current running phase name. Possible return values are
 
 * `init`
-    for the context of [init_by_lua](#init_by_lua) or [init_by_lua_file](#init_by_lua_file).
+    [init_by_lua](#init_by_lua) 或 [init_by_lua_file](#init_by_lua_file) 的运行环境。
 * `init_worker`
-    for the context of [init_worker_by_lua](#init_worker_by_lua) or [init_worker_by_lua_file](#init_worker_by_lua_file).
+    [init_worker_by_lua](#init_worker_by_lua) 或 [init_worker_by_lua_file](#init_worker_by_lua_file) 的运行环境。
 * `set`
-    for the context of [set_by_lua](#set_by_lua) or [set_by_lua_file](#set_by_lua_file).
+    [set_by_lua](#set_by_lua) 或 [set_by_lua_file](#set_by_lua_file) 的运行环境。
 * `rewrite`
-    for the context of [rewrite_by_lua](#rewrite_by_lua) or [rewrite_by_lua_file](#rewrite_by_lua_file).
+    [rewrite_by_lua](#rewrite_by_lua) 或 [rewrite_by_lua_file](#rewrite_by_lua_file) 的运行环境。
 * `access`
-    for the context of [access_by_lua](#access_by_lua) or [access_by_lua_file](#access_by_lua_file).
+    [access_by_lua](#access_by_lua) 或 [access_by_lua_file](#access_by_lua_file)。
 * `content`
-    for the context of [content_by_lua](#content_by_lua) or [content_by_lua_file](#content_by_lua_file).
+    [content_by_lua](#content_by_lua) 或 [content_by_lua_file](#content_by_lua_file) 的运行环境。
 * `header_filter`
-    for the context of [header_filter_by_lua](#header_filter_by_lua) or [header_filter_by_lua_file](#header_filter_by_lua_file).
+    [header_filter_by_lua](#header_filter_by_lua) 或 [header_filter_by_lua_file](#header_filter_by_lua_file) 的运行环境。
 * `body_filter`
-    for the context of [body_filter_by_lua](#body_filter_by_lua) or [body_filter_by_lua_file](#body_filter_by_lua_file).
+    [body_filter_by_lua](#body_filter_by_lua) 或 [body_filter_by_lua_file](#body_filter_by_lua_file) 的运行环境。
 * `log`
-    for the context of [log_by_lua](#log_by_lua) or [log_by_lua_file](#log_by_lua_file).
+    [log_by_lua](#log_by_lua) 或 [log_by_lua_file](#log_by_lua_file) 的运行环境。
 * `timer`
-    for the context of user callback functions for [ngx.timer.*](#ngxtimerat).
+    [ngx.timer.*](#ngxtimerat) 类的用户回调函数运行环境。
 
-This API was first introduced in the `v0.5.10` release.
+该 API 是从 `v0.5.10` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.thread.spawn
 ----------------
-**syntax:** *co = ngx.thread.spawn(func, arg1, arg2, ...)*
+**语法:** *co = ngx.thread.spawn(func, arg1, arg2, ...)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Spawns a new user "light thread" with the Lua function `func` as well as those optional arguments `arg1`, `arg2`, and etc. Returns a Lua thread (or Lua coroutine) object represents this "light thread".
+使用 Lua 函数 `func` 以及其他可选参数 `arg1`、`arg2` 等， 产生一个新的用户 "轻线程" 。 返回一个 Lua 线程（或者说是 Lua 协程）对象，这里称之为“轻线程”。
 
-"Light threads" are just a special kind of Lua coroutines that are scheduled by the ngx_lua module.
+“轻线程”是特殊类型的 Lua 协程，它是由 ngx_lua 模块调度的。
 
-Before `ngx.thread.spawn` returns, the `func` will be called with those optional arguments until it returns, aborts with an error, or gets yielded due to I/O operations via the [Nginx API for Lua](#nginx-api-for-lua) (like [tcpsock:receive](#tcpsockreceive)).
+在 `ngx.thread.spawn` 返回之前，`func` 将被其他可选参数调用直到它返回，例如错误的终止或调用 [Nginx API for Lua](#nginx-api-for-lua) (比如 [tcpsock:receive](#tcpsockreceive)) 引起了 I/O 操作被挂起。
 
-After `ngx.thread.spawn` returns, the newly-created "light thread" will keep running asynchronously usually at various I/O events.
+`ngx.thread.spawn` 返回后，新创建的“轻线程”将开始异步方式在各个 I/O 事件上执行。
 
-All the Lua code chunks running by [rewrite_by_lua](#rewrite_by_lua), [access_by_lua](#access_by_lua), and [content_by_lua](#content_by_lua) are in a boilerplate "light thread" created automatically by ngx_lua. Such boilerplate "light thread" are also called "entry threads".
+在 [rewrite_by_lua](#rewrite_by_lua)、[access_by_lua](#access_by_lua) 中的 Lua 代码块是在 ngx_lua 自动创建的“轻线程”样板执行的。这类样板的“轻线程”也被称为“入口线程”。
 
+默认的，相应的 Nginx 处理部分（例如 [rewrite_by_lua](#rewrite_by_lua) 部分）将不会终止，直到：
 By default, the corresponding Nginx handler (e.g., [rewrite_by_lua](#rewrite_by_lua) handler) will not terminate until
 
-1. both the "entry thread" and all the user "light threads" terminates,
-1. a "light thread" (either the "entry thread" or a user "light thread" aborts by calling [ngx.exit](#ngxexit), [ngx.exec](#ngxexec), [ngx.redirect](#ngxredirect), or [ngx.req.set_uri(uri, true)](#ngxreqset_uri), or
-1. the "entry thread" terminates with a Lua error.
+1. “入口线程”和用户所有的“轻线程”都终止了
+1. 一个“轻线程”（无论“入口线程”或用户“轻线程”），由于调用 [ngx.exit](#ngxexit)、 [ngx.exec](#ngxexec)、 [ngx.redirect](#ngxredirect)、 [ngx.req.set_uri(uri, true)](#ngxreqset_uri) 中止执行
+1. “入口线程” 因为 Lua 错误的终止
 
-When the user "light thread" terminates with a Lua error, however, it will not abort other running "light threads" like the "entry thread" does.
+当用户"轻线程"因为 Lua 错误而中止，无论如何，它将不会中止其他运行的“轻线程”，就像“入口线程”一样。
 
-Due to the limitation in the Nginx subrequest model, it is not allowed to abort a running Nginx subrequest in general. So it is also prohibited to abort a running "light thread" that is pending on one ore more Nginx subrequests. You must call [ngx.thread.wait](#ngxthreadwait) to wait for those "light thread" to terminate before quitting the "world". A notable exception here is that you can abort pending subrequests by calling [ngx.exit](#ngxexit) with and only with the status code `ngx.ERROR` (-1), `408`, `444`, or `499`.
+归咎于 Nginx 子请求模型的限制，一般来说终止一个正在运行的 Nginx 子请求是不被允许的。挂起在一个或多个 Nginx 子请求结果的“轻线程”，也是禁止终止的。你必须调用 [ngx.thread.wait](#ngxthreadwait) 等待这些“轻线程”退出这个“世界”。这里有个非正式异常办法，你可以调用 [ngx.exit](#ngxexit) 完成挂起子请求的终止，可以使用的状态码有：`ngx.ERROR` (-1)， `408`， `444`， 或 `499`。
 
-The "light threads" are not scheduled in a pre-emptive way. In other words, no time-slicing is performed automatically. A "light thread" will keep running exclusively on the CPU until
+这些“轻线程”不会以抢占方式调度。换句话说，不会有自动执行的时间分片。“轻线程”将继续保持运行状态，只有当 CPU 出现下面情况：
 
-1. a (nonblocking) I/O operation cannot be completed in a single run,
-1. it calls [coroutine.yield](#coroutineyield) to actively give up execution, or
-1. it is aborted by a Lua error or an invocation of [ngx.exit](#ngxexit), [ngx.exec](#ngxexec), [ngx.redirect](#ngxredirect), or [ngx.req.set_uri(uri, true)](#ngxreqset_uri).
+1. 一个 I/O 操作（异步）不能在独立操作执行里完成
+1. 调用 [coroutine.yield](#coroutineyield) 声明放弃执行
+1. 因为 Lua 错误或 [ngx.exit](#ngxexit)、 [ngx.exec](#ngxexec)、 [ngx.redirect](#ngxredirect)、 或 [ngx.req.set_uri(uri, true)](#ngxreqset_uri) 导致的终止
 
-For the first two cases, the "light thread" will usually be resumed later by the ngx_lua scheduler unless a "stop-the-world" event happens.
+对于前两个示例，“轻线程”将通常稍候被 ngx_lua 调度唤醒，除非发生 “全局停止” 事件。
 
-User "light threads" can create "light threads" themselves. And normal user coroutines created by [coroutine.create](#coroutinecreate) can also create "light threads". The coroutine (be it a normal Lua coroutine or a "light thread") that directly spawns the "light thread" is called the "parent coroutine" for the "light thread" newly spawned.
+用户“轻线程”可以创建它们自己的“轻线程”。并且由 [coroutine.create](#coroutinecreate) 创建的普通用户协程 也能 “轻线程”。直接产生“轻线程”的协程（可以是普通 Lua 协程或“轻线程”）被称为“父协程”，新产生的是“轻线程”。
 
-The "parent coroutine" can call [ngx.thread.wait](#ngxthreadwait) to wait on the termination of its child "light thread".
+“父协程”可以调用 [ngx.thread.wait](#ngxthreadwait) 等待子“轻线程”的终止。
 
-You can call coroutine.status() and coroutine.yield() on the "light thread" coroutines.
+你可以在“轻线程”协程中调用  coroutine.status() 和 coroutine.yield() 。
 
-The status of the "light thread" coroutine can be "zombie" if
+下面情况,“轻线程”协程可能是“僵尸”状态:
 
-1. the current "light thread" already terminates (either successfully or with an error),
-1. its parent coroutine is still alive, and
-1. its parent coroutine is not waiting on it with [ngx.thread.wait](#ngxthreadwait).
+1. 当前“轻线程”已经终止（无论成功还是错误地）
+1. 它的父协程还存活，但是他的父协程已经不再使用 [ngx.thread.wait](#ngxthreadwait) 进行等待
 
-The following example demonstrates the use of coroutine.yield() in the "light thread" coroutines
-to do manual time-slicing:
+下面的例子说明在“轻线程”协程中通过 coroutine.yield() 手工完成时间-切片：
 
 ```lua
 
@@ -6851,7 +6850,7 @@ to do manual time-slicing:
  ngx.say("4")
 ```
 
-Then it will generate the output
+然后它将生成下面的输出：
 
 
     0
@@ -6864,13 +6863,12 @@ Then it will generate the output
     4
 
 
-"Light threads" are mostly useful for doing concurrent upstream requests in a single Nginx request handler, kinda like a generalized version of [ngx.location.capture_multi](#ngxlocationcapture_multi) that can work with all the [Nginx API for Lua](#nginx-api-for-lua). The following example demonstrates parallel requests to MySQL, Memcached, and upstream HTTP services in a single Lua handler, and outputting the results in the order that they actually return (very much like the Facebook BigPipe model):
+ 在一个独立的 Nginx 请求中完成上游请求的并发执行，“轻线程” 是非常有用，有点像 [ngx.location.capture_multi](#ngxlocationcapture_multi) 的一个普通版本，而且它能使用所有 [Nginx Lua 的 API](#nginx-api-for-lua) 。下面的例子说明在一个独立的 Nginx 请求中并行请求到 MySQL、Memcached 和上游 HTTP 服务，并以他们实际返回结果的顺序进行输出（与 Facebook BigPipe 模型非常相像）：
 
 ```lua
 
- -- query mysql, memcached, and a remote http service at the same time,
- -- output the results in the order that they
- -- actually return the results.
+ -- 同时查询 mysql、 memcached 和一个远程 HTTP 服务
+ -- 以它们实际返回结果的顺序进行输出
 
  local mysql = require "resty.mysql"
  local memcached = require "resty.memcached"
@@ -6902,30 +6900,30 @@ Then it will generate the output
      ngx.say("http done: ", res.body)
  end
 
- ngx.thread.spawn(query_mysql)      -- create thread 1
- ngx.thread.spawn(query_memcached)  -- create thread 2
- ngx.thread.spawn(query_http)       -- create thread 3
+ ngx.thread.spawn(query_mysql)      -- 创建线程 1
+ ngx.thread.spawn(query_memcached)  -- 创建线程 2
+ ngx.thread.spawn(query_http)       -- 创建线程 3
 ```
 
-This API was first enabled in the `v0.7.0` release.
+该 API 是从 `v0.7.0` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.thread.wait
 ---------------
-**syntax:** *ok, res1, res2, ... = ngx.thread.wait(thread1, thread2, ...)*
+**语法:** *ok, res1, res2, ... = ngx.thread.wait(thread1, thread2, ...)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Waits on one or more child "light threads" and returns the results of the first "light thread" that terminates (either successfully or with an error).
+等待一个或多个子“轻线程”，并等待第一个终止（无论成功或有错误）“轻线程”的返回结果。
 
-The arguments `thread1`, `thread2`, and etc are the Lua thread objects returned by earlier calls of [ngx.thread.spawn](#ngxthreadspawn).
+参数 `thread1`、`thread2` 等都是之前调用 [ngx.thread.spawn](#ngxthreadspawn) 返回的 Lua 线程对象。
 
-The return values have exactly the same meaning as [coroutine.resume](#coroutineresume), that is, the first value returned is a boolean value indicating whether the "light thread" terminates successfully or not, and subsequent values returned are the return values of the user Lua function that was used to spawn the "light thread" (in case of success) or the error object (in case of failure).
+返回值与 [coroutine.resume](#coroutineresume) 是完全一样的，也就是说，第一个返回值是一个布尔值，说明“轻线程”的终止是成功还是异常，随后的返回值是 Lua 函数的返回结果，该 Lua 函数是被用来产生“轻线程”（成功情况下）或错误对象（失败情况下）。
 
-Only the direct "parent coroutine" can wait on its child "light thread", otherwise a Lua exception will be raised.
+只有直属“父协程”才能等待它的子“轻线程”，否则将会有 Lua 异常抛出。
 
-The following example demonstrates the use of `ngx.thread.wait` and [ngx.location.capture](#ngxlocationcapture) to emulate [ngx.location.capture_multi](#ngxlocationcapture_multi):
+下面的示范例子，是使用 `ngx.thread.wait` 和 [ngx.location.capture](#ngxlocationcapture) 共同来模拟 [ngx.location.capture_multi](#ngxlocationcapture_multi) ：
 
 ```lua
 
@@ -6955,9 +6953,9 @@ The following example demonstrates the use of `ngx.thread.wait` and [ngx.locatio
  end
 ```
 
-Here it essentially implements the "wait all" model.
+这里它实质实现是“等待所有”模型。
 
-And below is an example demonstrating the "wait any" model:
+下面的例子是示范“等待任何”模型：
 
 ```lua
 
@@ -6998,10 +6996,11 @@ And below is an example demonstrating the "wait any" model:
  ngx.say("res: ", res)
 
  -- stop the "world", aborting other running threads
+ -- 停止这个“世界”，终止其他正在运行的线程
  ngx.exit(ngx.OK)
 ```
 
-And it will generate the following output:
+它将生成下面的输出：
 
 
     f thread created: running
@@ -7009,38 +7008,38 @@ And it will generate the following output:
     g: hello
     res: g done
 
+该 API 是从 `v0.7.0` 版本首次引入。
 
-This API was first enabled in the `v0.7.0` release.
-
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.thread.kill
 ---------------
-**syntax:** *ok, err = ngx.thread.kill(thread)*
+**语法:** *ok, err = ngx.thread.kill(thread)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
-Kills a running "light thread" created by [ngx.thread.spawn](#ngxthreadspawn). Returns a true value when successful or `nil` and a string describing the error otherwise.
+杀死一个正在运行的轻线程（通过 [ngx.thread.spawn](#ngxthreadspawn) 创建）。成功时返回一个 true ，其他情况则返回一个错误字符描述信息。
 
-According to the current implementation, only the parent coroutine (or "light thread") can kill a thread. Also, a running "light thread" with pending NGINX subrequests (initiated by [ngx.location.capture](#ngxlocationcapture) for example) cannot be killed due to a limitation in the NGINX core.
+根据目前的实现，只有父协程（或“轻线程”）可以终止一个“线程”。同样，正在挂起运行 Nginx 子请求（例如调用 [ngx.location.capture](#ngxlocationcapture)）的“轻线程”，是不能被杀死的，这要归咎于 Nginx 内核限制。
 
-This API was first enabled in the `v0.9.9` release.
+该 API 是从 `v0.9.9` 版本开始首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.on_abort
 ------------
-**syntax:** *ok, err = ngx.on_abort(callback)*
+**语法:** *ok, err = ngx.on_abort(callback)*
 
-**context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
 
-Registers a user Lua function as the callback which gets called automatically when the client closes the (downstream) connection prematurely.
+注册一个用户回调函数，当客户端过早关闭当前连接（下游）时自动调用。
 
-Returns `1` if the callback is registered successfully or returns `nil` and a string describing the error otherwise.
+如果回掉函数注册成功返回 `1` ，或反之将返回 `nil` 和一个错误描述字符信息。
 
-All the [Nginx API for Lua](#nginx-api-for-lua) can be used in the callback function because the function is run in a special "light thread", just as those "light threads" created by [ngx.thread.spawn](#ngxthreadspawn).
+所有的 [Nginx Lua 的 API ](#nginx-api-for-lua) 都可以在这个回调中使用，因为这个函数是以一个特定的 “轻线程” 方式运行，就像其他使用 [ngx.thread.spawn](#ngxthreadspawn) 创建的 “轻线程”。
 
-The callback function can decide what to do with the client abortion event all by itself. For example, it can simply ignore the event by doing nothing and the current Lua request handler will continue executing without interruptions. And the callback function can also decide to terminate everything by calling [ngx.exit](#ngxexit), for example,
+该回调函数能自己决定对客户端终止事件做什么处理。例如，它可以简单的不做任何事情从而忽略这个事件
+，使得当前 Lua 请求处理可以没有任何打扰的继续执行。当然该回调函数也可以调用 [ngx.exit](#ngxexit) 从而终止所有处理，例如：
 
 ```lua
 
@@ -7058,56 +7057,35 @@ The callback function can decide what to do with the client abortion event all b
  end
 ```
 
-When [lua_check_client_abort](#lua_check_client_abort) is set to `off` (which is the default), then this function call will always return the error message "lua_check_client_abort is off".
+当 [lua_check_client_abort](#lua_check_client_abort) 被设置为 `off` （这是默认值），这时这个函数调用将永远返回错误信息 “lua_check_client_abort is off” 。
 
-According to the current implementation, this function can only be called once in a single request handler; subsequent calls will return the error message "duplicate call".
+根据当前实现，这个函数在单个请求中能且只能调用一次；随后的调用将收到错误消息 “duplicate call” 。
 
-This API was first introduced in the `v0.7.4` release.
+该 API 是从 `v0.7.4` 版本首次引入。
 
-See also [lua_check_client_abort](#lua_check_client_abort).
+也可以看看 [lua_check_client_abort](#lua_check_client_abort) 。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.timer.at
 ------------
-**syntax:** *ok, err = ngx.timer.at(delay, callback, user_arg1, user_arg2, ...)*
+**语法:** *ok, err = ngx.timer.at(delay, callback, user_arg1, user_arg2, ...)*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Creates an Nginx timer with a user callback function as well as optional user arguments.
+使用一个可选参数的用户回调函数，创建一个 Nginx 定时器。
 
-The first argument, `delay`, specifies the delay for the timer,
-in seconds. One can specify fractional seconds like `0.001` to mean 1
-millisecond here. `0` delay can also be specified, in which case the
-timer will immediately expire when the current handler yields
-execution.
+第一个参数 `delay`，指定这个定时器的延迟时间，秒为单位。我们可以指定带有小数部分的时间像`0.001`，这里代表 1 毫秒。当需要立即执行当前挂起的处理，指定延迟为`0`即可。
 
-The second argument, `callback`, can
-be any Lua function, which will be invoked later in a background
-"light thread" after the delay specified. The user callback will be
-called automatically by the Nginx core with the arguments `premature`,
-`user_arg1`, `user_arg2`, and etc, where the `premature`
-argument takes a boolean value indicating whether it is a premature timer
-expiration or not, and `user_arg1`, `user_arg2`, and etc, are
-those (extra) user arguments specified when calling `ngx.timer.at`
-as the remaining arguments.
+第二个参数`callback`，可以是任何 Lua 函数，在指定的延迟时间之后，将会在一个后台的“轻线程”中被调用。这个调用是 Nginx 内核使用参数 `premature`，`user_arg1`， `user_arg2`等参数自动完成的，`premature`参数代表这个定时器是否过期的布尔值，`user_arg1`， `user_arg2`等其他参数是调用`ngx.timer.at`的其余参数。
 
-Premature timer expiration happens when the Nginx worker process is
-trying to shut down, as in an Nginx configuration reload triggered by
-the `HUP` signal or in an Nginx server shutdown. When the Nginx worker
-is trying to shut down, one can no longer call `ngx.timer.at` to
-create new timers with nonzero delays and in that case `ngx.timer.at` will return `nil` and
-a string describing the error, that is, "process exiting".
+当 Nginx 工作进程正在尝试关闭时，定时器会过早失效，例如 `HUP` 信号触发的 Nginx 配置文件重载或 Nginx 服务关闭。当 Nginx 工作进程正在关闭，是不能调用 `ngx.timer.at` 来创建新的非零时间延迟定时器，这种情况下`ngx.timer.at`将返回`nil`和一个描述这个错误的字符串信息："process exiting"。
 
-Starting from the `v0.9.3` release, it is allowed to create zero-delay timers even when the Nginx worker process starts shutting down.
+从`v0.9.3`版本开始，当 Nginx 工作进程开始关闭时，是允许创建零延迟定时器的。
 
-When a timer expires, the user Lua code in the timer callback is
-running in a "light thread" detached completely from the original
-request creating the timer. So objects with the same lifetime as the
-request creating them, like [cosockets](#ngxsockettcp), cannot be shared between the
-original request and the timer user callback function.
+当定时器到期，定时器中的 Lua 代码是在一个“请线程”中运行的，它与创造它的原始请求是完全分离的。因此，和创造它的请求有相同生命周期的对象，比如 [cosockets](#ngxsockettcp)，是不能在原始请求和定时器中的回调函数共享使用的。
 
-Here is a simple example:
+这是个简单的例子：
 
 ```nginx
 
@@ -7130,7 +7108,7 @@ Here is a simple example:
  }
 ```
 
-One can also create infinite re-occuring timers, for instance, a timer getting triggered every `5` seconds, by calling `ngx.timer.at` recursively in the timer callback function. Here is such an example,
+我们可以创建反复循环使用的定时器，例如，得到一个每`5`秒触发一次的定时器，可以在定时器中递归调用`ngx.timer.at`。这里有个这样的例子：
 
 ```lua
 
@@ -7155,215 +7133,180 @@ One can also create infinite re-occuring timers, for instance, a timer getting t
  end
 ```
 
-Because timer callbacks run in the background and their running time
-will not add to any client request's response time, they can easily
-accumulate in the server and exhaust system resources due to either
-Lua programming mistakes or just too much client traffic. To prevent
-extreme consequences like crashing the Nginx server, there are
-built-in limitations on both the number of "pending timers" and the
-number of "running timers" in an Nginx worker process. The "pending
-timers" here mean timers that have not yet been expired and "running
-timers" are those whose user callbacks are currently running.
+因为定时调用是在后台运行，并且他们的执行不会增加任何客户端的响应时长，所以它们很容易让服务端累积错误并耗尽系统资源，有可能是 Lua 编程错误也可能仅仅是太多客户端请求。为了防止这种极端的恶果（例如： Nginx 服务崩溃），在 Nginx 工作进程里内建了 "pending timers" 和 "running timers" 两个数量限制。这里的 "pending timers" 代表还没有过期的定时器，"running timers" 代表用户回调函数当前正在运行的定时器。
 
-The maximal number of pending timers allowed in an Nginx
-worker is constrolled by the [lua_max_pending_timers](#lua_max_pending_timers)
-directive. The maximal number of running timers is controlled by the
-[lua_max_running_timers](#lua_max_running_timers) directive.
+在 Nginx 进程内 "pending timers" 的最大数控制是 [lua_max_pending_timers](#lua_max_pending_timers) 指令完成的。 "running timers" 的最大数控制是 [lua_max_running_timers](#lua_max_running_timers) 指令完成的。
 
-According to the current implementation, each "running timer" will
-take one (fake) connection record from the global connection record
-list configured by the standard [worker_connections](http://nginx.org/en/docs/ngx_core_module.html#worker_connections) directive in
-`nginx.conf`. So ensure that the
-[worker_connections](http://nginx.org/en/docs/ngx_core_module.html#worker_connections) directive is set to
-a large enough value that takes into account both the real connections
-and fake connections required by timer callbacks (as limited by the
-[lua_max_running_timers](#lua_max_running_timers) directive).
+根据当前实现，每一个 "running timer" ，都将从全局连接列表中占用一个（假）连接，全局列表通过 `nginx.conf` 的标准指令 [worker_connections](http://nginx.org/en/docs/ngx_core_module.html#worker_connections) 配置。所以要确保 [worker_connections](http://nginx.org/en/docs/ngx_core_module.html#worker_connections) 指令设置了足够大的值，用来存放真正的连接和定时器需要假连接（受限于 [lua_max_running_timers](#lua_max_running_timers) 指令）。
 
-A lot of the Lua APIs for Nginx are enabled in the context of the timer
-callbacks, like stream/datagram cosockets ([ngx.socket.tcp](#ngxsockettcp) and [ngx.socket.udp](#ngxsocketudp)), shared
-memory dictionaries ([ngx.shared.DICT](#ngxshareddict)), user coroutines ([coroutine.*](#coroutinecreate)),
-user "light threads" ([ngx.thread.*](#ngxthreadspawn)), [ngx.exit](#ngxexit), [ngx.now](#ngxnow)/[ngx.time](#ngxtime),
-[ngx.md5](#ngxmd5)/[ngx.sha1_bin](#ngxsha1_bin), are all allowed. But the subrequest API (like
-[ngx.location.capture](#ngxlocationcapture)), the [ngx.req.*](#ngxreqstart_time) API, the downstream output API
-(like [ngx.say](#ngxsay), [ngx.print](#ngxprint), and [ngx.flush](#ngxflush)) are explicitly disabled in
-this context.
+在定时器的回调函数中，很多 Nginx 的 Lua API 是可用的，像数据流/数据报 cosocket 的 ([ngx.socket.tcp](#ngxsockettcp) 和 [ngx.socket.udp](#ngxsocketudp))， 共享内存字典 ([ngx.shared.DICT](#ngxshareddict))， 用户协同程序 ([coroutine.*](#coroutinecreate))，用户 "轻线程" ([ngx.thread.*](#ngxthreadspawn))， [ngx.exit](#ngxexit)， [ngx.now](#ngxnow)/[ngx.time](#ngxtime)，[ngx.md5](#ngxmd5)/[ngx.sha1_bin](#ngxsha1_bin)， 都是允许的。但是子请求 API （如 [ngx.location.capture](#ngxlocationcapture))， [ngx.req.*](#ngxreqstart_time) , 下游输出 API（如 [ngx.say](#ngxsay)， [ngx.print](#ngxprint) 和 [ngx.flush](#ngxflush)）， 在这个环境是明确被禁用的。
 
-You can pass most of the standard Lua values (nils, booleans, numbers, strings, tables, closures, file handles, and etc) into the timer callback, either explicitly as user arguments or implicitly as upvalues for the callback closure. There are several exceptions, however: you *cannot* pass any thread objects returned by [coroutine.create](#coroutinecreate) and [ngx.thread.spawn](#ngxthreadspawn) or any cosocket objects returned by [ngx.socket.tcp](#ngxsockettcp), [ngx.socket.udp](#ngxsocketudp), and [ngx.req.socket](#ngxreqsocket) because these objects' lifetime is bound to the request context creating them while the timer callback is detached from the creating request's context (by design) and runs in its own (fake) request context. If you try to share the thread or cosocket objects across the boundary of the creating request, then you will get the "no co ctx found" error (for threads) or "bad request" (for cosockets). It is fine, however, to create all these objects inside your timer callback.
+定时器的回调函数可传入大多数标准 Lua 值（空、布尔值、数字、字符串、表、闭包、文件句柄等），无论是明确的用户参数或回调闭包的隐式值。这里有几个例外，通过 [coroutine.create](#coroutinecreate) 和 [ngx.thread.spawn](#ngxthreadspawn) 的线程对象，或通过 [ngx.socket.tcp](#ngxsockettcp)、 [ngx.socket.udp](#ngxsocketudp) 和 [ngx.req.socket](#ngxreqsocket) 得到的 cosocket 对象，他们都是 *不能* 作为传入对象的，因为这些对象的生命周期都是绑定到创建定时器的请求环境的，但定时器回调与创建环境是完全隔离的（设计上），并且是在自己的（假）请求环境中运行。如果你尝试在创建请求边界共享线程或 cosocket 对象，你将得到错误信息 "no co ctx found"（对于线程），"bad request"（对于 cosockets）。它是好的，所以，在你的定时器回调中创建所有这些对象。
 
-This API was first introduced in the `v0.8.0` release.
+这个 API 是从`v0.8.0`首次引入的。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.timer.running_count
 -----------------------
-**syntax:** *count = ngx.timer.running_count()*
+**语法:** *count = ngx.timer.running_count()*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Returns the number of timers currently running.
+返回当前运行的 `timers` 总数。
 
-This directive was first introduced in the `v0.9.20` release.
+该指令从 `v0.9.20` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.timer.pending_count
 -----------------------
-**syntax:** *count = ngx.timer.pending_count()*
+**语法:** *count = ngx.timer.pending_count()*
 
-**context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
 
-Returns the number of pending timers.
+返回待定运行的 `timers` 数量。
 
-This directive was first introduced in the `v0.9.20` release.
+该指令从 `v0.9.20` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.config.debug
 ----------------
-**syntax:** *debug = ngx.config.debug*
+**语法:** *debug = ngx.config.debug*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua*, init_worker_by_lua**
 
-This boolean field indicates whether the current Nginx is a debug build, i.e., being built by the `./configure` option `--with-debug`.
+这个布尔值代表当前 Nginx 是否为调试版本，既，在编译时使用`./configure`的可选项`--with-debug`。
 
-This field was first introduced in the `0.8.7`.
+该 API 在 `0.8.7` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.config.prefix
 -----------------
+**语法:** *prefix = ngx.config.prefix()*
 
-**syntax:** *prefix = ngx.config.prefix()*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua*, init_worker_by_lua**
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
+返回 Nginx 服务的 "prefix" 路径，它可能是由 Nginx 启动时通过可选 `-p` 命令行确定的，也可能是由编译 Nginx 的 `./configure` 脚本中可选的 `--prefix` 命令行参数确定的。
 
-Returns the Nginx server "prefix" path, as determined by the `-p` command-line option when running the nginx executable, or the path specified by the `--prefix` command-line option when building Nginx with the `./configure` script.
+该 API 在 `0.9.2` 版本首次引入。
 
-This function was first introduced in the `0.9.2`.
-
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.config.nginx_version
 ------------------------
 
-**syntax:** *ver = ngx.config.nginx_version*
+**语法:** *ver = ngx.config.nginx_version*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua*, init_worker_by_lua**
 
-This field take an integral value indicating the version number of the current Nginx core being used. For example, the version number `1.4.3` results in the Lua number 1004003.
+这个字段是当前正在使用的 Nginx 内核版本数字标识。例如，版本 `1.4.3` 用 Lua 数字表示就是 1004003 。
 
-This API was first introduced in the `0.9.3` release.
+该 API 在 `0.9.3` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.config.nginx_configure
 --------------------------
 
-**syntax:** *str = ngx.config.nginx_configure()*
+**语法:** *str = ngx.config.nginx_configure()*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua**
 
-This function returns a string for the NGINX `./configure` command's arguments string.
+该 API 返回编译 Nginx 时的 `./configure` 命令参数字符串。
 
-This API was first introduced in the `0.9.5` release.
+该 API 在 `0.9.5` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.config.ngx_lua_version
 --------------------------
 
-**syntax:** *ver = ngx.config.ngx_lua_version*
+**语法:** *ver = ngx.config.ngx_lua_version*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua**
 
-This field take an integral value indicating the version number of the current `ngx_lua` module being used. For example, the version number `0.9.3` results in the Lua number 9003.
+这个字段是当前正在使用的 `ngx_lua` 模块版本数字标识。例如，版本 `0.9.3` 用 Lua 数字表示就是 9003 。
 
-This API was first introduced in the `0.9.3` release.
+该 API 在 `0.9.3` 版本首次引入。
+
+[返回目录](#nginx-api-for-lua)
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.worker.exiting
 ------------------
 
-**syntax:** *exiting = ngx.worker.exiting()*
+**语法:** *exiting = ngx.worker.exiting()*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua*, init_worker_by_lua**
 
-This function returns a boolean value indicating whether the current Nginx worker process already starts exiting. Nginx worker process exiting happens on Nginx server quit or configuration reload (aka HUP reload).
+该函数返回一个布尔值，表示目前 Nginx 的工作进程是否已经开始退出。Nginx的工作进程退出，发生在 Nginx 服务退出或配置重载（又名HUP重载）。
 
-This API was first introduced in the `0.9.3` release.
+该 API 在 `v0.6.0` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.worker.pid
 --------------
 
-**syntax:** *pid = ngx.worker.pid()*
+**语法:** *pid = ngx.worker.pid()*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
+**语法:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua*, init_worker_by_lua**
 
-This function returns a Lua number for the process ID (PID) of the current Nginx worker process. This API is more efficient than `ngx.var.pid` and can be used in contexts where the [ngx.var.VARIABLE](#ngxvarvariable) API cannot be used (like [init_worker_by_lua](#init_worker_by_lua)).
+这个函数返回一个Lua数字，它是当前 Nginx 工作进程的进程 ID （PID）。这个 API 比 `ngx.var.pid` 更有效，[ngx.var.VARIABLE](#ngxvarvariable) API 不能使用的地方（例如 [init_worker_by_lua](#init_worker_by_lua)），该 API 是可以的。
 
-This API was first introduced in the `0.9.5` release.
+该 API 在 `v0.6.0` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.worker.count
 ----------------
 
-**syntax:** *count = ngx.worker.count()*
+**语法:** *count = ngx.worker.count()*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua**
 
-Returns the total number of the Nginx worker processes (i.e., the value configured
-by the [worker_processes](http://nginx.org/en/docs/ngx_core_module.html#worker_processes)
-directive in `nginx.conf`).
+返回当前 Nginx 工作进程数的数量（既：在 `nginx.conf` 配置中，使用 [worker_processes](http://nginx.org/en/docs/ngx_core_module.html#worker_processes) 指令配置的值）。
 
-This API was first introduced in the `0.9.20` release.
+该 API 从 `v0.9.20` 版本首次引入。
 
 [Back to TOC](#nginx-api-for-lua)
 
 ngx.worker.id
 -------------
 
-**syntax:** *count = ngx.worker.id()*
+**语法:** *count = ngx.worker.id()*
 
-**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_worker_by_lua&#42;*
+**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua**
 
-Returns the ordinal number of the current Nginx worker processes (starting from number 0).
+返回当前 Nginx 工作进程的一个顺序数字（从 0 开始）。
 
-So if the total number of workers is `N`, then this method may return a number between 0
-and `N - 1` (inclusive).
+所以，如果工作进程总数是 `N`，那么该方法将返回 0 和 `N - 1` （包含）的一个数字。
 
-This function returns meaningful values only for NGINX 1.9.1+. With earlier versions of NGINX, it
-always returns `nil`.
+该方法只对 NGINX 1.9.1+ 版本返回有意义的值。更早版本的 nginx，将总是返回 `nil` 。 
 
-See also [ngx.worker.count](#ngxworkercount).
+同样可以看看 [ngx.worker.count](#ngxworkercount)。
 
-This API was first introduced in the `0.9.20` release.
+该 API 从 `v0.9.20` 版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.semaphore
 -------------
-**syntax:** *local semaphore = require "ngx.semaphore"*
+**语法:** *local semaphore = require "ngx.semaphore"*
 
-This is a Lua module that implements a classic-style semaphore API for efficient synchronizations among
-different "light threads". Sharing the same semaphore among different "light threads" created in different (request)
-contexts are also supported as long as the "light threads" reside in the same NGINX worker process
-and the [lua_code_cache](#lua_code_cache) directive is turned on (which is the default).
+该 Lua 模块，实现了一个经典的 semaphore API，可以高效的完成不同“轻线程”之间的同步。在不同的请求环境中创建的“轻线程”，可以共享同一个 semaphore 对象是支持的，只要这些“轻线程”是在同一个 nginx 工作进程中即可，此外要求 [lua_code_cache](#lua_code_cache) 指令是开启的（默认是开启的）。
 
-This Lua module does not ship with this ngx_lua module itself rather it is shipped with
-the
-[lua-resty-core](https://github.com/openresty/lua-resty-core) library.
+该模块没与 ngx_lua 模块一起发行，而是与 [lua-resty-core](https://github.com/openresty/lua-resty-core) 库一起发行。
 
-Please refer to the [documentation](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/semaphore.md)
-for this `ngx.semaphore` Lua module in [lua-resty-core](https://github.com/openresty/lua-resty-core)
-for more details.
+获取更多信息，请参考Lua 模块　[lua-resty-core](https://github.com/openresty/lua-resty-core)　的　`ngx.semaphore`　信息，[文档](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/semaphore.md)。
 
-This feature requires at least ngx_lua `v0.10.0`.
+该特性在　`v0.10.0`　版本首次引入。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.balancer
 ------------

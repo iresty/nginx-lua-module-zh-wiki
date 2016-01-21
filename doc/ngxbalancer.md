@@ -2,11 +2,11 @@ ngx.balancer
 ------------
 **语法:** *local balancer = require "ngx.balancer"*
 
-该 Lua 模块允许在纯 Lua 中可以完全自定义动态负载均衡。
+这是一个允许使用纯 Lua 语言，完整定义一个动态负载均衡 Lua API 模块。
 
-该模块不是与当前 ngx_lua 模块绑定运行，而是与 [lua-resty-core](https://github.com/openresty/lua-resty-core) 库一起运行。
+该模块没与 ngx_lua 模块一起发行，而是与 [lua-resty-core](https://github.com/openresty/lua-resty-core) 库一起发行。
 
-对于 [lua-resty-core](https://github.com/openresty/lua-resty-core) 的 `ngx.balancer` Lua 模块更多信息，请参考 [documentation](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/balancer.md) 。
+为获取更多信息，请参考 [lua-resty-core](https://github.com/openresty/lua-resty-core) Lua　模块的 `ngx.balancer` 章节，[文档](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/balancer.md) 。
 
 该特性在 `v0.10.0` 版本首次引入。
 

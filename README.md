@@ -260,7 +260,7 @@ NGINX API for Lua
 * [ngx.semaphore](doc/ngxsemaphore.md)
 * [ngx.balancer](doc/ngxbalancer.md)
 * [ngx.ssl](doc/ngxssl.md)
-* [ngx.ocsp](#ngxocsp)
+* [ngx.ocsp](doc/ngxocsp.md)
 * [ndk.set_var.DIRECTIVE yuansheng-9.30](doc/ndkset_vardirective.md)
 * [coroutine.create yuansheng-9.30](doc/coroutinecreate.md)
 * [coroutine.resume yuansheng-9.30](doc/coroutineresume.md)

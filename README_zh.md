@@ -2291,36 +2291,20 @@ ssl_certificate_by_lua_block
 **阶段:** *right-before-SSL-handshake*
 
 当 Nginx 开始对下游进行 SSL（https） 握手连接时，该指令执行用户 Lua 代码。
-This directive runs user Lua code when NGINX is about to start the SSL handshake for the downstream
-SSL (https) connections.
 
-特别是基于每个请求，设置 SSL 证书链并响应相符的私有密钥，这种情况特别有用。通过非阻塞 IO 操作，从远程（例如，使用 [cosocket](#ngxsockettcp) API）加载这类握手配置也是很有用的。
-It is particularly useful for setting the SSL certificate chain and the corresponding private key on a per-request
-basis. It is also useful to load such handshake configurations nonblockingly from the remote (for example,
-with the [cosocket](#ngxsockettcp) API). And one can also do per-request OCSP stapling handling in pure
-Lua here as well.
+特别是基于每个请求，设置 SSL 证书链并响应相符的私有密钥，这种情况特别有用。通过非阻塞 IO 操作，从远程（例如，使用 [cosocket](#ngxsockettcp) API）加载 SSL 握手配置也是很有用的。并且在每请求中使用纯 Lua 完成 OCSP stapling 处理也是可以的。
 
-Another typical use case is to do SSL handshake traffic control nonblockingly in this context,
-with the help of the [lua-resty-limit-traffic#readme](https://github.com/openresty/lua-resty-limit-traffic)
-library, for example.
+另一个典型应用场景是在当前环境中非阻塞的方式完成 SSL 握手信号控制，例如在 [lua-resty-limit-traffic#读我](https://github.com/openresty/lua-resty-limit-traffic) 库的辅助下。
 
 One can also do interesting things with the SSL handshake requests from the client side, like
 rejecting old SSL clients using the SSLv3 protocol or even below selectively.
+<!-- todo 这段不太会啊 -->
 
-The [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md)
-and [ngx.ocsp](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ocsp.md) Lua modules
-provided by the [lua-resty-core](https://github.com/openresty/lua-resty-core/#readme)
-library are particularly useful in this context. You can use the Lua API offered by these two Lua modules
-to manipulate the SSL certificate chain and private key for the current SSL connection
-being initiated.
+[ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md) 和 [ngx.ocsp](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ocsp.md) Lua 模块是由 [lua-resty-core](https://github.com/openresty/lua-resty-core/#readme) 库提供，并且在该环境中特别有用。你可以使用这两个模块提供的 Lua API，处理当前 SSL 连接初始化的 SSL 证书链和私有密钥。
 
-This Lua handler does not run at all, however, when NGINX/OpenSSL successfully resumes
-the SSL session via SSL session IDs or TLS session tickets for the current SSL connection. In
-other words, this Lua handler only runs when NGINX has to initiate a full SSL handshake.
+不管怎样，对于当前 SSL 连接，在 Nginx/OpenSSL 通过 SSL session IDs 或 TLS session tickets 成功唤醒之前，该 Lua 是不会运行的。换句话说，这个 Lua 只有当 Nginx 已经发起了完整的 SSL 握手才执行。
 
-Below is a trivial example using the
-[ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md) module
-at the same time:
+下面是个简陋的与 [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md) 模块一起使用的例子：
 
 ```nginx
 
@@ -2338,41 +2322,25 @@ at the same time:
  }
 ```
 
-See more complicated examples in the [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md)
-and [ngx.ocsp](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ocsp.md)
-Lua modules' official documentation.
+更多信息，可以参考 [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md)的更多复杂例子 和 [ngx.ocsp](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ocsp.md) Lua 模块的官方文档。
 
-Uncaught Lua exceptions in the user Lua code immediately abort the current SSL session, so does the
-[ngx.exit](#ngxexit) call with an error code like `ngx.ERROR`.
+在用户 Lua 代码中未捕获的 Lua 异常将立即终止当前 SSL 会话，就如同使用 `ngx.ERROR` 错误码调用 [ngx.exit](#ngxexit) 。
 
-This Lua code execution context *does* support yielding, so Lua APIs that may yield
-(like cosockets, sleeping, and "light threads")
-are enabled in this context.
+该环境下的 Lua 代码执行 *支持* yielding，所以可能 yield 的 Lua API 在这个环境中是启用的（例如 cosockets，sleeping，和 “轻线程”）。
 
-Note, however, you still need to configure the [ssl_certificate](http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_certificate) and
-[ssl_certificate_key](http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_certificate_key)
-directives even though you will not use this static certificate and private key at all. This is
-because the NGINX core requires their appearance otherwise you are seeing the following error
-while starting NGINX:
-
+注意，无论如何，你仍然需要配置 [ssl_certificate](http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_certificate) 和 [ssl_certificate_key](http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_certificate_key) 指令，尽管你将完全不再使用这个静态的证书和私有密钥。这是因为 Nginx 内核要求它们出现否则启动 Nginx 时你将看到下面错误：
 
     nginx: [emerg] no ssl configured for the server
 
-
 该指令需要能工作的 Nginx 补丁版本地址：
-This directive currently requires the following NGINX core patch to work correctly:
 
 <http://mailman.nginx.org/pipermail/nginx-devel/2016-January/007748.html>
 
 对于 OpenResty 1.9.7.2 （或更高）绑定的 Nginx 版本，已经默认打上了补丁。
-The bundled version of the NGINX core in OpenResty 1.9.7.2 (or above) already has this
-patch applied.
 
 此外，该指令需要至少 OpenSSL `1.0.2e` 版本才能工作。
-Furthermore, one needs at least OpenSSL 1.0.2e for this directive to work.
 
 该指令是在 `v0.10.0` 版本首次引入。
-This directive was first introduced in the `v0.10.0` release.
 
 [返回目录](#directives)
 
@@ -3301,11 +3269,7 @@ ngx.ctx
 
 当用在 [init_worker_by_lua*](#init_worker_by_lua) 环境中，这个表与当前 Lua 句柄生命周期相同。
 
-The `ngx.ctx` lookup requires relatively expensive metamethod calls and it is much slower than explicitly passing per-request data along by your own function arguments. So do not abuse this API for saving your own function arguments because it usually has quite some performance impact.
-
 `ngx.ctx` 表查询需要相对昂贵的元方法调用，这比通过用户自己的函数参数直接传递基于请求的数据要慢得多。所以不要为了节约用户函数参数而滥用此 API，因为它可能对性能有明显影响。
-
-Because of the metamethod magic, never "local" the `ngx.ctx` table outside your Lua function scope on the Lua module level level due to [worker-level data sharing](#data-sharing-within-an-nginx-worker). For example, the following is bad:
 
 而且由于元方法“魔法”，不要在 lua 模块级别试图使用 "local" 级别的 `ngx.ctx` ，例如 [worker-level data sharing](#data-sharing-within-an-nginx-worker)。下面示例是糟糕的：
 

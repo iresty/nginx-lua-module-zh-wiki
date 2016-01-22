@@ -2284,15 +2284,17 @@ lua_need_request_body
 ssl_certificate_by_lua_block
 ----------------------------
 
-**syntax:** *ssl_certificate_by_lua_block { lua-script }*
+**语法:** *ssl_certificate_by_lua_block { lua-script }*
 
-**context:** *server*
+**环境:** *server*
 
-**phase:** *right-before-SSL-handshake*
+**阶段:** *right-before-SSL-handshake*
 
+当 Nginx 开始对下游进行 SSL（https） 握手连接时，该指令执行用户 Lua 代码。
 This directive runs user Lua code when NGINX is about to start the SSL handshake for the downstream
 SSL (https) connections.
 
+特别是基于每个请求，设置 SSL 证书链并响应相符的私有密钥，这种情况特别有用。通过非阻塞 IO 操作，从远程（例如，使用 [cosocket](#ngxsockettcp) API）加载这类握手配置也是很有用的。
 It is particularly useful for setting the SSL certificate chain and the corresponding private key on a per-request
 basis. It is also useful to load such handshake configurations nonblockingly from the remote (for example,
 with the [cosocket](#ngxsockettcp) API). And one can also do per-request OCSP stapling handling in pure
@@ -2357,15 +2359,19 @@ while starting NGINX:
     nginx: [emerg] no ssl configured for the server
 
 
+该指令需要能工作的 Nginx 补丁版本地址：
 This directive currently requires the following NGINX core patch to work correctly:
 
 <http://mailman.nginx.org/pipermail/nginx-devel/2016-January/007748.html>
 
+对于 OpenResty 1.9.7.2 （或更高）绑定的 Nginx 版本，已经默认打上了补丁。
 The bundled version of the NGINX core in OpenResty 1.9.7.2 (or above) already has this
 patch applied.
 
+此外，该指令需要至少 OpenSSL `1.0.2e` 版本才能工作。
 Furthermore, one needs at least OpenSSL 1.0.2e for this directive to work.
 
+该指令是在 `v0.10.0` 版本首次引入。
 This directive was first introduced in the `v0.10.0` release.
 
 [返回目录](#directives)
@@ -2373,17 +2379,18 @@ This directive was first introduced in the `v0.10.0` release.
 ssl_certificate_by_lua_file
 ---------------------------
 
-**syntax:** *ssl_certificate_by_lua_file &lt;path-to-lua-script-file&gt;*
+**语法:** *ssl_certificate_by_lua_file &lt;path-to-lua-script-file&gt;*
 
-**context:** *server*
+**环境:** *server*
 
-**phase:** *right-before-SSL-handshake*
+**阶段:** *right-before-SSL-handshake*
 
-Equivalent to [ssl_certificate_by_lua_block](#ssl_certificate_by_lua_block), except that the file specified by `<path-to-lua-script-file>` contains the Lua code, or, as from the `v0.5.0rc32` release, the [Lua/LuaJIT bytecode](#lualuajit-bytecode-support) to be executed.
 
-When a relative path like `foo/bar.lua` is given, they will be turned into the absolute path relative to the `server prefix` path determined by the `-p PATH` command-line option while starting the Nginx server.
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[ssl_certificate_by_lua_block](#ssl_certificate_by_lua_block)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT bytecode](#lualuajit-bytecode-support)的执行。
 
-This directive was first introduced in the `v0.10.0` release.
+当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
+
+该指令是在 `v0.10.0` 版本首次引入。
 
 [返回目录](#directives)
 

@@ -1320,7 +1320,7 @@ init_worker_by_lua
 
 **阶段:** *starting-worker*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [init_worker_by_lua_block](#init_worker_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [init_worker_by_lua_block](#init_worker_by_lua_block) 指令进行替代。
 
 开启master进程模式，Nginx工作进程启动时执行指定的Lua代码。关闭master模式，将在[init_by_lua*](#init_by_lua)后直接运行。
 
@@ -1406,7 +1406,7 @@ set_by_lua
 
 **阶段:** *rewrite*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [set_by_lua_block](#set_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [set_by_lua_block](#set_by_lua_block) 指令进行替代。
 
 使用可选的输入参数`$arg1 $arg2 ...`，执行指定的代码`<lua-script-str>`，并返回字符串结果到`$res`。
 
@@ -1516,7 +1516,7 @@ content_by_lua
 
 **阶段：** *content*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [content_by_lua_block](#content_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [content_by_lua_block](#content_by_lua_block) 指令进行替代。
 
 作为"内容处理程序"，为每一个请求执行`<lua-script-str>`中指定的Lua代码。
 
@@ -1592,7 +1592,7 @@ rewrite_by_lua
 
 **阶段:** *rewrite tail*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [rewrite_by_lua_block](#rewrite_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [rewrite_by_lua_block](#rewrite_by_lua_block) 指令进行替代。
 
 作为一个重写阶段的处理程序，为每个请求执行由`<lua-script-str>`指定的 Lua 代码。
 
@@ -1767,7 +1767,7 @@ access_by_lua
 
 **阶段:** *access tail*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [access_by_lua_block](#access_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [access_by_lua_block](#access_by_lua_block) 指令进行替代。
 
 扮演 access 阶段处理，对每次请求执行在`<lua-script-str>`中指名的 Lua 代码。
 
@@ -1888,7 +1888,7 @@ header_filter_by_lua
 
 **阶段：** *output-header-filter*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [header_filter_by_lua_block](#header_filter_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [header_filter_by_lua_block](#header_filter_by_lua_block) 指令进行替代。
 
 用`<lua-script-str>`中指名的lua代码，来完成应答消息头部的过滤。
 
@@ -1967,7 +1967,7 @@ body_filter_by_lua
 
 **阶段:** *output-body-filter*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [body_filter_by_lua_block](#body_filter_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [body_filter_by_lua_block](#body_filter_by_lua_block) 指令进行替代。
 
 使用`<lua-script-str>`指定的 Lua 代码定义一个输出应答体过滤器。
 
@@ -2098,7 +2098,7 @@ log_by_lua
 
 **阶段:** *log*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [log_by_lua_block](#log_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [log_by_lua_block](#log_by_lua_block) 指令进行替代。
 
 在 `log` 请求处理阶段执行内嵌在`<lua-script-str>`的 Lua 代码。它不替代当前access的日志，而是在其后执行。
 

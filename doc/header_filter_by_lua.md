@@ -8,7 +8,7 @@ header_filter_by_lua
 
 **阶段：** *output-header-filter*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [header_filter_by_lua_block](#header_filter_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [header_filter_by_lua_block](#header_filter_by_lua_block) 指令进行替代。
 
 用`<lua-script-str>`中指名的lua代码，来完成应答消息头部的过滤。
 

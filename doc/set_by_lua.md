@@ -7,7 +7,7 @@ set_by_lua
 
 **阶段:** *rewrite*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [set_by_lua_block](#set_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [set_by_lua_block](#set_by_lua_block) 指令进行替代。
 
 使用可选的输入参数`$arg1 $arg2 ...`，执行指定的代码`<lua-script-str>`，并返回字符串结果到`$res`。
 

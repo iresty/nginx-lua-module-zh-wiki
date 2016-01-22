@@ -7,7 +7,7 @@ log_by_lua
 
 **阶段:** *log*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [log_by_lua_block](#log_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [log_by_lua_block](#log_by_lua_block) 指令进行替代。
 
 在 `log` 请求处理阶段执行内嵌在`<lua-script-str>`的 Lua 代码。它不替代当前access的日志，而是在其后执行。
 

@@ -6,7 +6,7 @@ content_by_lua
 
 **阶段：** *content*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [content_by_lua_block](#content_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [content_by_lua_block](#content_by_lua_block) 指令进行替代。
 
 作为"内容处理程序"，为每一个请求执行`<lua-script-str>`中指定的Lua代码。
 

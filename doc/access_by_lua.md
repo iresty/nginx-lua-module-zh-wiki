@@ -7,7 +7,7 @@ access_by_lua
 
 **阶段:** *access tail*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [access_by_lua_block](#access_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [access_by_lua_block](#access_by_lua_block) 指令进行替代。
 
 扮演 access 阶段处理，对每次请求执行在`<lua-script-str>`中指名的 Lua 代码。
 

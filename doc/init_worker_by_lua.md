@@ -7,7 +7,7 @@ init_worker_by_lua
 
 **阶段:** *starting-worker*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [init_worker_by_lua_block](#init_worker_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [init_worker_by_lua_block](#init_worker_by_lua_block) 指令进行替代。
 
 开启master进程模式，Nginx工作进程启动时执行指定的Lua代码。关闭master模式，将在[init_by_lua*](#init_by_lua)后直接运行。
 

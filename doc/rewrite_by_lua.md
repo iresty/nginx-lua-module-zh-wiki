@@ -7,7 +7,7 @@ rewrite_by_lua
 
 **阶段:** *rewrite tail*
 
-**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不爽* 的，应使用新的 [rewrite_by_lua_block](#rewrite_by_lua_block) 指令进行替代。
+**注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [rewrite_by_lua_block](#rewrite_by_lua_block) 指令进行替代。
 
 作为一个重写阶段的处理程序，为每个请求执行由`<lua-script-str>`指定的 Lua 代码。
 

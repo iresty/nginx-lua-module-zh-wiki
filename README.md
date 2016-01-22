@@ -56,7 +56,7 @@ Status
 Version
 =======
 
-该文档描述的 ngx_lua [v0.9.20](https://github.com/openresty/lua-nginx-module/tags) 是2015年12月19号发布。
+该文档描述的 ngx_lua [v0.10.0](https://github.com/openresty/lua-nginx-module/tags) 是2016年1月11号发布。
 
 Synopsis
 ========

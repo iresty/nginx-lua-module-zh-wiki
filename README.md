@@ -662,7 +662,7 @@ Lua Variable Scope
 require('xxx')
 ```
 
-理由如下：从设计上讲，全局环境的生命周期和一个Nginx的请求的生命周期是相同的。为了做到会话隔离，每个请求都有自己的Lua全局变量环境。Lua模块在第一次请求打到服务器上的时候被加载起来，通过`package.loaded`表内建的`require()`完成缓存，为后续代码复用。并且一些Lua模块内的`module()`存在边际问题，对加载完成的模块设置成全局表变量，但是这个全局变量在请求处理最后将被清空，并且每个后续请求都拥有自己（干净）的全局空间。所以它将因为访问`nil`值收到Lua异常。
+理由如下：从设计上讲，全局环境的生命周期和一个Nginx的请求的生命周期是相同的。为了做到请求隔离，每个请求都有自己的Lua全局变量环境。Lua模块在第一次请求打到服务器上的时候被加载起来，通过`package.loaded`表内建的`require()`完成缓存，为后续代码复用。并且一些Lua模块内的`module()`存在边际问题，对加载完成的模块设置成全局表变量，但是这个全局变量在请求处理最后将被清空，并且每个后续请求都拥有自己（干净）的全局空间。所以它将因为访问`nil`值收到Lua异常。
 
 一般来说，在ngx_lua的上下文中使用Lua全局变量真的不是什么好主意：  
 
@@ -2324,7 +2324,7 @@ rejecting old SSL clients using the SSLv3 protocol or even below selectively.
 
 更多信息，可以参考 [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md)的更多复杂例子 和 [ngx.ocsp](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ocsp.md) Lua 模块的官方文档。
 
-在用户 Lua 代码中未捕获的 Lua 异常将立即终止当前 SSL 会话，就如同使用 `ngx.ERROR` 错误码调用 [ngx.exit](#ngxexit) 。
+在用户 Lua 代码中未捕获的 Lua 异常将立即终止当前 SSL 请求，就如同使用 `ngx.ERROR` 错误码调用 [ngx.exit](#ngxexit) 。
 
 该环境下的 Lua 代码执行 *支持* yielding，所以可能 yield 的 Lua API 在这个环境中是启用的（例如 cosockets，sleeping，和 “轻线程”）。
 
@@ -2690,7 +2690,7 @@ lua_check_client_abort
 
 该指令控制是否探测客户端连接的过早终止。
 
-当启用该指令，ngx_lua模块将会在下游连接上监控连接过早关闭事件。当有这样的事件时，它将调用用户指定 Lua 的回调函数（通过 [ngx.on_abort](#ngxon_abort) 注册），当这里没有用户回调函数注册时，将停止当前会话并清理所有当前请求中运行的 Lua "轻线程" 。
+当启用该指令，ngx_lua模块将会在下游连接上监控连接过早关闭事件。当有这样的事件时，它将调用用户指定 Lua 的回调函数（通过 [ngx.on_abort](#ngxon_abort) 注册），当这里没有用户回调函数注册时，将停止当前请求并清理所有当前请求中运行的 Lua "轻线程" 。
 
 根据目前实现，无论如何，如果请求正在通过 [ngx.req.socket](#ngxreqsocket) 读取请求体，在它之前客户连接发生关闭，ngx_lua 将不会停止任何正在执行的“轻线程”也不会调用用户的回调（尽管已经调用 [ngx.on_abort](#ngxon_abort) ）。作为替代，使用 [ngx.req.socket](#ngxreqsocket) 的读操作第二个参数将直接返回错误信息 “client aborted” 作为返回值（第一个返回值确定是`nil`）。
 
@@ -6662,7 +6662,7 @@ tcpsock:setkeepalive
 
 成功情况，该方法返回 `1`；否则，将返回 `nil` 和错误描述字符信息。
 
-对于当前连接，当系统接收缓冲区有未读取完的数据，这时该方法将返回 "connection in dubious state" 的错误信息（作为第二个返回值），因为前一个会话留下了一些未读取数据给下一个会话，这种连接被重用是不安全的。
+对于当前连接，当系统接收缓冲区有未读取完的数据，这时该方法将返回 "connection in dubious state" 的错误信息（作为第二个返回值），因为前一个请求留下了一些未读取数据给下一个请求，这种连接被重用是不安全的。
 
 该方法也可以让当前 cosocket 对象进入 `closed` 状态，所以这里不再需要事后手工调用 [close](#tcpsockclose) 方法。
 

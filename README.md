@@ -710,7 +710,7 @@ Locations Configured by Subrequest Directives of Other Modules
  $ curl -i http://example.com/foo
 ```
 
-将不会如预期一样的工作。
+将不会按照预期工作。
 
 [返回目录](#nginx-api-for-lua)
 

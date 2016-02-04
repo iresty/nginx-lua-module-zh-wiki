@@ -259,7 +259,7 @@ Nginx Compatibility
 Installation
 ============
 
-强烈推荐使用[ngx_openresty](http://openresty.org)，它包含了 NGINX, ngx_lua, LuaJIT 2.0/2.1 (或者可选的标准 Lua 5.1解释器)，
+强烈推荐使用[OpenResty](http://openresty.org)，它包含了 NGINX, ngx_lua, LuaJIT 2.0/2.1 (或者可选的标准 Lua 5.1解释器)，
 还包含很多强劲、好用的 NGINX 模块。
 使用一个简单的命令就可以完成基础安装：`./configure --with-luajit && make && make install`。
 
@@ -616,7 +616,7 @@ Data Sharing within an Nginx Worker
  1. 使用本模块提供的[ngx.shared.DICT](#ngxshareddict) API
  2. 使用单服务器单nginx worker进程(当使用多CPU或者多核CPU的服务器时不推荐)
  3. 使用类似 `memcached`, `redis`, `MySQL` 或 `PostgreSQL` 等数据共享机制。
- 与本模块相关的[ngx_openresty软件包](http://openresty.org)包含了一系列相关的 NGINX 模块以及 Lua 库，
+ 与本模块相关的[OpenResty软件包](http://openresty.org)包含了一系列相关的 NGINX 模块以及 Lua 库，
  提供与这些数据存储机制的交互界面。
 
 [返回目录](#table-of-contents)
@@ -883,7 +883,6 @@ TODO
 * cosocket：基于池子的后端并发连接控制，当后端并发超过它的连接池限制，实现自动排队的`connect`。
 * cosocket：查看合并aviramc's的[patch](https://github.com/openresty/lua-nginx-module/pull/290)，添加`bsdrecv`方法。
 * 添加新的API函数完成标准`add_header`配置功能。
-* [ngx.re](#ngxrematch) API: 当没有成功匹配结果时，返回结果使用`false`替换`nil`，这样我们可以避免数组的"holes"问题。
 * 查看、合并 Jader H. Silva 的 补丁 `ngx.re.split()` 。
 * 查看、合并 Jader H. Silva 的 补丁 `ngx.re.split()`.
 * 查看、合并 vadim-pavlov 的 补丁，给[ngx.location.capture](#ngxlocationcapture)添加 `extra_headers` 选项
@@ -900,7 +899,7 @@ TODO
 Changes
 =======
 
-该模块每个发行版本的变更，都记录在ngx_openresty绑定的变更日志中：
+该模块每个发行版本的变更，都记录在OpenResty绑定的变更日志中：
 
 <http://openresty.org/#Changes>
 
@@ -1004,7 +1003,7 @@ See Also
 * [drizzle-nginx-module](http://github.com/openresty/drizzle-nginx-module)
 * [postgres-nginx-module](https://github.com/FRiCKLE/ngx_postgres)
 * [memc-nginx-module](http://github.com/openresty/memc-nginx-module)
-* [ngx_openresty 捆绑包](http://openresty.org)
+* [OpenResty 捆绑包](http://openresty.org)
 * [Nginx Systemtap 工具箱](https://github.com/openresty/nginx-systemtap-toolkit)
 
 [返回目录](#table-of-contents)
@@ -2100,7 +2099,7 @@ log_by_lua
 
 **注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [log_by_lua_block](#log_by_lua_block) 指令进行替代。
 
-在 `log` 请求处理阶段执行内嵌在`<lua-script-str>`的 Lua 代码。它不替代当前access的日志，而是在其后执行。
+在 `log` 请求处理阶段执行内嵌在`<lua-script-str>`的 Lua 代码。它不替代当前access的日志，而是在其前面执行。
 
 注意，当前环境中以下 API 函数当前是被禁用的：
 
@@ -2852,6 +2851,7 @@ Nginx API for Lua
 * [udpsock:receive](#udpsockreceive)
 * [udpsock:close](#udpsockclose)
 * [udpsock:settimeout](#udpsocksettimeout)
+* [ngx.socket.stream](#ngxsocketstream)
 * [ngx.socket.tcp](#ngxsockettcp)
 * [tcpsock:connect](#tcpsockconnect)
 * [tcpsock:sslhandshake](#tcpsocksslhandshake)
@@ -3028,7 +3028,7 @@ Nginx 正则表达式捕获组变量 `$1`、`$2`、`$3` 等，也可以通过这
 
 Core constants
 --------------
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, &#42;log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, &#42;log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 ```lua
     ngx.OK (0)
@@ -3054,7 +3054,7 @@ Core constants
 
 HTTP method constants
 ---------------------
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
       ngx.HTTP_GET
       ngx.HTTP_HEAD
@@ -3079,7 +3079,7 @@ HTTP method constants
 
 HTTP status constants
 ---------------------
-**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;*
+**context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 ```nginx
 
@@ -3123,7 +3123,7 @@ HTTP status constants
 
 Nginx log level constants
 -------------------------
-**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 ```lua
 
@@ -4437,7 +4437,7 @@ ngx.req.get_body_data
 ---------------------
 **语法:** *data = ngx.req.get_body_data()*
 
-**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, log_by_lua&#42;*
 
 取回内存中的请求体数据。本函数返回 Lua 字符串而不是包含解析过参数的 Lua table。如果想要返回 Lua table，请使用 [ngx.req.get_post_args](#ngxreqget_post_args) 函数。
 
@@ -4785,7 +4785,7 @@ ngx.headers_sent
 ----------------
 **语法:** *value = ngx.headers_sent*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 如果应答头部已经被发送（通过 ngx_lua）返回 `true` ，否则返回 `false` 。
 
@@ -4987,7 +4987,7 @@ ngx.escape_uri
 --------------
 **语法:** *newstr = ngx.escape_uri(str)*
 
-**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 对 `str` 进行 URI 编码。
 
@@ -4997,7 +4997,7 @@ ngx.unescape_uri
 ----------------
 **语法:** *newstr = ngx.unescape_uri(str)*
 
-**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 将转义过的 URI 内容 `str` 解码。
 
@@ -5020,7 +5020,7 @@ ngx.encode_args
 ---------------
 **语法:** *str = ngx.encode_args(table)*
 
-**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 根据 URI 编码规则，将 Lua 表编码成一个查询参数字符串。
 
@@ -5077,7 +5077,7 @@ ngx.decode_args
 ---------------
 **语法:** *table = ngx.decode_args(str, max_args?)*
 
-**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 将 URI 编码的查询字符串解码为 Lua 表。本函数是 [ngx.encode_args](#ngxencode_args) 的逆函数。
 
@@ -5100,11 +5100,11 @@ ngx.encode_base64
 -----------------
 **语法:** *newstr = ngx.encode_base64(str, no_padding?)*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 通过 `base64` 对 `str` 字符串编码。
 
-自 `0.9.16` 版本后，引入了一个布尔值参数 `no_padding` 用来控制是否需要编码数据填充 `等号` 字符串（默认为 `false`，代表需要填充）。 它表明调用者可以在 `base64` 流数据结尾添加填充数据。
+自 `0.9.16` 版本后，引入了一个布尔值参数 `no_padding` 用来控制是否需要编码数据填充 `等号` 字符串（默认为 `false`，代表需要填充）。 
 
 [返回目录](#nginx-api-for-lua)
 
@@ -5112,7 +5112,7 @@ ngx.decode_base64
 -----------------
 **语法:** *newstr = ngx.decode_base64(str)*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 通过 `base64` 解码 `str` 字符串得到未编码过的字符串。如果 `str` 字符串没有被正常解码将会返回 `nil`。
 
@@ -5122,7 +5122,7 @@ ngx.crc32_short
 ---------------
 **语法:** *intval = ngx.crc32_short(str)*
 
-**环境:** set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 通过一个字符串计算循环冗余校验码。
 
@@ -5138,7 +5138,7 @@ ngx.crc32_long
 --------------
 **语法:** *intval = ngx.crc32_long(str)*
 
-**环境:** set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 通过一个字符串计算循环冗余校验码。
 
@@ -5154,7 +5154,7 @@ ngx.hmac_sha1
 -------------
 **语法:** *digest = ngx.hmac_sha1(secret_key, str)*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 通过 `str` 待运算数据和 `secret_key` 密钥串生成结果。关于[HMAC-SHA1](http://en.wikipedia.org/wiki/HMAC)。
 
@@ -5187,7 +5187,7 @@ ngx.md5
 -------
 **语法:** *digest = ngx.md5(str)*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 通过 `MD5` 计算 `str` 字符串返回十六进制的数据。
 
@@ -5212,7 +5212,7 @@ ngx.md5_bin
 -----------
 **语法:** *digest = ngx.md5_bin(str)*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 通过 `MD5` 计算 `str` 字符串返回二进制的数据。
 
@@ -5224,7 +5224,7 @@ ngx.sha1_bin
 ------------
 **语法:** *digest = ngx.sha1_bin(str)*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 通过 `SHA-1` 计算 `str` 字符串返回二进制的数据。
 
@@ -5238,7 +5238,7 @@ ngx.quote_sql_str
 -----------------
 **语法:** *quoted_value = ngx.quote_sql_str(raw_value)*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 根据 `MySQL` 转义规则返回一个转义后字符串。
 
@@ -5248,7 +5248,7 @@ ngx.today
 ---------
 **语法:** *str = ngx.today()*
 
-**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 从nginx的时间缓存(不像Lua的日期库，该时间不涉及系统调用)返回当前的日期(格式：`yyyy-mm-dd`)。
 
@@ -5260,7 +5260,7 @@ ngx.time
 --------
 **语法:** *secs = ngx.time()*
 
-**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 返回从新纪元到从nginx时间缓存(不像Lua的日期库，该时间不涉及系统调用))获取的当前时间戳所经过的秒数。
 
@@ -5272,7 +5272,7 @@ ngx.now
 -------
 **语法:** *secs = ngx.now()*
 
-**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 返回一个浮点型的数字，该数字是从新纪元到从nginx时间缓存(不像Lua的日期库，该时间不涉及系统调用)获取的当前时间戳所经过的时间(以秒为单位，小数部分是毫秒)。
 
@@ -5286,7 +5286,7 @@ ngx.update_time
 ---------------
 **语法:** *ngx.update_time()*
 
-**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 强行更新Nginx当前时间缓存。此调用会涉及到一个系统调用，因此会有一些系统开销，所以不要滥用。
 
@@ -5298,7 +5298,7 @@ ngx.localtime
 -------------
 **语法:** *str = ngx.localtime()*
 
-**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 返回nginx时间缓存(不像Lua的[os.date](http://www.lua.org/manual/5.1/manual.html#pdf-os.date)函数，该时间不涉及系统调用)的当前时间戳(格式：`yyyy-mm-dd hh:mm:ss`)。
 
@@ -5310,7 +5310,7 @@ ngx.utctime
 -----------
 **语法:** *str = ngx.utctime()*
 
-**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 返回nginx时间缓存(不像Lua的[os.date](http://www.lua.org/manual/5.1/manual.html#pdf-os.date)函数，该时间不涉及系统调用)的当前时间戳(格式：`yyyy-mm-dd hh:mm:ss`)。
 
@@ -5322,7 +5322,7 @@ ngx.cookie_time
 ---------------
 **语法:** *str = ngx.cookie_time(sec)*
 
-**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 返回一个可以用做 cookie 过期时间的格式化字符串。参数 `sec` 是以秒为单位的时间戳（比如 [ngx.time](#ngxtime) 的返回）。
 
@@ -5338,7 +5338,7 @@ ngx.http_time
 -------------
 **语法:** *str = ngx.http_time(sec)*
 
-**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 返回一个可以用在 http 头部时间的格式化字符串（例如，在 `Last-Modified` 头的使用）。参数 `sec` 是以秒为单位的时间戳（比如 [ngx.time](#ngxtime) 的返回）。
 
@@ -5354,7 +5354,7 @@ ngx.parse_http_time
 -------------------
 **语法:** *sec = ngx.parse_http_time(str)*
 
-**内容:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**内容:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 解析 http 时间字符串（比如从 [ngx.http_time](#ngxhttp_time) 返回内容）。成功情况下返回秒数，错误的输入字符格式返回 `nil` 。
 
@@ -5372,7 +5372,7 @@ ngx.is_subrequest
 -----------------
 **语法:** *value = ngx.is_subrequest*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;*
 
 如果当前请求是 nginx 子请求返回 `true` ，否则返回 `false` 。
 
@@ -5425,16 +5425,16 @@ ngx.re.match
  -- m["remaining"] == "234"
 ```
 
-在 `captures` 表中，不匹配的子模板将返回 `nil` 值。
+在 `captures` 表中，不匹配的子模板将返回 `false` 值。
 
 ```lua
 
  local m, err = ngx.re.match("hello, world", "(world)|(hello)|(?<named>howdy)")
  -- m[0] == "hello"
- -- m[1] == nil
+ -- m[1] == false
  -- m[2] == "hello"
- -- m[3] == nil
- -- m["named"] == nil
+ -- m[3] == false
+ -- m["named"] == false
 ```
 
 通过指定 `options` (选项)来控制匹配操作的执行方式。支持以下选项字符。
@@ -5519,7 +5519,7 @@ ngx.re.match
 
 这个方法需要在 Nginx 中启用 PCRE 库。 ([Known Issue With Special Escaping Sequences](#special-escaping-sequences)).
 
-要想确认 PCRE JIT 是否已经启用，需要在 Nginx 或 ngx_openresty 的 `./configure` 配置脚本中，添加 `--with-debug` 选项激活 Nginx 的调试日志。然后，在 `error_log` 指令中启用 `error` 错误日志级别。当 PCRE JIT 启用时，将出现下述信息：
+要想确认 PCRE JIT 是否已经启用，需要在 Nginx 或 OpenResty 的 `./configure` 配置脚本中，添加 `--with-debug` 选项激活 Nginx 的调试日志。然后，在 `error_log` 指令中启用 `error` 错误日志级别。当 PCRE JIT 启用时，将出现下述信息：
 
 
     pcre JIT compiling result: 1
@@ -5535,7 +5535,7 @@ ngx.re.find
 -----------
 **语法:** *from, to, err = ngx.re.find(subject, regex, options?, ctx?, nth?)*
 
-**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 与 [ngx.re.match](#ngxrematch) 类似但只返回匹配结果子字符串的开始索引 (`from`) 和结束索引 (`to`)。返回的索引值是基于 1 的，可以直接被用于 Lua 的 [string.sub](http://www.lua.org/manual/5.1/manual.html#pdf-string.sub) API 函数来获取匹配结果子串。
 
@@ -5590,7 +5590,7 @@ ngx.re.gmatch
 -------------
 **语法:** *iterator, err = ngx.re.gmatch(subject, regex, options?)*
 
-**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 与 [ngx.re.match](#ngxrematch) 行为类似，不同的是本函数返回一个 Lua 迭代器，使用户程序可以自行迭代 PCRE 正则表达式 `regex` 匹配字符串参数 `<subject>` 产生的所有结果。
 
@@ -5668,7 +5668,7 @@ ngx.re.sub
 ----------
 **语法:** *newstr, n, err = ngx.re.sub(subject, regex, replace, options?)*
 
-**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 使用 Perl 兼容正则表达式 `regex` 匹配字符串 `subject`，将第一个结果替换为字符串或函数类型参数 `replace`。可选参数 `options` 含义与 [ngx.re.match](#ngxrematch) 相同。
 
@@ -5734,7 +5734,7 @@ ngx.re.gsub
 -----------
 **语法:** *newstr, n, err = ngx.re.gsub(subject, regex, replace, options?)*
 
-**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 就象 [ngx.re.sub](#ngxresub), 但执行全局替换。
 
@@ -5774,7 +5774,7 @@ ngx.shared.DICT
 
 **语法:** *dict = ngx.shared\[name_var\]*
 
-**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 获取基于共享内存名为 `DICT` 的 Lua 字典对象，它是一个共享内存区块，通过 [lua_shared_dict](#lua_shared_dict) 指令定义。
 
@@ -5847,7 +5847,7 @@ ngx.shared.DICT.get
 -------------------
 **语法:** *value, flags = ngx.shared.DICT:get(key)*
 
-**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 从 [ngx.shared.DICT](#ngxshareddict) 字典中获取名为 `key` 的键 (key) 值。如果此 key 不存在或已过期，返回 `nil`。
 
@@ -5885,7 +5885,7 @@ ngx.shared.DICT.get_stale
 -------------------------
 **语法:** *value, flags, stale = ngx.shared.DICT:get_stale(key)*
 
-**环境** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 与 [get](#ngxshareddictget) 方法类似，但即使 key 已经过期依然返回值。
 
@@ -5903,7 +5903,7 @@ ngx.shared.DICT.set
 -------------------
 **语法:** *success, err, forcible = ngx.shared.DICT:set(key, value, exptime?, flags?)*
 
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 无条件在基于共享内存的字典 [ngx.shared.DICT](#ngxshareddict) 中设置一个 key-value (键-值)对。返回三个值：
 
@@ -5951,7 +5951,7 @@ ngx.shared.DICT.safe_set
 ------------------------
 **语法:** *ok, err = ngx.shared.DICT:safe_set(key, value, exptime?, flags?)*
 
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 类似 [set](#ngxshareddictset) 方法，但当共享内存区块存储空间不足时，不覆盖 (最近最少使用的) 有效的项 (非过期项)。此时，它将返回 `nil` 和字符串 "no memory" (内存不足)。
 
@@ -5965,7 +5965,7 @@ ngx.shared.DICT.add
 -------------------
 **语法:** *success, err, forcible = ngx.shared.DICT:add(key, value, exptime?, flags?)*
 
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 类似 [set](#ngxshareddictset) 方法，但仅当存储字典 [ngx.shared.DICT](#ngxshareddict) 中 *不存在* 该 key 时执行存储 key-value 对。
 
@@ -5981,7 +5981,7 @@ ngx.shared.DICT.safe_add
 ------------------------
 **语法:** *ok, err = ngx.shared.DICT:safe_add(key, value, exptime?, flags?)*
 
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 类似 [add](#ngxshareddictadd) 方法，但当共享内存区块存储空间不足时，不覆盖 (最近最少使用的) 有效的项 (非过期项)。此时，它将返回 `nil` 和字符串 "no memory" (内存不足)。
 
@@ -5995,7 +5995,7 @@ ngx.shared.DICT.replace
 -----------------------
 **语法:** *success, err, forcible = ngx.shared.DICT:replace(key, value, exptime?, flags?)*
 
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 与 [set](#ngxshareddictset) 方法类似，但仅当存储字典 [ngx.shared.DICT](#ngxshareddict) 中 *存在* 该 key 时执行存储 key-value 对。
 
@@ -6011,7 +6011,7 @@ ngx.shared.DICT.delete
 ----------------------
 **语法:** *ngx.shared.DICT:delete(key)*
 
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 从基于同享内存的字典 [ngx.shared.DICT](#ngxshareddict) 中无条件移除 key-value 对。
 
@@ -6027,7 +6027,7 @@ ngx.shared.DICT.incr
 --------------------
 **语法:** *newval, err = ngx.shared.DICT:incr(key, value)*
 
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 在基于共享内存的字典 [ngx.shared.DICT](#ngxshareddict) 中递增 `key` 的 (数字) 值，步长为 `value`。当操作成功时返回结果数字，否则返回 `nil` 和错误信息字符串。
 
@@ -6047,7 +6047,7 @@ ngx.shared.DICT.flush_all
 -------------------------
 **语法:** *ngx.shared.DICT:flush_all()*
 
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 清空字典中的所有内容。这个方法并不实际释放字典占用的内存块，而是标记所有存在的内容为已过期。
 
@@ -6061,7 +6061,7 @@ ngx.shared.DICT.flush_expired
 -----------------------------
 **语法:** *flushed = ngx.shared.DICT:flush_expired(max_count?)*
 
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 清除字典中已过期的的内容，最多清除可选参数 `max_count` (最大数量) 个。当参数 `max_count` 值为 `0` 或者未指定时，意为无数量限制。返回值为实际清除的数量。
 
@@ -6077,7 +6077,7 @@ ngx.shared.DICT.get_keys
 ------------------------
 **语法:** *keys = ngx.shared.DICT:get_keys(max_count?)*
 
-**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;*
+**环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 获取字典中存储的 key 列表，最多 `<max_count>` 个。
 
@@ -6250,9 +6250,19 @@ udpsock:settimeout
 
 通过该方法设置内容相比这些配置指令有更高的优先级，例如：[lua_socket_read_timeout](#lua_socket_read_timeout)。
 
-该特性在 `v0.5.7` 版本首次引入。
+该 API 在 `v0.5.7` 版本首次引入。
 
 [返回目录](#nginx-api-for-lua)
+
+ngx.socket.stream
+-----------------
+
+只是 [ngx.socket.tcp](#ngxsockettcp) 的一个别名。如果是 stream 类型的 cosocket 并有可能连接到 unix domain
+socket ，这时候该 API 名称更贴切。
+
+该 API 在 `v0.10.1` 版本首次引入。
+
+[返回目录(#nginx-api-for-lua)
 
 ngx.socket.tcp
 --------------
@@ -6714,7 +6724,7 @@ ngx.get_phase
 -------------
 **语法:** *str = ngx.get_phase()*
 
-**环境:** *init_by_lua*, init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 检索当前正在执行的阶段名称。返回值可能有：
 Retrieves the current running phase name. Possible return values are
@@ -7042,7 +7052,7 @@ ngx.timer.at
 ------------
 **语法:** *ok, err = ngx.timer.at(delay, callback, user_arg1, user_arg2, ...)*
 
-**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 使用一个可选参数的用户回调函数，创建一个 Nginx 定时器。
 
@@ -7122,7 +7132,7 @@ ngx.timer.running_count
 -----------------------
 **语法:** *count = ngx.timer.running_count()*
 
-**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 返回当前运行的 `timers` 总数。
 
@@ -7134,7 +7144,7 @@ ngx.timer.pending_count
 -----------------------
 **语法:** *count = ngx.timer.pending_count()*
 
-**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 返回待定运行的 `timers` 数量。
 
@@ -7146,7 +7156,7 @@ ngx.config.debug
 ----------------
 **语法:** *debug = ngx.config.debug*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua*, init_worker_by_lua**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
 
 这个布尔值代表当前 Nginx 是否为调试版本，既，在编译时使用`./configure`的可选项`--with-debug`。
 
@@ -7158,7 +7168,7 @@ ngx.config.prefix
 -----------------
 **语法:** *prefix = ngx.config.prefix()*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua*, init_worker_by_lua**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
 
 返回 Nginx 服务的 "prefix" 路径，它可能是由 Nginx 启动时通过可选 `-p` 命令行确定的，也可能是由编译 Nginx 的 `./configure` 脚本中可选的 `--prefix` 命令行参数确定的。
 
@@ -7171,7 +7181,7 @@ ngx.config.nginx_version
 
 **语法:** *ver = ngx.config.nginx_version*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua*, init_worker_by_lua**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
 
 这个字段是当前正在使用的 Nginx 内核版本数字标识。例如，版本 `1.4.3` 用 Lua 数字表示就是 1004003 。
 
@@ -7184,7 +7194,7 @@ ngx.config.nginx_configure
 
 **语法:** *str = ngx.config.nginx_configure()*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;*
 
 该 API 返回编译 Nginx 时的 `./configure` 命令参数字符串。
 
@@ -7197,13 +7207,11 @@ ngx.config.ngx_lua_version
 
 **语法:** *ver = ngx.config.ngx_lua_version*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;*
 
 这个字段是当前正在使用的 `ngx_lua` 模块版本数字标识。例如，版本 `0.9.3` 用 Lua 数字表示就是 9003 。
 
 该 API 在 `0.9.3` 版本首次引入。
-
-[返回目录](#nginx-api-for-lua)
 
 [返回目录](#nginx-api-for-lua)
 
@@ -7212,7 +7220,7 @@ ngx.worker.exiting
 
 **语法:** *exiting = ngx.worker.exiting()*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua*, init_worker_by_lua**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
 
 该函数返回一个布尔值，表示目前 Nginx 的工作进程是否已经开始退出。Nginx的工作进程退出，发生在 Nginx 服务退出或配置重载（又名HUP重载）。
 
@@ -7225,7 +7233,7 @@ ngx.worker.pid
 
 **语法:** *pid = ngx.worker.pid()*
 
-**语法:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua*, init_worker_by_lua**
+**语法:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
 
 这个函数返回一个Lua数字，它是当前 Nginx 工作进程的进程 ID （PID）。这个 API 比 `ngx.var.pid` 更有效，[ngx.var.VARIABLE](#ngxvarvariable) API 不能使用的地方（例如 [init_worker_by_lua](#init_worker_by_lua)），该 API 是可以的。
 
@@ -7238,7 +7246,7 @@ ngx.worker.count
 
 **语法:** *count = ngx.worker.count()*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
 
 返回当前 Nginx 工作进程数的数量（既：在 `nginx.conf` 配置中，使用 [worker_processes](http://nginx.org/en/docs/ngx_core_module.html#worker_processes) 指令配置的值）。
 
@@ -7251,7 +7259,7 @@ ngx.worker.id
 
 **语法:** *count = ngx.worker.id()*
 
-**环境:** *set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.*, init_by_lua**
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;*
 
 返回当前 Nginx 工作进程的一个顺序数字（从 0 开始）。
 
@@ -7328,7 +7336,7 @@ ndk.set_var.DIRECTIVE
 ---------------------
 **语法:** *res = ndk.set_var.DIRECTIVE_NAME*
 
-**环境:** *init_worker_by_lua*, set_by_lua*, rewrite_by_lua*, access_by_lua*, content_by_lua*, header_filter_by_lua*, body_filter_by_lua*, log_by_lua*, ngx.timer.**
+**环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 该机制允许调用这类 nginx C 模块指令：使用 [Nginx Devel Kit](https://github.com/simpl/ngx_devel_kit) (NDK) 的 set_var 的子模块的`ndk_set_var_value` 实现。
 

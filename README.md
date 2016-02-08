@@ -1185,7 +1185,7 @@ lua_package_path
 
 **语法:** *lua_package_path &lt;lua-style-path-str&gt;*
 
-**默认:** *The content of LUA_PATH environ variable or Lua's compiled-in defaults.*
+**默认:** *当前内容 LUA_PATH 的环境变量或编译指定的默认值*
 
 **环境:** *http*
 
@@ -1717,8 +1717,7 @@ rewrite_by_lua
  }
 ```
 
-<!-- 这里的 Lua 代码 `ngx.exit(503)` 是永远不能执行的。 waiting todo completely -->
-Here the Lua code `ngx.exit(503)` will never run. This will be the case if `rewrite ^ /bar last` is used as this will similarly initiate an internal redirection. If the `break` modifier is used instead, there will be no internal redirection and the `rewrite_by_lua` code will be executed.
+如果 `rewrite ^ /bar last` 被用做一个类似内部重定向使用，它将被忽略，这里的 Lua 代码 `ngx.exit(503)` 是永远不能执行的。如果使用了 `break` 标识，这里将没有内部重定向，并且执行 `rewrite_by_lua` 中的 Lua 代码。
 
 `rewrite_by_lua`代码将永远在 `rewrite` 请求处理阶段后面，除非[rewrite_by_lua_no_postpone](#rewrite_by_lua_no_postpone)配置开启。
 
@@ -2307,11 +2306,9 @@ ssl_certificate_by_lua_block
 
 特别是基于每个请求，设置 SSL 证书链并响应相符的私有密钥，这种情况特别有用。通过非阻塞 IO 操作，从远程（例如，使用 [cosocket](#ngxsockettcp) API）加载 SSL 握手配置也是很有用的。并且在每请求中使用纯 Lua 完成 OCSP stapling 处理也是可以的。
 
-另一个典型应用场景是在当前环境中非阻塞的方式完成 SSL 握手信号控制，例如在 [lua-resty-limit-traffic#读我](https://github.com/openresty/lua-resty-limit-traffic) 库的辅助下。
+另一个典型应用场景是在当前环境中非阻塞的方式完成 SSL 握手信号控制，例如在 [lua-resty-limit-traffic](https://github.com/openresty/lua-resty-limit-traffic) 库的辅助下。
 
-One can also do interesting things with the SSL handshake requests from the client side, like
-rejecting old SSL clients using the SSLv3 protocol or even below selectively.
-<!-- todo 这段不太会啊 -->
+我们也可以从客户端的 SSL 握手请求做一些有趣的事情，例如使用 SSLv3 协议拒绝旧的 SSL 客户端，或下面的操作。
 
 [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md) 和 [ngx.ocsp](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ocsp.md) Lua 模块是由 [lua-resty-core](https://github.com/openresty/lua-resty-core/#readme) 库提供，并且在该环境中特别有用。你可以使用这两个模块提供的 Lua API，处理当前 SSL 连接初始化的 SSL 证书链和私有密钥。
 
@@ -4613,26 +4610,19 @@ ngx.req.socket
 **环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
 
 返回一个包含下游连接的只读 cosocket 对象。只有 [receive](#tcpsockreceive) 和 [receiveuntil](#tcpsockreceiveuntil) 方法在该对象上是支持的。
-Returns a read-only cosocket object that wraps the downstream connection. Only [receive](#tcpsockreceive) and [receiveuntil](#tcpsockreceiveuntil) methods are supported on this object.
 
 错误情况，将返回 `nil` 和错误字符描述信息。
-In case of error, `nil` will be returned as well as a string describing the error.
 
 通过该方法返回的 socket 对象，通常是用流式格式读取当前请求体。不要开启 [lua_need_request_body](#lua_need_request_body) 指令，并且不要混合调用 [ngx.req.read_body](#ngxreqread_body) 和 [ngx.req.discard_body](#ngxreqdiscard_body)。
-The socket object returned by this method is usually used to read the current request's body in a streaming fashion. Do not turn on the [lua_need_request_body](#lua_need_request_body) directive, and do not mix this call with [ngx.req.read_body](#ngxreqread_body) and [ngx.req.discard_body](#ngxreqdiscard_body).
 
 如果任何的请求体数据已经被预读到 Nginx 内核请求缓冲区，得到的 cosocket 对象需要小心对待，应避免由这种预读导致的潜在数据丢失。
-If any request body data has been pre-read into the Nginx core request header buffer, the resulting cosocket object will take care of this to avoid potential data loss resulting from such pre-reading.
-Chunked request bodies are not yet supported in this API.
 
 从 `v0.9.0` 版本开始，该函数接受一个可选的布尔值参数 `raw` 。当该参数为 `true` 时，该方法将返回一个包含原生下游连接的全双工 cosocket 对象，你能对它调用 [receive](#tcpsockreceive)， [receiveuntil](#tcpsockreceiveuntil) 和 [send](#tcpsocksend) 。
-Since the `v0.9.0` release, this function accepts an optional boolean `raw` argument. When this argument is `true`, this function returns a full-duplex cosocket object wrapping around the raw downstream connection socket, upon which you can call the [receive](#tcpsockreceive), [receiveuntil](#tcpsockreceiveuntil), and [send](#tcpsocksend) methods.
+
 
 当指定 `raw` 参数为 `true` ，这里需要没有任何来自 [ngx.say](#ngxsay)、[ngx.print](#ngxprint) 或 [ngx.send_headers](#ngxsend_headers) 方法调用的待处理数据。所以如果你有下游输出调用，你应当在调用 `ngx.req.socket(true)` 之前调用 [ngx.flush(true)](#ngxflush) 确保这里没有任何待处理数据。如果请求体还没有读取，那么这个“原生 socket”也能用来读取请求体。
-When the `raw` argument is `true`, it is required that no pending data from any previous [ngx.say](#ngxsay), [ngx.print](#ngxprint), or [ngx.send_headers](#ngxsend_headers) calls exists. So if you have these downstream output calls previously, you should call [ngx.flush(true)](#ngxflush) before calling `ngx.req.socket(true)` to ensure that there is no pending output data. If the request body has not been read yet, then this "raw socket" can also be used to read the request body.
 
 你可以使用通过 `ngx.req.socket(true)` 返回的“原生请求 socket”来实现各种样式协议如 [WebSocket](http://en.wikipedia.org/wiki/WebSocket) ，或仅发出自己的 HTTP 请求头或体数据。真实世界，你可以参考 [lua-resty-websocket](https://github.com/openresty/lua-resty-websocket) 库。
-You can use the "raw request socket" returned by `ngx.req.socket(true)` to implement fancy protocols like [WebSocket](http://en.wikipedia.org/wiki/WebSocket), or just emit your own raw HTTP response header or body data. You can refer to the [lua-resty-websocket library](https://github.com/openresty/lua-resty-websocket) for a real world example.
 
 该函数是在 `v0.5.0rc1` 版本首次引入的。
 
@@ -6406,46 +6396,18 @@ tcpsock:sslhandshake
 **内容:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
 对当前建立的连接上完成 SSL/TLS 握手。
-Does SSL/TLS handshake on the currently established connection.
 
-The optional `reused_session` argument can take a former SSL
-session userdata returned by a previous `sslhandshake`
-call for exactly the same target. For short-lived connections, reusing SSL
-sessions can usually speed up the handshake by one order by magnitude but it
-is not so useful if the connection pool is enabled. This argument defaults to
-`nil`. If this argument takes the boolean `false` value, no SSL session
-userdata would return by this call and only a Lua boolean will be returned as
-the first return value; otherwise the current SSL session will
-always be returned as the first argument in case of successes.
+可选参数 `reused_session` 可以是一个前任 SSL session 用户数据，是由访问同一个目的地的前一个 `sslhandshake` 调用返回的。对于短链接，重复使用 SSL session 通常可以加速握手速度，但对于开启连接池情况情况下不是很有用。该参数默认使用 `nil` 。如果该参数使用布尔值 `false`，将不返回 SSL 会话用户数据，只返回一个 Lua 布尔值；其他情况下，成功时第一个参数将返回当前的 SSL session。
 
-The optional `server_name` argument is used to specify the server
-name for the new TLS extension Server Name Indication (SNI). Use of SNI can
-make different servers share the same IP address on the server side. Also,
-when SSL verification is enabled, this `server_name` argument is
-also used to validate the server name specified in the server certificate sent from
-the remote.
+可选参数 `server_name` 被用来指名新的 TLS 扩展 Server Name Indication (SNI) 的服务名。使用 SNI 可以使得在服务端不同的服务可以共享同一个 IP 地址。同样，当 SSL 验证启用，参数 `server_name` 也被用来验证从远端服务端发送出来的证书中的服务名。
 
-The optional `ssl_verify` argument takes a Lua boolean value to
-control whether to perform SSL verification. When set to `true`, the server
-certificate will be verified according to the CA certificates specified by
-the [lua_ssl_trusted_certificate](#lua_ssl_trusted_certificate) directive.
-You may also need to adjust the [lua_ssl_verify_depth](#lua_ssl_verify_depth)
-directive to control how deep we should follow along the certificate chain.
-Also, when the `ssl_verify` argument is true and the
-`server_name` argument is also specified, the latter will be used
-to validate the server name in the server certificate.
+可选参数 `ssl_verify` ，通过一个 Lua 布尔值来控制是否启用 SSL 验证。当设置为 `true` 时，服务证书将根据 [lua_ssl_trusted_certificate](#lua_ssl_trusted_certificate) 指令指定的 CA 证书进行验证。你可能需要调整 [lua_ssl_verify_depth](#lua_ssl_verify_depth) 指令来控制我们对证书链的验证深度。同样，当 `ssl_verify` 参数为 `true` 并且也指名了 `server_name` ，在后面服务端证书中将被用来验证服务名。
 
-The optional `send_status_req` argument takes a boolean that controls whether to send
-the OCSP status request in the SSL handshake request (which is for requesting OCSP stapling).
-
-<!-- todo 这三个章节，搞不定。主要是完全没用过 -->
+可选参数 `send_status_req`，可以通过一个布尔值控制是否在 SSL 握手请求（在请求 OCSP stapling 一方）中发送 OCSP 状态。
 
 对已经完成 SSL/TLS 握手的连接，该方法立即返回。
-For connections that have already done SSL/TLS handshake, this method returns
-immediately.
 
 该特性在 `v0.9.11` 版本首次引入。
-This method was first introduced in the `v0.9.11` release.
 
 [返回目录](#nginx-api-for-lua)
 

@@ -216,6 +216,10 @@ The Lua interpreter or LuaJIT instance is shared across all the requests in a si
 
 Loaded Lua modules persist in the nginx worker process level resulting in a small memory footprint in Lua even when under heavy loads.
 
+This module is plugged into NGINX's "http" subsystem so it can only speaks downstream communication protocols in the HTTP family (HTTP 0.9/1.0/1.1/2.0, WebSockets, and etc).
+If you want to do generic TCP communications with the downstream clients, then you should use the [ngx_stream_lua](https://github.com/openresty/stream-lua-nginx-module#readme) module instead
+which has a compatible Lua API.
+
 [Back to TOC](#table-of-contents)
 
 Typical Uses
@@ -944,9 +948,9 @@ Copyright and License
 
 This module is licensed under the BSD license.
 
-Copyright (C) 2009-2015, by Xiaozhe Wang (chaoslawful) <chaoslawful@gmail.com>.
+Copyright (C) 2009-2016, by Xiaozhe Wang (chaoslawful) <chaoslawful@gmail.com>.
 
-Copyright (C) 2009-2015, by Yichun "agentzh" Zhang (章亦春) <agentzh@gmail.com>, CloudFlare Inc.
+Copyright (C) 2009-2016, by Yichun "agentzh" Zhang (章亦春) <agentzh@gmail.com>, CloudFlare Inc.
 
 All rights reserved.
 
@@ -963,6 +967,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 See Also
 ========
 
+* [ngx_stream_lua_module](https://github.com/openresty/stream-lua-nginx-module#readme) for an official port of this module for the NGINX "stream" subsystem (doing generic downstream TCP communications).
 * [lua-resty-memcached](https://github.com/openresty/lua-resty-memcached) library based on ngx_lua cosocket.
 * [lua-resty-redis](https://github.com/openresty/lua-resty-redis) library based on ngx_lua cosocket.
 * [lua-resty-mysql](https://github.com/openresty/lua-resty-mysql) library based on ngx_lua cosocket.
@@ -2935,6 +2940,7 @@ Nginx API for Lua
 * [ngx.timer.at](#ngxtimerat)
 * [ngx.timer.running_count](#ngxtimerrunning_count)
 * [ngx.timer.pending_count](#ngxtimerpending_count)
+* [ngx.config.subsystem](#ngxconfigsubsystem)
 * [ngx.config.debug](#ngxconfigdebug)
 * [ngx.config.prefix](#ngxconfigprefix)
 * [ngx.config.nginx_version](#ngxconfignginx_version)
@@ -7294,6 +7300,19 @@ ngx.timer.pending_count
 Returns the number of pending timers.
 
 This directive was first introduced in the `v0.9.20` release.
+
+[Back to TOC](#nginx-api-for-lua)
+
+ngx.config.subsystem
+--------------------
+**syntax:** *subsystem = ngx.config.subsystem*
+
+**context:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
+
+This string field indicates the current NGINX subsystem the current Lua environment is based on. For this module, this field always takes the string value `"http"`. For
+[ngx_stream_lua_module](https://github.com/openresty/stream-lua-nginx-module#readme), however, this field takes the value `"stream"`.
+
+This field was first introduced in the `0.10.1`.
 
 [Back to TOC](#nginx-api-for-lua)
 

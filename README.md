@@ -213,7 +213,11 @@ Description
 
 在单个 NGINX worker 中，标准 Lua 或 LuaJIT 的实例在所有请求中是共享使用的，但每个请求上下文是通过轻量的 Lua 协程做到隔离的。
 
-在 NGINX worker 进程中加载 Lua 模块，坚持小内存的使用，甚至在重负载下依然如此。
+在 NGINX worker 进程中加载 Lua 模块，坚持小内存的使用，即使在重负载下依然如此。
+
+该模块是 Nginx 的 HTTP 子系统插件，所以它只能对 HTTP 环境的下游进行对话（例如：HTTP 0.9/1.0/1.1/2.0, WebSockets等）。
+
+如果你想获得通用的 TCP 下游客户端对话能力，这时应使用 [ngx_stream_lua](https://github.com/openresty/stream-lua-nginx-module#readme) 模块，同样它也是兼容 Lua API 的。
 
 [返回目录](#table-of-contents)
 
@@ -965,9 +969,9 @@ Copyright and License
 
 该模块是根据BSD许可证授权。
 
-Copyright (C) 2009-2015, by Xiaozhe Wang (chaoslawful) <chaoslawful@gmail.com>.
+Copyright (C) 2009-2016, by Xiaozhe Wang (chaoslawful) <chaoslawful@gmail.com>.
 
-Copyright (C) 2009-2015, by Yichun "agentzh" Zhang (章亦春) <agentzh@gmail.com>, CloudFlare Inc.
+Copyright (C) 2009-2016, by Yichun "agentzh" Zhang (章亦春) <agentzh@gmail.com>, CloudFlare Inc.
 
 版权所有。
 
@@ -985,6 +989,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 See Also
 ========
 
+* [ngx_stream_lua_module](https://github.com/openresty/stream-lua-nginx-module#readme) NGINX "stream" 子系统的官方模块版本（通用的下游 TCP 对话）。
 * [lua-resty-memcached](https://github.com/openresty/lua-resty-memcached) 基于ngx_lua cosocket的库。
 * [lua-resty-redis](https://github.com/openresty/lua-resty-redis) 基于ngx_lua cosocket的库。
 * [lua-resty-mysql](https://github.com/openresty/lua-resty-mysql) 基于ngx_lua cosocket的库。
@@ -2872,6 +2877,7 @@ Nginx API for Lua
 * [ngx.timer.at](#ngxtimerat)
 * [ngx.timer.running_count](#ngxtimerrunning_count)
 * [ngx.timer.pending_count](#ngxtimerpending_count)
+* [ngx.config.subsystem](#ngxconfigsubsystem)
 * [ngx.config.debug](#ngxconfigdebug)
 * [ngx.config.prefix](#ngxconfigprefix)
 * [ngx.config.nginx_version](#ngxconfignginx_version)
@@ -7149,6 +7155,18 @@ ngx.timer.pending_count
 返回待定运行的 `timers` 数量。
 
 该指令从 `v0.9.20` 版本首次引入。
+
+[返回目录](#nginx-api-for-lua)
+
+ngx.config.subsystem
+--------------------
+**语法:** *subsystem = ngx.config.subsystem*
+
+**环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
+
+该字段的值用来表明当前 NGINX 子系统的基础运行环境。例如该模块环境下，该字段的返回值永远为 `"http"` 字符串。对于 [ngx_stream_lua_module](https://github.com/openresty/stream-lua-nginx-module#readme) ，无论如何，该字段返回值为 `"stream"` 。
+
+该字段在 `0.10.1` 版本中首次引入。
 
 [返回目录](#nginx-api-for-lua)
 

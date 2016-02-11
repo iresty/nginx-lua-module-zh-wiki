@@ -995,19 +995,19 @@ See Also
 ========
 
 * [ngx_stream_lua_module](https://github.com/openresty/stream-lua-nginx-module#readme) Nginx "stream" 子系统的官方模块版本（通用的下游 TCP 对话）。
-* [lua-resty-memcached](https://github.com/openresty/lua-resty-memcached) 基于ngx_lua cosocket的库。
-* [lua-resty-redis](https://github.com/openresty/lua-resty-redis) 基于ngx_lua cosocket的库。
-* [lua-resty-mysql](https://github.com/openresty/lua-resty-mysql) 基于ngx_lua cosocket的库。
-* [lua-resty-upload](https://github.com/openresty/lua-resty-upload) 基于ngx_lua cosocket的库。
-* [lua-resty-dns](https://github.com/openresty/lua-resty-dns) 基于ngx_lua cosocket的库。
-* [lua-resty-websocket](https://github.com/openresty/lua-resty-websocket) 提供WebSocket的客户端、服务端，基于ngx_lua cosocket的库。
+* [lua-resty-memcached](https://github.com/openresty/lua-resty-memcached) 基于 ngx_lua cosocket 的库。
+* [lua-resty-redis](https://github.com/openresty/lua-resty-redis) 基于 ngx_lua cosocket 的库。
+* [lua-resty-mysql](https://github.com/openresty/lua-resty-mysql) 基于 ngx_lua cosocket 的库。
+* [lua-resty-upload](https://github.com/openresty/lua-resty-upload) 基于 ngx_lua cosocket 的库。
+* [lua-resty-dns](https://github.com/openresty/lua-resty-dns) 基于 ngx_lua cosocket的库。
+* [lua-resty-websocket](https://github.com/openresty/lua-resty-websocket) 提供 WebSocket 的客户端、服务端，基于 ngx_lua cosocket 的库。
 * [lua-resty-string](https://github.com/openresty/lua-resty-string) 基于 [LuaJIT FFI](http://luajit.org/ext_ffi.html) 的库。
-* [lua-resty-lock](https://github.com/openresty/lua-resty-lock) 一个简单非阻塞lock API库。
+* [lua-resty-lock](https://github.com/openresty/lua-resty-lock) 一个简单非阻塞 lock API 库。
 * [lua-resty-cookie](https://github.com/cloudflare/lua-resty-cookie) HTTP cookie 的库。
-* [基于URI参数，发起不同的MySQL查询](http://openresty.org/#RoutingMySQLQueriesBasedOnURIArgs)
-* [基于Redsi和Lua的动态路由](http://openresty.org/#DynamicRoutingBasedOnRedis)
-* [使用LuaRocks与ngx_lua](http://openresty.org/#UsingLuaRocks)
-* [ngx_lua的介绍信息](https://github.com/openresty/lua-nginx-module/wiki/Introduction)
+* [基于 URI 参数，路由到发起不同 MySQL 查询](http://openresty.org/#RoutingMySQLQueriesBasedOnURIArgs)
+* [基于 Redis 和 Lua 的动态路由](http://openresty.org/#DynamicRoutingBasedOnRedis)
+* [使用 LuaRocks 与 ngx_lua](http://openresty.org/#UsingLuaRocks)
+* [ngx_lua 的介绍信息](https://github.com/openresty/lua-nginx-module/wiki/Introduction)
 * [ngx_devel_kit](https://github.com/simpl/ngx_devel_kit)
 * [echo-nginx-module](http://github.com/openresty/echo-nginx-module)
 * [drizzle-nginx-module](http://github.com/openresty/drizzle-nginx-module)

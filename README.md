@@ -1217,11 +1217,11 @@ init_by_lua
 
 **注意** 自从 `v0.9.17` 版本, 不鼓励使用该指令，应使用新的 [init_by_lua_block](#init_by_lua_block) 指令进行替代。
 
-当Nginx master进程（如果有）加载Nginx配置文件时，在全局的Lua虚拟机上运行`<lua-script-str>`指定的Lua代码。
+当 Nginx master 进程（如果有）加载 Nginx 配置文件时，在全局的 Lua 虚拟机上运行 `<lua-script-str>` 指定的 Lua 代码。
 
-当Nginx收到`HUP`信号并开始重新加载配置文件，Lua虚拟机将重新创建并且`init_by_lua`在新的Lua虚拟机中再次执行。为防止[lua_code_cache](#lua_code_cache)指令是关闭的（默认打开），对于这个场景`init_by_lua`将在每个请求之上运行，因为在这个场景中，每个请求都会创建新的Lua虚拟机，他们都是独立存在。
+当 Nginx 收到`HUP`信号并开始重新加载配置文件，Lua 虚拟机将重新创建并且`init_by_lua`在新的 Lua 虚拟机中再次执行。为防止[lua_code_cache](#lua_code_cache)指令是关闭的（默认打开），对于这个场景`init_by_lua`将在每个请求之上运行，因为在这个场景中，每个请求都会创建新的 Lua 虚拟机，他们都是独立存在。
 
-通常，你可以在服务启动时注册Lua全局变量或预加载Lua模块。这是个预加载Lua模块的示例代码：
+通常，你可以在服务启动时注册 Lua 全局变量或预加载 Lua 模块。这是个预加载Lua模块的示例代码：
 
 ```nginx
 
@@ -1257,25 +1257,25 @@ init_by_lua
  }
 ```
 
-需要注意，当配置重载（例如`HUP`信号）时[lua_shared_dict](#lua_shared_dict)的共享数据是不会被清空。这种情况下，如果你不想在`init_by_lua`再次再初始化你的共享数据，你需要设置一个个性标识并且在你的`init_by_lua`代码中每次都做检查。
+需要注意，当配置重载（例如`HUP`信号）时 [lua_shared_dict](#lua_shared_dict)的共享数据是不会被清空。这种情况下，如果你不想在`init_by_lua`再次再初始化你的共享数据，你需要设置一个个性标识并且在你的`init_by_lua`代码中每次都做检查。
 
-因为在这个指令的Lua代码执行是在Nginx fork他的工作进程（如果有），加载的数据和代码将被友好[Copy-on-write (COW)](http://en.wikipedia.org/wiki/Copy-on-write)特性提供给其他所有工作进程，从而节省了大量内存。
+因为在这个指令的Lua代码执行是在 Nginx fork 工作进程之前（如果有），加载的数据和代码将被友好 [Copy-on-write (COW)](http://en.wikipedia.org/wiki/Copy-on-write) 特性提供给其他所有工作进程，从而节省了大量内存。
 
-不要在这个上下文中初始化你自己的Lua全局变量，因为全局变量的使用有性能损失并会带来全局命名污染（可以查看[Lua 变量范围](#lua-variable-scope)获取更多细节）。推荐的方式是正确使用[Lua模块](http://www.lua.org/manual/5.1/manual.html#5.3) 文件（不要使用标准Lua函数[module()](http://www.lua.org/manual/5.1/manual.html#pdf-module)来定义Lua模块，因为它同样对全局命名空间有污染），在`init_by_lua` 或 其他上下文中调用[require()](http://www.lua.org/manual/5.1/manual.html#pdf-require)来加载你自己的模块文件。[require()](http://www.lua.org/manual/5.1/manual.html#pdf-require)会在全局Lua注册的`package.loaded`表中缓存Lua模块，所以在整个Lua虚拟机实例中你的模块将只会加载一次。
+不要在这个上下文中初始化你自己的 Lua 全局变量，因为全局变量的使用有性能损失并会带来全局命名污染（可以查看 [Lua 变量范围](#lua-variable-scope)获取更多细节）。推荐的方式是正确使用 [Lua模块](http://www.lua.org/manual/5.1/manual.html#5.3) 文件（不要使用标准 Lua 函数 [module()](http://www.lua.org/manual/5.1/manual.html#pdf-module)来定义 Lua 模块，因为它同样对全局命名空间有污染），在`init_by_lua` 或 其他上下文中调用 [require()](http://www.lua.org/manual/5.1/manual.html#pdf-require) 来加载你自己的模块文件。[require()](http://www.lua.org/manual/5.1/manual.html#pdf-require) 会在全局 Lua 注册的`package.loaded`表中缓存 Lua 模块，所以在整个 Lua 虚拟机实例中你的模块将只会加载一次。
 
-在这个上下文中，只有一小部分的[Nginx Lua API](#nginx-api-for-lua)是被支持的：
+在这个上下文中，只有一小部分的 [Nginx Lua API](#nginx-api-for-lua) 是被支持的：
 
 
-* 记录日志的APIs：[ngx.log](#ngxlog) 和 [print](#print)
-* 共享内存字典APIs：[ngx.shared.DICT](#ngxshareddict)
+* 记录日志的 APIs：[ngx.log](#ngxlog) 和 [print](#print)
+* 共享内存字典 APIs：[ngx.shared.DICT](#ngxshareddict)
 
-在这个上下文中，根据用户的后续需要，将会支持更多的Nginx Lua APIs。
+在这个上下文中，根据用户的后续需要，将会支持更多的 Nginx Lua APIs。
 
-基本上，在这个上下文中，你可以保守使用Lua库完成阻塞I/O调用，因为在master进程的阻塞调用在服务的启动过程中是完全没问题的。进一步说在配置加载阶段，Nginx核心就是阻塞 I/O 方式处理的（至少在解析上游主机名称时）。
+基本上，在这个上下文中，你可以保守使用 Lua 库完成阻塞 I/O 调用，因为在 master 进程的阻塞调用在服务的启动过程中是完全没问题的。进一步说在配置加载阶段，Nginx 核心就是阻塞 I/O 方式处理的（至少在解析上游主机名称时）。
 
-你应该非常小心，在这种情况下注册的Lua代码潜在的安全漏洞，因为Nginx的主进程经常是'root`帐户下运行。
+你应该非常小心，在这种情况下注册的 Lua 代码潜在的安全漏洞，因为 Nginx 的主进程经常是'root`帐户下运行。
 
-这个指令是`v0.5.5`版本中第一次引入的。
+这个指令是 `v0.5.5` 版本中第一次引入的。
 
 [返回目录](#directives)
 

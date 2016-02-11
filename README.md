@@ -1529,10 +1529,10 @@ content_by_lua
 
 作为"内容处理程序"，为每一个请求执行`<lua-script-str>`中指定的Lua代码。
 
-这些 Lua 代码可以调用[全部 API](#nginx-api-for-lua)，并作为一个新的协程，在一个独立的全局环境中执行（就像一个沙盒）。
+这些 Lua 代码可以调用 [全部 API](#nginx-api-for-lua)，并作为一个新的协程，在一个独立的全局环境中执行（就像一个沙盒）。
 
-不要将本指令和其他内容处理程序指令放到同一个location中。
-比如，本指令和[proxy_pass](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass)指令就不能在同一个location中使用。
+不要将本指令和其他内容处理程序指令放到同一个 location 中。
+比如，本指令和 [proxy_pass](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass) 指令就不能在同一个 location 中使用。
 
 [返回目录](#directives)
 
@@ -1569,13 +1569,13 @@ content_by_lua_file
 
 **阶段:** *content*
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[content_by_lua](#content_by_lua)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT bytecode](#lualuajit-bytecode-support)的执行。
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [content_by_lua](#content_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT bytecode](#lualuajit-bytecode-support) 的执行。
 
 在`<path-to-lua-script-file>`中可以使用 Nginx 的内置变量用来提高灵活性，然而这带有一定的风险，通常并不推荐使用。
 
 当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 
-当 Lua 代码缓存开启（默认），用户代码在第一次请求时完成加载（只有一次）并缓存，当 Lua 文件被修改时，每次都要对 Nginx 配置进行重新加载。Lua 代码缓存是可以暂时被禁用，通过开关[lua_code_cache](#lua_code_cache)在`nginx.conf`中设置为`off`，这样就可以避免反复重新加载 Nginx。
+当 Lua 代码缓存开启（默认），用户代码在第一次请求时完成加载（只有一次）并缓存，当 Lua 文件被修改时，每次都要对 Nginx 配置进行重新加载。Lua 代码缓存是可以暂时被禁用，通过开关 [lua_code_cache](#lua_code_cache) 在`nginx.conf`中设置为`off`，这样就可以避免反复重新加载 Nginx。
 
 支持通过 Nginx 变量完成动态调度文件路径，例如：
 

@@ -1605,9 +1605,9 @@ rewrite_by_lua
 
 作为一个重写阶段的处理程序，为每个请求执行由`<lua-script-str>`指定的 Lua 代码。
 
-这些 Lua 代码可以调用[全部 API](#nginx-api-for-lua)，并作为一个新的协程，在一个独立的全局环境中执行（就像一个沙盒）。
+这些 Lua 代码可以调用 [全部 API](#nginx-api-for-lua)，并作为一个新的协程，在一个独立的全局环境中执行（就像一个沙盒）。
 
-注意这个处理过程总是在标准[ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html)的 *后* 面。所以下面的示例可以按照预期执行：
+注意这个处理过程总是在标准 [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html) 的 *后* 面。所以下面的示例可以按照预期执行：
 
 ```nginx
 
@@ -1619,7 +1619,7 @@ rewrite_by_lua
  }
 ```
 
-因为 `set $a 12` 和 `set $b ""` 的执行都在[rewrite_by_lua](#rewrite_by_lua)的前面。
+因为 `set $a 12` 和 `set $b ""` 的执行都在 [rewrite_by_lua](#rewrite_by_lua) 的前面。
 
 另一方面，下面的示例是不能按照预期执行：
 
@@ -1638,7 +1638,7 @@ rewrite_by_lua
  ?  }
 ```
 
-因为 `if` 是[rewrite_by_lua](#rewrite_by_lua)之 *前* 执行的，尽管在配置中它被放到[rewrite_by_lua](#rewrite_by_lua)后面。
+因为 `if` 是 [rewrite_by_lua](#rewrite_by_lua) 之 *前* 执行的，尽管在配置中它被放到 [rewrite_by_lua](#rewrite_by_lua) 后面。
 
 正确的处理方式应该是这样：
 
@@ -1658,7 +1658,7 @@ rewrite_by_lua
  }
 ```
 
-注意，[ngx_eval](http://www.grid.net.ru/nginx/eval.en.html)模块可以近似的使用[rewrite_by_lua](#rewrite_by_lua)。例如：
+注意，[ngx_eval](http://www.grid.net.ru/nginx/eval.en.html) 模块可以近似的使用 [rewrite_by_lua](#rewrite_by_lua)。例如：
 
 ```nginx
 
@@ -1675,7 +1675,7 @@ rewrite_by_lua
  }
 ```
 
-在ngx_lua中可以这样实施：
+在 ngx_lua 中可以这样实施：
 
 ```nginx
 
@@ -1696,11 +1696,11 @@ rewrite_by_lua
  }
 ```
 
-如同其他重写阶段处理， [rewrite_by_lua](#rewrite_by_lua)在子请求中也执行的。
+如同其他重写阶段处理，[rewrite_by_lua](#rewrite_by_lua) 在子请求中也执行的。
 
-注意，在[rewrite_by_lua](#rewrite_by_lua)处理内部，当调用`ngx.exit(ngx.OK)`时，nginx请求将继续下一阶段的内容处理。要在[rewrite_by_lua](#rewrite_by_lua)处理中终结当前请求，调用[ngx.exit](#ngxexit)，成功的请求设定 status >= 200 (`ngx.HTTP_OK`) 并 status < 300 (`ngx.HTTP_SPECIAL_RESPONSE`)，失败的请求设定`ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)` (或其他相关的)。
+注意，在 [rewrite_by_lua](#rewrite_by_lua) 处理内部，当调用`ngx.exit(ngx.OK)`时，nginx 请求将继续下一阶段的内容处理。要在 [rewrite_by_lua](#rewrite_by_lua)处理中终结当前请求，调用 [ngx.exit](#ngxexit)，成功的请求设定 status >= 200 (`ngx.HTTP_OK`) 并 status < 300 (`ngx.HTTP_SPECIAL_RESPONSE`)，失败的请求设定`ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)` (或其他相关的)。
 
-如果使用了[ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html)的[rewrite](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite)指令来改变 URI 并发起内部重定向，那么在当前 location 内任何有序的[rewrite_by_lua](#rewrite_by_lua) 或 [rewrite_by_lua_file](#rewrite_by_lua_file)代码都将不被执行。例如：
+如果使用了 [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html) 的 [rewrite](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite) 指令来改变 URI 并发起内部重定向，那么在当前 location 内任何有序的 [rewrite_by_lua](#rewrite_by_lua) 或 [rewrite_by_lua_file](#rewrite_by_lua_file) 代码都将不被执行。例如：
 
 ```nginx
 
@@ -1715,7 +1715,7 @@ rewrite_by_lua
 
 如果 `rewrite ^ /bar last` 被用做一个类似内部重定向使用，它将被忽略，这里的 Lua 代码 `ngx.exit(503)` 是永远不能执行的。如果使用了 `break` 标识，这里将没有内部重定向，并且执行 `rewrite_by_lua` 中的 Lua 代码。
 
-`rewrite_by_lua`代码将永远在 `rewrite` 请求处理阶段后面，除非[rewrite_by_lua_no_postpone](#rewrite_by_lua_no_postpone)配置开启。
+`rewrite_by_lua`代码将永远在 `rewrite` 请求处理阶段后面，除非 [rewrite_by_lua_no_postpone](#rewrite_by_lua_no_postpone) 配置开启。
 
 [返回目录](#directives)
 
@@ -1752,15 +1752,15 @@ rewrite_by_lua_file
 
 **阶段:** *rewrite tail*
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[rewrite_by_lua](#rewrite_by_lua)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT bytecode](#lualuajit-bytecode-support)的执行。
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [rewrite_by_lua](#rewrite_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT bytecode](#lualuajit-bytecode-support) 的执行。
 
 在`<path-to-lua-script-file>`中可以使用 Nginx 的内置变量用来提高灵活性，然而这带有一定的风险，通常并不推荐使用。
 
 当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 
-当 Lua 代码缓存开启（默认），用户代码在第一次请求时完成加载（只有一次）并缓存，当 Lua 文件被修改时，每次都要对 Nginx 配置进行重新加载。Lua 代码缓存是可以暂时被禁用，通过开关[lua_code_cache](#lua_code_cache)在`nginx.conf`中设置为`off`，这样就可以避免反复重新加载 Nginx。
+当 Lua 代码缓存开启（默认），用户代码在第一次请求时完成加载（只有一次）并缓存，当 Lua 文件被修改时，每次都要对 Nginx 配置进行重新加载。Lua 代码缓存是可以暂时被禁用，通过开关 [lua_code_cache](#lua_code_cache) 在`nginx.conf`中设置为`off`，这样就可以避免反复重新加载 Nginx。
 
-`rewrite_by_lua_file`代码将永远在 `rewrite` 请求处理阶段后面，除非[rewrite_by_lua_no_postpone](#rewrite_by_lua_no_postpone)配置开启。
+`rewrite_by_lua_file`代码将永远在 `rewrite` 请求处理阶段后面，除非 [rewrite_by_lua_no_postpone](#rewrite_by_lua_no_postpone) 配置开启。
 
 支持通过 Nginx 变量完成动态调度文件路径，就像 [content_by_lua_file](#content_by_lua_file) 一样。
 

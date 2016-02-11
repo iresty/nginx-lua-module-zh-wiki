@@ -329,7 +329,7 @@ C Macro Configurations
 Installation on Ubuntu 11.10
 ----------------------------
 
-注意：这里推荐使用 LuaJIT 2.0 或 LuaJIT 2.1 替换掉标准 Lua 5.1 解释器。
+注意：这里推荐使用 LuaJIT 2.1 或 LuaJIT 2.0 替换掉标准 Lua 5.1 解释器。
 
 如果不得不使用标准的 Lua 5.1 解释器，在 Ubuntu 上使用这个命令完成安装：
 
@@ -338,7 +338,7 @@ Installation on Ubuntu 11.10
  apt-get install -y lua5.1 liblua5.1-0 liblua5.1-0-dev
 ```
 
-应该可以正确被安装，除了一个小"纠结"：
+应该可以正确被安装，除了一个小 "麻烦"：
 
 `liblua.so`库在 liblua5.1 包中已经发生改变，只能使用`liblua5.1.so`，并且需要被链接到`/usr/lib`，这样才可以在 configure 执行阶段被找到。
 
@@ -376,21 +376,21 @@ Code Repository
 Bugs and Patches
 ================
 
-提交bug报告、想法或补丁，可按照下面两个方式：
+提交bug报告、想法或补丁，可通过下面方式：
 
 1. 创建一个ticket [GitHub Issue Tracker](https://github.com/openresty/lua-nginx-module/issues)
-1. 或者发到这里 [OpenResty community](#community).
+1. 或者发到这里 [OpenResty 社区](#community).
 
 [返回目录](#table-of-contents)
 
 Lua/LuaJIT bytecode support
 ===========================
 
-从`v0.5.0rc32` release 开始，所有 `*_by_lua_file` 的配置指令（比如 [content_by_lua_file](#content_by_lua_file)）
+从 `v0.5.0rc32` release 开始，所有 `*_by_lua_file` 的配置指令（比如 [content_by_lua_file](#content_by_lua_file)）
 都支持直接加载 Lua 5.1 和 LuaJIT 2.0/2.1 的二进制字节码文件。
 
 请注意，LuaJIT 2.0/2.1 生成的二进制格式与标准 Lua 5.1 解析器是不兼容的。
-所以如果使用在 ngx_lua 下使用LuaJIT 2.0/2.1，那么 LuaJIT 兼容的二进制文件必须是下面这样生成的：
+所以如果使用在 ngx_lua 下使用 LuaJIT 2.0/2.1，那么 LuaJIT 兼容的二进制文件必须是下面这样生成的：
 
 ```bash
 
@@ -430,7 +430,7 @@ Lua/LuaJIT bytecode support
     [error] 13909#0: *1 failed to load Lua inlined code: bad byte-code header in /path/to/test_file.luac
 
 
-使用 Lua`require` 和 `dofile` 这类原语加载字节码文件，应该总能按照预期工作。
+使用 Lua `require` 和 `dofile` 这类原语加载字节码文件，应该总能按照预期工作。
 
 [返回目录](#table-of-contents)
 

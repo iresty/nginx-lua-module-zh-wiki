@@ -1312,9 +1312,9 @@ init_by_lua_file
 
 **阶段:** *loading-config*
 
-与[init_by_lua](#init_by_lua)等价，通过`<path-to-lua-script-file>`指定文件的Lua 代码 或 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support)来执行。
+与 [init_by_lua](#init_by_lua) 等价，通过`<path-to-lua-script-file>`指定文件的 Lua 代码 或 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support)来执行。
 
-当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是Nginx服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
+当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 
 该指令在`v0.5.5`发行版第一次被引入。
 
@@ -1331,9 +1331,9 @@ init_worker_by_lua
 
 **注意** 自从 `v0.9.17` 版本, 使用该指令是 *不优雅* 的，应使用新的 [init_worker_by_lua_block](#init_worker_by_lua_block) 指令进行替代。
 
-开启master进程模式，Nginx工作进程启动时执行指定的Lua代码。关闭master模式，将在[init_by_lua*](#init_by_lua)后直接运行。
+开启 master 进程模式，Nginx 工作进程启动时执行指定的 Lua 代码。关闭 master 模式，将在 [init_by_lua*](#init_by_lua) 后直接运行。
 
-这个指令经常被用来创建单进程的反复执行定时器（通过[ngx.timer.at](#ngxtimerat) Lua API创建），可以是后端服务健康检查，也可以是其他定时的日常工作。下面是个例子：
+这个指令经常被用来创建单进程的反复执行定时器（通过 [ngx.timer.at](#ngxtimerat) Lua API 创建），可以是后端服务健康检查，也可以是其他定时的日常工作。下面是个例子：
 
 ```nginx
 
@@ -1400,7 +1400,7 @@ init_worker_by_lua_file
 
 **阶段:** *starting-worker*
 
-与[init_worker_by_lua](#init_worker_by_lua)等价，通过`<lua-file-path>`指定的Lua 或 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support)文件来执行。
+与 [init_worker_by_lua](#init_worker_by_lua)等价，通过`<lua-file-path>`指定的 Lua 或 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 文件来执行。
 
 该指令是在`v0.9.5`发行版第一次引入。
 

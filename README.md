@@ -1166,7 +1166,7 @@ lua_regex_match_limit
 
 **环境:** *http*
 
-指定执行 [ngx.re API](#ngxrematch) 时使用 PCRE 库的"匹配限制"。引述 PCRE 手册，“the limit ... has the effect of limiting the amount of backtracking that can take place.”。
+指定执行 [ngx.re API](#ngxrematch) 时使用 PCRE 库的"匹配限制"。引述 PCRE 手册，“the limit ... has the effect of limiting the amount of backtracking that can take place”。
 
 当触发了这个限制，在 Lua 代码的 [ngx.re API](#ngxrematch) 函数，将返回错误信息 "pcre_exec() failed: -8"。
 
@@ -1185,9 +1185,9 @@ lua_package_path
 
 **环境:** *http*
 
-设置[set_by_lua](#set_by_lua)，[content_by_lua](#content_by_lua) 和 其他脚本对Lua模块的查找路径。 路径字符串是标准Lua路径格式，`;;` 可被用来代表原始搜索路径。
+设置 [set_by_lua](#set_by_lua)，[content_by_lua](#content_by_lua) 和 其他脚本对Lua模块的查找路径。路径字符串是标准Lua路径格式，特殊标识 `;;` 可被用来代表原始搜索路径。
 
-从`v0.5.0rc29`发行版开始，特殊符号`$prefix` 或 `${prefix}`可用于搜索路径字符串中。`server prefix`的值，通常是由Nginx服务启动时的`-p PATH`命令行决定的。
+从`v0.5.0rc29`发行版开始，特殊符号`$prefix` 或 `${prefix}`可用于搜索路径字符串中。`server prefix`的值，通常是由 Nginx 服务启动时的`-p PATH`命令行决定的。
 
 [返回目录](#directives)
 

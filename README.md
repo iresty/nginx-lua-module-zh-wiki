@@ -3,7 +3,7 @@ Name
 
 ngx_http_lua_module - 嵌入强有力的 Lua 到 Nginx HTTP 服务中。
 
-*该模块不是随着 Nginx 源码进行分发。* 更多请看 [安装说明](#installation)。
+*该模块不是随着 Nginx 源码发行。* 更多请看 [安装说明](#installation)。
 
 Table of Contents
 =================
@@ -143,8 +143,8 @@ Synopsis
          content_by_lua_file /path/to/content.lua;
      }
 
-     # 在代码中使用 NGINX 变量
-     # 注意： NGINX 变量的内容一定要做仔细的过滤，否则会有很大的安全风险
+     # 在代码中使用 Nginx 变量
+     # 注意： Nginx 变量的内容一定要做仔细的过滤，否则会有很大的安全风险
      location ~ ^/app/([-_a-zA-Z0-9/]+) {
          set $path $1;
          content_by_lua_file /path/to/lua/app/root/$path.lua;
@@ -162,7 +162,7 @@ Synopsis
                 ngx.exit(ngx.HTTP_FORBIDDEN)
             end
 
-            -- 检测客户端 URI 数据是否包含敏感词汇
+            -- 检测客户端 URI 数据是否包含禁用词汇
             if ngx.var.uri and
                    string.match(ngx.var.request_body, "evil")
             then
@@ -182,14 +182,14 @@ Synopsis
 Description
 ===========
 
-该模块通过标准 Lua5.1 解释器或 [LuaJIT 2.0/2.1](http://luajit.org/luajit.html)，把 Lua 嵌入到 NGINX 里面，
-并利用 NGINX 子请求，把强大的 Lua 线程（Lua协程）混合到 NGINX 的事件模型中。
+该模块通过标准 Lua5.1 解释器或 [LuaJIT 2.0/2.1](http://luajit.org/luajit.html)，把 Lua 嵌入到 Nginx 里面，
+并利用 Nginx 子请求，把强大的 Lua 线程（Lua协程）混合到 Nginx 的事件模型中。
 
 与 [Apache's mod_lua](https://httpd.apache.org/docs/trunk/mod/mod_lua.html)、[Lighttpd's mod_magnet](http://redmine.lighttpd.net/wiki/1/Docs:ModMagnet) 不同的是, 该模块中的 Lua 代码在网络上是 100% 非阻塞的。
 包括该模块的 [Nginx API for Lua](#nginx-api-for-lua)，
 上游请求服务如：MySQL、PostgreSQL、Memcached、Redis或upstream HTTP web 服务等，都是100%非阻塞的。
 
-至少下面这些 Lua 库、NGINX 模块是可以与 ngx_lua 模块配合使用的：
+至少下面这些 Lua 库、Nginx 模块是可以与 ngx_lua 模块配合使用的：
 
 * [lua-resty-memcached](https://github.com/openresty/lua-resty-memcached)
 * [lua-resty-mysql](https://github.com/openresty/lua-resty-mysql)
@@ -208,12 +208,12 @@ Description
 * [ngx_proxy](http://nginx.org/en/docs/http/ngx_http_proxy_module.html)
 * [ngx_fastcgi](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html)
 
-几乎所有的 NGINX 模块都可以通过 [ngx.location.capture](#ngxlocationcapture) 或 [ngx.location.capture_multi](#ngxlocationcapture_multi)
- 与 ngx_lua 模块完成调用，但推荐使用类似 `lua-resty-*` 库，而不是子请求访问 NGINX 上游模块，因为前者更加灵活并且内存效率更高。
+几乎所有的 Nginx 模块都可以通过 [ngx.location.capture](#ngxlocationcapture) 或 [ngx.location.capture_multi](#ngxlocationcapture_multi)
+ 与 ngx_lua 模块完成调用，但推荐使用类似 `lua-resty-*` 库，而不是子请求访问 Nginx 上游模块，因为前者更加灵活并且内存效率更高。
 
-在单个 NGINX worker 中，标准 Lua 或 LuaJIT 的实例在所有请求中是共享使用的，但每个请求上下文是通过轻量的 Lua 协程做到隔离的。
+在单个 Nginx worker 中，标准 Lua 或 LuaJIT 的实例在所有请求中是共享使用的，但每个请求上下文是通过轻量的 Lua 协程做到隔离的。
 
-在 NGINX worker 进程中加载 Lua 模块，坚持小内存的使用，即使在重负载下依然如此。
+在 Nginx worker 进程中加载 Lua 模块，坚持小内存的使用，即使在重负载下依然如此。
 
 该模块是 Nginx 的 HTTP 子系统插件，所以它只能对 HTTP 环境的下游进行对话（例如：HTTP 0.9/1.0/1.1/2.0, WebSockets等）。
 
@@ -226,15 +226,15 @@ Typical Uses
 
 列举部分：
 
-* 在 Lua 中揉和和处理各种不同的 NGINX 上游输出（proxy, drizzle, postgres, redis, memcached等）
-* 在请求真正到达上游服务之前，Lua 可以随心所欲的做复杂的访问控制和安全检测
+* 在 Lua 中揉和处理各种不同的 Nginx 上游输出（proxy, drizzle, postgres, redis, memcached等）
+* 在请求真正到达上游服务之前，Lua 可以随心所欲的做复杂访问控制和安全检测
 * 随心所欲的操控响应头里面的信息（通过 Lua）
 * 从外部存储服务（比如 redis, memcached, mysql, postgresql）中获取后端信息，并用这些信息来实时选择哪一个后端来完成业务访问
 * 在内容 handler 中随意编写复杂的 web 应用，使用同步但依然非阻塞的方式，访问后端数据库和其他存储
 * 在 rewrite 阶段，通过 Lua 完成非常复杂的 URL dispatch
-* 用 Lua 可以为 NGINX 子请求和任意location，实现高级缓存机制
+* 用 Lua 可以为 Nginx 子请求和任意 location，实现高级缓存机制
 
-本模块会把你带入一个拥有无限可能的服务端开发新世界，你可以把 NGINX 的各种功能进行自由拼接，
+本模块会把你带入一个拥有无限可能的服务端开发新世界，你可以把 Nginx 的各种功能进行自由拼接，
 更重要的是，开发门槛并不高，这一切都是用强大轻巧的 Lua 语言来操控。
 
 本模块的脚本有充分的灵活性，并且性能和原生 C 语言编程相比毫不逊色，无论是 CPU 时间还是内存占用方面。
@@ -249,7 +249,7 @@ Lua state（Lua VM instance）会被共享给单个 nginx worker 内所有的请
 Nginx Compatibility
 ===================
 
-最新模块版本和 NGINX 的兼容列表：
+最新模块版本和 Nginx 的兼容列表：
 
 * 1.9.x (最后测试: 1.9.7)
 * 1.8.x
@@ -263,18 +263,18 @@ Nginx Compatibility
 Installation
 ============
 
-强烈推荐使用[OpenResty](http://openresty.org)，它包含了 NGINX, ngx_lua, LuaJIT 2.0/2.1 (或者可选的标准 Lua 5.1解释器)，
-还包含很多强劲、好用的 NGINX 模块。
+强烈推荐使用[OpenResty](http://openresty.org)，它包含了 Nginx, ngx_lua, LuaJIT 2.0/2.1 (或者可选的标准 Lua 5.1解释器)，
+还包含很多强劲、好用的 Nginx 模块。
 使用一个简单的命令就可以完成基础安装：`./configure --with-luajit && make && make install`。
 
-当然，ngx_lua 也可以手动的编译到 NGINX 中：
+当然，ngx_lua 也可以手动的编译到 Nginx 中：
 
 1. 安装LuaJIT 2.0 或 2.1 (推荐) 或 Lua 5.1 (Lua 5.2 暂时还*不支持*)。
 LuaJIT可从 [The LuaJIT project website](http://luajit.org/download.html) 获取，
 Lua 5.1可从 [Lua project website](http://www.lua.org/) 获取。
 2. 下载最新版本的 ngx_devel_kit (NDK)开发模块 [这里](https://github.com/simpl/ngx_devel_kit/tags) 。
 3. 下载最新版本的 ngx_lua [这里](https://github.com/openresty/lua-nginx-module/tags) 。
-4. 下载最新版本的 NGINX [这里](http://nginx.org/) (查看 [Nginx 兼容列表](#nginx-compatibility))。
+4. 下载最新版本的 Nginx [这里](http://nginx.org/) (查看 [Nginx 兼容列表](#nginx-compatibility))。
 
 源码编译本模块：
 
@@ -311,17 +311,17 @@ Lua 5.1可从 [Lua project website](http://www.lua.org/) 获取。
 C Macro Configurations
 ----------------------
 
-通过 OpenResty 或者 NGINX 内核方式构建该模块，你可以定义下面的 C 宏定义作为可选项提供给 C 编译器：
+通过 OpenResty 或者 Nginx 内核方式构建该模块，你可以定义下面的 C 宏定义作为可选项提供给 C 编译器：
 
 * `NGX_LUA_USE_ASSERT`
     声明后，将在ngx_lua C代码中开启断言。推荐用在调试或者测试版本中。启用后，它会引入额外一些（小的）运行时开销。在`v0.9.10`版本中首次引入此选项。
 
 * `NGX_LUA_ABORT_AT_PANIC`
-    当 Lua/LuaJIT 虚拟机出现panic错误时，ngx_lua默认会让当前的工作进程优雅退出。通过指定这个宏定义，ngx_lua将立即终止当前的 NGINX 工作进程（通常会生成一个core dump文件）。这个选项主要用来调试虚拟机的panic错误。在`v0.9.8`版本中首次引入此选项。
+    当 Lua/LuaJIT 虚拟机出现panic错误时，ngx_lua默认会让当前的工作进程优雅退出。通过指定这个宏定义，ngx_lua将立即终止当前的 Nginx 工作进程（通常会生成一个core dump文件）。这个选项主要用来调试虚拟机的panic错误。在`v0.9.8`版本中首次引入此选项。
 * `NGX_LUA_NO_FFI_API`
-    去除 NGINX 中FFI-based Lua API需要的的纯 C 函数(例如 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) 所需要的)。开启这个宏可以让 NGINX 二进制代码更小。
+    去除 Nginx 中FFI-based Lua API需要的的纯 C 函数(例如 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) 所需要的)。开启这个宏可以让 Nginx 二进制代码更小。
 
-在 NGINX 或者 OpenResty 启用一个或多个宏定义，只用传给`./configure`脚本几个额外的C编译选项。例如：
+在 Nginx 或者 OpenResty 启用一个或多个宏定义，只用传给`./configure`脚本几个额外的C编译选项。例如：
 
 ```
 #    ./configure --with-cc-opt="-DNGX_LUA_USE_ASSERT -DNGX_LUA_ABORT_AT_PANIC"
@@ -524,7 +524,7 @@ Statically Linking Pure Lua Modules
 那么在你使用 `luajit` 命令行工具把他编译成 `.o` 文件之前，
 你需要把 `foo.lua` 文件重命名为 `resty_foo.lua`。
 
-把 `.lua` 文件编译成 `.o` 文件，和构建 NGINX + ngx_lua，
+把 `.lua` 文件编译成 `.o` 文件，和构建 Nginx + ngx_lua，
 这两个过程中，使用完全相同版本的 LuaJIT 是至关重要的。
 
 这是因为 LuaJIT 字节码格式在不同版本之间可能是不兼容的。
@@ -606,7 +606,7 @@ Data Sharing within an Nginx Worker
 这种数据共享技术是基于本模块(ngx_lua)的高性能 Lua 应用的基础。
 
 注意，这种数据共享方式是基于worker而不是基于服务器的。
-也就是说，当 NGINX 主进程下面有多个 worker 进程时，数据共享不能跨越这些 worker 之间的进程边界。
+也就是说，当 Nginx 主进程下面有多个 worker 进程时，数据共享不能跨越这些 worker 之间的进程边界。
 
 一般来说，仅推荐使用这种方式共享只读数据。
 当计算过程中没有非阻塞性I/O操作时(包括[ngx.sleep](#ngxsleep))，
@@ -620,7 +620,7 @@ Data Sharing within an Nginx Worker
  1. 使用本模块提供的[ngx.shared.DICT](#ngxshareddict) API
  2. 使用单服务器单nginx worker进程(当使用多CPU或者多核CPU的服务器时不推荐)
  3. 使用类似 `memcached`, `redis`, `MySQL` 或 `PostgreSQL` 等数据共享机制。
- 与本模块相关的[OpenResty软件包](http://openresty.org)包含了一系列相关的 NGINX 模块以及 Lua 库，
+ 与本模块相关的[OpenResty软件包](http://openresty.org)包含了一系列相关的 Nginx 模块以及 Lua 库，
  提供与这些数据存储机制的交互界面。
 
 [返回目录](#table-of-contents)
@@ -998,7 +998,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 See Also
 ========
 
-* [ngx_stream_lua_module](https://github.com/openresty/stream-lua-nginx-module#readme) NGINX "stream" 子系统的官方模块版本（通用的下游 TCP 对话）。
+* [ngx_stream_lua_module](https://github.com/openresty/stream-lua-nginx-module#readme) Nginx "stream" 子系统的官方模块版本（通用的下游 TCP 对话）。
 * [lua-resty-memcached](https://github.com/openresty/lua-resty-memcached) 基于ngx_lua cosocket的库。
 * [lua-resty-redis](https://github.com/openresty/lua-resty-redis) 基于ngx_lua cosocket的库。
 * [lua-resty-mysql](https://github.com/openresty/lua-resty-mysql) 基于ngx_lua cosocket的库。
@@ -1292,7 +1292,7 @@ init_by_lua_block
 
 **阶段:** *loading-config*
 
-与 [init_by_lua](#init_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 NGINX 的字符串（需要特殊字符转义）。
+与 [init_by_lua](#init_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 Nginx 的字符串（需要特殊字符转义）。
 
 例如：
 
@@ -1380,7 +1380,7 @@ init_worker_by_lua_block
 
 **阶段:** *starting-worker*
 
-与 [init_worker_by_lua](#init_worker_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 NGINX 的字符串（需要特殊字符转义）。
+与 [init_worker_by_lua](#init_worker_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 Nginx 的字符串（需要特殊字符转义）。
 
 例如：
 
@@ -1483,7 +1483,7 @@ set_by_lua_block
 
 与 [set_by_lua](#set_by_lua) 指令相似，以下情况除外：
 
-1. 该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 NGINX 的字符串（需要特殊字符转义）
+1. 该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 Nginx 的字符串（需要特殊字符转义）
 1. 该指令和 [set_by_lua](#set_by_lua) 一样，在 Lua 脚本的后面不支持额外参数
 
 例如：
@@ -1549,7 +1549,7 @@ content_by_lua_block
 
 **阶段:** *content*
 
-与 [content_by_lua](#content_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 NGINX 的字符串（需要特殊字符转义）。
+与 [content_by_lua](#content_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 Nginx 的字符串（需要特殊字符转义）。
 
 例如：
 
@@ -1732,7 +1732,7 @@ rewrite_by_lua_block
 
 **阶段:** *rewrite tail*
 
-与 [rewrite_by_lua](#rewrite_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 NGINX 的字符串（需要特殊字符转义）。
+与 [rewrite_by_lua](#rewrite_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 Nginx 的字符串（需要特殊字符转义）。
 
 例如：
 
@@ -1857,7 +1857,7 @@ access_by_lua_block
 
 **阶段:** *access tail*
 
-与 [access_by_lua](#access_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 NGINX 的字符串（需要特殊字符转义）。
+与 [access_by_lua](#access_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 Nginx 的字符串（需要特殊字符转义）。
 
 For instance,
 
@@ -1938,7 +1938,7 @@ header_filter_by_lua_block
 
 **阶段:** *output-header-filter*
 
-与 [header_filter_by_lua](#header_filter_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 NGINX 的字符串（需要特殊字符转义）。
+与 [header_filter_by_lua](#header_filter_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 Nginx 的字符串（需要特殊字符转义）。
 
 例如：
 
@@ -2069,7 +2069,7 @@ body_filter_by_lua_block
 
 **阶段:** *output-body-filter*
 
-与 [body_filter_by_lua](#body_filter_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 NGINX 的字符串（需要特殊字符转义）。
+与 [body_filter_by_lua](#body_filter_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 Nginx 的字符串（需要特殊字符转义）。
 
 例如：
 
@@ -2177,7 +2177,7 @@ log_by_lua_block
 
 **阶段:** *log*
 
-与 [log_by_lua](#log_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 NGINX 的字符串（需要特殊字符转义）。
+与 [log_by_lua](#log_by_lua) 指令相似，只不过该指令在一对括号（`{}`）中直接内嵌 Lua 代码，替代之前 Nginx 的字符串（需要特殊字符转义）。
 
 例如：
 
@@ -3032,7 +3032,7 @@ Nginx 正则表达式捕获组变量 `$1`、`$2`、`$3` 等，也可以通过这
 
 以避免在当前请求周期内的 (临时) 内存泄露。另外一个缓存结果的方法是使用 [ngx.ctx](#ngxctx) 表。
 
-未定义的 NGINX 变量会被认定为 `nil` ，而未初始化（但已定义）的 NGINX 变量会被认定为空 Lua 字符串。
+未定义的 Nginx 变量会被认定为 `nil` ，而未初始化（但已定义）的 Nginx 变量会被认定为空 Lua 字符串。
 
 这个 API 需要进行相对“昂贵”的元方法调用，所以请避免高频使用。
 
@@ -7135,7 +7135,7 @@ ngx.config.subsystem
 
 **环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, init_by_lua&#42;, init_worker_by_lua&#42;*
 
-该字段的值用来表明当前 NGINX 子系统的基础运行环境。例如该模块环境下，该字段的返回值永远为 `"http"` 字符串。对于 [ngx_stream_lua_module](https://github.com/openresty/stream-lua-nginx-module#readme) ，无论如何，该字段返回值为 `"stream"` 。
+该字段的值用来表明当前 Nginx 子系统的基础运行环境。例如该模块环境下，该字段的返回值永远为 `"http"` 字符串。对于 [ngx_stream_lua_module](https://github.com/openresty/stream-lua-nginx-module#readme) ，无论如何，该字段返回值为 `"stream"` 。
 
 该字段在 `0.10.1` 版本中首次引入。
 
@@ -7254,7 +7254,7 @@ ngx.worker.id
 
 所以，如果工作进程总数是 `N`，那么该方法将返回 0 和 `N - 1` （包含）的一个数字。
 
-该方法只对 NGINX 1.9.1+ 版本返回有意义的值。更早版本的 nginx，将总是返回 `nil` 。 
+该方法只对 Nginx 1.9.1+ 版本返回有意义的值。更早版本的 nginx，将总是返回 `nil` 。 
 
 同样可以看看 [ngx.worker.count](#ngxworkercount)。
 

@@ -673,7 +673,7 @@ require('xxx')
 
 所以，我们极力推介在使用变量的时候总是使用 local 来定义以限定起生效范围是有理由的。
 
-使用工具 (lua-releng tool)[https://github.com/openresty/nginx-devel-utils/blob/master/lua-releng] 查找你的 Lua 源文件：
+使用工具 [lua-releng tool](https://github.com/openresty/nginx-devel-utils/blob/master/lua-releng) 查找你的 Lua 源文件：
 
     $ lua-releng     
     Checking use of Lua global variables in file lib/foo/bar.lua ...  

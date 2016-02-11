@@ -918,11 +918,11 @@ Test Suite
 * Nginx 模块:
     * [ngx_devel_kit](https://github.com/simpl/ngx_devel_kit)
     * [ngx_set_misc](https://github.com/openresty/set-misc-nginx-module)
-    * [ngx_auth_request](http://mdounin.ru/files/ngx_http_auth_request_module-0.2.tar.gz) (this is not needed if you're using Nginx 1.5.4+.
+    * [ngx_auth_request](http://mdounin.ru/files/ngx_http_auth_request_module-0.2.tar.gz) (如果你使用 1.5.4.+，这不是必须的)
     * [ngx_echo](https://github.com/openresty/echo-nginx-module)
     * [ngx_memc](https://github.com/openresty/memc-nginx-module)
     * [ngx_srcache](https://github.com/openresty/srcache-nginx-module)
-    * ngx_lua (i.e., this module)
+    * ngx_lua (该模块)
     * [ngx_lua_upstream](https://github.com/openresty/lua-upstream-nginx-module)
     * [ngx_headers_more](https://github.com/openresty/headers-more-nginx-module)
     * [ngx_drizzle](https://github.com/openresty/drizzle-nginx-module)
@@ -930,7 +930,7 @@ Test Suite
     * [ngx_coolkit](https://github.com/FRiCKLE/ngx_coolkit)
     * [ngx_redis2](https://github.com/openresty/redis2-nginx-module)
 
-`configure`时添加的这些模块顺序是非常重要的。因为在filter链中不同的过滤模块位置决定最终输出。正确的添加顺序如上所示。
+`configure`时添加的这些模块顺序是非常重要的。因为在 filter 链中不同的过滤模块位置决定最终输出。正确的添加顺序如上所示。
 
 * 第三方 Lua 库:
     * [lua-cjson](http://www.kyne.com.au/~mark/software/lua-cjson.php)
@@ -940,7 +940,7 @@ Test Suite
     * memcached: 监听默认端口，11211.
     * redis: 监听默认端口, 6379.
 
-查看[developer build script](https://github.com/openresty/lua-nginx-module/blob/master/util/build2.sh)内容，在搭建测试环境时确定更多细节。
+查看 [developer build script](https://github.com/openresty/lua-nginx-module/blob/master/util/build2.sh) 内容，在搭建测试环境时确定更多细节。
 
 在默认的测试模式下启动测试套件：
 
@@ -956,7 +956,7 @@ Test Suite
 
 在一个特别的测试文件中，运行指定的测试块，对你需要进行块测试部分添加一行`--- ONLY`信息，并使用`prove`工具运行这个`.t`文件。
 
-此外，还有其他各种测试方式，基于mockeagain， valgrind 等。参考[Test::Nginx documentation](http://search.cpan.org/perldoc?Test::Nginx)，有更多不同高级测试方式的资料。也可以看看在Amazon EC2的Nginx集群测试报告 <http://qa.openresty.org.> 。
+此外，还有其他各种测试方式，基于 mockeagain， valgrind 等。参考 [Test::Nginx documentation](http://search.cpan.org/perldoc?Test::Nginx)，有更多不同高级测试方式的资料。也可以看看在 Amazon EC2 的 Nginx 集群测试报告 <http://qa.openresty.org.> 。
 
 [返回目录](#table-of-contents)
 

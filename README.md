@@ -23,7 +23,7 @@ Table of Contents
     * [Chinese Mailing List](#chinese-mailing-list)
 * [Code Repository](#code-repository)
 * [Bugs and Patches](#bugs-and-patches)
-* [Lua/LuaJIT bytecode support](#lualuajit-bytecode-support)
+* [Lua/LuaJIT 字节码 support](#lualuajit-bytecode-support)
 * [System Environment Variable Support](#system-environment-variable-support)
 * [HTTP 1.0 support](#http-10-support)
 * [Statically Linking Pure Lua Modules](#statically-linking-pure-lua-modules)
@@ -383,7 +383,7 @@ Bugs and Patches
 
 [返回目录](#table-of-contents)
 
-Lua/LuaJIT bytecode support
+Lua/LuaJIT 字节码 support
 ===========================
 
 从 `v0.5.0rc32` release 开始，所有 `*_by_lua_file` 的配置指令（比如 [content_by_lua_file](#content_by_lua_file)）
@@ -1504,7 +1504,7 @@ set_by_lua_file
 
 **phase:** *rewrite*
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [set_by_lua](#set_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT bytecode](#lualuajit-bytecode-support) 的执行。
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [set_by_lua](#set_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
 对于该指令，对`<path-to-lua-script-file>`的字符串参数支持内联 Nginx 变量。但必须要额外注意注入攻击。
 
@@ -1569,7 +1569,7 @@ content_by_lua_file
 
 **阶段:** *content*
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [content_by_lua](#content_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT bytecode](#lualuajit-bytecode-support) 的执行。
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [content_by_lua](#content_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
 在`<path-to-lua-script-file>`中可以使用 Nginx 的内置变量用来提高灵活性，然而这带有一定的风险，通常并不推荐使用。
 
@@ -1752,7 +1752,7 @@ rewrite_by_lua_file
 
 **阶段:** *rewrite tail*
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [rewrite_by_lua](#rewrite_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT bytecode](#lualuajit-bytecode-support) 的执行。
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [rewrite_by_lua](#rewrite_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
 在`<path-to-lua-script-file>`中可以使用 Nginx 的内置变量用来提高灵活性，然而这带有一定的风险，通常并不推荐使用。
 
@@ -1779,9 +1779,9 @@ access_by_lua
 
 扮演 access 阶段处理，对每次请求执行在`<lua-script-str>`中指名的 Lua 代码。
 
-这些 Lua 代码可以调用[全部 API](#nginx-api-for-lua)，并作为一个新的协程，在一个独立的全局环境中执行（就像一个沙盒）。
+这些 Lua 代码可以调用 [全部 API](#nginx-api-for-lua)，并作为一个新的协程，在一个独立的全局环境中执行（就像一个沙盒）。
 
-注意：本指令的处理总是在标准[ngx_http_access_module](http://nginx.org/en/docs/http/ngx_http_access_module.html)的*后*面。所以下面的示例可以按照预期工作：
+注意：本指令的处理总是在标准 [ngx_http_access_module](http://nginx.org/en/docs/http/ngx_http_access_module.html) 的 *后* 面。所以下面的示例可以按照预期工作：
 
 ```nginx
 
@@ -1800,9 +1800,9 @@ access_by_lua
  }
 ```
 
-换句话说，如果一个客户端 IP 地址在黑名单中，它将在 [access_by_lua](#access_by_lua)中的 Mysql 复杂认证请求之前被拒绝。
+换句话说，如果一个客户端 IP 地址在黑名单中，它将在 [access_by_lua](#access_by_lua) 中的 Mysql 复杂认证请求之前被拒绝。
 
-注意，[ngx_auth_request](http://mdounin.ru/hg/ngx_http_auth_request_module/)模块可以近似的被[access_by_lua](#access_by_lua)实现：
+注意，[ngx_auth_request](http://mdounin.ru/hg/ngx_http_auth_request_module/) 模块可以近似的被 [access_by_lua](#access_by_lua) 实现：
 
 ```nginx
 
@@ -1836,9 +1836,9 @@ access_by_lua
  }
 ```
 
-和其他access阶段处理实现，[access_by_lua](#access_by_lua)将*不*能运行在子请求中。
+和其他 access 阶段处理实现，[access_by_lua](#access_by_lua) 将 *不* 能运行在子请求中。
 
-注意，在[access_by_lua](#access_by_lua)处理内部，当调用`ngx.exit(ngx.OK)`时，nginx请求将继续下一阶段的内容处理。要在[access_by_lua](#access_by_lua)处理中终结当前请求，调用[ngx.exit](#ngxexit)，成功的请求设定 status >= 200 (`ngx.HTTP_OK`) 并 status < 300 (`ngx.HTTP_SPECIAL_RESPONSE`)，失败的请求设定`ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)` (或其他相关的)。
+注意，在 [access_by_lua](#access_by_lua) 处理内部，当调用`ngx.exit(ngx.OK)`时，nginx 请求将继续下一阶段的内容处理。要在 [access_by_lua](#access_by_lua) 处理中终结当前请求，调用 [ngx.exit](#ngxexit)，成功的请求设定 status >= 200 (`ngx.HTTP_OK`) 并 status < 300 (`ngx.HTTP_SPECIAL_RESPONSE`)，失败的请求设定`ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)` (或其他相关的)。
 
 从 `v0.9.20` 版本开始，你可以使用 [access_by_lua_no_postpone](#access_by_lua_no_postpone) 指令来控制该 handler 在 Nginx 的 "access" 请求处理中的执行时机。
 
@@ -1875,13 +1875,13 @@ access_by_lua_file
 
 **阶段:** *access tail*
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[access_by_lua](#access_by_lua)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT bytecode](#lualuajit-bytecode-support)的执行。
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [access_by_lua](#access_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
 在`<path-to-lua-script-file>`中可以使用 Nginx 的内置变量用来提高灵活性，然而这带有一定的风险，通常并不推荐使用。
 
 当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 
-当 Lua 代码缓存开启（默认），用户代码在第一次请求时完成加载（只有一次）并缓存，当 Lua 文件被修改时，每次都要对 Nginx 配置进行重新加载。Lua 代码缓存是可以暂时被禁用，通过开关[lua_code_cache](#lua_code_cache)在`nginx.conf`中设置为`off`，这样就可以避免反复重新加载 Nginx。
+当 Lua 代码缓存开启（默认），用户代码在第一次请求时完成加载（只有一次）并缓存，当 Lua 文件被修改时，每次都要对 Nginx 配置进行重新加载。Lua 代码缓存是可以暂时被禁用，通过开关 [lua_code_cache](#lua_code_cache) 在`nginx.conf`中设置为`off`，这样就可以避免反复重新加载 Nginx。
 
 支持通过 Nginx 变量完成动态调度文件路径，就像 [content_by_lua_file](#content_by_lua_file) 一样。
 
@@ -1958,7 +1958,7 @@ header_filter_by_lua_file
 
 **阶段:** *output-header-filter*
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[header_filter_by_lua](#header_filter_by_lua)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT bytecode](#lualuajit-bytecode-support)的执行。
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [header_filter_by_lua](#header_filter_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
 当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 
@@ -1992,7 +1992,7 @@ body_filter_by_lua
 
 这样截断响应体，通常导致结果不完整的，也是无效的响应。
 
-本指令的 Lua 代码可以使用 Lua 字符串或字符串的表重写[ngx.arg](#ngxarg)\[1\]输入数据块内容，从而完成 Nginx 输出体下游过滤数据修改。例如，在输出体转换所有的小写字母，我们可以这样用：
+本指令的 Lua 代码可以使用 Lua 字符串或字符串的表重写 [ngx.arg](#ngxarg)\[1\] 输入数据块内容，从而完成 Nginx 输出体下游过滤数据修改。例如，在输出体转换所有的小写字母，我们可以这样用：
 
 ```nginx
 
@@ -2004,7 +2004,7 @@ body_filter_by_lua
 
 当设置`nil`或一个空的 Lua 字符串值给`ngx.arg[1]`，将没有任何数据块下发到 Nginx 下游。
 
-同样，新的结束标识"eof"也可以通过对[ngx.arg](#ngxarg)\[2\]设定一个布尔值。例如：
+同样，新的结束标识"eof"也可以通过对 [ngx.arg](#ngxarg)\[2\] 设定一个布尔值。例如：
 
 ```nginx
 
@@ -2029,7 +2029,7 @@ body_filter_by_lua
 
     hello world
 
-就是说，当应答体过滤发现一个块包含关键字"hello"，它将立即设置结束标识"eof"为 true ，应答内容被截断尽管后面还有有效数据。
+就是说，当应答体过滤发现一个块包含关键字 "hello"，它将立即设置结束标识"eof"为 true ，应答内容被截断尽管后面还有有效数据。
 
 当Lua代码可能改变应答体的长度时，我们必须总是清空响应头中的`Content-Length`（如果有），强制使用流式输出，如：
 
@@ -2043,14 +2043,14 @@ body_filter_by_lua
  }
 ```
 
-注意：下面这些API函数在这个环境中是禁用的，这受制于当前 Nginx 输出过滤器的实现：
+注意：下面这些 API 函数在这个环境中是禁用的，这受制于当前 Nginx 输出过滤器的实现：
 
-* 输出API函数类（例如：[ngx.say](#ngxsay) 和 [ngx.send_headers](#ngxsend_headers)）
-* 控制API函数类（例如：[ngx.redirect](#ngxredirect) 和 [ngx.exec](#ngxexec)）
+* 输出 API 函数类（例如：[ngx.say](#ngxsay) 和 [ngx.send_headers](#ngxsend_headers)）
+* 控制 API 函数类（例如：[ngx.redirect](#ngxredirect) 和 [ngx.exec](#ngxexec)）
 * 子请求函数类（例如：[ngx.location.capture](#ngxlocationcapture) 和 [ngx.location.capture_multi](#ngxlocationcapture_multi)）
 * cosocket 函数类（例如：[ngx.socket.tcp](#ngxsockettcp) 和 [ngx.req.socket](#ngxreqsocket)）
 
-Nginx 输出过滤器在一个单独请求中可能被调用多次，因为应答体可能使用块的方式进行投递。所以，本指令中的 Lua 代码在这个单独的HTTP请求生命周期内，同样会执行多次。
+Nginx 输出过滤器在一个单独请求中可能被调用多次，因为应答体可能使用块的方式进行投递。所以，本指令中的 Lua 代码在这个单独的 HTTP 请求生命周期内，同样会执行多次。
 
 该指令在`v0.5.0rc32`版本中首次引入。
 
@@ -2089,7 +2089,7 @@ body_filter_by_lua_file
 
 **阶段:** *output-body-filter*
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[body_filter_by_lua](#body_filter_by_lua)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT bytecode](#lualuajit-bytecode-support)的执行。
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [body_filter_by_lua](#body_filter_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
 当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 
@@ -2197,7 +2197,7 @@ log_by_lua_file
 
 **阶段:** *log*
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[log_by_lua](#log_by_lua)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT bytecode](#lualuajit-bytecode-support)的执行。
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[log_by_lua](#log_by_lua)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT 字节码](#lualuajit-bytecode-support)的执行。
 
 当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 
@@ -2258,7 +2258,7 @@ balancer_by_lua_file
 
 **阶段:** *content*
 
-除了通过文件 `<path-to-lua-script-file>` 的内容指定 Lua 代码外，该指令与 [balancer_by_lua_block](#balancer_by_lua_block) 是等价的，该指令从 `v0.5.0rc32` 开始支持 [Lua/LuaJIT bytecode](#lualuajit-bytecode-support) 的执行。
+除了通过文件 `<path-to-lua-script-file>` 的内容指定 Lua 代码外，该指令与 [balancer_by_lua_block](#balancer_by_lua_block) 是等价的，该指令从 `v0.5.0rc32` 开始支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
 当给定了一个相对路径如 `foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项 `-p PATH` 决定的 `server prefix`。
 
@@ -2360,7 +2360,7 @@ ssl_certificate_by_lua_file
 **阶段:** *right-before-SSL-handshake*
 
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[ssl_certificate_by_lua_block](#ssl_certificate_by_lua_block)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT bytecode](#lualuajit-bytecode-support)的执行。
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[ssl_certificate_by_lua_block](#ssl_certificate_by_lua_block)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT 字节码](#lualuajit-bytecode-support)的执行。
 
 当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 

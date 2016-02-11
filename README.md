@@ -1419,13 +1419,13 @@ set_by_lua
 
 使用可选的输入参数`$arg1 $arg2 ...`，执行指定的代码`<lua-script-str>`，并返回字符串结果到`$res`。
 
-`<lua-script-str>`的代码可以做[API调用](#nginx-api-for-lua)，并能从`ngx.arg`表中获取输入参数（下标起始值是`1`并顺序增长）。
+`<lua-script-str>`的代码可以做 [API 调用](#nginx-api-for-lua)，并能从`ngx.arg`表中获取输入参数（下标起始值是`1`并顺序增长）。
 
 该指令被设计为执行短小、快速的代码块，因为代码执行时Nginx的事件循环是被阻塞的。因此应避免耗时的代码处理。
 
-这个指令是通过挂载自定义命令到标准[ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html)模块列表来实现。因为模块[ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html)中是不支持非阻塞I/O，所以在本指令中，是无法yield当前Lua的“轻线程”。
+这个指令是通过挂载自定义命令到标准 [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html) 模块列表来实现。因为模块 [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html) 中是不支持非阻塞 I/O，所以在本指令中，是无法 yield 当前 Lua 的“轻线程”。
 
-在`set_by_lua`的上下文中，至少下列API 函数目前是被禁止的：
+在`set_by_lua`的上下文中，至少下列 API 函数目前是被禁止的：
 
 * 输出 API 函数 (例如 [ngx.say](#ngxsay) 和 [ngx.send_headers](#ngxsend_headers))
 * 控制 API 函数 (例如 [ngx.exit](#ngxexit))
@@ -1433,7 +1433,7 @@ set_by_lua
 * Cosocket API 函数 (例如 [ngx.socket.tcp](#ngxsockettcp) 和 [ngx.req.socket](#ngxreqsocket))
 * 休眠 API 函数 [ngx.sleep](#ngxsleep)
 
-额外注意的，本指令一次只能写回一个值到一个Nginx变量。尽管如此，可以使用[ngx.var.VARIABLE](#ngxvarvariable)接口绕过这个限制。
+额外注意的，本指令一次只能写回一个值到一个 Nginx 变量。尽管如此，可以使用[ngx.var.VARIABLE](#ngxvarvariable) 接口绕过这个限制。
 
 ```nginx
 
@@ -1452,7 +1452,7 @@ set_by_lua
  }
 ```
 
-这个指令可以自由的与其他指令模块混合使用，如[ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html), [set-misc-nginx-module](http://github.com/openresty/set-misc-nginx-module), 和 [array-var-nginx-module](http://github.com/openresty/array-var-nginx-module)。所有这些指令的执行顺序，将和他们配置文件中出现的顺序一致。
+这个指令可以自由的与其他指令模块混合使用，如 [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html), [set-misc-nginx-module](http://github.com/openresty/set-misc-nginx-module) 和 [array-var-nginx-module](http://github.com/openresty/array-var-nginx-module)。所有这些指令的执行顺序，将和他们配置文件中出现的顺序一致。
 
 
 ```nginx
@@ -1464,7 +1464,7 @@ set_by_lua
 
 自 `v0.5.0rc29` 版本开始，本指令的 `<lua-script-str>` 参数中不再支持内联 Nginx 变量，所以可以直接使用 $ 字符作为其字面值。
 
-这个指令需要[ngx_devel_kit](https://github.com/simpl/ngx_devel_kit)模块。
+这个指令需要 [ngx_devel_kit](https://github.com/simpl/ngx_devel_kit) 模块。
 
 [返回目录](#directives)
 

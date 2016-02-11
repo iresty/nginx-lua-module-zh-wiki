@@ -841,7 +841,7 @@ Nginx提前销毁一个请求的可能（至少）：
 * 500 (Internal Server Error)       -- 内部服务错误
 * 501 (Not Implemented)             -- 未实现
 
-这意味着正常执行阶段被跳过，如重写或访问阶段。这也意味着，后面的所有阶段，例如
+这意味着正常执行阶段被跳过，如重写或访问阶段。这也意味着，后面的所有阶段，例如 
 [log_by_lua](#log_by_lua)，将无法获得在这个阶段存放的普通信息。
 
 [返回目录](#table-of-contents)
@@ -849,8 +849,8 @@ Nginx提前销毁一个请求的可能（至少）：
 TODO
 ====
 
-* cosocket：实现LuaSocket非连接的UDP API。
-* 实现普通的TCP服务替代HTTP服务，并支持Lua代码。例如：
+* cosocket：实现 LuaSocket 非连接的 UDP API。
+* 实现普通的 TCP 服务替代 HTTP 服务，并支持 Lua 代码。例如：
 
 ```lua
 
@@ -864,7 +864,7 @@ TODO
  }
 ```
 
-* 实现普通的UDP服务替代HTTP服务，并支持Lua代码。例如：
+* 实现普通的 UDP 服务替代 HTTP 服务，并支持 Lua 代码。例如：
 
 ```lua
 
@@ -878,22 +878,21 @@ TODO
  }
 ```
 
-* shm：实现一个"shared queue API"，对[shared dict](#lua_shared_dict) 补充API。
-* cosocket：在[init_by_lua*](#init_by_lua)添加支持。
-* cosocket：对于流式cosocket，实现bind()方法。
-* cosocket：基于池子的后端并发连接控制，当后端并发超过它的连接池限制，实现自动排队的`connect`。
-* cosocket：查看合并aviramc's的[patch](https://github.com/openresty/lua-nginx-module/pull/290)，添加`bsdrecv`方法。
-* 添加新的API函数完成标准`add_header`配置功能。
+* shm：实现一个 "shared queue API"，对 [shared dict](#lua_shared_dict) 补充 API。
+* cosocket：在 [init_by_lua*](#init_by_lua) 添加支持。
+* cosocket：对于流式 cosocket，实现 bind() 方法。
+* cosocket：基于池子的后端并发连接控制，当后端并发超过它的连接池限制，实现自动排队的 `connect`。
+* cosocket：查看合并 aviramc's 的 [patch](https://github.com/openresty/lua-nginx-module/pull/290)，添加 `bsdrecv` 方法。
+* 添加新的API函数完成标准 `add_header` 配置功能。
 * 查看、合并 Jader H. Silva 的 补丁 `ngx.re.split()` 。
-* 查看、合并 Jader H. Silva 的 补丁 `ngx.re.split()`.
-* 查看、合并 vadim-pavlov 的 补丁，给[ngx.location.capture](#ngxlocationcapture)添加 `extra_headers` 选项
+* 查看、合并 vadim-pavlov 的 补丁，给 [ngx.location.capture](#ngxlocationcapture)添加 `extra_headers` 选项。
 * 使用 `ngx_hash_t` 去优化内建的 header 查找，涉及[ngx.req.set_header](#ngxreqset_header), [ngx.header.HEADER](#ngxheaderheader) 等。
-* cosocket连接池溢出，支持配置选项定义不同策略
-* 添加新的小节，当nginx关闭时执行一段代码。
-* 添加`ignore_resp_headers`, `ignore_resp_body`, 和 `ignore_resp`选项给[ngx.location.capture](#ngxlocationcapture)、[ngx.location.capture_multi](#ngxlocationcapture_multi)，对于用户提升微小性能。
+* cosocket 连接池溢出，支持配置选项定义不同策略。
+* 添加新的小节，当 nginx 关闭时执行一段代码。
+* 添加 `ignore_resp_headers`, `ignore_resp_body` 和 `ignore_resp`选项给 [ngx.location.capture](#ngxlocationcapture)、[ngx.location.capture_multi](#ngxlocationcapture_multi)，对于用户提升微小性能。
 * add automatic Lua code time slicing support by yielding and resuming the Lua VM actively via Lua's debug hooks.
-<!-- todo 没懂，后面看看怎么翻译  -->
-* 添加`stat`类似[mod_lua](https://httpd.apache.org/docs/trunk/mod/mod_lua.html)。
+<!-- todo  -->
+* 添加 `stat` 类似 [mod_lua](https://httpd.apache.org/docs/trunk/mod/mod_lua.html)。
 
 [返回目录](#table-of-contents)
 

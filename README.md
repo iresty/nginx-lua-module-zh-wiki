@@ -237,8 +237,7 @@ Typical Uses
 本模块会把你带入一个拥有无限可能的服务端开发新世界，你可以把 Nginx 的各种功能进行自由拼接，
 更重要的是，开发门槛并不高，这一切都是用强大轻巧的 Lua 语言来操控。
 
-本模块的脚本有充分的灵活性，并且性能和原生 C 语言编程相比毫不逊色，无论是 CPU 时间还是内存占用方面。
-当然这个需要你使用 LuaJIT 2.x。
+本模块的脚本有充分的灵活性，并且性能和原生 C 语言编程相比毫不逊色，无论是 CPU 时间还是内存占用方面。当然这里需要启用 LuaJIT 2.x。
 
 其他脚本语言的实现通常很难达到类似性能。
 
@@ -256,22 +255,20 @@ Nginx Compatibility
 * 1.7.x (最后测试: 1.7.10)
 * 1.6.x
 
-比 Nginx 1.6.0 更老的版本 *不* 再支持。
+比 Nginx 1.6.0 更老的版本 *不* 再提供支持。
 
 [返回目录](#table-of-contents)
 
 Installation
 ============
 
-强烈推荐使用[OpenResty](http://openresty.org)，它包含了 Nginx, ngx_lua, LuaJIT 2.0/2.1 (或者可选的标准 Lua 5.1解释器)，
-还包含很多强劲、好用的 Nginx 模块。
-使用一个简单的命令就可以完成基础安装：`./configure --with-luajit && make && make install`。
+强烈推荐使用 [OpenResty](http://openresty.org) 安装包，它包含了 Nginx, ngx_lua, LuaJIT 2.0/2.1 (或者可选的标准 Lua 5.1解释器)，还包含很多强劲、好用的 Nginx 模块。使用一个简单的命令就可以完成基础安装：`./configure --with-luajit && make && make install`。
 
 当然，ngx_lua 也可以手动的编译到 Nginx 中：
 
-1. 安装LuaJIT 2.0 或 2.1 (推荐) 或 Lua 5.1 (Lua 5.2 暂时还*不支持*)。
-LuaJIT可从 [The LuaJIT project website](http://luajit.org/download.html) 获取，
-Lua 5.1可从 [Lua project website](http://www.lua.org/) 获取。
+1. 安装LuaJIT 2.0 或 2.1 (推荐) 或 Lua 5.1 (Lua 5.2 暂时还 *不支持* )。
+LuaJIT可从 [The LuaJIT project 站点](http://luajit.org/download.html) 获取，
+Lua 5.1可从 [Lua project 站点](http://www.lua.org/) 获取。
 2. 下载最新版本的 ngx_devel_kit (NDK)开发模块 [这里](https://github.com/simpl/ngx_devel_kit/tags) 。
 3. 下载最新版本的 ngx_lua [这里](https://github.com/openresty/lua-nginx-module/tags) 。
 4. 下载最新版本的 Nginx [这里](http://nginx.org/) (查看 [Nginx 兼容列表](#nginx-compatibility))。
@@ -314,12 +311,12 @@ C Macro Configurations
 通过 OpenResty 或者 Nginx 内核方式构建该模块，你可以定义下面的 C 宏定义作为可选项提供给 C 编译器：
 
 * `NGX_LUA_USE_ASSERT`
-    声明后，将在ngx_lua C代码中开启断言。推荐用在调试或者测试版本中。启用后，它会引入额外一些（小的）运行时开销。在`v0.9.10`版本中首次引入此选项。
+    声明后，将在ngx_lua C代码中开启断言。推荐用在调试或者测试版本中。启用后，它会引入额外一些（小的）运行时开销。在 `v0.9.10` 版本中首次引入此选项。
 
 * `NGX_LUA_ABORT_AT_PANIC`
-    当 Lua/LuaJIT 虚拟机出现panic错误时，ngx_lua默认会让当前的工作进程优雅退出。通过指定这个宏定义，ngx_lua将立即终止当前的 Nginx 工作进程（通常会生成一个core dump文件）。这个选项主要用来调试虚拟机的panic错误。在`v0.9.8`版本中首次引入此选项。
+    当 Lua/LuaJIT 虚拟机出现 panic 错误时，ngx_lua 默认会让当前的工作进程优雅退出。通过指定这个宏定义，ngx_lua 将立即终止当前的 Nginx 工作进程（通常会生成一个core dump文件）。这个选项主要用来调试虚拟机的 panic 错误。在 `v0.9.8` 版本中首次引入此选项。
 * `NGX_LUA_NO_FFI_API`
-    去除 Nginx 中FFI-based Lua API需要的的纯 C 函数(例如 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) 所需要的)。开启这个宏可以让 Nginx 二进制代码更小。
+    去除 Nginx 中 FFI-based Lua API 需要的的纯 C 函数(例如 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) 所需要的)。开启这个宏可以让 Nginx 二进制代码更小。
 
 在 Nginx 或者 OpenResty 启用一个或多个宏定义，只用传给`./configure`脚本几个额外的C编译选项。例如：
 

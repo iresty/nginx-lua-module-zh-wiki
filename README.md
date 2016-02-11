@@ -5252,7 +5252,7 @@ ngx.today
 
 **环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
-从nginx的时间缓存(不像Lua的日期库，该时间不涉及系统调用)返回当前的日期(格式：`yyyy-mm-dd`)。
+从 nginx 的时间缓存(不像 Lua 的日期库，该时间不涉及系统调用)返回当前的日期(格式：`yyyy-mm-dd`)。
 
 这是个本地时间。
 
@@ -5264,9 +5264,9 @@ ngx.time
 
 **环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
-返回从新纪元到从nginx时间缓存(不像Lua的日期库，该时间不涉及系统调用))获取的当前时间戳所经过的秒数。
+返回从新纪元到从 nginx 时间缓存(不像 Lua 的日期库，该时间不涉及系统调用))获取的当前时间戳所经过的秒数。
 
-通过先调用[ngx.update_time](#ngxupdate_time)会强制更新nginx的时间缓存。
+通过先调用 [ngx.update_time](#ngxupdate_time) 会强制更新 nginx 的时间缓存。
 
 [返回目录](#nginx-api-for-lua)
 
@@ -5276,9 +5276,9 @@ ngx.now
 
 **环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
-返回一个浮点型的数字，该数字是从新纪元到从nginx时间缓存(不像Lua的日期库，该时间不涉及系统调用)获取的当前时间戳所经过的时间(以秒为单位，小数部分是毫秒)。
+返回一个浮点型的数字，该数字是从新纪元到从 nginx 时间缓存(不像 Lua 的日期库，该时间不涉及系统调用)获取的当前时间戳所经过的时间(以秒为单位，小数部分是毫秒)。
 
-通过先调用[ngx.update_time](#ngxupdate_time)，你可以强制更新nginx时间缓存。
+通过先调用 [ngx.update_time](#ngxupdate_time) ，你可以强制更新 nginx 时间缓存。
 
 这个API最早出现在 `v0.3.1rc32` 版本中。
 
@@ -5290,7 +5290,7 @@ ngx.update_time
 
 **环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
-强行更新Nginx当前时间缓存。此调用会涉及到一个系统调用，因此会有一些系统开销，所以不要滥用。
+强行更新 Nginx 当前时间缓存。此调用会涉及到一个系统调用，因此会有一些系统开销，所以不要滥用。
 
 这个API最早出现在 `v0.3.1rc32` 版本中。
 
@@ -5302,7 +5302,7 @@ ngx.localtime
 
 **环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
-返回nginx时间缓存(不像Lua的[os.date](http://www.lua.org/manual/5.1/manual.html#pdf-os.date)函数，该时间不涉及系统调用)的当前时间戳(格式：`yyyy-mm-dd hh:mm:ss`)。
+返回 nginx 时间缓存(不像 Lua 的 [os.date](http://www.lua.org/manual/5.1/manual.html#pdf-os.date) 函数，该时间不涉及系统调用)的当前时间戳(格式：`yyyy-mm-dd hh:mm:ss`)。
 
 这是个本地时间。
 
@@ -5314,7 +5314,7 @@ ngx.utctime
 
 **环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
-返回nginx时间缓存(不像Lua的[os.date](http://www.lua.org/manual/5.1/manual.html#pdf-os.date)函数，该时间不涉及系统调用)的当前时间戳(格式：`yyyy-mm-dd hh:mm:ss`)。
+返回 nginx 时间缓存(不像 Lua 的 [os.date](http://www.lua.org/manual/5.1/manual.html#pdf-os.date) 函数，该时间不涉及系统调用)的当前时间戳(格式：`yyyy-mm-dd hh:mm:ss`)。
 
 这是个UTC时间。
 
@@ -6234,7 +6234,6 @@ udpsock:close
 **环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua*, ngx.timer.**
 
 关闭当前 UDP 或 unix 域数据报 socket 。成功情况返回 `1` ，反之错误情况返回 `nil` 和 错误描述信息。
-Closes the current UDP or datagram unix domain socket. It returns the `1` in case of success and returns `nil` with a string describing the error otherwise.
 
 当 socket 对象被 Lua GC（垃圾回收）释放或当前客户端请求处理完毕，还没有调用该方法的 socket 对象（关联连接）都将被关闭。
 
@@ -6259,8 +6258,7 @@ udpsock:settimeout
 ngx.socket.stream
 -----------------
 
-只是 [ngx.socket.tcp](#ngxsockettcp) 的一个别名。如果是 stream 类型的 cosocket 并有可能连接到 unix domain
-socket ，这时候该 API 名称更贴切。
+只是 [ngx.socket.tcp](#ngxsockettcp) 的一个别名。如果是 stream 类型的 cosocket 并有可能连接到 unix domain socket ，这时候该 API 名称更贴切。
 
 该 API 在 `v0.10.1` 版本首次引入。
 
@@ -6701,7 +6699,6 @@ ngx.get_phase
 **环境:** *init_by_lua&#42;, init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
 检索当前正在执行的阶段名称。返回值可能有：
-Retrieves the current running phase name. Possible return values are
 
 * `init`
     [init_by_lua](#init_by_lua) 或 [init_by_lua_file](#init_by_lua_file) 的运行环境。
@@ -6745,7 +6742,6 @@ ngx.thread.spawn
 在 [rewrite_by_lua](#rewrite_by_lua)、[access_by_lua](#access_by_lua) 中的 Lua 代码块是在 ngx_lua 自动创建的“轻线程”样板执行的。这类样板的“轻线程”也被称为“入口线程”。
 
 默认的，相应的 Nginx 处理部分（例如 [rewrite_by_lua](#rewrite_by_lua) 部分）将不会终止，直到：
-By default, the corresponding Nginx handler (e.g., [rewrite_by_lua](#rewrite_by_lua) handler) will not terminate until
 
 1. “入口线程”和用户所有的“轻线程”都终止了
 1. 一个“轻线程”（无论“入口线程”或用户“轻线程”），由于调用 [ngx.exit](#ngxexit)、 [ngx.exec](#ngxexec)、 [ngx.redirect](#ngxredirect)、 [ngx.req.set_uri(uri, true)](#ngxreqset_uri) 中止执行
@@ -7108,7 +7104,7 @@ ngx.timer.running_count
 
 **环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
-返回当前运行的 `timers` 总数。
+返回当前 `running timers` 总数。
 
 该指令从 `v0.9.20` 版本首次引入。
 
@@ -7120,7 +7116,7 @@ ngx.timer.pending_count
 
 **环境:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
-返回待定运行的 `timers` 数量。
+返回待定 `pending timers` 数量。
 
 该指令从 `v0.9.20` 版本首次引入。
 
@@ -7281,7 +7277,7 @@ ngx.balancer
 
 该模块没与 ngx_lua 模块一起发行，而是与 [lua-resty-core](https://github.com/openresty/lua-resty-core) 库一起发行。
 
-为获取更多信息，请参考 [lua-resty-core](https://github.com/openresty/lua-resty-core) Lua　模块的 `ngx.balancer` 章节，[文档](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/balancer.md) 。
+为获取更多信息，请参考 [lua-resty-core](https://github.com/openresty/lua-resty-core) Lua　模块的 `ngx.balancer` 章节 [文档](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/balancer.md) 。
 
 该特性在 `v0.10.0` 版本首次引入。
 

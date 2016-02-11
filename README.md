@@ -3055,7 +3055,7 @@ Core constants
    ngx.null
 ```
 
-`ngx.null` 常量是一个 `NULL` 的[轻量用户数据](http://www.lua.org/pil/28.5.html)，一般被用来表达 Lua table 等里面的 nil (空) 值，类似于 [lua-cjson](http://www.kyne.com.au/~mark/software/lua-cjson.php) 库中的 `cjson.null` 常量。在`v0.5.0rc5` 版本中首次引入这个常量。
+`ngx.null` 常量是一个 `NULL` 的 [轻量用户数据](http://www.lua.org/pil/28.5.html) ，一般被用来表达 Lua table 等里面的 nil (空) 值，类似于 [lua-cjson](http://www.kyne.com.au/~mark/software/lua-cjson.php) 库中的 `cjson.null` 常量。在`v0.5.0rc5` 版本中首次引入这个常量。
 
 `ngx.DECLINED` 这个常量在`v0.5.0rc19`版本中首次引入。
 
@@ -4420,7 +4420,7 @@ ngx.req.read_body
 
 在当前请求中包含请求体，但不需要时，必须使用 [ngx.req.discard_body](#ngxreqdiscard_body) 明确丢弃请求体，以避免影响 HTTP 1.1 长连接或 HTTP 1.1 流水线 (pipelining)。
 
-这个函数在 `v0.3.1rc17`` 版本中首次引入。
+这个函数在 `v0.3.1rc17` 版本中首次引入。
 
 [返回目录](#nginx-api-for-lua)
 
@@ -4436,7 +4436,7 @@ ngx.req.discard_body
 
 如果请求体已经被读取，此函数将不会执行，立即返回。
 
-这个函数在 `v0.3.1rc17`` 版本中首次引入。
+这个函数在 `v0.3.1rc17` 版本中首次引入。
 
 更多用法请参考 [ngx.req.read_body](#ngxreqread_body)。
 
@@ -4464,7 +4464,7 @@ ngx.req.get_body_data
 
 请注意，调用此函数比使用 `ngx.var.request_body` 或 `ngx.var.echo_request_body` 更有效率，因为本函数能够节省一次内存分配与数据复制。
 
-这个函数在 `v0.3.1rc17`` 版本中首次引入。
+这个函数在 `v0.3.1rc17` 版本中首次引入。
 
 更多用法请参考 [ngx.req.get_body_file](#ngxreqget_body_file)。
 
@@ -4486,7 +4486,7 @@ ngx.req.get_body_file
 
 如需要强制在临时文件中保存请求体，请打开 [client_body_in_file_only](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_in_file_only) 选项。
 
-这个函数在 `v0.3.1rc17`` 版本中首次引入。
+这个函数在 `v0.3.1rc17` 版本中首次引入。
 
 更多用法请参考 [ngx.req.get_body_data](#ngxreqget_body_data)。
 
@@ -4502,7 +4502,7 @@ ngx.req.set_body_data
 
 如果当前请求的请求体尚未被读取，它将被安全地丢弃。当请求体已经被读进内存或缓存在磁盘文件中时，相应的内存或磁盘文件将被立即清理回收。
 
-这个函数在 `v0.3.1rc18`` 版本中首次引入。
+这个函数在 `v0.3.1rc18` 版本中首次引入。
 
 更多用法请参考 [ngx.req.set_body_file](#ngxreqset_body_file)。
 
@@ -4522,7 +4522,7 @@ ngx.req.set_body_file
 
 如果当前请求的请求体尚未被读取，它将被安全地丢弃。当请求体已经被读进内存或缓存在磁盘文件中时，相应的内存或磁盘文件将被立即清理回收。
 
-这个函数在 `v0.3.1rc18`` 版本中首次引入。
+这个函数在 `v0.3.1rc18` 版本中首次引入。
 
 更多用法请参考 [ngx.req.set_body_data](#ngxreqset_body_data)。
 
@@ -5158,7 +5158,7 @@ ngx.hmac_sha1
 
 **环境:** *set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
-通过 `str` 待运算数据和 `secret_key` 密钥串生成结果。关于[HMAC-SHA1](http://en.wikipedia.org/wiki/HMAC)。
+通过 `str` 待运算数据和 `secret_key` 密钥串生成结果。关于 [HMAC-SHA1](http://en.wikipedia.org/wiki/HMAC)。
 
 通过 `HMAC-SHA1` 的运算会得到二进制数据，如果你想要把结果转为文本形式，你可以使用 [ngx.encode_base64](ngxencode_base64.md) 函数。
 

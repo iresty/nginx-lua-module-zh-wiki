@@ -2279,11 +2279,11 @@ lua_need_request_body
 
 在运行 rewrite/access/access_by_lua* 之前决定是否强制获取请求体数据。 Nginx 内部默认不读取客户端请求体，如果需要读取请求体数据，需要使用该指令设置为 `on` 或者在 Lua 代码中调用 [ngx.req.read_body](#ngxreqread_body) 函数。
 
-为了读取请求体数据到[$request_body](http://nginx.org/en/docs/http/ngx_http_core_module.html#var_request_body)变量，[client_body_buffer_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size)必须要与[client_max_body_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size)有同样的大小。因为内容大小超过[client_body_buffer_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size)但是小于[client_max_body_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size)时， Nginx 将把缓冲内存数据存到一个磁盘的临时文件上，这将导致[$request_body](http://nginx.org/en/docs/http/ngx_http_core_module.html#var_request_body)变量是一个空值。
+为了读取请求体数据到 [$request_body](http://nginx.org/en/docs/http/ngx_http_core_module.html#var_request_body) 变量，[client_body_buffer_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size) 必须要与 [client_max_body_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size) 有同样的大小。因为内容大小超过 [client_body_buffer_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_buffer_size) 但是小于 [client_max_body_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size) 时， Nginx 将把缓冲内存数据存到一个磁盘的临时文件上，这将导致 [$request_body](http://nginx.org/en/docs/http/ngx_http_core_module.html#var_request_body) 变量是一个空值。
 
-如果当前location包含 [rewrite_by_lua](#rewrite_by_lua) 或 [rewrite_by_lua_file](#rewrite_by_lua_file) 指令，请求体将在[rewrite_by_lua](#rewrite_by_lua) 或 [rewrite_by_lua_file](#rewrite_by_lua_file)代码运行之前（还是在`rewrite`阶段）被读取。如果只有[content_by_lua](#content_by_lua)指令，请求体直到内容生成的 Lua 代码执行时才会读取（既，请求体在处理生成返回数据阶段才回被读取）。
+如果当前 location 包含 [rewrite_by_lua](#rewrite_by_lua) 或 [rewrite_by_lua_file](#rewrite_by_lua_file) 指令，请求体将在 [rewrite_by_lua](#rewrite_by_lua) 或 [rewrite_by_lua_file](#rewrite_by_lua_file) 代码运行之前（还是在`rewrite`阶段）被读取。如果只有 [content_by_lua](#content_by_lua) 指令，请求体直到内容生成的 Lua 代码执行时才会读取（既，请求体在处理生成返回数据阶段才回被读取）。
 
-无论如何都非常推荐，使用[ngx.req.read_body](#ngxreqread_body)和[ngx.req.discard_body](#ngxreqdiscard_body)函数，可以更好的控制请求体的读取过程。
+无论如何都非常推荐，使用 [ngx.req.read_body](#ngxreqread_body) 和 [ngx.req.discard_body](#ngxreqdiscard_body) 函数，可以更好的控制请求体的读取过程。
 
 这些也适用于 [access_by_lua](#access_by_lua) 和 [access_by_lua_file](#access_by_lua_file)。
 
@@ -2304,7 +2304,9 @@ ssl_certificate_by_lua_block
 
 另一个典型应用场景是在当前环境中非阻塞的方式完成 SSL 握手信号控制，例如在 [lua-resty-limit-traffic](https://github.com/openresty/lua-resty-limit-traffic) 库的辅助下。
 
-我们也可以从客户端的 SSL 握手请求做一些有趣的事情，例如使用 SSLv3 协议拒绝旧的 SSL 客户端，或下面的操作。
+One can also do interesting things with the SSL handshake requests from the client side, like
+rejecting old SSL clients using the SSLv3 protocol or even below selectively.
+<!-- todo -->
 
 [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md) 和 [ngx.ocsp](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ocsp.md) Lua 模块是由 [lua-resty-core](https://github.com/openresty/lua-resty-core/#readme) 库提供，并且在该环境中特别有用。你可以使用这两个模块提供的 Lua API，处理当前 SSL 连接初始化的 SSL 证书链和私有密钥。
 
@@ -2328,7 +2330,7 @@ ssl_certificate_by_lua_block
  }
 ```
 
-更多信息，可以参考 [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md)的更多复杂例子 和 [ngx.ocsp](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ocsp.md) Lua 模块的官方文档。
+更多信息，可以参考 [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md) 的更多复杂例子 和 [ngx.ocsp](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ocsp.md) Lua 模块的官方文档。
 
 在用户 Lua 代码中未捕获的 Lua 异常将立即终止当前 SSL 请求，就如同使用 `ngx.ERROR` 错误码调用 [ngx.exit](#ngxexit) 。
 
@@ -2360,7 +2362,7 @@ ssl_certificate_by_lua_file
 **阶段:** *right-before-SSL-handshake*
 
 
-除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与[ssl_certificate_by_lua_block](#ssl_certificate_by_lua_block)是等价的，该指令从`v0.5.0rc32`开始支持[Lua/LuaJIT 字节码](#lualuajit-bytecode-support)的执行。
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [ssl_certificate_by_lua_block](#ssl_certificate_by_lua_block) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
 当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 
@@ -2410,7 +2412,7 @@ lua_socket_connect_timeout
 
 **环境:** *http, server, location*
 
-该指令控制 TCP/unix-domain socket 对象的[connect](#tcpsockconnect)方法默认超时时间，这个值可以被[settimeout](#tcpsocksettimeout)方法覆盖。
+该指令控制 TCP/unix-domain socket 对象的 [connect](#tcpsockconnect) 方法默认超时时间，这个值可以被 [settimeout](#tcpsocksettimeout) 方法覆盖。
 
 `<time>`参数可以是整数，后面可以跟着像`s` (秒), `ms` (毫秒), `m` (分钟)的单位可选项。 默认的时间单位是`s`，也就是"秒"。默认值是`60s`。
 
@@ -2427,7 +2429,7 @@ lua_socket_send_timeout
 
 **环境:** *http, server, location*
 
-该指令控制 TCP/unix-domain socket 对象的[send](#tcpsocksend)方法默认超时时间，这个值可以被[settimeout](#tcpsocksettimeout)方法覆盖。
+该指令控制 TCP/unix-domain socket 对象的 [send](#tcpsocksend) 方法默认超时时间，这个值可以被 [settimeout](#tcpsocksettimeout) 方法覆盖。
 
 `<time>`参数可以是整数，后面可以跟着像`s` (秒), `ms` (毫秒), `m` (分钟)的单位可选项。 默认的时间单位是`s`，也就是"秒"。默认值是`60s`。
 
@@ -2459,7 +2461,7 @@ lua_socket_read_timeout
 
 **阶段:** *依赖于使用环境*
 
-该指令控制 TCP/unix-domain socket 对象的[receive](#tcpsockreceive)方法、[receiveuntil](#tcpsockreceiveuntil)方法返回迭代函数的默认超时时间。这个值可以被[settimeout](#tcpsocksettimeout)方法覆盖。
+该指令控制 TCP/unix-domain socket 对象的 [receive](#tcpsockreceive) 方法、[receiveuntil](#tcpsockreceiveuntil) 方法返回迭代函数的默认超时时间。这个值可以被 [settimeout](#tcpsocksettimeout) 方法覆盖。
 
 `<time>`参数可以是整数，后面可以跟着像`s` (秒), `ms` (毫秒), `m` (分钟)的单位可选项。 默认的时间单位是`s`，也就是"秒"。默认值是`60s`。
 
@@ -2477,9 +2479,8 @@ lua_socket_buffer_size
 **环境:** *http, server, location*
 
 指定使用 cosocket 进行读取操作时的缓冲区大小。
-Specifies the buffer size used by cosocket reading operations.
 
-这个缓冲区不必为了同时解决所有事情而设置的太大，因为 cosocket 支持100%的非缓存读取和解析。所以即使是`1`字节的缓冲区大小依旧可以在任何地方正常工作，只不过效率比较糟糕。
+这个缓冲区不必为了同时解决所有事情而设置的太大，因为 cosocket 支持 100% 的非缓存读取和解析。所以即使是`1`字节的缓冲区大小依旧可以在任何地方正常工作，只不过效率比较糟糕。
 
 该指令是在`v0.5.0rc1`版本首次引入。
 
@@ -2496,7 +2497,7 @@ lua_socket_pool_size
 
 指定每个 cosocket 通过远程服务(例如，使用主机+端口配对或 unix socket 文件路径作为标识)关联的连接池的大小限制（每个地址中的连接数）。
 
-每个连接池默认是30个连接。
+每个连接池默认是 30 个连接。
 
 当连接池中连接数超过限制大小，在连接池中最近最少使用的（空闲）连接将被关闭，给当前连接腾挪空间。
 
@@ -2515,7 +2516,7 @@ lua_socket_keepalive_timeout
 
 **环境:** *http, server, location*
 
-该指令控制在 cosocket 连接池中连接的默认最大空闲时间。当这个时间到达，空闲的连接将被关闭并从连接池中移除。这个值可以使用 cosocket 对象的[setkeepalive](#tcpsocksetkeepalive)方法覆盖。
+该指令控制在 cosocket 连接池中连接的默认最大空闲时间。当这个时间到达，空闲的连接将被关闭并从连接池中移除。这个值可以使用 cosocket 对象的 [setkeepalive](#tcpsocksetkeepalive) 方法覆盖。
 
 `<time>`参数可以是整数，后面可以跟着像`s` (秒), `ms` (毫秒), `m` (分钟)的单位可选项。 默认的时间单位是`s`，也就是"秒"。默认值是`60s`。
 
@@ -2532,7 +2533,7 @@ lua_socket_log_errors
 
 **环境:** *http, server, location*
 
-当TCP 或 UDP cosockets出现失败时，该指令可被用来切换错误日志输出。如果你已经正确处理了你的 Lua 代码错误日志，这里就推荐设置当前指令的开关为 off ，防止数据刷写到你的 nginx 错误日志文件（通常这个代价是比较昂贵的）。
+当 TCP 或 UDP cosockets 出现失败时，该指令可被用来切换错误日志输出。如果你已经正确处理了你的 Lua 代码错误日志，这里就推荐设置当前指令的开关为 off ，防止数据刷写到你的 nginx 错误日志文件（通常这个代价是比较昂贵的）。
 
 这个指令最早出现在版本 `v0.5.13` 中。
 
@@ -2547,7 +2548,7 @@ lua_ssl_ciphers
 
 **环境:** *http, server, location*
 
-指定在[tcpsock:sslhandshake](#tcpsocksslhandshake) 方法中请求 SSL/TLS 服务 的加密方式。 其中参数 ciphers 是 OpenSSL 库里面指定的格式。
+指定在 [tcpsock:sslhandshake](#tcpsocksslhandshake) 方法中请求 SSL/TLS 服务 的加密方式。 其中参数 ciphers 是 OpenSSL 库里面指定的格式。
 
 可以使用 “openssl ciphers” 来查看完整的加密方式列表。
 
@@ -2564,7 +2565,7 @@ lua_ssl_crl
 
 **环境:** *http, server, location*
 
-指定一个 PEM 格式吊销证书文件，在[tcpsock:sslhandshake](#tcpsocksslhandshake)方法里验证 SSL/TLS 服务的证书。
+指定一个 PEM 格式吊销证书文件，在 [tcpsock:sslhandshake](#tcpsocksslhandshake) 方法里验证 SSL/TLS 服务的证书。
 
 该指令是在`v0.9.11`版本首次引入的。
 
@@ -2594,7 +2595,7 @@ lua_ssl_trusted_certificate
 
 **环境:** *http, server, location*
 
-指定一个 PEM 格式信任 CA 证书文件，在[tcpsock:sslhandshake](#tcpsocksslhandshake)方法里验证 SSL/TLS 服务的证书。
+指定一个 PEM 格式信任 CA 证书文件，在 [tcpsock:sslhandshake](#tcpsocksslhandshake) 方法里验证 SSL/TLS 服务的证书。
 
 该指令是在`v0.9.11`版本首次引入的。
 
@@ -2679,7 +2680,7 @@ lua_transform_underscores_in_response_headers
 
 **环境:** *http, server, location, location-if*
 
-对于[ngx.header.HEADER](#ngxheaderheader) API 中指定响应头，该指令指定是否将下划线(`_`)转化为连接线(`-`)。
+对于 [ngx.header.HEADER](#ngxheaderheader) API 中指定响应头，该指令指定是否将下划线(`_`)转化为连接线(`-`)。
 
 该指令是在`v0.5.0rc32`版本首次引入的。
 
@@ -2696,7 +2697,7 @@ lua_check_client_abort
 
 该指令控制是否探测客户端连接的过早终止。
 
-当启用该指令，ngx_lua模块将会在下游连接上监控连接过早关闭事件。当有这样的事件时，它将调用用户指定 Lua 的回调函数（通过 [ngx.on_abort](#ngxon_abort) 注册），当这里没有用户回调函数注册时，将停止当前请求并清理所有当前请求中运行的 Lua "轻线程" 。
+当启用该指令，ngx_lua 模块将会在下游连接上监控连接过早关闭事件。当有这样的事件时，它将调用用户指定 Lua 的回调函数（通过 [ngx.on_abort](#ngxon_abort) 注册），当这里没有用户回调函数注册时，将停止当前请求并清理所有当前请求中运行的 Lua "轻线程" 。
 
 根据目前实现，无论如何，如果请求正在通过 [ngx.req.socket](#ngxreqsocket) 读取请求体，在它之前客户连接发生关闭，ngx_lua 将不会停止任何正在执行的“轻线程”也不会调用用户的回调（尽管已经调用 [ngx.on_abort](#ngxon_abort) ）。作为替代，使用 [ngx.req.socket](#ngxreqsocket) 的读操作第二个参数将直接返回错误信息 “client aborted” 作为返回值（第一个返回值确定是`nil`）。
 
@@ -2750,9 +2751,9 @@ lua_max_running_timers
 
 **环境:** *http*
 
-控制允许的"running timers"最大数量。
+控制允许的`running timers`最大数量。
 
-"running timers" 指的是那些正在执行用户回调函数的 timers 。
+`running timers` 指的是那些正在执行用户回调函数的 timers 。
 
 当超过这个限制，Nginx 将停止执行新近过期的 timers 回调，并记录一个错误日志 “N lua_max_running_timers are not enough”，这里的 "N" 是这个指令的当前值。
 

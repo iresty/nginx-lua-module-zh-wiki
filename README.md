@@ -973,8 +973,8 @@ Copyright (C) 2009-2016, by Yichun "agentzh" Zhang (章亦春) <agentzh@gmail.co
 
 在源代码和二进制形式的二次发行和使用，无论修改与否，允许的前提是满足以下条件：
 
-* 二次发行源代码必须保留以上版权声明、条件列表和下面的免责声明。
-* 二次发行二进制形式必须复制上述版权声明、此条件列表和文档和或在分发提供的其他材料中的下列免责声明。
+* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 
 ```
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 

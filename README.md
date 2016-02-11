@@ -465,7 +465,7 @@ Statically Linking Pure Lua Modules
 
 当使用 LuaJIT 2.x 时，可以把一个纯 Lua 字节码模块，静态链接到可运行的 Nginx 中。
 
-首先你要使用`luajit` 的可执行程序， 把 `.lua` 的 Lua 模块编译成 `.o` 的目标文件（包含导出的字节码数据），
+首先你要使用 `LuaJIT` 的可执行程序， 把 `.lua` 的 Lua 模块编译成 `.o` 的目标文件（包含导出的字节码数据），
 然后链接这些 `.o` 文件到你的 Nginx 构造环境。
 
 用下面这个小例子来印证一下。这里我们的 `.lua` 文件使用 `foo.lua`：
@@ -488,7 +488,7 @@ Statically Linking Pure Lua Modules
 
 这里重要的是 `.lua` 文件名，
 它决定了这个模块在业务 Lua 中是如何使用的。
-文件名 `foo.o` 除了扩展名是 `.o` 以外其他都不重要（只是用来告诉 `luajit` 使用什么格式输出）。
+文件名 `foo.o` 除了扩展名是 `.o` 以外其他都不重要（只是用来告诉 `LuaJIT` 使用什么格式输出）。
 如果你想从输出的字节码中去掉 Lua 调试信息，
 你可以用 `-b` 选项替代原有的 `-bg` 。
 
@@ -518,7 +518,7 @@ Statically Linking Pure Lua Modules
  local foo = require "resty.foo"
 ```
 
-那么在你使用 `luajit` 命令行工具把他编译成 `.o` 文件之前，
+那么在你使用 `LuaJIT` 命令行工具把他编译成 `.o` 文件之前，
 你需要把 `foo.lua` 文件重命名为 `resty_foo.lua`。
 
 把 `.lua` 文件编译成 `.o` 文件，和构建 Nginx + ngx_lua，

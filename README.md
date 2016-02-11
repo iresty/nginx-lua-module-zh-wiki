@@ -1148,13 +1148,13 @@ lua_regex_cache_max_entries
 
 在工作进程级别，指定正则表达式编译缓存允许的最大数目。
 
-正则表达式被用于[ngx.re.match](#ngxrematch)， [ngx.re.gmatch](#ngxregmatch)， [ngx.re.sub](#ngxresub)， 和 [ngx.re.gsub](#ngxregsub)，如果使用`o` (既，编译一次的标识)正则选项，将会被缓存。
+正则表达式被用于 [ngx.re.match](#ngxrematch)， [ngx.re.gmatch](#ngxregmatch)， [ngx.re.sub](#ngxresub)， 和 [ngx.re.gsub](#ngxregsub)，如果使用`o` (既，编译一次的标识)正则选项，将会被缓存。
 
-允许的默认数量为1024，当达到此限制，新的正则表达式将不会被缓存（就像没指定`o`选项一样），将会有且仅只有一个告警信息在 `error.log` 文件中：
+允许的默认数量为 1024，当达到此限制，新的正则表达式将不会被缓存（就像没指定`o`选项一样），将会有且仅只有一个告警信息在 `error.log` 文件中：
 
     2011/08/27 23:18:26 [warn] 31997#0: *1 lua exceeding regex cache max entries (1024), ...
 
-对于部分正则表达式（字符串的各种替换，如 [ngx.re.sub](#ngxresub) 和 [ngx.re.gsub](#ngxregsub)），不要使用`o`选项，这类正则每次都不一样，缓存无法被利用。这样我们可以避免撞上最大数的限制。
+对于部分正则表达式（字符串的各种替换，如 [ngx.re.sub](#ngxresub) 和 [ngx.re.gsub](#ngxregsub)），不要使用 `o`选项，这类正则每次都不一样，缓存无法被利用。这样我们可以避免撞上最大数的限制。
 
 [返回目录](#directives)
 
@@ -1166,11 +1166,11 @@ lua_regex_match_limit
 
 **环境:** *http*
 
-指定执行[ngx.re API](#ngxrematch)时使用PCRE库的"匹配限制"。引述PCRE手册，“the limit ... has the effect of limiting the amount of backtracking that can take place.”。
+指定执行 [ngx.re API](#ngxrematch) 时使用 PCRE 库的"匹配限制"。引述 PCRE 手册，“the limit ... has the effect of limiting the amount of backtracking that can take place.”。
 
-当触发了这个限制，在Lua代码的[ngx.re API](#ngxrematch)函数，将返回错误信息"pcre_exec() failed: -8"。
+当触发了这个限制，在 Lua 代码的 [ngx.re API](#ngxrematch) 函数，将返回错误信息 "pcre_exec() failed: -8"。
 
-当设置了限制为0，将使用编译PCRE库的默认"match limit"。这也是这个配置的默认值。
+当设置了限制为 0，将使用编译 PCRE 库的默认 "match limit"。这也是这个配置的默认值。
 
 这个指令是在`v0.8.5`发行版被首次引入的。
 

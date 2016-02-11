@@ -891,7 +891,7 @@ TODO
 * 添加新的小节，当 nginx 关闭时执行一段代码。
 * 添加 `ignore_resp_headers`, `ignore_resp_body` 和 `ignore_resp`选项给 [ngx.location.capture](#ngxlocationcapture)、[ngx.location.capture_multi](#ngxlocationcapture_multi)，对于用户提升微小性能。
 * add automatic Lua code time slicing support by yielding and resuming the Lua VM actively via Lua's debug hooks.
-<!-- todo  -->
+<!-- todo -->
 * 添加 `stat` 类似 [mod_lua](https://httpd.apache.org/docs/trunk/mod/mod_lua.html)。
 
 [返回目录](#table-of-contents)
@@ -4553,8 +4553,7 @@ ngx.req.init_body
  ngx.req.finish_body()
 ```
 
-此函数可以与 [ngx.req.append_body](#ngxreqappend_body)，[ngx.req.finish_body](#ngxreqfinish_body)，和 [ngx.req.socket](#ngxreqsocket) 一起，使用纯 Lua 语言实现高效的输入过滤器 (在 [rewrite_by_lua](#rewrite_by_lua)* 或 [access_by_lua](#access_by_lua)* 环境中)，与其他 Nginx 内容处理程序或上游模块例如 [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) 和 [ngx_http_fastcgi_module](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html) 配合使用。
-<!--todo content handler 翻译需要统一 -->
+此函数可以与 [ngx.req.append_body](#ngxreqappend_body)，[ngx.req.finish_body](#ngxreqfinish_body) 和 [ngx.req.socket](#ngxreqsocket) 一起，使用纯 Lua 语言实现高效的输入过滤器 (在 [rewrite_by_lua](#rewrite_by_lua)* 或 [access_by_lua](#access_by_lua)* 环境中)，与其他 Nginx 内容处理 handler 或上游模块例如 [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) 和 [ngx_http_fastcgi_module](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html) 配合使用。
 
 这个函数在 `v0.5.11` 版本中首次引入。
 

@@ -663,17 +663,17 @@ Lua Variable Scope
 require('xxx')
 ```
 
-理由如下：从设计上讲，全局环境的生命周期和一个Nginx的请求的生命周期是相同的。为了做到请求隔离，每个请求都有自己的Lua全局变量环境。Lua模块在第一次请求打到服务器上的时候被加载起来，通过`package.loaded`表内建的`require()`完成缓存，为后续代码复用。并且一些Lua模块内的`module()`存在边际问题，对加载完成的模块设置成全局表变量，但是这个全局变量在请求处理最后将被清空，并且每个后续请求都拥有自己（干净）的全局空间。所以它将因为访问`nil`值收到Lua异常。
+理由如下：从设计上讲，全局环境的生命周期和一个 Nginx 的请求的生命周期是相同的。为了做到请求隔离，每个请求都有自己的Lua全局变量环境。Lua 模块在第一次请求打到服务器上的时候被加载起来，通过`package.loaded`表内建的`require()`完成缓存，为后续代码复用。并且一些 Lua 模块内的`module()`存在边际问题，对加载完成的模块设置成全局表变量，但是这个全局变量在请求处理最后将被清空，并且每个后续请求都拥有自己（干净）的全局空间。所以它将因为访问`nil`值收到Lua异常。
 
-一般来说，在ngx_lua的上下文中使用Lua全局变量真的不是什么好主意：  
+一般来说，在 ngx_lua 的上下文中使用 Lua 全局变量真的不是什么好主意：  
 
 1. 滥用全局变量的副作用会对并发场景产生副作用，比如当使用者把这些变量看作是本地变量的时候；
 1. Lua的全局变量需要向上查找一个全局环境（只是一个Lua表），代价比较高；
 1. 一些Lua的全局变量引用只是拼写错误，这会导致出错很难排查。
 
-所以，我们极力推介在使用变量的时候总是使用local来定义以限定起生效范围是有理由的。
+所以，我们极力推介在使用变量的时候总是使用 local 来定义以限定起生效范围是有理由的。
 
-使用工具(lua-releng tool)[https://github.com/openresty/nginx-devel-utils/blob/master/lua-releng]查找你的Lua源文件：
+使用工具 (lua-releng tool)[https://github.com/openresty/nginx-devel-utils/blob/master/lua-releng] 查找你的 Lua 源文件：
 
     $ lua-releng     
     Checking use of Lua global variables in file lib/foo/bar.lua ...  
@@ -681,9 +681,9 @@ require('xxx')
         55      [1506]  GETGLOBAL       7 -3    ; setvar
         3       [1545]  GETGLOBAL       3 -4    ; varexpand
 
-上述输出说明文件`lib/foo/bar.lua`的1489行写入一个名为`contains`的全局变量，1506行读取一个名为`setvar`的全局变量，1545行读取一个名为`varexpand`的全局变量，
+上述输出说明文件`lib/foo/bar.lua`的 1489 行写入一个名为`contains`的全局变量，1506 行读取一个名为`setvar`的全局变量，1545 行读取一个名为`varexpand`的全局变量，
 
-这个工具能保证Lua模块中的局部变量全部是用local关键字定义过的，否则将会抛出一个运行时库。这样能阻止类似变量这样的资源的竞争。理由请参考(Data Sharing within an Nginx Worker)[http://wiki.nginx.org/HttpLuaModule#Data_Sharing_within_an_Nginx_Worker]
+这个工具能保证 Lua 模块中的局部变量全部是用 local 关键字定义过的，否则将会抛出一个运行时库。这样能阻止类似变量这样的资源的竞争。理由请参考 (Data Sharing within an Nginx Worker)[http://wiki.nginx.org/HttpLuaModule#Data_Sharing_within_an_Nginx_Worker]
 
 [返回目录](#table-of-contents)
 

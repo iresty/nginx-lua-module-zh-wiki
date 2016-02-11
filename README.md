@@ -816,14 +816,14 @@ PCRE 的转义符号例如 `\d`,`\s` 以及 `\w` 等需要特别注意，因为�
 Mixing with SSI Not Supported
 -----------------------------
 
-在同样的Nginx请求混合SSI 与 ngx_lua 是完全不被支持的，只使用ngx_lua即可。使用SSI你可以做的任何事情，使用ngx_lua可以更好的完成，并且效能更棒。
+在同样的 Nginx 请求混合 SSI 与 ngx_lua 是完全不被支持的，只使用 ngx_lua 即可。使用 SSI 你可以做的任何事情，使用 ngx_lua 可以更好的完成，并且效能更棒。
 
 [返回目录](#table-of-contents)
 
 SPDY Mode Not Fully Supported
 -----------------------------
 
-一些ngx_lua提供的Lua APIs在Nginx的`SPDY`模式下确定不能工作：ngx.location.capture](#ngxlocationcapture)， [ngx.location.capture_multi](#ngxlocationcapture_multi)，和[ngx.req.socket](#ngxreqsocket)。
+一些 ngx_lua 提供的 Lua APIs 在 Nginx 的`SPDY`模式下确定不能工作：ngx.location.capture](#ngxlocationcapture)， [ngx.location.capture_multi](#ngxlocationcapture_multi) 和 [ngx.req.socket](#ngxreqsocket)。
 
 [返回目录](#table-of-contents)
 

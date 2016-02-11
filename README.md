@@ -1181,11 +1181,11 @@ lua_package_path
 
 **语法:** *lua_package_path &lt;lua-style-path-str&gt;*
 
-**默认:** *当前内容 LUA_PATH 的环境变量或编译指定的默认值*
+**默认:** *当前环境 LUA_PATH 的环境变量或编译指定的默认值*
 
 **环境:** *http*
 
-设置 [set_by_lua](#set_by_lua)，[content_by_lua](#content_by_lua) 和 其他脚本对Lua模块的查找路径。路径字符串是标准Lua路径格式，特殊标识 `;;` 可被用来代表原始搜索路径。
+设置 [set_by_lua](#set_by_lua)，[content_by_lua](#content_by_lua) 和 其他脚本对 Lua 模块的查找路径。路径字符串是标准 Lua 路径格式，特殊标识 `;;` 可被用来代表原始搜索路径。
 
 从`v0.5.0rc29`发行版开始，特殊符号`$prefix` 或 `${prefix}`可用于搜索路径字符串中。`server prefix`的值，通常是由 Nginx 服务启动时的`-p PATH`命令行决定的。
 
@@ -1196,13 +1196,13 @@ lua_package_cpath
 
 **语法:** *lua_package_cpath &lt;lua-style-cpath-str&gt;*
 
-**默认:** *The content of LUA_CPATH environment variable or Lua's compiled-in defaults.*
+**默认:** *当前环境 LUA_CPATH 的环境变量或编译指定的默认值*
 
 **环境:** *http*
 
-设置[set_by_lua](#set_by_lua)，[content_by_lua](#content_by_lua) 和 其他脚本对Lua C模块的查找路径。 cpath路径字符串是标准Luacpath路径格式，`;;` 可被用来代表原始cpath路径。
+设置 [set_by_lua](#set_by_lua)，[content_by_lua](#content_by_lua) 和其他脚本对 Lua C 模块的查找路径。 cpath 路径字符串是标准 Luacpath 路径格式，特殊标识`;;` 可被用来代表原始 cpath 路径。
 
-从`v0.5.0rc29`发行版开始，特殊符号`$prefix` 或 `${prefix}`可用于搜索路径字符串中。`server prefix`的值，通常是由Nginx服务启动时的`-p PATH`命令行决定的。
+从`v0.5.0rc29`发行版开始，特殊符号`$prefix` 或 `${prefix}`可用于搜索路径字符串中。`server prefix`的值，通常是由 Nginx 服务启动时的`-p PATH`命令行决定的。
 
 [返回目录](#directives)
 

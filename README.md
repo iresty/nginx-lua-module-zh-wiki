@@ -890,8 +890,7 @@ TODO
 * cosocket 连接池溢出，支持配置选项定义不同策略。
 * 添加新的小节，当 nginx 关闭时执行一段代码。
 * 添加 `ignore_resp_headers`, `ignore_resp_body` 和 `ignore_resp`选项给 [ngx.location.capture](#ngxlocationcapture)、[ngx.location.capture_multi](#ngxlocationcapture_multi)，对于用户提升微小性能。
-* add automatic Lua code time slicing support by yielding and resuming the Lua VM actively via Lua's debug hooks.
-<!-- todo -->
+* 增加抢占式的协程调度，用来自动 yielding 或 resuming Lua 虚拟机。
 * 添加 `stat` 类似 [mod_lua](https://httpd.apache.org/docs/trunk/mod/mod_lua.html)。
 
 [返回目录](#table-of-contents)
@@ -2304,9 +2303,7 @@ ssl_certificate_by_lua_block
 
 另一个典型应用场景是在当前环境中非阻塞的方式完成 SSL 握手信号控制，例如在 [lua-resty-limit-traffic](https://github.com/openresty/lua-resty-limit-traffic) 库的辅助下。
 
-One can also do interesting things with the SSL handshake requests from the client side, like
-rejecting old SSL clients using the SSLv3 protocol or even below selectively.
-<!-- todo -->
+我们也可以针对来自客户端的 SSL 握手请求做一些有趣的处理，比如可以有选择地拒绝使用了 SSL v3 甚至更低版本协议的老客户端。
 
 [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md) 和 [ngx.ocsp](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ocsp.md) Lua 模块是由 [lua-resty-core](https://github.com/openresty/lua-resty-core/#readme) 库提供，并且在该环境中特别有用。你可以使用这两个模块提供的 Lua API，处理当前 SSL 连接初始化的 SSL 证书链和私有密钥。
 

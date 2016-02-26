@@ -665,7 +665,7 @@ require('xxx')
 
 理由如下：从设计上讲，全局环境的生命周期和一个 Nginx 的请求的生命周期是相同的。为了做到请求隔离，每个请求都有自己的Lua全局变量环境。Lua 模块在第一次请求打到服务器上的时候被加载起来，通过`package.loaded`表内建的`require()`完成缓存，为后续代码复用。并且一些 Lua 模块内的`module()`存在边际问题，对加载完成的模块设置成全局表变量，但是这个全局变量在请求处理最后将被清空，并且每个后续请求都拥有自己（干净）的全局空间。所以它将因为访问`nil`值收到Lua异常。
 
-一般来说，在 ngx_lua 的上下文中使用 Lua 全局变量真的不是什么好主意：  
+一般来说，在 ngx_lua 的上下文中使用 Lua 全局变量真的不是什么好主意：
 
 1. 滥用全局变量的副作用会对并发场景产生副作用，比如当使用者把这些变量看作是本地变量的时候；
 1. Lua的全局变量需要向上查找一个全局环境（只是一个Lua表），代价比较高；
@@ -675,8 +675,8 @@ require('xxx')
 
 使用工具 [lua-releng tool](https://github.com/openresty/nginx-devel-utils/blob/master/lua-releng) 查找你的 Lua 源文件：
 
-    $ lua-releng     
-    Checking use of Lua global variables in file lib/foo/bar.lua ...  
+    $ lua-releng
+    Checking use of Lua global variables in file lib/foo/bar.lua ...
         1       [1489]  SETGLOBAL       7 -1    ; contains
         55      [1506]  GETGLOBAL       7 -3    ; setvar
         3       [1545]  GETGLOBAL       3 -4    ; varexpand
@@ -718,7 +718,7 @@ Locations Configured by Subrequest Directives of Other Modules
 Cosockets Not Available Everywhere
 ----------------------------------
 
-归咎于 `nginx` 内核的各种限制规则，cosocket API 在这些环境中是被禁的： 
+归咎于 `nginx` 内核的各种限制规则，cosocket API 在这些环境中是被禁的：
 [set_by_lua*](#set_by_lua)， [log_by_lua*](#log_by_lua)， [header_filter_by_lua*](#header_filter_by_lua) 和 [body_filter_by_lua](#body_filter_by_lua)。
 
 cosocket 在[init_by_lua*](#init_by_lua) 和 [init_worker_by_lua*](#init_worker_by_lua) 小节中也是被禁的，但我们后面将会添加这些环境的支持，因为在 nginx 内核上是没有这个限制的（或者这个限制是可以被绕过的）。
@@ -841,7 +841,7 @@ Nginx提前销毁一个请求的可能（至少）：
 * 500 (Internal Server Error)       -- 内部服务错误
 * 501 (Not Implemented)             -- 未实现
 
-这意味着正常执行阶段被跳过，如重写或访问阶段。这也意味着，后面的所有阶段，例如 
+这意味着正常执行阶段被跳过，如重写或访问阶段。这也意味着，后面的所有阶段，例如
 [log_by_lua](#log_by_lua)，将无法获得在这个阶段存放的普通信息。
 
 [返回目录](#table-of-contents)
@@ -976,15 +976,15 @@ Copyright (C) 2009-2016, by Yichun "agentzh" Zhang (章亦春) <agentzh@gmail.co
 * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 
 ```
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
@@ -5102,7 +5102,7 @@ ngx.encode_base64
 
 通过 `base64` 对 `str` 字符串编码。
 
-自 `0.9.16` 版本后，引入了一个布尔值参数 `no_padding` 用来控制是否需要编码数据填充 `等号` 字符串（默认为 `false`，代表需要填充）。 
+自 `0.9.16` 版本后，引入了一个布尔值参数 `no_padding` 用来控制是否需要编码数据填充 `等号` 字符串（默认为 `false`，代表需要填充）。
 
 [返回目录](#nginx-api-for-lua)
 
@@ -6101,7 +6101,7 @@ ngx.socket.udp
 * [close](#udpsockclose)
 * [settimeout](#udpsocksettimeout)
 
-兼容 [LuaSocket](http://w3.impa.br/~diego/software/luasocket/udp.html) 库的 UDP API 是需要的，额外的它却是 100% 非阻塞。
+不仅完整兼容 [LuaSocket](http://w3.impa.br/~diego/software/luasocket/udp.html) 库的 UDP API ，而且还是 100% 非阻塞的。
 
 该特性是在 `v0.5.7` 版本首次引入的。
 
@@ -6279,7 +6279,7 @@ ngx.socket.tcp
 * [setkeepalive](#tcpsocksetkeepalive)
 * [getreusedtimes](#tcpsockgetreusedtimes)
 
-兼容 [LuaSocket](http://w3.impa.br/~diego/software/luasocket/tcp.html) 库的 TCP API 是需要的，额外的它却是 100% 非阻塞。此外，我们引入了一些新的API，提供更多的功能。
+不仅完整兼容 [LuaSocket](http://w3.impa.br/~diego/software/luasocket/tcp.html) 库的 TCP API，而且还是 100% 非阻塞的。此外，我们引入了一些新的API，提供更多功能。
 
 通过该 API 函数创建的 cosocket 对象，与创造它的 Lua 环境拥有相同的生命周期。所以永远不要把 cosocket 对象传递给其他 Lua 环境（包括 ngx.timer 回调函数），并且永远不要在两个不同的 Nginx 请求之间共享 cosocket 对象。
 
@@ -7243,7 +7243,7 @@ ngx.worker.id
 
 所以，如果工作进程总数是 `N`，那么该方法将返回 0 和 `N - 1` （包含）的一个数字。
 
-该方法只对 Nginx 1.9.1+ 版本返回有意义的值。更早版本的 nginx，将总是返回 `nil` 。 
+该方法只对 Nginx 1.9.1+ 版本返回有意义的值。更早版本的 nginx，将总是返回 `nil` 。
 
 同样可以看看 [ngx.worker.count](#ngxworkercount)。
 

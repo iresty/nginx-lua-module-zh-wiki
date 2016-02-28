@@ -4682,7 +4682,7 @@ ngx.exec
 
 注意，此方法的调用终止当前请求的处理，并且它 *必须* 在 [ngx.send_headers](#ngxsend_headers) 或明确有响应体应答（比如 [ngx.print](#ngxprint) 或 [ngx.say](#ngxsay) 之一）之前调用。
 
-该方法调用与 `return` 语句联合使用，是推荐的代码样式，例如，通过`return ngx.redirect(...)`，可使用在 [header_filter_by_lua](#header_filter_by_lua) 之外的环境中加强处理该请求被终止。
+该方法调用与 `return` 语句联合使用，是推荐的代码样式，例如，通过`return ngx.exec(...)`，可使用在 [header_filter_by_lua](#header_filter_by_lua) 之外的环境中加强处理该请求被终止。
 
 [返回目录](#nginx-api-for-lua)
 

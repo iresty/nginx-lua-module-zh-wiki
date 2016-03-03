@@ -1929,7 +1929,7 @@ header_filter_by_lua_block
 
 **语法:** *header_filter_by_lua_block { lua-script }*
 
-**环境:** *http, server, location, location if*返回目录C
+**环境:** *http, server, location, location if*
 
 **阶段:** *output-header-filter*
 

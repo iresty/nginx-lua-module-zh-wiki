@@ -215,7 +215,7 @@ Description
 
 在 Nginx worker 进程中加载 Lua 模块，坚持小内存的使用，即使在重负载下依然如此。
 
-该模块是 Nginx 的 HTTP 子系统插件，所以它只能对 HTTP 环境的下游进行对话（例如：HTTP 0.9/1.0/1.1/2.0, WebSockets等）。
+该模块是 Nginx 的 HTTP 子系统插件，所以它只能与HTTP 环境的下游进行对话（例如：HTTP 0.9/1.0/1.1/2.0, WebSockets等）。
 
 如果你想获得通用的 TCP 下游客户端对话能力，这时应使用 [ngx_stream_lua](https://github.com/openresty/stream-lua-nginx-module#readme) 模块，同样它也是兼容 Lua API 的。
 
@@ -390,7 +390,7 @@ Lua/LuaJIT 字节码 support
 都支持直接加载 Lua 5.1 和 LuaJIT 2.0/2.1 的二进制字节码文件。
 
 请注意，LuaJIT 2.0/2.1 生成的二进制格式与标准 Lua 5.1 解析器是不兼容的。
-所以如果使用在 ngx_lua 下使用 LuaJIT 2.0/2.1，那么 LuaJIT 兼容的二进制文件必须是下面这样生成的：
+所以如果在 ngx_lua 下使用 LuaJIT 2.0/2.1，那么 LuaJIT 兼容的二进制文件必须是下面这样生成的：
 
 ```bash
 
@@ -535,7 +535,7 @@ Statically Linking Pure Lua Modules
  ./configure --with-ld-opt="/path/to/foo.o /path/to/bar.o" ...
 ```
 
-如果你有非常多的 `.o` 文件，把这些文件的名字写到命令行中都不太可行，
+如果你有非常多的 `.o` 文件，把这些文件的名字都 写到命令行中不太可行，
 这种情况下，对你的 `.o` 文件可以构建一个静态库（或者归档），参考：
 
 ```bash
@@ -683,7 +683,7 @@ require('xxx')
 
 上述输出说明文件`lib/foo/bar.lua`的 1489 行写入一个名为`contains`的全局变量，1506 行读取一个名为`setvar`的全局变量，1545 行读取一个名为`varexpand`的全局变量，
 
-这个工具能保证 Lua 模块中的局部变量全部是用 local 关键字定义过的，否则将会抛出一个运行时库。这样能阻止类似变量这样的资源的竞争。理由请参考 [Data Sharing within an Nginx Worker](http://wiki.nginx.org/HttpLuaModule#Data_Sharing_within_an_Nginx_Worker)
+这个工具能保证 Lua 模块中的局部变量全部是用 local 关键字定义过的，否则将会抛出一个运行时异常。这样能阻止类似变量这样的资源的竞争。理由请参考 [Data Sharing within an Nginx Worker](http://wiki.nginx.org/HttpLuaModule#Data_Sharing_within_an_Nginx_Worker)
 
 [返回目录](#table-of-contents)
 
@@ -955,7 +955,7 @@ Test Suite
 
 在一个特别的测试文件中，运行指定的测试块，对你需要进行块测试部分添加一行`--- ONLY`信息，并使用`prove`工具运行这个`.t`文件。
 
-此外，还有其他各种测试方式，基于 mockeagain， valgrind 等。参考 [Test::Nginx documentation](http://search.cpan.org/perldoc?Test::Nginx)，有更多不同高级测试方式的资料。也可以看看在 Amazon EC2 的 Nginx 集群测试报告 <http://qa.openresty.org.> 。
+此外，还有其他各种测试方式，基于 mockeagain， valgrind 等。参考 [Test::Nginx documentation](http://search.cpan.org/perldoc?Test::Nginx)，有更多不同的高级测试方式的资料。也可以看看在 Amazon EC2 的 Nginx 集群测试报告 <http://qa.openresty.org.> 。
 
 [返回目录](#table-of-contents)
 
@@ -1147,7 +1147,7 @@ lua_regex_cache_max_entries
 
 在工作进程级别，指定正则表达式编译缓存允许的最大数目。
 
-正则表达式被用于 [ngx.re.match](#ngxrematch)， [ngx.re.gmatch](#ngxregmatch)， [ngx.re.sub](#ngxresub)， 和 [ngx.re.gsub](#ngxregsub)，如果使用`o` (既，编译一次的标识)正则选项，将会被缓存。
+正则表达式被用于 [ngx.re.match](#ngxrematch)， [ngx.re.gmatch](#ngxregmatch)， [ngx.re.sub](#ngxresub)， 和 [ngx.re.gsub](#ngxregsub)，如果使用`o` (即，编译一次的标识)正则选项，将会被缓存。
 
 允许的默认数量为 1024，当达到此限制，新的正则表达式将不会被缓存（就像没指定`o`选项一样），将会有且仅只有一个告警信息在 `error.log` 文件中：
 
@@ -1256,9 +1256,9 @@ init_by_lua
  }
 ```
 
-需要注意，当配置重载（例如`HUP`信号）时 [lua_shared_dict](#lua_shared_dict)的共享数据是不会被清空。这种情况下，如果你不想在`init_by_lua`再次再初始化你的共享数据，你需要设置一个个性标识并且在你的`init_by_lua`代码中每次都做检查。
+需要注意，当配置重载（例如`HUP`信号）时 [lua_shared_dict](#lua_shared_dict)的共享数据是不会被清空的。这种情况下，如果你不想在`init_by_lua`再次初始化你的共享数据，你需要设置一个个性标识并且在你的`init_by_lua`代码中每次都做检查。
 
-因为在这个指令的Lua代码执行是在 Nginx fork 工作进程之前（如果有），加载的数据和代码将被友好 [Copy-on-write (COW)](http://en.wikipedia.org/wiki/Copy-on-write) 特性提供给其他所有工作进程，从而节省了大量内存。
+因为在这个上下文中的Lua代码是在 Nginx fork 工作进程之前（如果有）执行，加载的数据和代码将被友好 [Copy-on-write (COW)](http://en.wikipedia.org/wiki/Copy-on-write) 特性提供给其他所有工作进程，从而节省了大量内存。
 
 不要在这个上下文中初始化你自己的 Lua 全局变量，因为全局变量的使用有性能损失并会带来全局命名污染（可以查看 [Lua 变量范围](#lua-variable-scope)获取更多细节）。推荐的方式是正确使用 [Lua模块](http://www.lua.org/manual/5.1/manual.html#5.3) 文件（不要使用标准 Lua 函数 [module()](http://www.lua.org/manual/5.1/manual.html#pdf-module)来定义 Lua 模块，因为它同样对全局命名空间有污染），在`init_by_lua` 或 其他上下文中调用 [require()](http://www.lua.org/manual/5.1/manual.html#pdf-require) 来加载你自己的模块文件。[require()](http://www.lua.org/manual/5.1/manual.html#pdf-require) 会在全局 Lua 注册的`package.loaded`表中缓存 Lua 模块，所以在整个 Lua 虚拟机实例中你的模块将只会加载一次。
 
@@ -1570,7 +1570,7 @@ content_by_lua_file
 
 除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [content_by_lua](#content_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
-在`<path-to-lua-script-file>`中可以使用 Nginx 的内置变量用来提高灵活性，然而这带有一定的风险，通常并不推荐使用。
+在`<path-to-lua-script-file>`中可以使用 Nginx 的内置变量来提高灵活性，然而这带有一定的风险，通常并不推荐使用。
 
 当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 
@@ -1835,7 +1835,7 @@ access_by_lua
  }
 ```
 
-和其他 access 阶段处理实现，[access_by_lua](#access_by_lua) 将 *不* 能运行在子请求中。
+和其他 access 阶段的处理一样，[access_by_lua](#access_by_lua) 将 *不* 能运行在子请求中。
 
 注意，在 [access_by_lua](#access_by_lua) 处理内部，当调用`ngx.exit(ngx.OK)`时，nginx 请求将继续下一阶段的内容处理。要在 [access_by_lua](#access_by_lua) 处理中终结当前请求，调用 [ngx.exit](#ngxexit)，成功的请求设定 status >= 200 (`ngx.HTTP_OK`) 并 status < 300 (`ngx.HTTP_SPECIAL_RESPONSE`)，失败的请求设定`ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)` (或其他相关的)。
 

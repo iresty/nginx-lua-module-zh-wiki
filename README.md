@@ -1493,7 +1493,7 @@ set_by_lua_block
 
 该指令在 `v0.9.17` 版本首次引入。
 
-[返回目录C](#directives)
+[返回目录](#directives)
 
 set_by_lua_file
 ---------------
@@ -6170,8 +6170,6 @@ udpsock:setpeername
 
 [返回目录](#nginx-api-for-lua)
 
-[返回目录](#nginx-api-for-lua)
-
 udpsock:send
 ------------
 **语法:** *ok, err = udpsock:send(data)*
@@ -6258,7 +6256,7 @@ ngx.socket.stream
 
 该 API 在 `v0.10.1` 版本首次引入。
 
-[返回目录(#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.socket.tcp
 --------------

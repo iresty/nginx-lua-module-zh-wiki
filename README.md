@@ -215,7 +215,7 @@ Description
 
 在 Nginx worker 进程中加载 Lua 模块，坚持小内存的使用，即使在重负载下依然如此。
 
-该模块是 Nginx 的 HTTP 子系统插件，所以它只能与HTTP 环境的下游进行对话（例如：HTTP 0.9/1.0/1.1/2.0, WebSockets等）。
+该模块是 Nginx 的 HTTP 子系统插件，所以它只能与 HTTP 环境的下游进行对话（例如：HTTP 0.9/1.0/1.1/2.0, WebSockets等）。
 
 如果你想获得通用的 TCP 下游客户端对话能力，这时应使用 [ngx_stream_lua](https://github.com/openresty/stream-lua-nginx-module#readme) 模块，同样它也是兼容 Lua API 的。
 
@@ -535,7 +535,7 @@ Statically Linking Pure Lua Modules
  ./configure --with-ld-opt="/path/to/foo.o /path/to/bar.o" ...
 ```
 
-如果你有非常多的 `.o` 文件，把这些文件的名字都 写到命令行中不太可行，
+如果你有非常多的 `.o` 文件，把这些文件的名字都写到命令行中不太可行，
 这种情况下，对你的 `.o` 文件可以构建一个静态库（或者归档），参考：
 
 ```bash

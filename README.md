@@ -1256,9 +1256,9 @@ init_by_lua
  }
 ```
 
-需要注意，当配置重载（例如`HUP`信号）时 [lua_shared_dict](#lua_shared_dict)的共享数据是不会被清空。这种情况下，如果你不想在`init_by_lua`再次再初始化你的共享数据，你需要设置一个个性标识并且在你的`init_by_lua`代码中每次都做检查。
+需要注意，当配置重载（例如`HUP`信号）时 [lua_shared_dict](#lua_shared_dict)的共享数据是不会被清空的。这种情况下，如果你不想在`init_by_lua`再次初始化你的共享数据，你需要设置一个个性标识并且在你的`init_by_lua`代码中每次都做检查。
 
-因为在这个指令的Lua代码执行是在 Nginx fork 工作进程之前（如果有），加载的数据和代码将被友好 [Copy-on-write (COW)](http://en.wikipedia.org/wiki/Copy-on-write) 特性提供给其他所有工作进程，从而节省了大量内存。
+因为在这个上下文中的Lua代码是在 Nginx fork 工作进程之前（如果有）执行，加载的数据和代码将被友好 [Copy-on-write (COW)](http://en.wikipedia.org/wiki/Copy-on-write) 特性提供给其他所有工作进程，从而节省了大量内存。
 
 不要在这个上下文中初始化你自己的 Lua 全局变量，因为全局变量的使用有性能损失并会带来全局命名污染（可以查看 [Lua 变量范围](#lua-variable-scope)获取更多细节）。推荐的方式是正确使用 [Lua模块](http://www.lua.org/manual/5.1/manual.html#5.3) 文件（不要使用标准 Lua 函数 [module()](http://www.lua.org/manual/5.1/manual.html#pdf-module)来定义 Lua 模块，因为它同样对全局命名空间有污染），在`init_by_lua` 或 其他上下文中调用 [require()](http://www.lua.org/manual/5.1/manual.html#pdf-require) 来加载你自己的模块文件。[require()](http://www.lua.org/manual/5.1/manual.html#pdf-require) 会在全局 Lua 注册的`package.loaded`表中缓存 Lua 模块，所以在整个 Lua 虚拟机实例中你的模块将只会加载一次。
 

@@ -2299,7 +2299,7 @@ ssl_certificate_by_lua_block
 
 当 Nginx 开始对下游进行 SSL（https） 握手连接时，该指令执行用户 Lua 代码。
 
-特别是基于每个请求，设置 SSL 证书链并响应相符的私有密钥，这种情况特别有用。通过非阻塞 IO 操作，从远程（例如，使用 [cosocket](#ngxsockettcp) API）加载 SSL 握手配置也是很有用的。并且在每请求中使用纯 Lua 完成 OCSP stapling 处理也是可以的。
+特别是基于每个请求，设置 SSL 证书链与相应的私有密钥，这种情况特别有用。通过非阻塞 IO 操作，从远程（例如，使用 [cosocket](#ngxsockettcp) API）加载 SSL 握手配置也是很有用的。并且在每请求中使用纯 Lua 完成 OCSP stapling 处理也是可以的。
 
 另一个典型应用场景是在当前环境中非阻塞的方式完成 SSL 握手信号控制，例如在 [lua-resty-limit-traffic](https://github.com/openresty/lua-resty-limit-traffic) 库的辅助下。
 

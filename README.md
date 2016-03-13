@@ -1570,7 +1570,7 @@ content_by_lua_file
 
 除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [content_by_lua](#content_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
-在`<path-to-lua-script-file>`中可以使用 Nginx 的内置变量用来提高灵活性，然而这带有一定的风险，通常并不推荐使用。
+在`<path-to-lua-script-file>`中可以使用 Nginx 的内置变量来提高灵活性，然而这带有一定的风险，通常并不推荐使用。
 
 当给定了一个相对路径如`foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项`-p PATH`决定的`server prefix`。
 
@@ -1835,7 +1835,7 @@ access_by_lua
  }
 ```
 
-和其他 access 阶段处理实现，[access_by_lua](#access_by_lua) 将 *不* 能运行在子请求中。
+和其他 access 阶段处理实现一样，[access_by_lua](#access_by_lua) 将 *不* 能运行在子请求中。
 
 注意，在 [access_by_lua](#access_by_lua) 处理内部，当调用`ngx.exit(ngx.OK)`时，nginx 请求将继续下一阶段的内容处理。要在 [access_by_lua](#access_by_lua) 处理中终结当前请求，调用 [ngx.exit](#ngxexit)，成功的请求设定 status >= 200 (`ngx.HTTP_OK`) 并 status < 300 (`ngx.HTTP_SPECIAL_RESPONSE`)，失败的请求设定`ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)` (或其他相关的)。
 

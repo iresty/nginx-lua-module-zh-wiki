@@ -390,7 +390,7 @@ Lua/LuaJIT 字节码 support
 都支持直接加载 Lua 5.1 和 LuaJIT 2.0/2.1 的二进制字节码文件。
 
 请注意，LuaJIT 2.0/2.1 生成的二进制格式与标准 Lua 5.1 解析器是不兼容的。
-所以如果使用在 ngx_lua 下使用 LuaJIT 2.0/2.1，那么 LuaJIT 兼容的二进制文件必须是下面这样生成的：
+所以如果在 ngx_lua 下使用 LuaJIT 2.0/2.1，那么 LuaJIT 兼容的二进制文件必须是下面这样生成的：
 
 ```bash
 
@@ -535,7 +535,7 @@ Statically Linking Pure Lua Modules
  ./configure --with-ld-opt="/path/to/foo.o /path/to/bar.o" ...
 ```
 
-如果你有非常多的 `.o` 文件，把这些文件的名字写到命令行中都不太可行，
+如果你有非常多的 `.o` 文件，把这些文件的名字都写到命令行中不太可行，
 这种情况下，对你的 `.o` 文件可以构建一个静态库（或者归档），参考：
 
 ```bash
@@ -683,7 +683,7 @@ require('xxx')
 
 上述输出说明文件`lib/foo/bar.lua`的 1489 行写入一个名为`contains`的全局变量，1506 行读取一个名为`setvar`的全局变量，1545 行读取一个名为`varexpand`的全局变量，
 
-这个工具能保证 Lua 模块中的局部变量全部是用 local 关键字定义过的，否则将会抛出一个运行时库。这样能阻止类似变量这样的资源的竞争。理由请参考 [Data Sharing within an Nginx Worker](http://wiki.nginx.org/HttpLuaModule#Data_Sharing_within_an_Nginx_Worker)
+这个工具能保证 Lua 模块中的局部变量全部是用 local 关键字定义过的，否则将会抛出一个运行时异常。这样能阻止类似变量这样的资源的竞争。理由请参考 [Data Sharing within an Nginx Worker](http://wiki.nginx.org/HttpLuaModule#Data_Sharing_within_an_Nginx_Worker)
 
 [返回目录](#table-of-contents)
 

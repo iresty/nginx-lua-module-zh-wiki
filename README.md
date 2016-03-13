@@ -16,6 +16,7 @@ Table of Contents
 * [Typical Uses](#typical-uses)
 * [Nginx Compatibility](#nginx-compatibility)
 * [Installation](#installation)
+    * [Building as a dynamic module](#building-as-a-dynamic-module)
     * [C Macro Configurations](#c-macro-configurations)
     * [Installation on Ubuntu 11.10](#installation-on-ubuntu-1110)
 * [Community](#community)
@@ -56,7 +57,7 @@ Status
 Version
 =======
 
-该文档描述的 ngx_lua [v0.10.0](https://github.com/openresty/lua-nginx-module/tags) 是2016年1月11号发布。
+该文档描述的 ngx_lua [v0.10.2](https://github.com/openresty/lua-nginx-module/tags) 是2016年3月8号发布。
 
 Synopsis
 ========
@@ -123,7 +124,7 @@ Synopsis
                  ngx.say("status: ", res.status)
                  ngx.say("body:")
                  ngx.print(res.body)
-             end';
+             end
          }
      }
 
@@ -301,6 +302,18 @@ Lua 5.1可从 [Lua project 站点](http://www.lua.org/) 获取。
 
  make -j2
  make install
+```
+
+[返回目录](#table-of-contents)
+
+Building as a dynamic module
+----------------------------
+
+从 NGINX 1.9.11 开始，你也能编译动态模块了，使用 `--add-dynamic-module=PATH` 选项替代 `./configure` 命令行的 `--add-module=PATH` 。然后就能在 `nginx.conf` 配置中通过 [load_module](http://nginx.org/en/docs/ngx_core_module.html#load_module) 指令完成模块加载，例如：
+
+```nginx
+load_module /path/to/modules/ndk_http_module.so;  # assuming NDK is built as a dynamic module too
+load_module /path/to/modules/ngx_http_lua_module.so;
 ```
 
 [返回目录](#table-of-contents)
@@ -850,25 +863,11 @@ TODO
 ====
 
 * cosocket：实现 LuaSocket 非连接的 UDP API。
-* 实现普通的 TCP 服务替代 HTTP 服务，并支持 Lua 代码。例如：
-
-```lua
-
- tcp {
-     server {
-         listen 11212;
-         handler_by_lua '
-             -- custom Lua code implementing the special TCP server...
-         ';
-     }
- }
-```
-
 * 实现普通的 UDP 服务替代 HTTP 服务，并支持 Lua 代码。例如：
 
 ```lua
 
- udp {
+ datagram {
      server {
          listen 1953;
          handler_by_lua '
@@ -892,6 +891,7 @@ TODO
 * 添加 `ignore_resp_headers`, `ignore_resp_body` 和 `ignore_resp`选项给 [ngx.location.capture](#ngxlocationcapture)、[ngx.location.capture_multi](#ngxlocationcapture_multi)，对于用户提升微小性能。
 * 增加抢占式的协程调度，用来自动 yielding 或 resuming Lua 虚拟机。
 * 添加 `stat` 类似 [mod_lua](https://httpd.apache.org/docs/trunk/mod/mod_lua.html)。
+* cosocket: 添加 SSL certificiate 客户端支持。
 
 [返回目录](#table-of-contents)
 
@@ -3842,7 +3842,7 @@ ngx.req.http_version
 
 返回一个 Lua 数字代表当前请求的 HTTP 版本号。
 
-当前的可能结果值为 1.0, 1.1 和 0.9。无法识别时值时返回 `nil`。
+当前的可能结果值为 2.0, 1.0, 1.1 和 0.9。无法识别时值时返回 `nil`。
 
 这个方法在 `v0.7.17` 版本中首次引入。
 
@@ -4427,7 +4427,7 @@ ngx.req.discard_body
 
 **环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
-明确丢弃请求体，也就是说，读取连接中的数据后立即丢弃。请注意，忽略请求体并不是丢弃请求体的正确方式，为避免破坏 HTTP 1.1 长连接或 HTTP 1.1 流水线 (pipelining)，必须使用本函数。
+明确丢弃请求体，也就是说，读取连接中的数据后立即丢弃（不以任何形式使用请求体）。
 
 这个函数是异步调用，将立即返回。
 
@@ -6209,7 +6209,7 @@ udpsock:receive
  sock:settimeout(1000)  -- one second timeout
  local data, err = sock:receive()
  if not data then
-     ngx.say("failed to read a packet: ", data)
+     ngx.say("failed to read a packet: ", err)
      return
  end
  ngx.say("successfully read a packet: ", data)
@@ -6698,10 +6698,14 @@ ngx.get_phase
     [init_by_lua](#init_by_lua) 或 [init_by_lua_file](#init_by_lua_file) 的运行环境。
 * `init_worker`
     [init_worker_by_lua](#init_worker_by_lua) 或 [init_worker_by_lua_file](#init_worker_by_lua_file) 的运行环境。
+* `ssl_cert`
+    [ssl_certificate_by_lua_block](#ssl_certificate_by_lua_block) 或 [ssl_certificate_by_lua_file](#ssl_certificate_by_lua_file) 的运行环境。
 * `set`
     [set_by_lua](#set_by_lua) 或 [set_by_lua_file](#set_by_lua_file) 的运行环境。
 * `rewrite`
     [rewrite_by_lua](#rewrite_by_lua) 或 [rewrite_by_lua_file](#rewrite_by_lua_file) 的运行环境。
+* `balancer`
+    [balancer_by_lua_block](#balancer_by_lua_block) 或 [balancer_by_lua_file](#balancer_by_lua_file) 的运行环境。
 * `access`
     [access_by_lua](#access_by_lua) 或 [access_by_lua_file](#access_by_lua_file)。
 * `content`

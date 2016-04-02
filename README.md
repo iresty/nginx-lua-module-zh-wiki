@@ -4453,7 +4453,7 @@ ngx.req.get_body_data
 1. 请求体已经被存入磁盘上的临时文件，
 1. 或请求体大小是 0。
 
-如果请求体尚未被读取，请先调用 [ngx.req.read_body](#ngxreqread_body) (或打开 [lua_need_request_body](#lua_need_request_body) 选项强制本模块读取请求体。此方法不推荐）。
+如果请求体尚未被读取，请先调用 [ngx.req.read_body](#ngxreqread_body) (或打开 [lua_need_request_body](#lua_need_request_body) 选项强制本模块读取请求体，此方法不推荐）。
 
 如果请求体已经被存入临时文件，请使用 [ngx.req.get_body_file](#ngxreqget_body_file) 函数代替。
 

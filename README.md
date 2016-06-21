@@ -57,7 +57,7 @@ Status
 Version
 =======
 
-该文档描述的 ngx_lua [v0.10.2](https://github.com/openresty/lua-nginx-module/tags) 是2016年3月8号发布。
+该文档描述的 ngx_lua [v0.10.5](https://github.com/openresty/lua-nginx-module/tags) 是2016年5月25号发布。
 
 Synopsis
 ========
@@ -251,7 +251,7 @@ Nginx Compatibility
 
 最新模块版本和 Nginx 的兼容列表：
 
-* 1.9.x (最后测试: 1.9.7)
+* 1.9.x (最后测试: 1.9.15)
 * 1.8.x
 * 1.7.x (最后测试: 1.7.10)
 * 1.6.x
@@ -278,9 +278,9 @@ Lua 5.1可从 [Lua project 站点](http://www.lua.org/) 获取。
 
 ```bash
 
- wget 'http://nginx.org/download/nginx-1.9.7.tar.gz'
- tar -xzvf nginx-1.9.7.tar.gz
- cd nginx-1.9.7/
+ wget 'http://nginx.org/download/nginx-1.9.15.tar.gz'
+ tar -xzvf nginx-1.9.15.tar.gz
+ cd nginx-1.9.15/
 
  # tell nginx's build system where to find LuaJIT 2.0:
  export LUAJIT_LIB=/path/to/luajit/lib
@@ -939,7 +939,7 @@ Test Suite
     * memcached: 监听默认端口，11211.
     * redis: 监听默认端口, 6379.
 
-查看 [developer build script](https://github.com/openresty/lua-nginx-module/blob/master/util/build2.sh) 内容，在搭建测试环境时确定更多细节。
+查看 [developer build script](https://github.com/openresty/lua-nginx-module/blob/master/util/build.sh) 内容，在搭建测试环境时确定更多细节。
 
 在默认的测试模式下启动测试套件：
 
@@ -1079,6 +1079,11 @@ Directives
 * [lua_check_client_abort](#lua_check_client_abort)
 * [lua_max_pending_timers](#lua_max_pending_timers)
 * [lua_max_running_timers](#lua_max_running_timers)
+
+构建基本的 Nginx Lua 脚本均是通过指令完成。当用户 Lua 代码执行时，这些指令用来指名
+如何使用脚本的返回结果。下面的流程图给我们演示这些指令的执行顺序。
+
+![Lua Nginx 指令](https://cloud.githubusercontent.com/assets/2137369/15272097/77d1c09e-1a37-11e6-97ef-d9767035fc3e.png)
 
 [返回目录](#table-of-contents)
 

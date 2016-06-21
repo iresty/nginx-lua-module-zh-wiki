@@ -62,7 +62,7 @@ Production ready.
 Version
 =======
 
-This document describes ngx_lua [v0.10.2](https://github.com/openresty/lua-nginx-module/tags) released on 8 March 2016.
+This document describes ngx_lua [v0.10.5](https://github.com/openresty/lua-nginx-module/tags) released on 25 May 2016.
 
 Synopsis
 ========
@@ -249,7 +249,7 @@ Nginx Compatibility
 
 The latest version of this module is compatible with the following versions of Nginx:
 
-* 1.9.x (last tested: 1.9.7)
+* 1.9.x (last tested: 1.9.15)
 * 1.8.x
 * 1.7.x (last tested: 1.7.10)
 * 1.6.x
@@ -274,9 +274,9 @@ Build the source with this module:
 
 ```bash
 
- wget 'http://nginx.org/download/nginx-1.9.7.tar.gz'
- tar -xzvf nginx-1.9.7.tar.gz
- cd nginx-1.9.7/
+ wget 'http://nginx.org/download/nginx-1.9.15.tar.gz'
+ tar -xzvf nginx-1.9.15.tar.gz
+ cd nginx-1.9.15/
 
  # tell nginx's build system where to find LuaJIT 2.0:
  export LUAJIT_LIB=/path/to/luajit/lib
@@ -926,7 +926,7 @@ filtering chain determines the final output, for example. The correct adding ord
 	* memcached: listening on the default port, 11211.
 	* redis: listening on the default port, 6379.
 
-See also the [developer build script](https://github.com/openresty/lua-nginx-module/blob/master/util/build2.sh) for more details on setting up the testing environment.
+See also the [developer build script](https://github.com/openresty/lua-nginx-module/blob/master/util/build.sh) for more details on setting up the testing environment.
 
 To run the whole test suite in the default testing mode:
 
@@ -1059,6 +1059,11 @@ Directives
 * [lua_max_pending_timers](#lua_max_pending_timers)
 * [lua_max_running_timers](#lua_max_running_timers)
 
+
+The basic building blocks of scripting Nginx with Lua are directives. Directives are used to specify when the user Lua code is run and
+how the result will be used. Below is a diagram showing the order in which directives are executed.
+
+![Lua Nginx Modules Directives](https://cloud.githubusercontent.com/assets/2137369/15272097/77d1c09e-1a37-11e6-97ef-d9767035fc3e.png)
 
 [Back to TOC](#table-of-contents)
 
@@ -5652,7 +5657,7 @@ ngx.re.find
 
 **context:** *init_worker_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;*
 
-Similar to [ngx.re.match](#ngxrematch) but only returns the begining index (`from`) and end index (`to`) of the matched substring. The returned indexes are 1-based and can be fed directly into the [string.sub](http://www.lua.org/manual/5.1/manual.html#pdf-string.sub) API function to obtain the matched substring.
+Similar to [ngx.re.match](#ngxrematch) but only returns the beginning index (`from`) and end index (`to`) of the matched substring. The returned indexes are 1-based and can be fed directly into the [string.sub](http://www.lua.org/manual/5.1/manual.html#pdf-string.sub) API function to obtain the matched substring.
 
 In case of errors (like bad regexes or any PCRE runtime errors), this API function returns two `nil` values followed by a string describing the error.
 
@@ -7224,7 +7229,7 @@ Here is a simple example:
  }
 ```
 
-One can also create infinite re-occuring timers, for instance, a timer getting triggered every `5` seconds, by calling `ngx.timer.at` recursively in the timer callback function. Here is such an example,
+One can also create infinite re-occurring timers, for instance, a timer getting triggered every `5` seconds, by calling `ngx.timer.at` recursively in the timer callback function. Here is such an example,
 
 ```lua
 

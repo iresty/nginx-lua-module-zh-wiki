@@ -186,9 +186,7 @@ Description
 该模块通过标准 Lua5.1 解释器或 [LuaJIT 2.0/2.1](http://luajit.org/luajit.html)，把 Lua 嵌入到 Nginx 里面，
 并利用 Nginx 子请求，把强大的 Lua 线程（Lua协程）混合到 Nginx 的事件模型中。
 
-与 [Apache's mod_lua](https://httpd.apache.org/docs/trunk/mod/mod_lua.html)、[Lighttpd's mod_magnet](http://redmine.lighttpd.net/wiki/1/Docs:ModMagnet) 不同的是, 该模块中的 Lua 代码在网络上是 100% 非阻塞的。
-包括该模块的 [Nginx API for Lua](#nginx-api-for-lua)，
-上游请求服务如：MySQL、PostgreSQL、Memcached、Redis或upstream HTTP web 服务等，都是100%非阻塞的。
+与 [Apache's mod_lua](https://httpd.apache.org/docs/trunk/mod/mod_lua.html)、[Lighttpd's mod_magnet](http://redmine.lighttpd.net/wiki/1/Docs:ModMagnet) 不同的是, 只要使用这个模块提供的[Nginx API for Lua](#nginx-api-for-lua)来处理请求上游服务，该模块的 Lua 代码被执行在网络上是 100% 非阻塞的。其中上游请求服务有：MySQL、PostgreSQL、Memcached、Redis或upstream HTTP web 服务等。
 
 至少下面这些 Lua 库、Nginx 模块是可以与 ngx_lua 模块配合使用的：
 

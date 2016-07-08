@@ -463,7 +463,7 @@ System Environment Variable Support
 HTTP 1.0 support
 ================
 
-HTTP 1.0 协议不支持分块输出，当响应体不为空时，需要在响应头中明确指定 `Content-Length`，以支持 HTTP 1.0 长连接。所以当一个 HTTP 1.0  请求发生，同时把 [lua_http10_buffering](#lua_http10_buffering)指令设置为 `on` 时，ngx_lua 将缓存 [ngx.say](#ngxsay) 和 [ngx.print](#ngxprint) 的所有输出，同时延迟发送响应头直到接收到所有输出内容。这时 ngx_lua 可以计算响应体的总长度且构建一个正确的 `Content-Length` 响应头返回给 HTTP 1.0 客户端。即使已经将 [lua_http10_buffering](#lua_http10_buffering) 指令设置为 `on`，但如果正在执行的 Lua 代码中设置了 `Content-Length` 响应头，这种缓冲模式也将被禁用。
+HTTP 1.0 协议不支持分块输出，当响应体不为空时，需要在响应头中明确指定 `Content-Length`，以支持 HTTP 1.0 长连接。所以当一个 HTTP 1.0 请求发生，同时把 [lua_http10_buffering](#lua_http10_buffering)指令设置为 `on` 时，ngx_lua 将缓存 [ngx.say](#ngxsay) 和 [ngx.print](#ngxprint) 的所有输出，同时延迟发送响应头直到接收到所有输出内容。这时 ngx_lua 可以计算响应体的总长度且构建一个正确的 `Content-Length` 响应头返回给 HTTP 1.0 客户端。即使已经将 [lua_http10_buffering](#lua_http10_buffering) 指令设置为 `on`，但如果正在执行的 Lua 代码中设置了 `Content-Length` 响应头，这种缓冲模式也将被禁用。
 
 对于大型流式响应输出，禁用 [lua_http10_buffering](#lua_http10_buffering) 以最小化内存占用非常重要。
 

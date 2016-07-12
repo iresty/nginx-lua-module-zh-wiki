@@ -463,7 +463,7 @@ System Environment Variable Support
 HTTP 1.0 support
 ================
 
-HTTP 1.0 协议不支持分块输出，当响应体不为空时，需要在响应头中明确指定 `Content-Length`，以支持 HTTP 1.0 长连接。所以当把 [lua_http10_buffering](#lua_http10_buffering) 设置为 `on` 输出 HTTP 1.0 响应时，ngx_lua 将缓存 [ngx.say](#ngxsay) 和 [ngx.print](#ngxprint) 的所有输出，同时延迟发送响应头直到接收到所有输出内容。这时 ngx_lua 可以计算响应体的总长度，并为 HTTP 1.0 客户端创建一个正确的 `Content-Length` 响应头。如果在正在执行的 Lua 代码中设置 `Content-Length` 响应头，这种缓冲模式将被禁用，即使已经将 [lua_http10_buffering](#lua_http10_buffering) 指令设置为 `on`。
+HTTP 1.0 协议不支持分块输出，当响应体不为空时，需要在响应头中明确指定 `Content-Length`，以支持 HTTP 1.0 长连接。所以当一个 HTTP 1.0 请求发生，同时把 [lua_http10_buffering](#lua_http10_buffering)指令设置为 `on` 时，ngx_lua 将缓存 [ngx.say](#ngxsay) 和 [ngx.print](#ngxprint) 的所有输出，同时延迟发送响应头直到接收到所有输出内容。这时 ngx_lua 可以计算响应体的总长度且构建一个正确的 `Content-Length` 响应头返回给 HTTP 1.0 客户端。即使已经将 [lua_http10_buffering](#lua_http10_buffering) 指令设置为 `on`，但如果正在执行的 Lua 代码中设置了 `Content-Length` 响应头，这种缓冲模式也将被禁用。
 
 对于大型流式响应输出，禁用 [lua_http10_buffering](#lua_http10_buffering) 以最小化内存占用非常重要。
 
@@ -684,7 +684,7 @@ require('xxx')
 
 所以，我们极力推介在使用变量的时候总是使用 local 来定义以限定起生效范围是有理由的。
 
-使用工具 [lua-releng tool](https://github.com/openresty/nginx-devel-utils/blob/master/lua-releng) 查找你的 Lua 源文件：
+为了在你的 Lua 代码中找出所有使用 Lua 全局变量的地方，你可以运行 [lua-releng tool](https://github.com/openresty/nginx-devel-utils/blob/master/lua-releng) 把所有 .lua 源文件检测一遍：
 
     $ lua-releng
     Checking use of Lua global variables in file lib/foo/bar.lua ...

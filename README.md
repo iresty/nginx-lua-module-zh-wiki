@@ -684,7 +684,7 @@ require('xxx')
 
 所以，我们极力推介在使用变量的时候总是使用 local 来定义以限定起生效范围是有理由的。
 
-为了在你的 lua 代码里面找到所有 lua 全局变量的使用情况，你可以在所有 .lua 源文件中运行 [lua-releng tool](https://github.com/openresty/nginx-devel-utils/blob/master/lua-releng) ：
+为了在你的 Lua 代码中找出所有使用 Lua 全局变量的地方，你可以运行 [lua-releng tool](https://github.com/openresty/nginx-devel-utils/blob/master/lua-releng) 把所有 .lua 源文件检测一遍：
 
     $ lua-releng
     Checking use of Lua global variables in file lib/foo/bar.lua ...

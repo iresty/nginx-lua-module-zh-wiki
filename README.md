@@ -4699,7 +4699,6 @@ ngx.req.append_body
 需要强调的是，在当前请求的所有请求体被写入完成后，必须调用 [ngx.req.finish_body](#ngxreqfinish_body) 以结束写入。
 
 此函数可以与 [ngx.req.init_body](#ngxreqinit_body)，[ngx.req.finish_body](#ngxreqfinish_body)，和 [ngx.req.socket](#ngxreqsocket) 一起，使用纯 Lua 语言实现高效的输入过滤器 (在 [rewrite_by_lua](#rewrite_by_lua)* 或 [access_by_lua](#access_by_lua)* 环境中)，与其他 Nginx 内容处理程序或上游模块例如 [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) 和 [ngx_http_fastcgi_module](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html) 配合使用。
-<!--todo content handler 翻译需要统一 -->
 
 这个函数在 `v0.5.11` 版本中首次引入。
 
@@ -4716,7 +4715,6 @@ ngx.req.finish_body
 结束新请求体构造过程，该请求体由 [ngx.req.init_body](#ngxreqinit_body) 和 [ngx.req.append_body](#ngxreqappend_body) 创建。
 
 此函数可以与 [ngx.req.init_body](#ngxreqinit_body)，[ngx.req.append_body](#ngxreqappend_body)，和 [ngx.req.socket](#ngxreqsocket) 一起，使用纯 Lua 语言实现高效的输入过滤器 (在 [rewrite_by_lua](#rewrite_by_lua)* 或 [access_by_lua](#access_by_lua)* 环境中)，与其他 Nginx 内容处理程序或上游模块例如 [ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html) 和 [ngx_http_fastcgi_module](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html) 配合使用。
-<!--todo content handler 翻译需要统一 -->
 
 这个函数在 `v0.5.11` 版本中首次引入。
 
@@ -6159,7 +6157,8 @@ ngx.shared.DICT.incr
 
 在基于共享内存的字典 [ngx.shared.DICT](#ngxshareddict) 中递增 `key` 的 (数字) 值，步长为 `value`。当操作成功时返回结果数字，否则返回 `nil` 和错误信息字符串。
 
-<!-- todo -->
+todo ...
+
 When the key does not exist or has already expired in the shared dictionary,
 
 1. if the `init` argument is not specified or takes the value `nil`, this method will return `nil` and the error string `"not found"`, or

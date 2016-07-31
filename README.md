@@ -2374,8 +2374,10 @@ ssl_certificate_by_lua_file
 
 [返回目录](#directives)
 
-ssl_session_fetch_by_lua_block (todo)
+ssl_session_fetch_by_lua_block
 ------------------------------
+
+(todo)
 
 **syntax:** *ssl_session_fetch_by_lua_block { lua-script }*
 
@@ -2430,8 +2432,10 @@ This directive was first introduced in the `v0.10.6` release.
 
 [Back to TOC](#directives)
 
-ssl_session_fetch_by_lua_file (todo ...)
+ssl_session_fetch_by_lua_file
 -----------------------------
+
+(todo)
 
 **syntax:** *ssl_session_fetch_by_lua_file &lt;path-to-lua-script-file&gt;*
 
@@ -2447,8 +2451,10 @@ This directive was first introduced in the `v0.10.6` release.
 
 [Back to TOC](#directives)
 
-ssl_session_store_by_lua_block (todo ...)
+ssl_session_store_by_lua_block
 ------------------------------
+
+(todo)
 
 **syntax:** *ssl_session_store_by_lua_block { lua-script }*
 
@@ -2474,8 +2480,10 @@ This directive was first introduced in the `v0.10.6` release.
 
 [Back to TOC](#directives)
 
-ssl_session_store_by_lua_file (todo ...)
+ssl_session_store_by_lua_file
 -----------------------------
+
+(todo)
 
 **syntax:** *ssl_session_store_by_lua_file &lt;path-to-lua-script-file&gt;*
 

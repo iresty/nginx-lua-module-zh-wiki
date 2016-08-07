@@ -2430,7 +2430,7 @@ apply the following patch to the standard NGINX core 1.11.2 or later:
 
 This directive was first introduced in the `v0.10.6` release.
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 ssl_session_fetch_by_lua_file
 -----------------------------
@@ -2449,7 +2449,7 @@ When a relative path like `foo/bar.lua` is given, they will be turned into the a
 
 This directive was first introduced in the `v0.10.6` release.
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 ssl_session_store_by_lua_block
 ------------------------------
@@ -2478,7 +2478,7 @@ library.
 
 This directive was first introduced in the `v0.10.6` release.
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 ssl_session_store_by_lua_file
 -----------------------------
@@ -2497,7 +2497,7 @@ When a relative path like `foo/bar.lua` is given, they will be turned into the a
 
 This directive was first introduced in the `v0.10.6` release.
 
-[Back to TOC](#directives)
+[返回目录](#directives)
 
 
 lua_shared_dict

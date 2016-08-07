@@ -2377,30 +2377,36 @@ ssl_certificate_by_lua_file
 ssl_session_fetch_by_lua_block
 ------------------------------
 
-(todo)
-
 **语法:** *ssl_session_fetch_by_lua_block { lua-script }*
 
 **环境:** *server*
 
 **阶段:** *right-before-SSL-handshake*
 
+该指令执行的 Lua 代码：根据当前下游 SSL 握手请求，查找并根据该会话 ID 加载 SSL 会话（如果有）。
 This directive runs Lua code to look up and load the SSL session (if any) according to the session ID
 provided by the current SSL handshake request for the downstream.
 
+由 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) Lua 模块库绑定的 [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md) API，可以获取当前会话 ID 并加载一个已缓存的 SSL 缓存数据。
 The Lua API for obtaining the current session ID and loading a cached SSL session data
 is provided in the [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md)
 Lua module shipped with the [lua-resty-core](https://github.com/openresty/lua-resty-core#readme)
 library.
 
-Lua APIs that may yield, like [ngx.sleep](#ngxsleep) and [cosockets](#ngxsockettcp),
-are enabled in this context.
+Lua API 可能会挂起，比如 [ngx.sleep](#ngxsleep) 和 [cosockets](#ngxsockettcp)，
+在这个环境中是启用的。
 
+该钩子可以与 [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) 一起使用，实现纯 Lua 的分布式缓存模型（例如基于 [cosocket](#ngxsockettcp) API）。
+如果一个已缓存 SSL 会话被找到，将被加载到当前 SSL 会话环境中，SSL 会话的恢复将立即启动，并绕过非常昂贵的完整 SSL 握手过程（主要是 CPU 计算时间）。
 This hook, together with the [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) hook,
 can be used to implement distributed caching mechanisms in pure Lua (based
 on the [cosocket](#ngxsockettcp) API, for example). If a cached SSL session is found
 and loaded into the current SSL connection context,
 SSL session resumption can then get immediately initiated and bypass the full SSL handshake process which is very expensive in terms of CPU time.
+
+请注意，TLS 会话票据是非常不同的，当使用会话票据时它是客户端完成 SSL 会话状态缓存。
+SSL 会话恢复是基于 TLS 会话票据自动完成，不需要该钩子参与（也不需要 [ssl_session_store_by_lua_block](#ssl_session_store_by_lua) 钩子）。
+改钩子主要是给老版本或缺少 SSL 客户端能力，只能通过 SSL 会话方式获取 SSL 会话 ID 方式获取。
 
 Please note that TLS session tickets are very different and it is the clients' responsibility
 to cache the SSL session state when session tickets are used. SSL session resumptions based on
@@ -2408,27 +2414,22 @@ TLS session tickets would happen automatically without going through this hook (
 [ssl_session_store_by_lua_block](#ssl_session_store_by_lua) hook). This hook is mainly
 for older or less capable SSL clients that can only do SSL sessions by session IDs.
 
-When [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block) is specified at the same time,
-this hook usually runs before [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block).
-When the SSL session is found and successfully loaded for the current SSL connection,
-SSL session resumption will happen and thus bypass the [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block)
-hook completely. In this case, NGINX also bypasses the [ssl_session_store_by_lua_block](#ssl_session_store_by_lua)
-hook, for obvious reasons.
+当同时指定了 [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block)，该钩子通常在 [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block) 之前运行。
+找到 SSL 会话并成功对当前 SSL 连接加载后， SSL 会话将会恢复，从而绕过 [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block) 钩子。这种情况下，NGINX 也将直接绕过 [ssl_session_store_by_lua_block](#ssl_session_store_by_lua) 钩子，不需要了嘛。
 
-If you are using the [official pre-built packages](http://openresty.org/en/linux-packages.html) for [OpenResty](https://openresty.org/)
-1.11.2.1 or later, then everything should work out of the box.
+如果你使用 [OpenResty](https://openresty.org/) 1.11.2.1 或后续版本绑定的 [官方的预编译包](http://openresty.org/en/linux-packages.html) ，那么一切都应只欠东风。
 
-If you are using OpenSSL libraries not provided by [OpenResty](https://openresty.org),
-then you need to apply the following patch for OpenSSL 1.0.2h or later:
+如果你正在使用的不是 [OpenResty](https://openresty.org) 提供的 OpenSSL 库，
+你需要对 OpenSSL 1.0.2h 或后续版本打个补丁：
 
 <https://github.com/openresty/openresty/blob/master/patches/openssl-1.0.2h-sess_set_get_cb_yield.patch>
 
-If you are not using the NGINX core shipped with [OpenResty](https://openresty.org) 1.11.2.1 or later, then you need to
-apply the following patch to the standard NGINX core 1.11.2 or later:
+如果你没有使用 [OpenResty](https://openresty.org) 1.11.2.1 或后续版本绑定的 Nginx ，
+那么你需要对标准 Nginx 1.11.2 或后续版本打个补丁：
 
 <http://openresty.org/download/nginx-1.11.2-nonblocking_ssl_handshake_hooks.patch>
 
-This directive was first introduced in the `v0.10.6` release.
+该小节在 `v0.10.6` 首次引入。
 
 [返回目录](#directives)
 

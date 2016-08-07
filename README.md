@@ -2383,7 +2383,7 @@ ssl_session_fetch_by_lua_block
 
 **阶段:** *right-before-SSL-handshake*
 
-该指令执行的 Lua 代码：根据当前下游 SSL 握手请求提供的会话 ID，查找并加载 SSL 会话（如果有）。
+该指令根据当前下游的 SSL 握手请求中的会话 ID，去查找并加载 SSL 会话（如果有）。
 
 This directive runs Lua code to look up and load the SSL session (if any) according to the session ID
 provided by the current SSL handshake request for the downstream.

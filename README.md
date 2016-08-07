@@ -2384,10 +2384,12 @@ ssl_session_fetch_by_lua_block
 **阶段:** *right-before-SSL-handshake*
 
 该指令执行的 Lua 代码：根据当前下游 SSL 握手请求，查找并根据该会话 ID 加载 SSL 会话（如果有）。
+
 This directive runs Lua code to look up and load the SSL session (if any) according to the session ID
 provided by the current SSL handshake request for the downstream.
 
 由 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) Lua 模块库绑定的 [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md) API，可以获取当前会话 ID 并加载一个已缓存的 SSL 缓存数据。
+
 The Lua API for obtaining the current session ID and loading a cached SSL session data
 is provided in the [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md)
 Lua module shipped with the [lua-resty-core](https://github.com/openresty/lua-resty-core#readme)
@@ -2398,6 +2400,7 @@ Lua API 可能会挂起，比如 [ngx.sleep](#ngxsleep) 和 [cosockets](#ngxsock
 
 该钩子可以与 [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) 一起使用，实现纯 Lua 的分布式缓存模型（例如基于 [cosocket](#ngxsockettcp) API）。
 如果一个已缓存 SSL 会话被找到，将被加载到当前 SSL 会话环境中，SSL 会话的恢复将立即启动，并绕过非常昂贵的完整 SSL 握手过程（主要是 CPU 计算时间）。
+
 This hook, together with the [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) hook,
 can be used to implement distributed caching mechanisms in pure Lua (based
 on the [cosocket](#ngxsockettcp) API, for example). If a cached SSL session is found

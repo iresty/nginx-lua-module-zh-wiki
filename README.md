@@ -2399,7 +2399,7 @@ Lua API 可能会挂起，比如 [ngx.sleep](#ngxsleep) 和 [cosockets](#ngxsock
 在这个环境中是启用的。
 
 该钩子可以与 [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) 一起使用，实现纯 Lua 的分布式缓存模型（例如基于 [cosocket](#ngxsockettcp) API）。
-如果一个已缓存 SSL 会话被找到，将被加载到当前 SSL 会话环境中，SSL 会话的恢复将立即启动，绕过非常昂贵的完整 SSL 握手过程（主要是 CPU 计算时间）。
+如果找到一个已缓存 SSL 会话，将会加载到当前 SSL 会话环境中，SSL 会话将立即启动恢复，绕过昂贵的完整 SSL 握手过程（主要是 CPU 计算时间）。
 
 This hook, together with the [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) hook,
 can be used to implement distributed caching mechanisms in pure Lua (based

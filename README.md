@@ -2383,7 +2383,7 @@ ssl_session_fetch_by_lua_block
 
 **阶段:** *right-before-SSL-handshake*
 
-该指令执行的 Lua 代码：根据当前下游 SSL 握手请求，查找并根据该会话 ID 加载 SSL 会话（如果有）。
+该指令执行的 Lua 代码：根据当前下游 SSL 握手请求提供的会话 ID，查找并加载 SSL 会话（如果有）。
 
 This directive runs Lua code to look up and load the SSL session (if any) according to the session ID
 provided by the current SSL handshake request for the downstream.
@@ -2399,7 +2399,7 @@ Lua API 可能会挂起，比如 [ngx.sleep](#ngxsleep) 和 [cosockets](#ngxsock
 在这个环境中是启用的。
 
 该钩子可以与 [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) 一起使用，实现纯 Lua 的分布式缓存模型（例如基于 [cosocket](#ngxsockettcp) API）。
-如果一个已缓存 SSL 会话被找到，将被加载到当前 SSL 会话环境中，SSL 会话的恢复将立即启动，并绕过非常昂贵的完整 SSL 握手过程（主要是 CPU 计算时间）。
+如果一个已缓存 SSL 会话被找到，将被加载到当前 SSL 会话环境中，SSL 会话的恢复将立即启动，绕过非常昂贵的完整 SSL 握手过程（主要是 CPU 计算时间）。
 
 This hook, together with the [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) hook,
 can be used to implement distributed caching mechanisms in pure Lua (based
@@ -2409,7 +2409,7 @@ SSL session resumption can then get immediately initiated and bypass the full SS
 
 请注意，TLS 会话票据是非常不同的，当使用会话票据时它是客户端完成 SSL 会话状态缓存。
 SSL 会话恢复是基于 TLS 会话票据自动完成，不需要该钩子参与（也不需要 [ssl_session_store_by_lua_block](#ssl_session_store_by_lua) 钩子）。
-改钩子主要是给老版本或缺少 SSL 客户端能力，只能通过 SSL 会话方式获取 SSL 会话 ID 方式获取。
+该钩子主要是给老版本或缺少 SSL 客户端能力（只能通过会话 ID 方式完成 SSL 会话）。
 
 Please note that TLS session tickets are very different and it is the clients' responsibility
 to cache the SSL session state when session tickets are used. SSL session resumptions based on

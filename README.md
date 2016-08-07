@@ -1137,7 +1137,7 @@ nginx -s reload
 通常你可以在 init_by_lua 或 init_by_lua_file 指令中加载所有这些文件，
 或者让这些 Lua 文件变成真正的 Lua 模块，通过 require 来加载。
 
-现在 ngx_lua 模块还不支持 Apache mod_lua 模块中可用的 stat 模式（stat mode在 TODO 列表中）。
+现在 ngx_lua 模块还不支持 Apache mod_lua 模块中可用的 stat 模式（已经列入待做任务）。
 
 不推荐在生产环境中关闭 lua 代码缓存，请确保它只在开发环境中使用，他对整体性能有非常明显的影响。
 举个例子，输出“你好世界”在没有开启 lua 代码缓存时可以降低一个量级。
@@ -1504,11 +1504,11 @@ set_by_lua_block
 
 set_by_lua_file
 ---------------
-**syntax:** *set_by_lua_file $res &lt;path-to-lua-script-file&gt; [$arg1 $arg2 ...]*
+**语法:** *set_by_lua_file $res &lt;path-to-lua-script-file&gt; [$arg1 $arg2 ...]*
 
 **环境:** *server, server if, location, location if*
 
-**phase:** *rewrite*
+**阶段:** *rewrite*
 
 除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [set_by_lua](#set_by_lua) 是等价的，该指令从`v0.5.0rc32`开始支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
@@ -2379,11 +2379,11 @@ ssl_session_fetch_by_lua_block
 
 (todo)
 
-**syntax:** *ssl_session_fetch_by_lua_block { lua-script }*
+**语法:** *ssl_session_fetch_by_lua_block { lua-script }*
 
 **环境:** *server*
 
-**phase:** *right-before-SSL-handshake*
+**阶段:** *right-before-SSL-handshake*
 
 This directive runs Lua code to look up and load the SSL session (if any) according to the session ID
 provided by the current SSL handshake request for the downstream.
@@ -2437,11 +2437,11 @@ ssl_session_fetch_by_lua_file
 
 (todo)
 
-**syntax:** *ssl_session_fetch_by_lua_file &lt;path-to-lua-script-file&gt;*
+**语法:** *ssl_session_fetch_by_lua_file &lt;path-to-lua-script-file&gt;*
 
 **环境:** *server*
 
-**phase:** *right-before-SSL-handshake*
+**阶段:** *right-before-SSL-handshake*
 
 Equivalent to [ssl_session_fetch_by_lua_block](#ssl_session_fetch_by_lua_block), except that the file specified by `<path-to-lua-script-file>` contains the Lua code, or rather, the [Lua/LuaJIT bytecode](#lualuajit-bytecode-support) to be executed.
 
@@ -2456,11 +2456,11 @@ ssl_session_store_by_lua_block
 
 (todo)
 
-**syntax:** *ssl_session_store_by_lua_block { lua-script }*
+**语法:** *ssl_session_store_by_lua_block { lua-script }*
 
 **环境:** *server*
 
-**phase:** *right-after-SSL-handshake*
+**阶段:** *right-after-SSL-handshake*
 
 This directive runs Lua code to fetch and save the SSL session (if any) according to the session ID
 provided by the current SSL handshake request for the downstream. The saved or cached SSL
@@ -2485,11 +2485,11 @@ ssl_session_store_by_lua_file
 
 (todo)
 
-**syntax:** *ssl_session_store_by_lua_file &lt;path-to-lua-script-file&gt;*
+**语法:** *ssl_session_store_by_lua_file &lt;path-to-lua-script-file&gt;*
 
 **环境:** *server*
 
-**phase:** *right-before-SSL-handshake*
+**阶段:** *right-before-SSL-handshake*
 
 Equivalent to [ssl_session_store_by_lua_block](#ssl_session_store_by_lua_block), except that the file specified by `<path-to-lua-script-file>` contains the Lua code, or rather, the [Lua/LuaJIT bytecode](#lualuajit-bytecode-support) to be executed.
 
@@ -6159,7 +6159,7 @@ ngx.shared.DICT.delete
 
 ngx.shared.DICT.incr
 --------------------
-**syntax:** *newval, err, forcible? = ngx.shared.DICT:incr(key, value, init?)*
+**语法:** *newval, err, forcible? = ngx.shared.DICT:incr(key, value, init?)*
 
 **环境:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;, ssl_session_fetch_by_lua&#42;, ssl_session_store_by_lua&#42;*
 

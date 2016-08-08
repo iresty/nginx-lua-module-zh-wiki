@@ -2485,19 +2485,19 @@ Lua API 可能会挂起，比如 [ngx.sleep](#ngxsleep) 和 [cosockets](#ngxsock
 ssl_session_store_by_lua_file
 -----------------------------
 
-(todo)
-
 **语法:** *ssl_session_store_by_lua_file &lt;path-to-lua-script-file&gt;*
 
 **环境:** *server*
 
 **阶段:** *right-before-SSL-handshake*
 
-Equivalent to [ssl_session_store_by_lua_block](#ssl_session_store_by_lua_block), except that the file specified by `<path-to-lua-script-file>` contains the Lua code, or rather, the [Lua/LuaJIT bytecode](#lualuajit-bytecode-support) to be executed.
 
-When a relative path like `foo/bar.lua` is given, they will be turned into the absolute path relative to the `server prefix` path determined by the `-p PATH` command-line option while starting the Nginx server.
+除了通过文件`<path-to-lua-script-file>`的内容指定 Lua 代码外，该指令与 [ssl_session_store_by_lua_block](#ssl_session_store_by_lua_block) 是等价的，该指令支持 [Lua/LuaJIT 字节码](#lualuajit-bytecode-support) 的执行。
 
-This directive was first introduced in the `v0.10.6` release.
+
+当给定了一个相对路径如 `foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项 `-p PATH` 决定的 `server prefix` 。
+
+该指令在 `v0.10.6` 版本首次引入。
 
 [返回目录](#directives)
 

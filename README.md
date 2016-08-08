@@ -6167,23 +6167,21 @@ ngx.shared.DICT.incr
 
 在基于共享内存的字典 [ngx.shared.DICT](#ngxshareddict) 中递增 `key` 的 (数字) 值，步长为 `value`。当操作成功时返回结果数字，否则返回 `nil` 和错误信息字符串。
 
-todo ...
-
+当 key 在共享内存字典中不存在或已经过期：
 When the key does not exist or has already expired in the shared dictionary,
 
-1. if the `init` argument is not specified or takes the value `nil`, this method will return `nil` and the error string `"not found"`, or
-1. if the `init` argument takes a number value, this method will create a new `key` with the value `init + value`.
+1. 如果 `init` 参数没有指定或使用 `nil`，该方法将返回 `nil` 并返回错误信息 `"not found"`。
+2. 如果 `init` 参数被指定是一个 number 类型，该方法将创建一个以 `init + value` 为值的新 `key`。
 
-Like the [add](#ngxshareddictadd) method, it also overrides the (least recently used) unexpired items in the store when running out of storage in the shared memory zone.
+如同 [add](#ngxshareddictadd) 方法，当共享内存区出现空间不足时，他也会覆盖存储中未过期的数据项（最近最少使用规则）。
 
-The `forcible` return value will always be `nil` when the `init` argument is not specified.
+当 `init` 参数没有指定时，`forcible` 参数将永远返回 `nil`。
 
-If this method succeeds in storing the current item by forcibly removing other not-yet-expired items in the dictionary via LRU, the `forcible` return value will be `true`. If it stores the item without forcibly removing other valid items, then the return value `forcible` will be `false`.
+如果该方法调用成功，但它是通过数据字典的 LRU 方式强制删除其他未完结过期的数据项，`forcible` 的返回值将是 `true`。如果本次数据项存储没有强制删除任何其他有效数据，`forcible` 的返回值将是 `false`。
 
 如果 key 的原始值不是一个有效的 Lua 数字，返回 `nil` 和 `"not a number"` (不是数字)。
 
 `value` 和 `init` 参数可以是任意有效的 Lua 数字，包括负数和浮点数。
-
 
 这个功能最早出现在 `v0.3.1rc22` 版本中。
 

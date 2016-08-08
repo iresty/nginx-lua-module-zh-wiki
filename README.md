@@ -2383,12 +2383,12 @@ ssl_session_fetch_by_lua_block
 
 **阶段:** *right-before-SSL-handshake*
 
-该指令根据当前下游的 SSL 握手请求中的会话 ID，去查找并加载 SSL 会话（如果有）。
+该指令执行的代码，根据当前下游的 SSL 握手请求中的会话 ID，查找并加载 SSL 会话（如果有）。
 
 This directive runs Lua code to look up and load the SSL session (if any) according to the session ID
 provided by the current SSL handshake request for the downstream.
 
-由 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) Lua 模块库绑定的 [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md) API，可以获取当前会话 ID 并加载一个已缓存的 SSL 缓存数据。
+由 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) Lua 模块库内置的 [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md) API，可以获取当前会话 ID 并加载一个已缓存的 SSL 缓存数据。
 
 The Lua API for obtaining the current session ID and loading a cached SSL session data
 is provided in the [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md)
@@ -2399,7 +2399,7 @@ Lua API 可能会挂起，比如 [ngx.sleep](#ngxsleep) 和 [cosockets](#ngxsock
 在这个环境中是启用的。
 
 该钩子可以与 [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) 一起使用，实现纯 Lua 的分布式缓存模型（例如基于 [cosocket](#ngxsockettcp) API）。
-如果找到一个已缓存 SSL 会话，将会加载到当前 SSL 会话环境中，SSL 会话将立即启动恢复，绕过昂贵的完整 SSL 握手过程（主要是 CPU 计算时间）。
+如果找到一个已缓存 SSL 会话，将会加载到当前 SSL 会话环境中，SSL 会话将立即启动恢复，绕过昂贵的完整 SSL 握手过程（这里有非常昂贵 CPU 计算代价）。
 
 This hook, together with the [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) hook,
 can be used to implement distributed caching mechanisms in pure Lua (based
@@ -2449,14 +2449,12 @@ ssl_session_fetch_by_lua_file
 
 当给定了一个相对路径如 `foo/bar.lua`，它将会被转换成绝对路径，前面增加的部分路径是 Nginx 服务启动时通过命令行选项 `-p PATH` 决定的 `server prefix` 。
 
-该小节在 `v0.10.6` 首次引入。
+该指令在 `v0.10.6` 版本首次引入。
 
 [返回目录](#directives)
 
 ssl_session_store_by_lua_block
 ------------------------------
-
-(todo)
 
 **语法:** *ssl_session_store_by_lua_block { lua-script }*
 
@@ -2464,21 +2462,23 @@ ssl_session_store_by_lua_block
 
 **阶段:** *right-after-SSL-handshake*
 
+该指令执行的代码，根据当前下游的 SSL 握手请求中的会话 ID，获取并保存 SSL 会话（如果有）。
+
 This directive runs Lua code to fetch and save the SSL session (if any) according to the session ID
-provided by the current SSL handshake request for the downstream. The saved or cached SSL
+provided by the current SSL handshake request for the downstream. 
+
+被保存或缓存的 SSL 会话数据能被用到将来的 SSL 连接，恢复 SSL 会话却不需要历经完整 SSL 握手过程（这里有非常昂贵 CPU 计算代价）。
+
+The saved or cached SSL
 session data can be used for future SSL connections to resume SSL sessions without going
 through the full SSL handshake process (which is very expensive in terms of CPU time).
 
-Lua APIs that may yield, like [ngx.sleep](#ngxsleep) and [cosockets](#ngxsockettcp),
-are *disabled* in this context. You can still, however, use the [ngx.timer.at](#ngxtimerat) API
-to create 0-delay timers to save the SSL session data asynchronously to external services (like `redis` or `memcached`).
+Lua API 可能会挂起，比如 [ngx.sleep](#ngxsleep) 和 [cosockets](#ngxsockettcp)，
+在这个环境中被 *禁用* 了。尽管如此，你仍然可以通过 [ngx.timer.at](#ngxtimerat) API 来创建一个零延迟的 timer 用来异步方式保存 SSL 会话数据到外部服务中（比如 `redis` 或 `memcached`）。
 
-The Lua API for obtaining the current session ID and the associated session state data
-is provided in the [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md#readme)
-Lua module shipped with the [lua-resty-core](https://github.com/openresty/lua-resty-core#readme)
-library.
+由 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) Lua 模块库提供的 [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md) API，可以获取当前会话 ID 并关联到会话状态数据。
 
-This directive was first introduced in the `v0.10.6` release.
+该指令在 `v0.10.6` 版本首次引入。
 
 [返回目录](#directives)
 

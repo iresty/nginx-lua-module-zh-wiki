@@ -1107,6 +1107,8 @@ lua_use_default_type
 
 这个指令在 0.9.1 版本中首次引入。
 
+[返回目录](#table-of-contents)
+
 lua_malloc_trim
 ---------------
 **语法:** *lua_malloc_trim &lt;request-count&gt;*
@@ -1115,33 +1117,37 @@ lua_malloc_trim
 
 **环境:** *http*
 
-<!-- todo -->
-
-Asks the underlying `libc` runtime library to release its cached free memory back to the operating system every
+当 NGINX 核心每执行 `N` 次请求，告诉底层 `libc` 运行库，释放它缓存的空闲内存还给操作系统。
+默认的，`N` 是 1000。你可以设定新的数值来配置这个请求数量。
+更小的数字意味着更频繁的释放，这可能会引入比较高的 CPU 资源消耗和较少的内存占用。
+而更大的数字通常则占用较少的 CPU 时间消耗和较大的内存占用。
+这意味这你需要根据自己的使用场景来调整。
+<!-- Asks the underlying `libc` runtime library to release its cached free memory back to the operating system every
 `N` requests processed by the NGINX core. By default, `N` is 1000. You can configure the request count
 by using your own numbers. Smaller numbers mean more frequent releases, which may introduce higher CPU time consumption and
 smaller memory footprint while larger numbers usually lead to less CPU time overhead and relatively larger memory footprint.
-Just tune the number for your own use cases.
+Just tune the number for your own use cases. -->
 
-Configuring the argument to `0` essentially turns off the periodical memory trimming altogether.
+配置参数为 `0` ，基本上是关闭周期性的内存整理。
+<!-- Configuring the argument to `0` essentially turns off the periodical memory trimming altogether. -->
 
 ```nginx
 
- lua_malloc_trim 0;  # turn off trimming completely
+ lua_malloc_trim 0;  # 完全关闭 trim
 ```
 
-The current implementation uses an NGINX log phase handler to do the request counting. So the appearance of the
+为了完成请求计数，目前是在 NGINX 的 log 阶段实现的。
+当有子请求并在 `nginx.conf` 中出现 [log_subrequest on](http://nginx.org/en/docs/http/ngx_http_core_module.html#log_subrequest) 指令可以能更快获得计数增长。
+默认情况只统计“主请求”计数。
+<!-- The current implementation uses an NGINX log phase handler to do the request counting. So the appearance of the
 [log_subrequest on](http://nginx.org/en/docs/http/ngx_http_core_module.html#log_subrequest) directives in `nginx.conf`
-may make the counting faster when subrequests are involved. By default, only "main requests" count.
+may make the counting faster when subrequests are involved. By default, only "main requests" count. -->
 
-Note that this directive does *not* affect the memory allocated by LuaJIT's own allocator based on the `mmap`
-system call.
+注意：该指令 *不* 影响 LuaJIT 基于 `mmap` 系统调用的内存分配。
 
-This directive was first introduced in the `v0.10.7` release.
+该指令在 `v0.10.7` 版本首次引入。
 
-[Back to TOC](#directives)
-
-[返回目录](#table-of-contents)
+[返回目录](#directives)
 
 lua_code_cache
 --------------

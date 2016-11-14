@@ -6284,25 +6284,31 @@ When the key does not exist or has already expired in the shared dictionary,
 
 [返回目录](#nginx-api-for-lua)
 
-<!-- todo -->
+
 ngx.shared.DICT.lpush
 ---------------------
 **syntax:** *length, err = ngx.shared.DICT:lpush(key, value)*
 
 **context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;, ssl_session_fetch_by_lua&#42;, ssl_session_store_by_lua&#42;*
 
-Inserts the specified (numerical or string) `value` at the head of the list named `key` in the shm-based dictionary [ngx.shared.DICT](#ngxshareddict). Returns the number of elements in the list after the push operation.
+在基于共享字典 [ngx.shared.DICT](#ngxshareddict) 命名是 `key` 的链表头部插入指定的（数字或字符串）`value` ，返回值是插入后链表包含的对象数量。
+<!-- Inserts the specified (numerical or string) `value` at the head of the list named `key` in the shm-based dictionary [ngx.shared.DICT](#ngxshareddict). Returns the number of elements in the list after the push operation. -->
 
-If `key` does not exist, it is created as an empty list before performing the push operation. When the `key` already takes a value that is not a list, it will return `nil` and `"value not a list"`.
+如果 `key` 不存在，会在执行插入操作之前创建一个空的链表。当 `key` 已经有值但不是链表，会返回 `nil` 和 `"value not a list"`。
 
-It never overrides the (least recently used) unexpired items in the store when running out of storage in the shared memory zone. In this case, it will immediately return `nil` and the string "no memory".
+<!-- If `key` does not exist, it is created as an empty list before performing the push operation. When the `key` already takes a value that is not a list, it will return `nil` and `"value not a list"`. -->
 
-This feature was first introduced in the `v0.10.6` release.
+当共享内存区间中的存储空间不足时，它永远不会覆盖这里未过期数据（最近最少使用）。这种情况，它将直接返回 `nil` 和字符串 `"no memory"`。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+<!-- It never overrides the (least recently used) unexpired items in the store when running out of storage in the shared memory zone. In this case, it will immediately return `nil` and the string "no memory". -->
 
-[Back to TOC](#nginx-api-for-lua)
+在 `v0.10.6` 版本首次引入。
 
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
+
+[返回目录](#nginx-api-for-lua)
+
+<!-- todo -->
 ngx.shared.DICT.rpush
 ---------------------
 **syntax:** *length, err = ngx.shared.DICT:rpush(key, value)*

@@ -2449,8 +2449,8 @@ on the [cosocket](#ngxsockettcp) API, for example). If a cached SSL session is f
 and loaded into the current SSL connection context,
 SSL session resumption can then get immediately initiated and bypass the full SSL handshake process which is very expensive in terms of CPU time.
 
-请注意，TLS 会话票据是非常不同的，当使用会话票据时它是客户端完成 SSL 会话状态缓存。
-SSL 会话恢复是基于 TLS 会话票据自动完成，不需要该钩子参与（也不需要 [ssl_session_store_by_lua_block](#ssl_session_store_by_lua) 钩子）。
+请注意，TLS 会话票证是非常不同的，当使用会话票据时它是客户端完成 SSL 会话状态缓存。
+SSL 会话恢复是基于 TLS 会话票证自动完成，不需要该钩子参与（也不需要 [ssl_session_store_by_lua_block](#ssl_session_store_by_lua) 钩子）。
 该钩子主要是给老版本或缺少 SSL 客户端能力（只能通过会话 ID 方式完成 SSL 会话）。
 
 Please note that TLS session tickets are very different and it is the clients' responsibility

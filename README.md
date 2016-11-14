@@ -1117,18 +1117,17 @@ lua_malloc_trim
 
 **环境:** *http*
 
-当 NGINX 核心每执行 `N` 次请求，告诉底层 `libc` 运行库，释放它缓存的空闲内存还给操作系统。
-默认的，`N` 是 1000。你可以设定新的数值来配置这个请求数量。
-更小的数字意味着更频繁的释放，这可能会引入比较高的 CPU 资源消耗和较少的内存占用。
-而更大的数字通常则占用较少的 CPU 时间消耗和较大的内存占用。
-这意味这你需要根据自己的使用场景来调整。
+当 NGINX 核心每执行 `N` 次请求，告诉底层 `libc` 运行库，释放已缓存空闲内存还给操作系统。
+`N` 的默认值是 1000。可以配置新的数值来控制 "请求数"，小的数字意味着更频繁的释放，这可能会引入比较高的 CPU 时间消耗和较少内存占用。
+而大的数字通常则占用较少的 CPU 时间消耗和较大的内存占用。
+所以这里需要根据自己的使用场景来调整。
 <!-- Asks the underlying `libc` runtime library to release its cached free memory back to the operating system every
 `N` requests processed by the NGINX core. By default, `N` is 1000. You can configure the request count
 by using your own numbers. Smaller numbers mean more frequent releases, which may introduce higher CPU time consumption and
 smaller memory footprint while larger numbers usually lead to less CPU time overhead and relatively larger memory footprint.
 Just tune the number for your own use cases. -->
 
-配置参数为 `0` ，基本上是关闭周期性的内存整理。
+配置参数为 `0` ，代表关闭周期性的内存整理。
 <!-- Configuring the argument to `0` essentially turns off the periodical memory trimming altogether. -->
 
 ```nginx
@@ -1137,7 +1136,7 @@ Just tune the number for your own use cases. -->
 ```
 
 为了完成请求计数，目前是在 NGINX 的 log 阶段实现的。
-当有子请求并在 `nginx.conf` 中出现 [log_subrequest on](http://nginx.org/en/docs/http/ngx_http_core_module.html#log_subrequest) 指令可以能更快获得计数增长。
+当有子请求存在并且 `nginx.conf` 中出现 [log_subrequest on](http://nginx.org/en/docs/http/ngx_http_core_module.html#log_subrequest) 指令，可以能更快获得计数增长。
 默认情况只统计“主请求”计数。
 <!-- The current implementation uses an NGINX log phase handler to do the request counting. So the appearance of the
 [log_subrequest on](http://nginx.org/en/docs/http/ngx_http_core_module.html#log_subrequest) directives in `nginx.conf`

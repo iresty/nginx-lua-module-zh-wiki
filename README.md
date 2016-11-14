@@ -2427,15 +2427,15 @@ ssl_session_fetch_by_lua_block
 
 该指令执行的代码，根据当前下游的 SSL 握手请求中的会话 ID，查找并加载 SSL 会话（如果有）。
 
-This directive runs Lua code to look up and load the SSL session (if any) according to the session ID
-provided by the current SSL handshake request for the downstream.
+<!-- This directive runs Lua code to look up and load the SSL session (if any) according to the session ID
+provided by the current SSL handshake request for the downstream. -->
 
 由 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) Lua 模块库内置的 [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md) API，可以获取当前会话 ID 并加载一个已缓存的 SSL 缓存数据。
 
-The Lua API for obtaining the current session ID and loading a cached SSL session data
+<!-- The Lua API for obtaining the current session ID and loading a cached SSL session data
 is provided in the [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md)
 Lua module shipped with the [lua-resty-core](https://github.com/openresty/lua-resty-core#readme)
-library.
+library. -->
 
 Lua API 可能会挂起，比如 [ngx.sleep](#ngxsleep) 和 [cosockets](#ngxsockettcp)，
 在这个环境中是启用的。
@@ -2443,32 +2443,37 @@ Lua API 可能会挂起，比如 [ngx.sleep](#ngxsleep) 和 [cosockets](#ngxsock
 该钩子可以与 [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) 一起使用，实现纯 Lua 的分布式缓存模型（例如基于 [cosocket](#ngxsockettcp) API）。
 如果找到一个已缓存 SSL 会话，将会加载到当前 SSL 会话环境中，SSL 会话将立即启动恢复，绕过昂贵的完整 SSL 握手过程（这里有非常昂贵 CPU 计算代价）。
 
-This hook, together with the [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) hook,
+<!-- This hook, together with the [ssl_session_store_by_lua*](#ssl_session_store_by_lua_block) hook,
 can be used to implement distributed caching mechanisms in pure Lua (based
 on the [cosocket](#ngxsockettcp) API, for example). If a cached SSL session is found
 and loaded into the current SSL connection context,
-SSL session resumption can then get immediately initiated and bypass the full SSL handshake process which is very expensive in terms of CPU time.
+SSL session resumption can then get immediately initiated and bypass the full SSL handshake process which is very expensive in terms of CPU time. -->
 
-请注意，TLS 会话票证是非常不同的，当使用会话票据时它是客户端完成 SSL 会话状态缓存。
+请注意，TLS 会话票证是非常不同的，当使用会话票证时它是客户端完成 SSL 会话状态缓存。
 SSL 会话恢复是基于 TLS 会话票证自动完成，不需要该钩子参与（也不需要 [ssl_session_store_by_lua_block](#ssl_session_store_by_lua) 钩子）。
 该钩子主要是给老版本或缺少 SSL 客户端能力（只能通过会话 ID 方式完成 SSL 会话）。
 
-Please note that TLS session tickets are very different and it is the clients' responsibility
+<!-- Please note that TLS session tickets are very different and it is the clients' responsibility
 to cache the SSL session state when session tickets are used. SSL session resumptions based on
 TLS session tickets would happen automatically without going through this hook (nor the
 [ssl_session_store_by_lua_block](#ssl_session_store_by_lua) hook). This hook is mainly
-for older or less capable SSL clients that can only do SSL sessions by session IDs.
+for older or less capable SSL clients that can only do SSL sessions by session IDs. -->
 
 当同时指定了 [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block)，该钩子通常在 [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block) 之前运行。
 找到 SSL 会话并成功对当前 SSL 连接加载后， SSL 会话将会恢复，从而绕过 [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block) 钩子。这种情况下，NGINX 也将直接绕过 [ssl_session_store_by_lua_block](#ssl_session_store_by_lua) 钩子，不需要了嘛。
 
-To easily test this hook locally with a modern web browser, you can temporarily put the following line
+借助现代网络浏览器，在本地是比较容易测试这个钩子的。你可以暂时把下面这行配置放到 https server 小节，禁用 TLS 回话票证。
+
+    ssl_session_tickets off;
+
+但是在你把网站放到外网之前，不要忘记注释掉这行配置。
+
+<!-- To easily test this hook locally with a modern web browser, you can temporarily put the following line
 in your https server block to disable the TLS session ticket support:
 
     ssl_session_tickets off;
 
-But do not forget to comment this line out before publishing your site to the world.
-<!-- todo -->
+But do not forget to comment this line out before publishing your site to the world. -->
 
 如果你使用 [OpenResty](https://openresty.org/) 1.11.2.1 或后续版本绑定的 [官方的预编译包](http://openresty.org/en/linux-packages.html) ，那么一切都应只欠东风。
 
@@ -2532,13 +2537,18 @@ Lua API 可能会挂起，比如 [ngx.sleep](#ngxsleep) 和 [cosockets](#ngxsock
 
 由 [lua-resty-core](https://github.com/openresty/lua-resty-core#readme) Lua 模块库提供的 [ngx.ssl.session](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl/session.md) API，可以获取当前会话 ID 并关联到会话状态数据。
 
-To easily test this hook locally with a modern web browser, you can temporarily put the following line
+借助现代网络浏览器，在本地是比较容易测试这个钩子的。你可以暂时把下面这行配置放到 https server 小节，禁用 TLS 回话票证。
+
+    ssl_session_tickets off;
+
+但是在你把网站放到外网之前，不要忘记注释掉这行配置。
+
+<!-- To easily test this hook locally with a modern web browser, you can temporarily put the following line
 in your https server block to disable the TLS session ticket support:
 
     ssl_session_tickets off;
 
-But do not forget to comment this line out before publishing your site to the world.
-<!-- todo -->
+But do not forget to comment this line out before publishing your site to the world. -->
 
 该指令在 `v0.10.6` 版本首次引入。
 

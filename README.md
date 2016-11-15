@@ -6367,16 +6367,24 @@ If `key` does not exist, it will return `nil`. When the `key` already takes a va
 
 [返回目录](#nginx-api-for-lua)
 
-<!-- todo -->
 ngx.shared.DICT.llen
 --------------------
 **syntax:** *len, err = ngx.shared.DICT:llen(key)*
 
 **context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;, ssl_session_fetch_by_lua&#42;, ssl_session_store_by_lua&#42;*
 
-Returns the number of elements in the list named `key` in the shm-based dictionary [ngx.shared.DICT](#ngxshareddict).
+返回基于共享字典 [ngx.shared.DICT](#ngxshareddict) 命名为 `key` 的链表长度。
 
+<!--
+Returns the number of elements in the list named `key` in the shm-based dictionary [ngx.shared.DICT](#ngxshareddict).
+-->
+
+如果 `key` 不存在，将被解释为一个空链表，所以返回 0。
+当 `key` 已经存在却不是链表时，将返回 `nil` 和 `"value not a list"`。
+
+<!--
 If key does not exist, it is interpreted as an empty list and 0 is returned. When the `key` already takes a value that is not a list, it will return `nil` and `"value not a list"`.
+-->
 
 该特性在 `v0.10.6` 版本首次引入。
 
@@ -6384,6 +6392,7 @@ If key does not exist, it is interpreted as an empty list and 0 is returned. Whe
 
 [返回目录](#nginx-api-for-lua)
 
+<!-- todo -->
 ngx.shared.DICT.flush_all
 -------------------------
 **语法:** *ngx.shared.DICT:flush_all()*

@@ -6284,7 +6284,6 @@ When the key does not exist or has already expired in the shared dictionary,
 
 [返回目录](#nginx-api-for-lua)
 
-
 ngx.shared.DICT.lpush
 ---------------------
 **syntax:** *length, err = ngx.shared.DICT:lpush(key, value)*
@@ -6302,27 +6301,29 @@ ngx.shared.DICT.lpush
 
 <!-- It never overrides the (least recently used) unexpired items in the store when running out of storage in the shared memory zone. In this case, it will immediately return `nil` and the string "no memory". -->
 
-在 `v0.10.6` 版本首次引入。
+该特性在 `v0.10.6` 版本首次引入。
 
 更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 [返回目录](#nginx-api-for-lua)
 
-<!-- todo -->
 ngx.shared.DICT.rpush
 ---------------------
 **syntax:** *length, err = ngx.shared.DICT:rpush(key, value)*
 
 **context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;, ssl_session_fetch_by_lua&#42;, ssl_session_store_by_lua&#42;*
 
-Similar to the [lpush](#ngxshareddictlpush) method, but inserts the specified (numerical or string) `value` at the tail of the list named `key`.
+与 [lpush](#ngxshareddictlpush) 方法相似，但该方法将指定 `value` （数字或字符串） 插入到命名为 `key` 的链表末尾。
 
-This feature was first introduced in the `v0.10.6` release.
+<!-- Similar to the [lpush](#ngxshareddictlpush) method, but inserts the specified (numerical or string) `value` at the tail of the list named `key`. -->
 
-See also [ngx.shared.DICT](#ngxshareddict).
+该特性在 `v0.10.6` 版本首次引入。
+
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
 [Back to TOC](#nginx-api-for-lua)
 
+<!-- todo -->
 ngx.shared.DICT.lpop
 --------------------
 **syntax:** *val, err = ngx.shared.DICT:lpop(key)*

@@ -6321,25 +6321,29 @@ ngx.shared.DICT.rpush
 
 更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
-<!-- todo -->
 ngx.shared.DICT.lpop
 --------------------
 **syntax:** *val, err = ngx.shared.DICT:lpop(key)*
 
 **context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;, ssl_session_fetch_by_lua&#42;, ssl_session_store_by_lua&#42;*
 
-Removes and returns the first element of the list named `key` in the shm-based dictionary [ngx.shared.DICT](#ngxshareddict).
+删除并返回基于共享字典 [ngx.shared.DICT](#ngxshareddict) 命名为 `key` 链表的第一个对象。
 
-If `key` does not exist, it will return `nil`. When the `key` already takes a value that is not a list, it will return `nil` and `"value not a list"`.
+<!-- Removes and returns the first element of the list named `key` in the shm-based dictionary [ngx.shared.DICT](#ngxshareddict). -->
 
-This feature was first introduced in the `v0.10.6` release.
+如果 `key` 不存在，它将返回 `nil`。当 `key` 已经存在却不是链表时，将返回 `nil` 和 `"value not a list"`。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+<!-- If `key` does not exist, it will return `nil`. When the `key` already takes a value that is not a list, it will return `nil` and `"value not a list"`. -->
 
-[Back to TOC](#nginx-api-for-lua)
+该特性在 `v0.10.6` 版本首次引入。
 
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
+
+[返回目录](#nginx-api-for-lua)
+
+<!-- todo -->
 ngx.shared.DICT.rpop
 --------------------
 **syntax:** *val, err = ngx.shared.DICT:rpop(key)*
@@ -6350,11 +6354,11 @@ Removes and returns the last element of the list named `key` in the shm-based di
 
 If `key` does not exist, it will return `nil`. When the `key` already takes a value that is not a list, it will return `nil` and `"value not a list"`.
 
-This feature was first introduced in the `v0.10.6` release.
+该特性在 `v0.10.6` 版本首次引入。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.llen
 --------------------
@@ -6366,11 +6370,11 @@ Returns the number of elements in the list named `key` in the shm-based dictiona
 
 If key does not exist, it is interpreted as an empty list and 0 is returned. When the `key` already takes a value that is not a list, it will return `nil` and `"value not a list"`.
 
-This feature was first introduced in the `v0.10.6` release.
+该特性在 `v0.10.6` 版本首次引入。
 
-See also [ngx.shared.DICT](#ngxshareddict).
+更多功能请参考 [ngx.shared.DICT](#ngxshareddict)。
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 ngx.shared.DICT.flush_all
 -------------------------
@@ -6956,7 +6960,7 @@ Note that this method does *not* affect the [lua_socket_keepalive_timeout](#lua_
 
 This feature was first introduced in the `v0.10.7` release.
 
-[Back to TOC](#nginx-api-for-lua)
+[返回目录](#nginx-api-for-lua)
 
 tcpsock:setoption
 -----------------

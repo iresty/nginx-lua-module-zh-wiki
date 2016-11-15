@@ -6343,16 +6343,23 @@ ngx.shared.DICT.lpop
 
 [返回目录](#nginx-api-for-lua)
 
-<!-- todo -->
 ngx.shared.DICT.rpop
 --------------------
 **syntax:** *val, err = ngx.shared.DICT:rpop(key)*
 
 **context:** *init_by_lua&#42;, set_by_lua&#42;, rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, header_filter_by_lua&#42;, body_filter_by_lua&#42;, log_by_lua&#42;, ngx.timer.&#42;, balancer_by_lua&#42;, ssl_certificate_by_lua&#42;, ssl_session_fetch_by_lua&#42;, ssl_session_store_by_lua&#42;*
 
-Removes and returns the last element of the list named `key` in the shm-based dictionary [ngx.shared.DICT](#ngxshareddict).
+删除并返回基于共享字典 [ngx.shared.DICT](#ngxshareddict) 命名为 `key` 链表的最后一个对象。
 
+<!--
+Removes and returns the last element of the list named `key` in the shm-based dictionary [ngx.shared.DICT](#ngxshareddict).
+-->
+
+如果 `key` 不存在，它将返回 `nil`。当 `key` 已经存在却不是链表时，将返回 `nil` 和 `"value not a list"`。
+
+<!--
 If `key` does not exist, it will return `nil`. When the `key` already takes a value that is not a list, it will return `nil` and `"value not a list"`.
+ -->
 
 该特性在 `v0.10.6` 版本首次引入。
 
@@ -6360,6 +6367,7 @@ If `key` does not exist, it will return `nil`. When the `key` already takes a va
 
 [返回目录](#nginx-api-for-lua)
 
+<!-- todo -->
 ngx.shared.DICT.llen
 --------------------
 **syntax:** *len, err = ngx.shared.DICT:llen(key)*

@@ -6392,7 +6392,6 @@ If key does not exist, it is interpreted as an empty list and 0 is returned. Whe
 
 [返回目录](#nginx-api-for-lua)
 
-<!-- todo -->
 ngx.shared.DICT.flush_all
 -------------------------
 **语法:** *ngx.shared.DICT:flush_all()*
@@ -6959,23 +6958,38 @@ tcpsock:settimeout
 
 [返回目录](#nginx-api-for-lua)
 
-<!-- todo -->
 tcpsock:settimeouts
 -------------------
 **syntax:** *tcpsock:settimeouts(connect_timeout, send_timeout, read_timeout)*
 
 **context:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;, ssl_session_fetch_by_lua&#42;*
 
+设置连接超时阈值、发送超时阈值和读取超时阈值，以毫秒为单位控制随后的 socket 操作（[connect](#tcpsockconnect)， [send](#tcpsocksend)， [receive](#tcpsockreceive) 和 [receiveuntil](#tcpsockreceiveuntil) 方法返回的迭代操作 ）。
+
+<!--
 Sets the connect timeout thresold, send timeout threshold, and read timeout threshold, respetively, in milliseconds, for subsequent socket
 operations ([connect](#tcpsockconnect), [send](#tcpsocksend), [receive](#tcpsockreceive), and iterators returned from [receiveuntil](#tcpsockreceiveuntil)).
+-->
 
+通过该方法设置定的值，相比这些配置指令有更高的优先级，比如：[lua_socket_connect_timeout](#lua_socket_connect_timeout)、[lua_socket_send_timeout](#lua_socket_send_timeout) 和 [lua_socket_read_timeout](#lua_socket_read_timeout)。
+
+<!--
 Settings done by this method takes priority over those config directives, i.e., [lua_socket_connect_timeout](#lua_socket_connect_timeout), [lua_socket_send_timeout](#lua_socket_send_timeout), and [lua_socket_read_timeout](#lua_socket_read_timeout).
+-->
 
+推荐使用 [settimeouts](#tcpsocksettimeouts) 方法替代 [settimeout](#tcpsocksettimeout) 。
+
+<!--
 You are recommended to use [settimeouts](#tcpsocksettimeouts) instead of [settimeout](#tcpsocksettimeout).
+-->
 
+注意：该方法 *不* 影响 [lua_socket_keepalive_timeout](#lua_socket_keepalive_timeout) 设定，这种情况应调用 [setkeepalive](#tcpsocksetkeepalive) 方法完成目的。
+
+<!--
 Note that this method does *not* affect the [lua_socket_keepalive_timeout](#lua_socket_keepalive_timeout) setting; the `timeout` argument to the [setkeepalive](#tcpsocksetkeepalive) method should be used for this purpose instead.
+-->
 
-This feature was first introduced in the `v0.10.7` release.
+该特性在 `v0.10.7` 版本首次引入。
 
 [返回目录](#nginx-api-for-lua)
 

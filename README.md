@@ -7691,7 +7691,6 @@ ngx.ocsp
 **语法:** *local ocsp = require "ngx.ocsp"*
 
 该模块提供 API 完成 OCSP 查询、OCSP 响应验证和 OCSP stapling planting 。
-<!-- todo，最后的单词，不知道如何翻译 -->
 
 通常，该模块与 [ngx.ssl](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/ssl.md) 模块一起配合在 [ssl_certificate_by_lua*](#ssl_certificate_by_lua_block) 的环境中使用。
 

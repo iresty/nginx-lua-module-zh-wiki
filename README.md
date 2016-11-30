@@ -229,7 +229,7 @@ Typical Uses
 * 在请求真正到达上游服务之前，Lua 可以随心所欲的做复杂访问控制和安全检测
 * 随心所欲的操控响应头里面的信息（通过 Lua）
 * 从外部存储服务（比如 redis, memcached, mysql, postgresql）中获取后端信息，并用这些信息来实时选择哪一个后端来完成业务访问
-* 在内容 handler 中随意编写复杂的 web 应用，使用同步但依然非阻塞的方式，访问后端数据库和其他存储
+* 在内容 handler 中随意编写复杂的 web 应用，使用同步非阻塞的方式，访问后端数据库和其他存储
 * 在 rewrite 阶段，通过 Lua 完成非常复杂的 URL dispatch
 * 用 Lua 可以为 Nginx 子请求和任意 location，实现高级缓存机制
 
@@ -736,7 +736,7 @@ Cosockets Not Available Everywhere
 
 cosocket 在[init_by_lua*](#init_by_lua) 和 [init_worker_by_lua*](#init_worker_by_lua) 小节中也是被禁的，但我们后面将会添加这些环境的支持，因为在 nginx 内核上是没有这个限制的（或者这个限制是可以被绕过的）。
 
-这里有个绕路方法，前提是原始场景 *不* 需要等待cosocket结果。就是说，通过 [ngx.timer.at](#ngxtimerat) API 创建一个零延迟的`timer`，在`timer`中完成 cosocket 的处理结果，用这种异步的方式进行协作。
+这里有个绕路方法，前提是原始场景 *不* 需要等待cosocket结果。就是说，通过 [ngx.timer.at](#ngxtimerat) API 创建一个零延迟的`timer`，在`timer`中完成 cosocket 的处理结果，用这种同步的方式进行协作。
 
 [返回目录](#table-of-contents)
 
@@ -6545,7 +6545,7 @@ udpsock:receive
 
 使用一个可选的接收缓冲区大小参数 `size` ，从 UDP 或 unix 域数据报 socket 对象中读取数据。
 
-该方法是异步操作并且 100% 非阻塞。
+该方法是同步操作并且 100% 非阻塞。
 
 成功情况，返回已经接收的数据；错误情况，返回 `nil` 和错误描述信息。
 

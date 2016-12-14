@@ -836,7 +836,7 @@ Mixing with SSI Not Supported
 SPDY Mode Not Fully Supported
 -----------------------------
 
-一些 ngx_lua 提供的 Lua APIs 在 Nginx 的`SPDY`模式下确定不能工作：ngx.location.capture](#ngxlocationcapture)， [ngx.location.capture_multi](#ngxlocationcapture_multi) 和 [ngx.req.socket](#ngxreqsocket)。
+一些 ngx_lua 提供的 Lua APIs 在 Nginx 的`SPDY`模式下确定不能工作：[ngx.location.capture](#ngxlocationcapture)， [ngx.location.capture_multi](#ngxlocationcapture_multi) 和 [ngx.req.socket](#ngxreqsocket)。
 
 [返回目录](#table-of-contents)
 

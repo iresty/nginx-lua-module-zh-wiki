@@ -883,7 +883,6 @@ TODO
 * cosocket：基于池子的后端并发连接控制，当后端并发超过它的连接池限制，实现自动排队的 `connect`。
 * cosocket：查看合并 aviramc's 的 [patch](https://github.com/openresty/lua-nginx-module/pull/290)，添加 `bsdrecv` 方法。
 * 添加新的API函数完成标准 `add_header` 配置功能。
-* 查看、合并 Jader H. Silva 的 补丁 `ngx.re.split()` 。
 * 查看、合并 vadim-pavlov 的 补丁，给 [ngx.location.capture](#ngxlocationcapture)添加 `extra_headers` 选项。
 * 使用 `ngx_hash_t` 去优化内建的 header 查找，涉及[ngx.req.set_header](#ngxreqset_header), [ngx.header.HEADER](#ngxheaderheader) 等。
 * cosocket 连接池溢出，支持配置选项定义不同策略。
@@ -1201,6 +1200,11 @@ lua_regex_cache_max_entries
 允许的默认数量为 1024，当达到此限制，新的正则表达式将不会被缓存（就像没指定`o`选项一样），将会有且仅只有一个告警信息在 `error.log` 文件中：
 
     2011/08/27 23:18:26 [warn] 31997#0: *1 lua exceeding regex cache max entries (1024), ...
+
+如果你是通过加载 `resty.core.regex` 模块（或者仅仅是 `resty.core` 模块）来使用 [lua-resty-core](https://github.com/openresty/lua-resty-core) 实现的 `ngx.re.*`，
+一个基于 LRU 的缓存将被用到这里的正则表达式缓存。
+
+<!-- If you are using the `ngx.re.*` implementation of [lua-resty-core](https://github.com/openresty/lua-resty-core) by loading the `resty.core.regex` module (or just the `resty.core` module), then an LRU cache is used for the regex cache being used here. -->
 
 对于部分正则表达式（字符串的各种替换，如 [ngx.re.sub](#ngxresub) 和 [ngx.re.gsub](#ngxregsub)），不要使用 `o`选项，这类正则每次都不一样，缓存无法被利用。这样我们可以避免撞上最大数的限制。
 
@@ -4910,14 +4914,15 @@ ngx.redirect
 ------------
 **语法:** *ngx.redirect(uri, status?)*
 
-**环境:** *rewrite_by_lua*, access_by_lua*, content_by_lua**
+**环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;*
 
 发出一个 HTTP `301` 或 `302` 重定向到 `uri`。
 
 可选项 `status` 参数指定使用什么 HTTP 状态码。目前支持下面几个状态码：
 
 * `301`
-* `302` (默认)
+* `302` （默认）
+* `303`
 * `307`
 
 默认使用 `302` （`ngx.HTTP_MOVED_TEMPORARILY`）。

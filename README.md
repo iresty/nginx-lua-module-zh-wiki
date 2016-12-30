@@ -6473,7 +6473,7 @@ udpsock:setpeername
 
 **环境:** *rewrite_by_lua&#42;, access_by_lua&#42;, content_by_lua&#42;, ngx.timer.&#42;, ssl_certificate_by_lua&#42;, ssl_session_fetch_by_lua&#42;*
 
-尝试对远端服务或 unix 域数据报 socket 文件建立 UDP socket 对象。因为 UDP 实际上 *无连接* 的，该方法并没有真正建立一条连接，但为了后续读/写操作只是设置了远程端点的名称。
+尝试对远端服务或 unix 域数据报 socket 文件建立 UDP socket 对象。因为 UDP 实际上是 *无连接* 的，该方法并没有真正建立一条连接，但为了后续读/写操作只是设置了远程端点的名称。
 
 对 `host` 参数 IP 地址和域名在这里都是可以使用的。当使用域名时，该方法将使用 Nginx 内部的动态域名解析器（非阻塞并且需要在 `nginx.conf` 文件中配置 [resolver](http://nginx.org/en/docs/http/ngx_http_core_module.html#resolver) 指令），例如：
 
